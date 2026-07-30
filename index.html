@@ -2,1453 +2,795 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>顾言 GU事 · GU YAN STORY</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>顾维鲁 · 个人能力页 | 把保障说清楚的人</title>
+<meta name="description" content="顾维鲁，保险代理人。这一页只讲三件事：我能解决什么问题、我擅长什么、以及我的履历。感兴趣的人可以扫码，在手机上慢慢看完整的保障讲解。" />
 <style>
   /* =========================================================
-     DESIGN TOKENS — Viktor Oddy 视觉语言 × 顾言内容
-     纯白底 · 深墨 #051A24 · 双字体（Inter 正文 + 衬线强调）· 分层阴影 · 大圆角
+     DESIGN TOKENS — 与保险站（insurance.html）共用同一套 premium dark + 冰蓝/暖金
      ========================================================= */
   :root{
-    --bg:#FFFFFF;
-    --surface:#FFFFFF;
-    --ink:#051A24;          /* 主深墨（Viktor primary dark） */
-    --ink-2:#0D212C;        /* 标题深 */
-    --muted:#5B6B7B;
-    --muted-2:#273C46;
-    --line:rgba(5,26,36,.09);
-    --line-soft:rgba(5,26,36,.05);
-    --accent:#051A24;       /* Viktor 用深墨作主操作色 */
-    --accent-blue:#185FA5;  /* 仅用于卫星/链接等品牌呼应 */
-    --radius:32px;          /* 大圆角卡片 */
+    /* 基础主题 = Apple 石墨灰（告别深墨 premium 的厚重 navy，深浅双主题统一归入 Apple 语系） */
+    --ink:#1d1d1f;
+    --ink-2:#2c2c2e;
+    --ink-3:#3a3a3c;
+    --surface:#2c2c2e;
+    --surface-2:#3a3a3c;
+    --paper:#F5F5F7;
+    --paper-2:#FBFAF7;
+    --text:#F5F5F7;
+    --muted:#A1A1A6;
+    --muted-2:#8E8E93;
+    --line:rgba(255,255,255,.14);
+    --line-2:rgba(255,255,255,.22);
+
+    --blue:#0A84FF;
+    --blue-soft:rgba(10,132,255,.16);
+    --gold:#C9A24B;
+    --gold-soft:rgba(201,162,75,.16);
+
+    --radius:22px;
+    --radius-lg:30px;
     --radius-pill:999px;
     --maxw:1120px;
+    --maxw-narrow:820px;
 
-    /* 分层按钮阴影（含 inset 高光，Viktor 招牌） */
-    --shadow-btn:0 1px 2px rgba(5,26,36,.10), 0 4px 4px rgba(5,26,36,.09), 0 9px 6px rgba(5,26,36,.05), 0 17px 7px rgba(5,26,36,.01), 0 26px 7px rgba(5,26,36,0), inset 0 2px 8px rgba(255,255,255,.5);
-    --shadow-card:0 4px 16px rgba(0,0,0,.08);
-    --shadow-float:0 1px 2px rgba(5,26,36,.10), 0 4px 4px rgba(5,26,36,.09), 0 9px 6px rgba(5,26,36,.05), 0 17px 7px rgba(5,26,36,.01), inset 0 2px 8px rgba(255,255,255,.5);
-    --shadow-soft:0 0 0 .5px rgba(0,0,0,.05), 0 4px 30px rgba(0,0,0,.06);
+    --shadow-soft:0 10px 40px rgba(0,0,0,.28);
+    --shadow-card:0 8px 30px rgba(0,0,0,.24);
 
     --font-body:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue","Microsoft YaHei",sans-serif;
     --font-serif:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue","Microsoft YaHei",sans-serif;
+
+    --ease:cubic-bezier(.22,.61,.36,1);
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
   body{
     font-family:var(--font-body);
-    background:var(--bg);color:var(--ink);line-height:1.65;
-    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+    background:var(--ink);
+    color:var(--text);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
   }
   a{color:inherit;text-decoration:none}
-  ::selection{background:var(--ink);color:#fff}
+  ::selection{background:var(--blue);color:#fff}
   .serif{font-family:var(--font-serif);font-weight:400;letter-spacing:.01em}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .wrap-narrow{max-width:var(--maxw-narrow);margin:0 auto;padding:0 28px}
 
-  /* ---------- fade-in-up 错落动画 ---------- */
-  @keyframes fadeInUp{0%{opacity:0;transform:translateY(30px)}100%{opacity:1;transform:none}}
-  .fade-up{opacity:0}
-  .fade-up.in-view{animation:fadeInUp .8s ease-out forwards}
+  /* ---------- 顶栏 ---------- */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:120;display:flex;align-items:center;justify-content:space-between;
+    padding:16px 40px;background:rgba(11,15,22,.55);backdrop-filter:saturate(160%) blur(16px);
+    -webkit-backdrop-filter:saturate(160%) blur(16px);border-bottom:1px solid transparent;transition:background .4s,border-color .4s,padding .4s}
+  .nav.scrolled{background:rgba(11,15,22,.86);border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand .b-name{font-size:15px;font-weight:600;letter-spacing:.02em}
+  .brand .b-sub{font-size:10px;color:var(--muted);letter-spacing:.18em;text-transform:uppercase}
+  .nav-right{display:flex;align-items:center;gap:18px}
+  .nav-link{font-size:13px;color:var(--muted);display:inline-flex;align-items:center;gap:6px;transition:color .25s}
+  .nav-link:hover{color:var(--text)}
+  .nav-cta{padding:9px 20px;border-radius:var(--radius-pill);font-size:13px;font-weight:500;
+    background:linear-gradient(135deg,#2E6FB0,#1f5fa0);color:#fff;box-shadow:0 4px 18px rgba(62,142,219,.35);
+    transition:transform .25s,box-shadow .25s}
+  .nav-cta:hover{transform:translateY(-1px);box-shadow:0 8px 26px rgba(62,142,219,.5)}
+
+  /* ---------- 通用区块 ---------- */
+  section{position:relative;padding:clamp(72px,11vw,128px) 0}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:18px}
+  .eyebrow::before{content:"";width:24px;height:1px;background:var(--blue);opacity:.6}
+  .h2{font-family:var(--font-serif);font-weight:500;font-size:clamp(28px,4.6vw,46px);line-height:1.2;letter-spacing:-.01em}
+  .lead{font-size:clamp(15px,1.6vw,17px);color:var(--muted);max-width:680px;margin-top:18px;line-height:1.85}
+  .accent{color:var(--gold)}
+
+  /* ---------- 滚动浮现 ---------- */
+  .reveal{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  .reveal[data-d="1"]{transition-delay:.08s}
+  .reveal[data-d="2"]{transition-delay:.16s}
+  .reveal[data-d="3"]{transition-delay:.24s}
+  .reveal[data-d="4"]{transition-delay:.32s}
   @media(prefers-reduced-motion:reduce){
-    .fade-up{opacity:1!important;animation:none!important}
-    .marquee-track{animation:none!important}
-    .spin-slow{animation:none!important}
-    .nav-out.out-pulse{animation:none!important;box-shadow:0 0 0 1px rgba(24,95,165,.10)}
+    .reveal{opacity:1!important;transform:none!important;transition:none!important}
+    html{scroll-behavior:auto}
   }
 
-  /* ---------- custom cursor ---------- */
-  .cursor{position:fixed;top:0;left:0;width:9px;height:9px;border-radius:50%;background:var(--ink);pointer-events:none;z-index:9991;transform:translate(-50%,-50%);transition:width .25s,height .25s,background .25s}
-  .cursor.big{width:46px;height:46px;background:rgba(5,26,36,.10);border:1px solid var(--ink)}
-  @media(hover:none){.cursor{display:none}}
+  /* ---------- HERO ---------- */
+  .hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;padding:140px 24px 90px}
+  .hero-bg{position:absolute;inset:0;z-index:0;background:
+    radial-gradient(60% 55% at 50% 38%, rgba(62,142,219,.22), transparent 70%),
+    radial-gradient(45% 50% at 80% 80%, rgba(201,162,75,.12), transparent 70%),
+    radial-gradient(50% 50% at 15% 75%, rgba(62,142,219,.10), transparent 70%),
+    linear-gradient(180deg,var(--ink),var(--ink-2) 60%,var(--ink));}
+  .orb{position:absolute;border-radius:50%;filter:blur(60px);opacity:.5;will-change:transform}
+  .orb.a{width:520px;height:520px;background:radial-gradient(circle,rgba(62,142,219,.5),transparent 65%);top:-8%;left:4%;animation:floatA 16s ease-in-out infinite}
+  .orb.b{width:440px;height:440px;background:radial-gradient(circle,rgba(201,162,75,.38),transparent 65%);bottom:-6%;right:6%;animation:floatB 19s ease-in-out infinite}
+  @keyframes floatA{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,30px)}}
+  @keyframes floatB{0%,100%{transform:translate(0,0)}50%{transform:translate(-36px,-26px)}}
+  .hero-inner{position:relative;z-index:2;width:100%;max-width:var(--maxw);margin:0 auto;display:grid;
+    grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+  .hero h1{font-family:var(--font-serif);font-weight:500;font-size:clamp(34px,5.4vw,60px);line-height:1.18;letter-spacing:-.015em}
+  .hero h1 .em{color:var(--blue)}
+  .hero-sub{margin-top:26px;font-size:clamp(16px,1.8vw,19px);color:var(--muted);max-width:540px;line-height:1.9}
+  .hero-tags{margin-top:30px;display:flex;flex-wrap:wrap;gap:10px}
+  .hero-tag{font-size:13px;color:var(--text);padding:8px 16px;border:1px solid var(--line-2);border-radius:var(--radius-pill);background:rgba(255,255,255,.02)}
+  .hero-cta{margin-top:38px;display:flex;gap:14px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:14px 26px;border-radius:var(--radius-pill);font-size:14px;font-weight:500;transition:transform .25s,box-shadow .25s,background .25s}
+  .btn-primary{background:linear-gradient(135deg,#2E6FB0,#1f5fa0);color:#fff;box-shadow:0 8px 24px rgba(62,142,219,.4)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(62,142,219,.55)}
+  .btn-ghost{border:1px solid var(--line-2);color:var(--text)}
+  .btn-ghost:hover{transform:translateY(-2px);border-color:var(--blue);color:var(--blue)}
 
-  /* ---------- buttons (Viktor 分层阴影) ---------- */
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--font-body);font-weight:500;border:none;cursor:pointer;transition:transform .2s ease, box-shadow .2s ease}
-  .btn-primary{background:var(--ink);color:#fff;border-radius:var(--radius-pill);padding:14px 30px;font-size:15px;box-shadow:var(--shadow-btn)}
-  .btn-primary:hover{transform:translateY(-1px)}
-  .btn-ghost{background:#fff;color:var(--ink);border-radius:var(--radius-pill);padding:14px 30px;font-size:15px;box-shadow:var(--shadow-soft)}
-  .btn-ghost:hover{transform:translateY(-1px)}
+  /* ---------- HERO 二维码卡 ---------- */
+  .qr-card{position:relative;background:linear-gradient(160deg,rgba(27,34,48,.92),rgba(17,22,31,.92));
+    border:1px solid var(--line-2);border-radius:var(--radius-lg);padding:30px;box-shadow:var(--shadow-soft);
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+  .qr-card .qr-eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:600}
+  .qr-card .qr-title{font-family:var(--font-serif);font-size:20px;margin-top:8px;font-weight:500}
+  .qr-card .qr-note{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.7}
+  .qr-svg{margin-top:20px;background:#fff;border-radius:16px;padding:14px;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 22px rgba(0,0,0,.4)}
+  .qr-svg svg{width:100%!important;height:100%!important;display:block}
+  .qr-copy{margin-top:16px;width:100%;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:12px 18px;border-radius:var(--radius-pill);font-size:13px;font-weight:500;cursor:pointer;
+    background:rgba(62,142,219,.12);border:1px solid rgba(62,142,219,.3);color:var(--text);transition:background .25s}
+  .qr-copy:hover{background:rgba(62,142,219,.22)}
+  .qr-copy.done{background:rgba(201,162,75,.18);border-color:rgba(201,162,75,.4);color:var(--gold)}
 
-  /* ---------- nav ---------- */
-  .nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:16px 40px;background:rgba(255,255,255,.72);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line-soft);transition:background .4s,border-color .4s,opacity .4s}
-  .nav.scrolled{background:rgba(255,255,255,.9);border-bottom:1px solid var(--line)}
-  .brand{display:flex;align-items:center;height:52px}
-  .brand img{height:44px;width:auto;object-fit:contain;border-radius:50%;box-shadow:0 2px 14px rgba(24,95,165,.18)}
-  .nav-links{display:flex;gap:34px;font-size:13px}
-  .nav-links a{color:var(--muted);transition:color .25s;position:relative}
-  .nav-links a::after{content:"";position:absolute;left:0;bottom:-5px;width:0;height:1.5px;background:var(--ink);transition:width .3s}
-  .nav-links a:hover{color:var(--ink)}
-  .nav-links a:hover::after{width:100%}
-  /* ★ 出站链接：保障规划 — 呼吸脉动按钮，区别于站内锚点 */
-  .nav-links a.nav-out{
-    position:relative;
-    color:var(--accent-blue);
-    border:1.5px solid rgba(24,95,165,.35);
-    padding:6px 16px;
-    border-radius:var(--radius-pill);
-    font-size:12px;
-    font-weight:500;
-    letter-spacing:.02em;
-    background:rgba(24,95,165,.04);
-    box-shadow:0 0 0 0 rgba(24,95,165,0);
-    overflow:hidden;
-    transition:color .3s ease, border-color .3s ease, background .3s ease, box-shadow .3s ease, transform .25s ease;
-  }
-  .nav-links a.nav-out::after{display:none}
-  .nav-links a.nav-out::before{
-    content:'';
-    position:absolute;
-    inset:-2px;
-    border-radius:var(--radius-pill);
-    background:linear-gradient(135deg, rgba(24,95,165,.18), rgba(24,95,165,.06), rgba(100,180,255,.12));
-    opacity:0;
-    transition:opacity .4s ease;
-    z-index:-1;
-  }
-  /* 呼吸光环：2.8s 周期，柔和脉动 */
-  .nav-links a.nav-out.out-pulse{
-    animation:outBreathe 2.8s ease-in-out infinite;
-  }
-  @keyframes outBreathe{
-    0%, 100%{ box-shadow:0 0 0 0 rgba(24,95,165,.12), 0 0 0 0 rgba(24,95,165,.08) }
-    40%      { box-shadow:0 0 0 5px rgba(24,95,165,.10), 0 0 14px 2px rgba(24,95,165,.07) }
-    70%      { box-shadow:0 0 0 8px rgba(24,95,165,.06), 0 0 20px 4px rgba(24,95,165,.04) }
-  }
-  /* 箭头微滑 + 填充 */
-  .nav-links a.nav-out:hover{
-    background:var(--accent-blue);
-    color:#fff;
-    border-color:var(--accent-blue);
-    box-shadow:0 2px 12px rgba(24,95,165,.28), 0 0 0 1px rgba(24,95,165,.15);
-    transform:translateY(-1px);
-    animation:none;   /* hover 时停止呼吸，改为稳定高亮 */
-  }
-  .nav-links a.nav-out:hover::before{ opacity:1 }
-  .nav-links a.nav-out:active{ transform:translateY(0); box-shadow:0 1px 6px rgba(24,95,165,.28) }
-  /* 箭头：默认缩到 0，hover 滑出 */
-  .nav-out .out-arrow{
-    display:inline-block;
-    margin-left:3px;
-    font-size:11px;
-    transform:translateX(-4px);
-    opacity:.6;
-    transition:transform .3s ease, opacity .3s ease, margin-left .3s ease;
-  }
-  .nav-out:hover .out-arrow{
-    transform:translateX(2px);
-    opacity:1;
-    margin-left:6px;
-  }
-  .drawer a.drawer-out{color:var(--accent-blue);font-size:22px;padding:12px 0;display:block;border-top:1px solid var(--line-soft);margin-top:16px}
-  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px}
-  .hamburger span{width:24px;height:2px;background:var(--ink);border-radius:2px}
+  /* ---------- 问题卡 ---------- */
+  .prob-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+  .prob{position:relative;background:linear-gradient(160deg,rgba(27,34,48,.7),rgba(17,22,31,.7));
+    border:1px solid var(--line);border-radius:var(--radius);padding:28px 26px;overflow:hidden;transition:transform .35s var(--ease),border-color .35s}
+  .prob:hover{transform:translateY(-4px);border-color:var(--line-2)}
+  .prob .p-prob{font-size:15px;font-weight:600;color:var(--text)}
+  .prob .p-prob::before{content:"困";display:inline-block;margin-right:8px;font-size:11px;color:var(--muted-2);
+    border:1px solid var(--line-2);border-radius:6px;padding:1px 6px;vertical-align:middle}
+  .prob .p-fix{margin-top:14px;font-size:14px;color:var(--muted);line-height:1.8}
+  .prob .p-fix b{color:var(--blue);font-weight:600}
+  .prob::after{content:"";position:absolute;left:0;top:0;height:3px;width:0;background:linear-gradient(90deg,var(--blue),var(--gold));transition:width .4s var(--ease)}
+  .prob:hover::after{width:100%}
 
-  /* ---------- drawer ---------- */
-  .drawer{position:fixed;inset:0;background:#fff;z-index:60;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;font-size:24px;transform:translateY(-100%);transition:transform .45s cubic-bezier(.2,.7,.2,1);opacity:0}
-  .drawer.open{transform:none;opacity:1}
-  .drawer a{color:var(--ink)}
-  .drawer .close{position:absolute;top:28px;right:32px;font-size:14px;color:var(--muted);cursor:pointer}
+  /* ---------- 擅长网格 ---------- */
+  .skill-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+  .skill{position:relative;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px;transition:transform .35s var(--ease),background .35s,border-color .35s}
+  .skill:hover{transform:translateY(-4px);background:rgba(62,142,219,.06);border-color:rgba(62,142,219,.25)}
+  .skill .s-idx{font-family:var(--font-serif);font-size:14px;color:var(--gold);opacity:.7}
+  .skill .s-name{font-size:17px;font-weight:600;margin-top:10px}
+  .skill .s-desc{font-size:14px;color:var(--muted);margin-top:10px;line-height:1.8}
+
+  /* ---------- 履历 Apple 色块马赛克 + 灯箱 ---------- */
+  .story-mosaic{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:44px}
+  .sq{position:relative;aspect-ratio:4/3;border:none;padding:0;cursor:pointer;overflow:hidden;
+    border-radius:var(--radius-lg);color:#fff;text-align:left;
+    transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s}
+  .sq:hover{transform:translateY(-5px);box-shadow:0 20px 55px rgba(0,0,0,.5)}
+  .sq:focus-visible{outline:2px solid #fff;outline-offset:3px}
+  .sq-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    transition:transform .7s cubic-bezier(.22,1,.36,1)}
+  .sq:hover .sq-bg{transform:scale(1.07)}
+  .sq-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.02) 30%,rgba(0,0,0,.62));z-index:1}
+  .sq-inner{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding:34px 40px}
+  .sq-num{font-family:var(--font-serif);font-size:clamp(56px,7.5vw,92px);font-weight:600;line-height:.95;letter-spacing:-1.5px}
+  .sq-num .u{font-size:.4em;margin-left:4px;opacity:.9}
+  .sq-label{font-size:14px;letter-spacing:.03em;margin-top:12px;opacity:.94}
+  .sq-hint{position:absolute;top:18px;right:20px;z-index:2;font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.85}
+  /* 色块图片打底 + 色调遮罩（保持品牌色身份） */
+  .sq-0{--tint:rgba(30,64,200,.42)}  /* 蓝 */
+  .sq-1{--tint:rgba(3,105,161,.38)}   /* 青 */
+  .sq-2{--tint:rgba(67,56,202,.40)}    /* 紫 */
+  .sq-3{--tint:rgba(154,117,33,.35)}    /* 金 */
+  .sq::before{content:'';position:absolute;inset:0;background:var(--tint);z-index:1;pointer-events:none;
+    mix-blend-mode:multiply;transition:opacity .4s}
+  .sq:hover::before{opacity:.6}
+
+  /* 灯箱 */
+  .lb{position:fixed;inset:0;z-index:300;background:rgba(6,9,15,.94);backdrop-filter:blur(10px);
+    display:flex;align-items:center;justify-content:center;padding:24px;
+    opacity:0;visibility:hidden;transition:opacity .35s ease}
+  .lb.open{opacity:1;visibility:visible}
+  .lb-card{position:relative;width:min(1180px,94%);max-height:92vh;background:#0e1320;border:1px solid var(--line-2);
+    border-radius:var(--radius-lg);overflow:hidden;display:grid;grid-template-columns:1.3fr .7fr;
+    transform:translateY(22px) scale(.98);transition:transform .42s cubic-bezier(.22,1,.36,1)}
+  .lb.open .lb-card{transform:none}
+  .lb-img{position:relative;background:#1a2233;min-height:460px;overflow:hidden}
+  .lb-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s}
+  .lb-img img.ok{opacity:1}
+  .lb-img .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;
+    padding:34px;color:#9fb0cb;font-size:14px;line-height:1.8;letter-spacing:.02em}
+  .lb-img.c0{background:radial-gradient(120% 120% at 30% 20%,#2f6fe0,#1e40c8)}
+  .lb-img.c1{background:radial-gradient(120% 120% at 30% 20%,#0ea5e9,#0369a1)}
+  .lb-img.c2{background:radial-gradient(120% 120% at 30% 20%,#6366f1,#4338ca)}
+  .lb-img.c3{background:radial-gradient(120% 120% at 30% 20%,#d4a64b,#9a7521)}
+  .lb-body{padding:46px 46px;overflow-y:auto;display:flex;flex-direction:column}
+  .lb-num{font-family:var(--font-serif);font-size:clamp(60px,8vw,92px);font-weight:600;line-height:.95;color:var(--gold);letter-spacing:-2px}
+  .lb-num .u{font-size:.36em;margin-left:5px;opacity:.85}
+  .lb-tag{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);font-weight:600;margin:14px 0 20px}
+  .lb-text{font-size:15px;line-height:1.95;color:#c4cee0}
+  .lb-text p{margin:0 0 14px}
+  .lb-text p:last-child{margin-bottom:0}
+  .lb-num,.lb-tag,.lb-text,.lb-img .ph{transition:opacity .25s ease}
+  .lb-cta{margin-top:auto;padding-top:26px}
+  .lb-close{position:absolute;top:14px;right:16px;z-index:5;width:40px;height:40px;border-radius:50%;
+    border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.35);color:#fff;font-size:22px;line-height:1;cursor:pointer;transition:all .25s}
+  .lb-close:hover{background:rgba(255,255,255,.15);transform:rotate(90deg)}
+  .lb-nav{position:absolute;bottom:18px;right:20px;display:flex;gap:10px;z-index:5}
+  .lb-nav button{width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.22);
+    background:rgba(0,0,0,.4);color:#fff;font-size:18px;cursor:pointer;transition:all .25s}
+  .lb-nav button:hover{background:rgba(255,255,255,.15)}
+  @media(max-width:720px){
+    .story-mosaic{grid-template-columns:1fr;gap:14px}
+    .lb-card{grid-template-columns:1fr;max-height:92vh}
+    .lb-img{min-height:200px;aspect-ratio:16/10}
+    .lb-body{padding:28px 24px}
+    .lb-num{font-size:clamp(44px,12vw,60px)}
+  }
+
+  /* ---------- CTA 带走 ---------- */
+  .cta{position:relative;text-align:center}
+  .cta .cta-card{max-width:760px;margin:0 auto;background:linear-gradient(160deg,rgba(27,34,48,.8),rgba(17,22,31,.85));
+    border:1px solid var(--line-2);border-radius:var(--radius-lg);padding:clamp(36px,5vw,60px);box-shadow:var(--shadow-soft)}
+  .cta .qr-svg{max-width:240px;margin:24px auto 0}
+  .cta .cta-links{margin-top:30px;display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+  .cta .cta-links a{font-size:13.5px;color:var(--muted);border:1px solid var(--line-2);border-radius:var(--radius-pill);
+    padding:10px 18px;transition:color .25s,border-color .25s,transform .25s}
+  .cta .cta-links a:hover{color:var(--text);border-color:var(--blue);transform:translateY(-2px)}
+  .cta .cta-links a.gold:hover{border-color:var(--gold);color:var(--gold)}
+
+  /* CTA 双栏：带走这一页 + 加我微信 */
+  .cta-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:900px;margin:0 auto 30px}
+  .cta .cta-grid .cta-card{max-width:none;margin:0}
+  .wx-qr{margin:24px auto 0;max-width:240px;position:relative;overflow:visible}
+  .wx-qr img{width:100%;display:block;background:#fff;padding:8px;border-radius:16px;border:1px solid var(--line-2)}
+  .wx-qr-ph{display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+    min-height:256px;padding:24px;border:1px dashed var(--line-2);border-radius:16px;color:var(--muted-2);font-size:13.5px;line-height:2}
+  .wx-id{margin-top:14px;font-size:14px;color:var(--muted)}
+  .wx-id b{color:var(--text);font-weight:600;letter-spacing:.04em}
+  .wx-id--sub{margin-top:4px;font-size:12px;color:var(--muted-2)}
+
+  /* 二维码区：保持干净，无花装饰 */
+
+
+
+  /* ---------- 页脚 ---------- */
+  .foot{padding:48px 24px;border-top:1px solid var(--line);text-align:center;color:var(--muted-2);font-size:13px}
+  .foot a{color:var(--muted);transition:color .25s}
+  .foot a:hover{color:var(--text)}
+
+  /* ---------- 移动端浮动扫码 ---------- */
+  .scan-fab{position:fixed;right:18px;bottom:18px;z-index:130;display:none;align-items:center;gap:8px;
+    padding:12px 18px;border-radius:var(--radius-pill);font-size:13px;font-weight:500;cursor:pointer;
+    background:linear-gradient(135deg,#2E6FB0,#1f5fa0);color:#fff;box-shadow:0 8px 26px rgba(62,142,219,.5);border:none}
+  .scan-fab:hover{transform:translateY(-2px)}
+
+  /* ---------- 返回顶部按钮（蓝色圆形 ↑） ---------- */
+  .back-top{position:fixed;right:24px;bottom:24px;z-index:130;width:50px;height:50px;border-radius:50%;
+    display:grid;place-items:center;background:var(--blue);color:#fff;font-size:22px;font-weight:300;
+    cursor:pointer;border:none;opacity:0;pointer-events:none;transition:opacity .3s ease,transform .3s ease;
+    box-shadow:0 6px 20px rgba(10,132,255,.4)}
+  .back-top.show{opacity:1;pointer-events:auto}
+  .back-top:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(10,132,255,.5)}
+  [data-theme="light"] .back-top{background:#0071E3;box-shadow:0 6px 20px rgba(0,113,227,.35)}
+
+  .p-link{display:inline-block;margin-top:10px;color:var(--blue);font-weight:500;font-size:14px;text-decoration:none}
+  .p-link:hover{text-decoration:underline}
+
+  /* ---------- 响应式 ---------- */
+  @media(max-width:980px){
+    .hero-inner{grid-template-columns:1fr;gap:40px}
+    .qr-card{max-width:420px}
+    .prob-grid{grid-template-columns:repeat(2,1fr)}
+    .skill-grid{grid-template-columns:repeat(2,1fr)}
+  }
+  @media(max-width:640px){
+    .nav{padding:14px 20px}
+    .nav-right .nav-link{display:none}
+    .prob-grid,.skill-grid{grid-template-columns:1fr}
+    .scan-fab{display:inline-flex}
+  }
 
   /* =========================================================
-     HERO — 保留卫星轨道系统（JS 驱动，3D 景深 + 碰撞礼花）
-     布局原则：永不压缩，各窗口自适应正常显示
+     浅色主题（Apple 官网风：白 / 浅灰底 + 近黑字）
+     默认应用；开关切到深色。变量层翻转 + 组件层覆盖。
      ========================================================= */
-  .hero{position:relative;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 24px 80px;overflow:hidden;background:var(--bg)}
-  .hero-content{opacity:0;transform:translateY(24px);transition:opacity 1.4s cubic-bezier(.25,.46,.45,.94),transform 1.4s cubic-bezier(.25,.46,.45,.94);display:flex;flex-direction:column;align-items:center;gap:16px;width:100%;max-width:720px}
-  .hero.in-view .hero-content{opacity:1;transform:none}
-  .hero-title{font-size:clamp(36px,7vw,82px);font-weight:700;letter-spacing:.03em;line-height:1.15;color:var(--ink);word-break:keep-all}
-  .hero-title .gu{font-family:var(--font-serif);font-weight:400;color:var(--ink);font-style:normal}
-  .hero-sub{font-size:clamp(14px,2.4vw,20px);color:var(--muted);font-weight:400;letter-spacing:.14em;margin-top:-2px}
-  .hero-en{font-family:var(--font-serif);font-size:clamp(12px,1.6vw,17px);color:var(--muted);letter-spacing:.22em;text-transform:uppercase;font-weight:400;opacity:.7;margin-top:2px}
-
-  /* orbit 容器：确保不收缩，给卫星留足空间 */
-  .hero-orbit{position:relative;display:inline-block;min-width:200px;min-height:120px}
-  .hero-orbit .hero-title{position:relative;z-index:3}
-  .orbit-ring{position:absolute;top:50%;left:50%;border:1px dashed rgba(24,95,165,.20);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:1}
-  .satellite{position:absolute;top:50%;left:50%;border-radius:50%;pointer-events:none;will-change:transform;overflow:visible}
-  .sat{} /* 标记；视觉由内部 .sphere 承载 */
-  /* 球体样式在下方「真实 3D 段」统一定义（WebGL canvas） */
-  /* ===== 真实 NASA / Solar System Scope 纹理贴图（已落地 assets/planets/） ===== */
-  /* 每星自转速度（视觉化，非严格物理）与大气辉光色 */
-  .sat--mercury{--atmo:rgba(182,180,172,.30);--spin:22s}
-  .sat--venus{--atmo:rgba(245,215,130,.55);--spin:44s}
-  .sat--luna{--atmo:rgba(200,205,215,.26);--spin:30s}
-  .sat--mars{--atmo:rgba(210,110,80,.42);--spin:13s}
-  .sat--jupiter{--atmo:rgba(220,185,140,.40);--spin:8s}
-  .sat--saturn{--atmo:rgba(230,205,150,.45);--spin:16s}
-  /* ===== 真实 3D 球体（原生 WebGL 渲染：贴图包裹到球面几何，任意缩放不失真）===== */
-  .sphere{position:absolute;inset:0;border-radius:50%;overflow:hidden;background:transparent}
-  .satellite:hover .sphere{filter:brightness(1.10) saturate(1.05)}
-  .sphere canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
-  /* ===== 太阳：恒星自发光 + 炙热辉光（脉动 + 放射光，mix-blend 叠加） ===== */
-  .satellite.sun{z-index:6}
-  .satellite.sun .sphere{overflow:visible;background:none}
-  .sun-glow{position:absolute;inset:-58%;border-radius:50%;pointer-events:none;z-index:-1;
-    background:radial-gradient(circle at 50% 50%, rgba(255,185,75,.62) 0%, rgba(255,120,25,.34) 34%, rgba(255,75,10,.12) 58%, transparent 72%);
-    mix-blend-mode:screen;animation:sunPulse 4.5s ease-in-out infinite;will-change:transform,opacity}
-  @keyframes sunPulse{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.14);opacity:1}}
-  .sun-rays{position:absolute;inset:-32%;border-radius:50%;pointer-events:none;z-index:-1;
-    background:conic-gradient(from 0deg, rgba(255,200,90,.20), transparent 12%, rgba(255,200,90,.20) 25%, transparent 37%, rgba(255,200,90,.20) 50%, transparent 62%, rgba(255,200,90,.20) 75%, transparent 87%, rgba(255,200,90,.20));
-    animation:sunRay 24s linear infinite;mix-blend-mode:screen}
-  @keyframes sunRay{to{transform:rotate(360deg)}}
-  /* 旧的 2D 贴图 / 渐变细节层不再使用 */
-  .pd{display:none}
-  /* 土星环：径向渐变模拟 A/B/C 环 + Cassini 缝（倾斜椭圆视角） */
-  .sat-ring{position:absolute;left:50%;top:50%;width:235%;height:62%;transform:translate(-50%,-50%) rotate(-20deg);border-radius:50%;pointer-events:none;z-index:2;
-    background:radial-gradient(closest-side,
-      transparent 55%,
-      rgba(228,208,152,.15) 55% 60%,
-      rgba(228,208,152,.62) 62%,
-      rgba(120,100,60,.22) 70%,
-      rgba(228,208,152,.66) 72%,
-      transparent 80%)
-  }
-  .sat-ring.r2{width:300%;height:78%;z-index:2;background:radial-gradient(closest-side,transparent 64%,rgba(200,180,125,.32) 66%,transparent 74%)}
-  .sat-moons{position:absolute;inset:0;pointer-events:none;z-index:3}
-  .moon-orbit{position:absolute;left:50%;top:50%;width:0;height:0;animation:moonSpin linear infinite}
-  .moon{position:absolute;left:0;top:0;border-radius:50%;background:radial-gradient(circle at 35% 35%,#e8eaee,#9aa0a8);box-shadow:inset -1px -1px 2px rgba(0,0,0,.4)}
-  @keyframes moonSpin{to{transform:rotate(360deg)}}
-  .sat-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:11px;font-weight:500;letter-spacing:.4px;color:var(--muted);text-shadow:0 1px 4px rgba(255,255,255,.85);pointer-events:none;white-space:nowrap;opacity:0;z-index:6}
-  #fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9998}
-  .hero-orbit .satellite,.hero-orbit .orbit-ring{opacity:0;transition:opacity 1s ease .8s}
-  .hero.in-view .hero-orbit .satellite,.hero.in-view .hero-orbit .orbit-ring{opacity:1}
-  .scroll-hint{position:absolute;bottom:80px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);opacity:.35;z-index:10;transition:opacity .5s;letter-spacing:1px;white-space:nowrap}
-  .hero.in-view .scroll-hint{animation:fadeHint 4s ease 2s infinite}
-  .scroll-hint .dot{width:4px;height:4px;border-radius:50%;background:var(--ink)}
-  @keyframes fadeHint{0%,80%,100%{opacity:.35}40%{opacity:0}}
-
-  /* ---------- 卫星可点击 + 透明命中区 ---------- */
-  .satellite{cursor:pointer;pointer-events:auto}
-  .satellite .hit{position:absolute;inset:-18px;border-radius:50%;cursor:pointer;z-index:4}
-  .satellite:focus-visible{outline:2px solid var(--ink);outline-offset:6px}
-  .satellite.target{z-index:99999 !important}
-  .enter-hint{position:absolute;bottom:44px;left:50%;transform:translateX(-50%);font-size:11px;letter-spacing:1.5px;color:var(--muted);opacity:.5;z-index:10;white-space:nowrap;padding:0 16px;text-align:center}
-  .hero.in-view .enter-hint{animation:fadeHint 4s ease 2.6s infinite}
-
-  /* ---------- 冲进星球 · 大气层过渡（从宇宙空间坠入行星大气层） ---------- */
-  #aura{position:fixed;inset:0;z-index:305;pointer-events:none;opacity:0;overflow:hidden;background:var(--atmo-lo,#0c1116);transition:opacity .55s ease}
-  /* ★ live 状态：aura 变成全屏点击拦截罩——物理层面杜绝任何重复点击 */
-  #aura.live{opacity:1;pointer-events:auto}
-  .atmo{position:absolute;inset:-26%;pointer-events:none;will-change:transform,opacity}
-  /* 大气底色：行星天空由亮到暗的径向晕染 */
-  .atmo-deep{background:radial-gradient(135% 135% at 50% 42%, var(--atmo-hi) 0%, var(--atmo-mid) 42%, var(--atmo-lo) 100%);opacity:0;transition:opacity .5s ease}
-  .atmo-deep.on{opacity:1}
-  /* 云层：屏幕混合的发光云团，两层不同速度/方向漂移形成视差 */
-  .atmo-cloud{mix-blend-mode:screen;filter:blur(11px) contrast(1.08);opacity:0;transition:opacity .55s ease;background-repeat:repeat}
-  .atmo-cloud.on{opacity:.92}
-  .atmo-cloud-a{background-image:radial-gradient(42% 30% at 22% 28%, rgba(255,255,255,.55), rgba(255,255,255,0) 70%),radial-gradient(36% 26% at 66% 56%, rgba(255,251,238,.46), rgba(255,255,255,0) 70%),radial-gradient(30% 22% at 82% 22%, rgba(255,255,255,.4), rgba(255,255,255,0) 70%),radial-gradient(46% 32% at 44% 82%, rgba(255,255,255,.42), rgba(255,255,255,0) 70%);background-size:165% 165%;animation:atmoDriftA 19s linear infinite}
-  .atmo-cloud-b{background-image:radial-gradient(28% 20% at 30% 62%, rgba(255,255,255,.46), rgba(255,255,255,0) 72%),radial-gradient(24% 18% at 72% 34%, rgba(255,250,234,.4), rgba(255,255,255,0) 72%),radial-gradient(33% 22% at 50% 14%, rgba(255,255,255,.38), rgba(255,255,255,0) 72%);background-size:205% 205%;animation:atmoDriftB 27s linear infinite reverse;transform:scale(1.18)}
-  /* 坠落速度线：强化“俯冲进入”的动感 */
-  .atmo-streak{mix-blend-mode:screen;opacity:0;transition:opacity .45s ease;background:repeating-linear-gradient(118deg, rgba(255,255,255,.06) 0 2px, transparent 2px 30px);transform:scale(1.55)}
-  .atmo-streak.on{opacity:.5;animation:atmoStreak 1.05s linear infinite}
-  /* 中心爆光：穿过云层那一下的高光脉冲 */
-  .atmo-glow{background:radial-gradient(circle at 50% 50%, var(--atmo-hi) 0%, transparent 58%);mix-blend-mode:screen;filter:blur(28px);opacity:0;transform:scale(.25);transition:opacity .4s ease, transform .6s ease}
-  .atmo-glow.on{opacity:.85;transform:scale(1.12)}
-  .atmo-glow.punch{animation:atmoPunch .65s ease}
-  @keyframes atmoDriftA{from{background-position:0% 0%}to{background-position:120% 82%}}
-  @keyframes atmoDriftB{from{background-position:0% 0%}to{background-position:-104% 120%}}
-  @keyframes atmoStreak{from{background-position:0 0}to{background-position:0 260px}}
-  @keyframes atmoPunch{0%{opacity:.85;transform:scale(1.12)}45%{opacity:1;transform:scale(1.7)}100%{opacity:.7;transform:scale(1.28)}}
-  @media (prefers-reduced-motion: reduce){ .atmo-cloud-a,.atmo-cloud-b,.atmo-streak{animation:none} }
-
-  /* ---------- 星球内部世界 ---------- */
-  #world{position:fixed;inset:0;z-index:300;opacity:0;pointer-events:none;overflow-y:auto;background:var(--wbg,#0c1116);scrollbar-width:none;-ms-overflow-style:none;transform:translateY(6px);transition:opacity 0s, transform 0s}
-  #world::-webkit-scrollbar{display:none}
-  #world .whead{position:relative;padding:84px 24px 28px;max-width:1100px;margin:0 auto}
-  #world .wback{position:fixed;top:20px;left:20px;z-index:5;display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.92);color:var(--ink);border:0;cursor:pointer;font-family:var(--font-body);font-size:14px;font-weight:500;padding:10px 18px;border-radius:var(--radius-pill);box-shadow:var(--shadow-soft);transition:transform .2s ease}
-  #world .wback:hover{transform:translateY(-1px)}
-  #world .wtag{font-family:var(--font-body);font-size:11px;letter-spacing:.32em;color:rgba(255,255,255,.7);text-transform:uppercase}
-  #world h2{font-family:var(--font-serif);font-size:clamp(38px,6vw,72px);font-weight:400;margin:.3rem 0 .2rem;color:#fff;letter-spacing:-.01em}
-  #world .wsub{font-family:var(--font-body);font-size:15px;color:rgba(255,255,255,.82);letter-spacing:.02em}
-  #world .grid{max-width:1100px;margin:0 auto;padding:18px 24px 120px;display:grid;gap:22px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
-  .acard{display:block;text-decoration:none;background:#fff;border-radius:30px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.10);transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s}
-  .acard:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,.18)}
-  .acard .thumb{aspect-ratio:4/3;overflow:hidden;background:#eef2f6;position:relative}
-  .acard .thumb img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
-  .acard .body{padding:20px 22px 24px}
-  .acard .cat{font-family:var(--font-body);font-size:11px;letter-spacing:.16em;color:#8a96a0;text-transform:uppercase}
-  .acard h3{font-family:var(--font-serif);font-size:25px;font-weight:400;margin:8px 0 10px;color:var(--ink);line-height:1.15}
-  .acard p{font-family:var(--font-body);font-size:14px;color:var(--muted);line-height:1.55;margin:0}
-  /* 7星映射：世界页主题概览 + 空态（方案C） */
-  #world .w-overview{grid-column:1/-1;padding:6px 0 20px;margin-bottom:8px;border-bottom:1px solid rgba(255,255,255,.14)}
-  #world .wo-zh{font-family:var(--font-serif);font-size:clamp(26px,3.4vw,34px);font-weight:400;color:#fff;letter-spacing:.01em}
-  #world .wo-sub{font-family:var(--font-body);font-size:14px;color:rgba(255,255,255,.8);margin-top:6px;letter-spacing:.02em}
-  #world .wo-count{font-family:var(--font-body);font-size:12px;letter-spacing:.14em;color:rgba(255,255,255,.55);margin-top:14px;text-transform:uppercase}
-  #world .w-empty{grid-column:1/-1;padding:48px 0;text-align:center;color:rgba(255,255,255,.5);font-family:var(--font-body);font-size:14px;letter-spacing:.04em}
-  @media(max-width:640px){#world .grid{grid-template-columns:1fr}}
-
-  /* ---------- 无限跑马灯 ---------- */
-  .marquee{overflow:hidden;margin-top:80px;margin-bottom:40px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-  .marquee-track{display:flex;gap:22px;width:max-content;animation:marquee 34s linear infinite}
-  .marquee:hover .marquee-track{animation-play-state:paused}
-  @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-  .marquee img{height:300px;width:420px;object-fit:cover;border-radius:24px;background:#eef2f6;box-shadow:0 10px 30px rgba(0,0,0,.10);flex:0 0 auto}
-  @media(max-width:640px){.marquee img{height:200px;width:280px}}
-
-  /* ---------- 态度 quote stage（含视差图） ---------- */
-  .stage{min-height:80vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 24px;cursor:pointer;position:relative}
-  .stage .kicker{font-size:12px;letter-spacing:4px;color:var(--muted);margin-bottom:26px;text-transform:uppercase}
-  .stage .quote{font-size:clamp(28px,4.8vw,58px);font-weight:600;max-width:920px;line-height:1.28;color:var(--ink-2)}
-  .stage .quote .hl{font-family:var(--font-serif);font-weight:400;font-style:normal}
-  .stage .hint{margin-top:36px;font-size:13px;color:var(--muted);display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);padding:10px 22px;border-radius:var(--radius-pill);background:#fff;transition:.3s}
-  .stage:hover .hint{background:var(--ink);color:#fff;border-color:var(--ink)}
-  .parallax-wrap{margin-top:54px;width:100%;max-width:520px;overflow:hidden;border-radius:28px;box-shadow:var(--shadow-card)}
-  .parallax-wrap img{width:100%;display:block;will-change:transform}
-
-  /* ---------- special overlay ---------- */
-  .special{position:fixed;inset:0;z-index:200;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:48px;opacity:0;pointer-events:none;transition:opacity .6s,transform .6s;transform:scale(1.05)}
-  .special.open{opacity:1;pointer-events:auto;transform:scale(1)}
-  .special h2{font-size:clamp(28px,5vw,60px);font-weight:600;max-width:1000px;line-height:1.22}
-  .special h2 .hl{font-family:var(--font-serif);font-style:normal;color:#9fd0ff}
-  .special p{margin-top:30px;color:#9fb0c3;max-width:580px;font-size:16px}
-  .special .close{position:absolute;top:28px;right:34px;font-size:14px;color:#9fb0c3;cursor:pointer;border:1px solid #2a3a4d;padding:9px 18px;border-radius:var(--radius-pill);transition:.3s}
-  .special .close:hover{background:#2a3a4d;color:#fff}
-  .special .gen{margin:42px auto 0;width:200px;height:200px}
-  .special .gen svg{width:100%;height:100%}
-  .spin-slow{transform-origin:center;animation:spin 22s linear infinite}
-  @keyframes spin{to{transform:rotate(360deg)}}
-
-  /* ---------- generic blocks ---------- */
-  section.block{padding:128px 0}
-  .block .head{max-width:680px}
-  .block .eyebrow{font-size:12px;letter-spacing:4px;color:var(--muted);text-transform:uppercase}
-  .block h2{font-size:clamp(28px,4vw,46px);font-weight:600;letter-spacing:-.5px;margin-top:14px;color:var(--ink-2)}
-  .block h2 .ac{font-family:var(--font-serif);font-weight:400;font-style:normal}
-  .block .sub{color:var(--muted);margin-top:14px;font-size:17px}
-
-  /* ---------- about ---------- */
-  .attitude{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:54px}
-  .att-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:34px 30px;transition:transform .4s,box-shadow .4s}
-  .att-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-card)}
-  .att-card .num{font-family:var(--font-serif);font-size:18px;color:var(--muted);font-weight:400}
-  .att-card h3{font-size:22px;margin-top:14px;font-weight:600;color:var(--ink)}
-  .att-card p{color:var(--muted);margin-top:10px;font-size:15px;line-height:1.7}
-
-  /* ---------- journal ---------- */
-  .filters{display:flex;gap:12px;margin:42px 0 6px;flex-wrap:wrap}
-  .chip{padding:9px 20px;border:1px solid var(--line);border-radius:var(--radius-pill);font-size:13px;color:var(--muted);cursor:pointer;background:#fff;transition:.25s}
-  .chip:hover{border-color:var(--ink)}
-  .chip.active{background:var(--ink);color:#fff;border-color:var(--ink)}
-  .journal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;margin-top:34px}
-  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:transform .4s,box-shadow .4s;cursor:pointer;display:block;color:inherit;text-decoration:none}
-  .card:hover{transform:translateY(-6px);box-shadow:0 26px 50px -26px rgba(5,26,36,.32)}
-  .card .thumb{aspect-ratio:4/3;overflow:hidden;position:relative}
-  .card .thumb img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
-  .card .body{padding:22px 24px 26px}
-  .card .tag{font-size:11px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;font-family:var(--font-serif)}
-  .card h3{font-size:19px;margin-top:8px;font-weight:600;color:var(--ink);line-height:1.4}
-  .card p{font-size:13px;color:var(--muted);margin-top:9px}
-
-  /* ---------- lab ---------- */
-  .lab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px;margin-top:42px}
-  .lab-item{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--surface);transition:transform .4s,box-shadow .4s;cursor:pointer}
-  .lab-item:hover{transform:translateY(-6px);box-shadow:0 26px 50px -26px rgba(5,26,36,.32)}
-  .lab-item .thumb{aspect-ratio:4/3;overflow:hidden;background:#eef2f6;position:relative}
-  .lab-item .thumb img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
-  .lab-item .thumb::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.18),transparent 55%)}
-  .lab-item .body{padding:20px 22px 24px}
-  .lab-item .tag{font-size:11px;color:var(--muted);letter-spacing:1.5px;font-family:var(--font-serif)}
-  .lab-item h3{font-size:18px;margin-top:6px;font-weight:600;color:var(--ink)}
-  .lab-item p{font-size:13px;color:var(--muted);margin-top:7px}
-
-  /* ---------- career ---------- */
-  .timeline{margin-top:48px;border-left:2px solid var(--line);padding-left:30px;display:flex;flex-direction:column;gap:40px}
-  .tl-item{position:relative}
-  .tl-item::before{content:"";position:absolute;left:-38px;top:5px;width:13px;height:13px;border-radius:50%;background:var(--ink);border:3px solid var(--bg)}
-  .tl-item .yr{font-size:13px;color:var(--muted);font-weight:600;letter-spacing:1px}
-  .tl-item h3{font-size:22px;margin-top:5px;font-weight:600;color:var(--ink)}
-  .tl-item p{color:var(--muted);margin-top:9px;font-size:15px;max-width:640px;line-height:1.7}
-
-  /* ---------- partner / CTA 光标拖尾 ---------- */
-  .partner{position:relative;width:100%;padding:120px 24px;overflow:hidden;background:#fff}
-  .partner-inner{max-width:1100px;margin:0 auto;text-align:center;position:relative;z-index:2}
-  .partner h2{font-family:var(--font-serif);font-weight:400;font-size:clamp(44px,8vw,84px);line-height:1.05;color:var(--ink-2);margin-bottom:40px}
-  .trail{position:fixed;top:0;left:0;width:150px;height:200px;object-fit:cover;border-radius:18px;pointer-events:none;z-index:9000;opacity:0;transform:translate(-50%,-50%) rotate(0deg);box-shadow:0 14px 34px rgba(0,0,0,.18);will-change:transform,opacity}
-  @media(hover:none){.trail{display:none}}
-
-  /* ---------- footer ---------- */
-  footer{padding:72px 0 120px;text-align:center;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
-  footer .f-brand{font-size:18px;color:var(--ink);font-weight:600;letter-spacing:.5px}
-  footer .f-brand .f-gu{font-family:var(--font-serif);font-weight:400}
-  footer .f-links{display:flex;gap:28px;justify-content:center;margin-top:22px;flex-wrap:wrap}
-  footer .f-links a{color:var(--ink);font-size:15px;transition:opacity .2s}
-  footer .f-links a:hover{opacity:.6}
-
-  /* ---------- floating bottom nav (Viktor 药丸) ---------- */
-  .float-nav{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:45;display:flex;align-items:center;gap:14px;background:#fff;border-radius:var(--radius-pill);padding:8px 8px 8px 22px;box-shadow:var(--shadow-float);transition:opacity .4s}
-  .float-nav .v{font-family:var(--font-serif);font-size:26px;color:var(--ink);font-weight:400;line-height:1}
-  @media(max-width:768px){.float-nav{z-index:40}}
-  @media(max-width:520px){.float-nav .label-hide{display:none}}
-
-  /* ---------- magnetic ---------- */
-  .magnetic{display:inline-block;transition:transform .2s ease-out}
-
-  /* ---------- responsive ---------- */
-  @media(max-width:860px){
-    .nav-links{display:none}
-    .hamburger{display:flex}
-    .attitude{grid-template-columns:1fr}
-    section.block{padding:84px 0}
-    .wrap{padding:0 22px}
-    .nav{padding:14px 22px}
-    .brand{height:44px}
-    .brand img{height:38px}
+  [data-theme="light"]{
+    --ink:#f5f5f7;
+    --ink-2:#ffffff;
+    --ink-3:#fbfbfd;
+    --surface:#ffffff;
+    --surface-2:#f5f5f7;
+    --paper:#1d1d1f;
+    --text:#1d1d1f;
+    --muted:#6e6e73;
+    --muted-2:#6e6e73;
+    --line:rgba(0,0,0,.1);
+    --line-2:rgba(0,0,0,.16);
+    --blue:#1f6fb8;
+    --blue-soft:rgba(31,111,184,.1);
+    --gold:#a07d2c;
+    --gold-soft:rgba(160,125,44,.12);
+    --shadow-soft:0 10px 40px rgba(0,0,0,.12);
+    --shadow-card:0 8px 30px rgba(0,0,0,.1);
   }
 
-  /* ----- 平板（iPad 768-1024px）----- */
-  @media(max-width:1024px) and (min-width:769px){
-    .hero{padding:90px 28px 70px}
-    .hero-content{gap:14px;max-width:620px}
-    .hero-title{font-size:clamp(32px,6vw,68px)}
-    .scroll-hint{bottom:64px}
-    .enter-hint{bottom:36px;font-size:10px;letter-spacing:1.2px}
-    .float-nav{bottom:18px;padding:6px 6px 6px 18px}
-    .float-nav .v{font-size:22px}
-    .float-nav .btn-primary{padding:11px 24px;font-size:13px}
-  }
+  /* 主题切换开关（导航栏右侧） */
+  .theme-toggle{width:38px;height:38px;border-radius:50%;flex:0 0 auto;cursor:pointer;
+    display:inline-flex;align-items:center;justify-content:center;
+    border:1px solid var(--line-2);background:rgba(255,255,255,.04);color:var(--text);
+    transition:border-color .25s,color .25s,transform .25s}
+  .theme-toggle:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-1px)}
+  .theme-toggle svg{width:18px;height:18px;fill:none;stroke:currentColor;
+    stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .theme-toggle .ico-moon{display:none}
+  [data-theme="light"] .theme-toggle .ico-sun{display:block}
+  [data-theme="light"] .theme-toggle .ico-moon{display:none}
+  [data-theme="dark"]  .theme-toggle .ico-sun{display:none}
+  [data-theme="dark"]  .theme-toggle .ico-moon{display:block}
 
-  /* ----- 手机（≤768px）----- */
-  @media(max-width:768px){
-    .hero{padding:80px 20px 60px;min-height:100svh}
-    .hero-content{gap:12px;max-width:100%}
-    .hero-title{font-size:clamp(30px,8.5vw,56px);letter-spacing:.02em}
-    .hero-sub{font-size:clamp(13px,2.8vw,17px);letter-spacing:.1em}
-    .hero-en{font-size:clamp(11px,1.8vw,15px);letter-spacing:.18em}
-    .hero-orbit{min-width:160px;min-height:90px}
-    .scroll-hint{bottom:56px;font-size:10px;gap:6px}
-    .enter-hint{bottom:30px;font-size:10px;letter-spacing:1px;padding:0 12px}
-    .float-nav{bottom:16px;left:16px;right:16px;transform:none;width:auto;justify-content:center;padding:7px 14px;gap:10px}
-    .float-nav .label-hide{display:none}
-    .float-nav .v{font-size:20px}
-    .float-nav .btn-primary{padding:10px 20px;font-size:13px}
-    .partner h2{font-size:clamp(32px,9vw,58px)}
-    .partner{padding:80px 20px}
+  /* 浅色下各组件覆盖 */
+  [data-theme="light"] body{background:var(--ink)}
+  [data-theme="light"] .nav{background:rgba(255,255,255,.72)}
+  [data-theme="light"] .nav.scrolled{background:rgba(255,255,255,.9);border-bottom-color:var(--line)}
+  [data-theme="light"] .hero-bg{
+    background:
+      radial-gradient(60% 55% at 50% 30%, rgba(31,111,184,.12), transparent 70%),
+      radial-gradient(45% 50% at 80% 80%, rgba(160,125,44,.08), transparent 70%),
+      linear-gradient(180deg,#fbfbfd,#f5f5f7 60%,#fbfbfd);
   }
-
-  /* ----- 小手机（≤430px）----- */
-  @media(max-width:430px){
-    .hero{padding:70px 16px 50px}
-    .hero-content{gap:10px}
-    .hero-title{font-size:clamp(26px,10vw,44px)}
-    .hero-sub{font-size:clamp(12px,3.2vw,15px)}
-    .hero-en{font-size:clamp(10px,2vw,13px);letter-spacing:.14em}
-    .scroll-hint{bottom:48px;font-size:9px}
-    .enter-hint{bottom:24px;font-size:9px;letter-spacing:.8px}
-    .satellite .hit{inset:-14px}
-    .btn-primary{padding:11px 22px;font-size:14px}
-    .btn-ghost{padding:11px 22px;font-size:14px}
-  }
+  [data-theme="light"] .qr-card{background:#fff;border-color:var(--line-2);box-shadow:var(--shadow-card)}
+  [data-theme="light"] .qr-svg{border:1px solid var(--line-2);box-shadow:0 6px 22px rgba(0,0,0,.1)}
+  [data-theme="light"] .prob{background:#fff;border-color:var(--line-2)}
+  [data-theme="light"] .prob:hover{border-color:var(--blue)}
+  [data-theme="light"] .skill{background:#fff;border-color:var(--line-2)}
+  [data-theme="light"] .skill:hover{background:var(--blue-soft);border-color:rgba(31,111,184,.3)}
+  [data-theme="light"] .cta .cta-card{background:#fff;border-color:var(--line-2);box-shadow:var(--shadow-card)}
+  [data-theme="light"] .cta .cta-links a{border-color:var(--line-2)}
+  [data-theme="light"] .wx-qr img{border-color:var(--line-2)}
+  /* 灯箱 → 浅色白底深字 */
+  [data-theme="light"] .lb{background:rgba(250,250,252,.82)}
+  [data-theme="light"] .lb-card{background:#fff;border-color:var(--line-2);box-shadow:0 30px 80px rgba(0,0,0,.25)}
+  [data-theme="light"] .lb-text{color:#3a3a3c}
+  [data-theme="light"] .lb-img .ph{color:#5a6b88}
+  [data-theme="light"] .lb-close,
+  [data-theme="light"] .lb-nav button{background:rgba(255,255,255,.85);border-color:var(--line-2);color:#1d1d1f}
+  [data-theme="light"] .lb-close:hover,
+  [data-theme="light"] .lb-nav button:hover{background:#fff}
+  [data-theme="light"] .foot{border-top-color:var(--line)}
+  [data-theme="light"] .site-nav .sn-seg{background:#efeff5}
+  [data-theme="light"] .site-nav .sn-seg a{color:#666}
+  [data-theme="light"] .site-nav .sn-seg a:hover{color:#1d1d1f;background:rgba(0,0,0,.03)}
+  [data-theme="light"] .site-nav .sn-seg a.cur{background:#fff;color:#1d1d1f;box-shadow:0 1px 5px rgba(0,0,0,.08),0 2px 10px rgba(0,0,0,.05)}
+  [data-theme="light"] .site-nav .sn-seg a.home{color:#a07d2c}
 </style>
-  <script id="site-data" type="application/json">{"site":{"nav":{"logo":"assets/logo-gu-circle.png","links":[{"label":"关于·态度","href":"#about"},{"label":"日记流","href":"#journal"},{"label":"AI实验室","href":"#lab"},{"label":"事业线","href":"#career"}]},"hero":{"titleHtml":"顾言 <span class='gu'>GU</span>事","sub":"一个人的数字生活志","en":"GU YAN · STORY"},"quote":{"kicker":"一句话态度","line":"认真不是表演，<br>是<span class='hl'>把事做温热</span>。","hint":"点击，进入我的「专场」 ↗"},"special":{"title":"大多数人认识我，是带着<span class='hl'>某个标签</span>的。<br>但走近一点，会发现我更像个<span class='hl'>停不下来的折腾者</span>。","desc":"这一页，是留给「正经工作之外」的——AI、画报、生活碎片，和那些不务正业的快乐。"},"about":{"eyebrow":"关于 · 态度","heading":"几句话，说不清一个人。<br>但我信这几件事。","sub":"把复杂讲简单，把冰冷做温热，把日子过成作品。","cards":[{"num":"01","title":"复杂讲简单","body":"AI、技术、生活，都不该是黑话。能用大白话讲明白的，绝不上术语。"},{"num":"02","title":"冰冷做温热","body":"数据是冷的，人是热的。我做的一切，是想让专业多一点人情味。"},{"num":"03","title":"日子过成作品","body":"认真生活，认真折腾。每一天都值得被记录、被打磨、被分享。"}]},"journal":{"eyebrow":"日记流","heading":"随手记录，一直在生长。","sub":"生活、成长、兴趣、AI 折腾——什么都可以往里丢。"},"lab":{"eyebrow":"AI 实验室","heading":"不务正业，但很快乐。","sub":"AI 折腾的过程和作品，点开看我是怎么玩的。","items":[{"tag":"GENERATIVE","title":"即梦AI画报实验","desc":"从 prompt 到成图的完整记录。"},{"tag":"PROMPT","title":"Prompt 工程笔记","desc":"把话说清楚，AI 才听得懂。"},{"tag":"AUTOMATION","title":"自动化工作流","desc":"让重复的事，自动发生。"},{"tag":"KNOWLEDGE","title":"个人知识库搭建","desc":"把 scattered 的自己，收拢起来。"}]},"career":{"eyebrow":"事业线","heading":"正经的那条线，也挺精彩。","sub":"团队、培训、经营——顺手做的事业。","items":[{"yr":"2017 — 至今","title":"九年团队经营","desc":"从一个人，到带一支队伍。见过太多人间冷暖，也练出了把复杂讲简单的本事。"},{"yr":"管理时期","title":"管理实战经验","desc":"在后台看过整个业务的运转，才明白前端每一句话的分量。"},{"yr":"持续中","title":"培训讲师","desc":"把自己的经验变成别人的起点，是我最享受的事之一。"},{"yr":"现在","title":"用 AI 重构内容生产","desc":"日报、科普、课程——让 AI 做重复，让人做温度。"}]},"footer":{"brandHtml":"顾言 <span class='f-gu'>GU事</span>","tagline":"正经工作之外，全是热爱。","copyright":"© 2026 顾言 · 一个持续生长的个人站点"},"satellites":[{"ring":0,"ang":0,"spd":0.008,"dir":1,"size":8.5,"name":"Saturn","c1":"#cfc6a4","c2":"#a89e76","glow":"rgba(180,170,130,.50)"},{"ring":1,"ang":3.14,"spd":0.011,"dir":-1,"size":7,"name":"Jupiter","c1":"#c2a98f","c2":"#8f7a63","glow":"rgba(180,150,120,.50)"},{"ring":2,"ang":1.1,"spd":0.014,"dir":1,"size":9,"name":"Luna","c1":"#dde0e6","c2":"#a6abb6","glow":"rgba(195,200,210,.50)"},{"ring":3,"ang":3.74,"spd":0.017,"dir":-1,"size":6.5,"name":"Venus","c1":"#cabf9e","c2":"#9a8f6e","glow":"rgba(190,180,140,.50)"},{"ring":4,"ang":2.2,"spd":0.02,"dir":1,"size":7.5,"name":"Mercury","c1":"#b9bcc2","c2":"#6e7178","glow":"rgba(160,165,175,.50)"},{"ring":5,"ang":0.7,"spd":0.0095,"dir":1,"size":8,"name":"Mars","c1":"#b87a6a","c2":"#8a4a3c","glow":"rgba(190,120,100,.55)"},{"ring":6,"ang":5.5,"spd":0.006,"dir":1,"size":18,"name":"Sun","c1":"#ffcf6e","c2":"#ff7a1a","glow":"rgba(255,150,40,.7)"}]},"articles":[{"id":"a_001","title":"用即梦AI做了一套知识科普画报","slug":"ji-meng-ai-hua-bao","category":"ai","tag":"AI","date":"2026-07-27","cover":"","excerpt":"把难懂的事，画成一张图一句话。","body":"从 prompt 到成图的完整记录。把难懂的事，画成一张图一句话。","status":"published","star":"Mercury","createdAt":"2026-07-27T10:00:00+08:00","updatedAt":"2026-07-27T10:00:00+08:00"},{"id":"a_002","title":"周末把阳台改成了小花园","slug":"yang-tai-xiao-hua-yuan","category":"life","tag":"生活","date":"2026-07-27","cover":"","excerpt":"种下去的，是下班后的松弛感。","body":"种下去的，是下班后的松弛感。","status":"published","star":"Venus","createdAt":"2026-07-27T10:00:00+08:00","updatedAt":"2026-07-27T10:00:00+08:00"},{"id":"a_003","title":"带团队的第九年，我学会了闭嘴","slug":"dai-tuan-dui-di-jiu-nian","category":"grow","tag":"成长","date":"2026-07-27","cover":"","excerpt":"不是不说，是让年轻人先说。","body":"不是不说，是让年轻人先说。","status":"published","star":"Sun","createdAt":"2026-07-27T10:00:00+08:00","updatedAt":"2026-07-27T10:00:00+08:00"},{"id":"a_004","title":"折腾了一台二手NAS","slug":"er-shou-nas","category":"hobby","tag":"兴趣","date":"2026-07-27","cover":"","excerpt":"本地知识库终于有家了。","body":"本地知识库终于有家了。","status":"published","star":"Mars","createdAt":"2026-07-27T10:00:00+08:00","updatedAt":"2026-07-27T10:00:00+08:00"},{"id":"a_005","title":"写了个自动生成日报的工作流","slug":"zi-dong-ri-bao","category":"ai","tag":"AI","date":"2026-07-27","cover":"","excerpt":"每天省下半小时，拿去发呆。","body":"每天省下半小时，拿去发呆。","status":"published","star":"Mercury","createdAt":"2026-07-27T10:00:00+08:00","updatedAt":"2026-07-27T10:00:00+08:00"},{"id":"a_006","title":"今晚的晚霞，值得发一条","slug":"jin-wan-de-wan-xia","category":"life","tag":"生活","date":"2026-07-27","cover":"assets/uploads/ms3ajt6gn0rpi.jpg","excerpt":"不为什么，就是好看。","body":"不为什么，就是好看。","status":"published","star":"Venus","createdAt":"2026-07-27T10:00:00+08:00","updatedAt":"2026-07-27T13:57:14.496Z"}],"scenes":["hero","stage","about","journal","lab","career"],"media":[]}</script>
+<script>
+  /* 防闪：在 CSS 解析后立即定主题，默认浅色（Apple 风），记忆用户选择 */
+  (function(){
+    try{
+      var t = localStorage.getItem('insurance-theme');
+      if(t !== 'dark' && t !== 'light'){ t = 'light'; }
+      document.documentElement.setAttribute('data-theme', t);
+    }catch(e){ document.documentElement.setAttribute('data-theme','light'); }
+  })();
+</script>
 </head>
-<body>
-  <canvas id="fx"></canvas>
-  <div class="cursor" id="cursor"></div>
+<body id="top">
 
-  <!-- NAV -->
+  <!-- 顶栏 -->
   <nav class="nav" id="nav">
-    <div class="brand"><img src="assets/logo-gu-circle.png" alt="顾言 GU事" /></div>
-    <div class="nav-links">
-      <a href="#about" class="magnetic">关于·态度</a>
-      <a href="#journal" class="magnetic">日记流</a>
-      <a href="#lab" class="magnetic">AI实验室</a>
-      <a href="#career" class="magnetic">事业线</a>
-      <a href="insurance-intro.html" class="nav-out out-pulse">保障规划<span class="out-arrow">→</span></a>
+    <a class="brand" href="./">
+      <span class="b-name">顾维鲁</span>
+      <span class="b-sub">保险代理人</span>
+    </a>
+    <div class="nav-right">
+      <a class="nav-link" href="insurance.html">深入了解保障 →</a>
+      <a class="nav-link" href="life/">回生活站</a>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深色或浅色" title="切换深色 / 浅色">
+        <svg class="ico-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.6M12 19.4V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.6M19.4 12H22M4.2 19.8l1.8-1.8M18 6l1.8-1.8"/></svg>
+        <svg class="ico-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 7 7 0 1 0 20 14.5z"/></svg>
+      </button>
+      <a class="nav-cta" href="#take">带走这一页</a>
     </div>
-    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
   </nav>
 
-  <!-- DRAWER -->
-  <div class="drawer" id="drawer">
-    <div class="close" id="drawerClose">收起 ✕</div>
-    <a href="#about">关于·态度</a>
-    <a href="#journal">日记流</a>
-    <a href="#lab">AI实验室</a>
-    <a href="#career">事业线</a>
-    <a href="insurance-intro.html" class="drawer-out">保障规划 <span style="font-size:16px;opacity:.6">→</span></a>
-  </div>
-
-  <!-- ====== HERO（保留卫星轨道） ====== -->
-  <section class="hero" id="hero">
-    <div class="hero-content">
-      <div class="hero-orbit">
-        <h1 class="hero-title">顾言 <span class='gu'>GU</span>事</h1>
-        <div class="orbit-ring orbit-1"></div>
-        <div class="orbit-ring orbit-2"></div>
-        <div class="orbit-ring orbit-3"></div>
-        <div class="orbit-ring orbit-4"></div>
-        <div class="orbit-ring orbit-5"></div>
-        <div class="orbit-ring orbit-6"></div>
-        <div class="orbit-ring orbit-7"></div>
-        <div class="satellite sat" data-i="0" tabindex="0" role="button" aria-label="进入星球世界"><span class="hit"></span></div>
-        <div class="satellite sat" data-i="1" tabindex="0" role="button" aria-label="进入星球世界"><span class="hit"></span></div>
-        <div class="satellite sat" data-i="2" tabindex="0" role="button" aria-label="进入星球世界"><span class="hit"></span></div>
-        <div class="satellite sat" data-i="3" tabindex="0" role="button" aria-label="进入星球世界"><span class="hit"></span></div>
-        <div class="satellite sat" data-i="4" tabindex="0" role="button" aria-label="进入星球世界"><span class="hit"></span></div>
-        <div class="satellite sat" data-i="5" tabindex="0" role="button" aria-label="进入星球世界"><span class="hit"></span></div>
-        <div class="satellite sun" data-i="6" tabindex="0" role="button" aria-label="进入太阳世界"><span class="hit"></span></div>
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="orb a"></div>
+    <div class="orb b"></div>
+    <div class="hero-inner">
+      <div class="hero-text reveal">
+        <div class="eyebrow">顾维鲁 · 个人能力页</div>
+        <h1>把复杂的保障，<br>讲成你<span class="em">听得懂</span>的话。</h1>
+        <p class="hero-sub">我不是急着把产品递给你的人。我先听你要什么，再把条款拆开、摆平、说清楚——让你自己做决定时，心里有底。</p>
+        <div class="hero-tags">
+          <span class="hero-tag">需求诊断</span>
+          <span class="hero-tag">非标体核保</span>
+          <span class="hero-tag">理赔协同</span>
+          <span class="hero-tag">长期陪伴</span>
+        </div>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#take">扫码带走完整版 →</a>
+          <a class="btn btn-ghost" href="#prob">我先能解决什么</a>
+        </div>
       </div>
-      <p class="hero-sub">一个人的数字生活志</p>
-      <p class="hero-en">GU YAN · STORY</p>
+      <aside class="qr-card reveal" data-d="1">
+        <div class="qr-eyebrow">SCAN ME</div>
+        <div class="qr-title">现场扫码，手机带走</div>
+        <div class="qr-note">手机扫码即可带走这一页，随时翻看。感兴趣的人，扫完慢慢读。</div>
+        <div class="qr-svg" id="qrHero" aria-label="指向本页的二维码"></div>
+        <button class="qr-copy" id="copyHero" type="button">复制链接</button>
+      </aside>
     </div>
-    <div class="enter-hint">点击任意星球，进入它的世界</div>
-    <div class="scroll-hint"><span class="dot"></span> 向下滚动</div>
-  </section>
+  </header>
 
-  <!-- 大气层过渡层：从宇宙空间坠入行星大气层（流动云层 + 中心爆光） -->
-  <div id="aura" aria-hidden="true">
-    <div class="atmo atmo-deep"></div>
-    <div class="atmo atmo-cloud atmo-cloud-a"></div>
-    <div class="atmo atmo-cloud atmo-cloud-b"></div>
-    <div class="atmo atmo-streak"></div>
-    <div class="atmo atmo-glow"></div>
-  </div>
-
-  <!-- ====== 无限跑马灯（真实上传图） ====== -->
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee-track" id="marqueeTrack"></div>
-  </div>
-
-  <!-- ====== 态度 quote stage（点击进入专场 + 视差图） ====== -->
-  <section class="stage" id="stage">
-    <div class="kicker fade-up">一句话态度</div>
-    <div class="quote fade-up">认真不是表演，<br>是<span class='hl'>把事做温热</span>。</div>
-    <div class="hint magnetic fade-up">点击，进入我的「专场」 ↗</div>
-    <div class="parallax-wrap fade-up">
-      <img id="parallaxImg" src="assets/uploads/ms3ajt6gn0rpi.jpg" alt="今晚的晚霞" />
-    </div>
-  </section>
-
-  <!-- ====== SPECIAL OVERLAY ====== -->
-  <div class="special" id="special">
-    <div class="close" id="specialClose">收起专场 ✕</div>
-    <h2>大多数人认识我，是带着<span class='hl'>某个标签</span>的。<br>但走近一点，会发现我更像个<span class='hl'>停不下来的折腾者</span>。</h2>
-    <p>这一页，是留给「正经工作之外」的——AI、画报、生活碎片，和那些不务正业的快乐。</p>
-    <div class="gen">
-      <svg viewBox="0 0 200 200" aria-hidden="true">
-        <circle class="spin-slow" cx="100" cy="100" r="80" fill="none" stroke="#378ADD" stroke-width="1.5"/>
-        <circle class="spin-slow" cx="100" cy="100" r="54" fill="none" stroke="#ffffff" stroke-width="1" stroke-dasharray="2 6" opacity=".6"/>
-        <circle cx="180" cy="100" r="6" fill="#378ADD"/>
-        <circle cx="100" cy="20" r="4" fill="#fff"/>
-      </svg>
-    </div>
-  </div>
-
-  <!-- ====== ABOUT ====== -->
-  <section class="block" id="about">
+  <!-- 我能解决什么问题 -->
+  <section id="prob">
     <div class="wrap">
-      <div class="head fade-up">
-        <div class="eyebrow">关于 · 态度</div>
-        <h2>几句话，说不清一个人。<br>但我信这几件事。</h2>
-        <p class="sub">把复杂讲简单，把冰冷做温热，把日子过成作品。</p>
+      <div class="reveal">
+        <div class="eyebrow">WHY ME</div>
+        <h2 class="h2">我能解决什么问题</h2>
+        <p class="lead">大多数人卡住的，不是没钱买，而是看不懂、选不对、出了事没人管。这几件事，我帮你兜底。</p>
       </div>
-      <div class="attitude">
-        <div class="att-card reveal"><div class="num">01</div><h3>复杂讲简单</h3><p>AI、技术、生活，都不该是黑话。能用大白话讲明白的，绝不上术语。</p></div>
-        <div class="att-card reveal"><div class="num">02</div><h3>冰冷做温热</h3><p>数据是冷的，人是热的。我做的一切，是想让专业多一点人情味。</p></div>
-        <div class="att-card reveal"><div class="num">03</div><h3>日子过成作品</h3><p>认真生活，认真折腾。每一天都值得被记录、被打磨、被分享。</p></div>
+      <div class="prob-grid">
+        <div class="prob reveal">
+          <div class="p-prob">条款像天书</div>
+          <div class="p-fix"><b>我把它翻译成人话</b>——重点、免责、坑在哪，一次讲清，不让你自己猜。</div>
+        </div>
+        <div class="prob reveal" data-d="1">
+          <div class="p-prob">怕买完还不懂自己买了什么</div>
+          <div class="p-fix"><b>我负责让你买得明白</b>：责任拆开讲、除外逐条说、理赔场景演一遍。我的客户里，没有一个是对着保单发懵的。</div>
+        </div>
+        <div class="prob reveal" data-d="2">
+          <div class="p-prob">身体有小毛病，怕被拒</div>
+          <div class="p-fix"><b>非标体核保我跑过不少</b>。资料理齐、找对口径，能保的尽量保上，不轻易说"买不了"。</div>
+        </div>
+        <div class="prob reveal">
+          <div class="p-prob">真出事怕理赔跑断腿</div>
+          <div class="p-fix"><b>理赔我陪你走</b>。理赔服务过的 33 个家庭、196 万赔款，一个没落下——报案、资料、跟进，我都在。</div>
+        </div>
+        <div class="prob reveal" data-d="1">
+          <div class="p-prob">一家人的保障算不清</div>
+          <div class="p-fix"><b>用家庭财务安全的视角</b>，把缺口、额度、优先级排明白，不是东拼一块西凑一张。</div>
+        </div>
+        <div class="prob reveal" data-d="2">
+          <div class="p-prob">家里保单一团乱</div>
+          <div class="p-fix"><b>我帮你做保单体检</b>：早年买的、公司发的、亲戚推荐的，逐张拆责任、找缺口、清重叠——理完这一遍，你不会再对着保单发懵。<a class="p-link" href="insurance.html#contact">约一次保单体检 →</a></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ====== JOURNAL ====== -->
-  <section class="block" id="journal" style="background:var(--surface)">
+  <!-- 我擅长什么 -->
+  <section id="good" style="background:linear-gradient(180deg,transparent,rgba(62,142,219,.04),transparent)">
     <div class="wrap">
-      <div class="head fade-up">
-        <div class="eyebrow">日记流</div>
-        <h2>随手记录，一直在生长。</h2>
-        <p class="sub">生活、成长、兴趣、AI 折腾——什么都可以往里丢。</p>
+      <div class="reveal">
+        <div class="eyebrow">WHAT I DO WELL</div>
+        <h2 class="h2">我擅长什么</h2>
+        <p class="lead">代理人这件事，我的长板在这里——不广撒网，把服务过的每一条产品线做深做透。</p>
       </div>
-      <div class="filters fade-up" id="filters">
-        <div class="chip active" data-f="all">全部</div>
-        <div class="chip" data-f="life">生活</div>
-        <div class="chip" data-f="grow">成长</div>
-        <div class="chip" data-f="hobby">兴趣</div>
-        <div class="chip" data-f="ai">AI</div>
-      </div>
-      <div class="journal-grid" id="journalGrid">
-        <a href="/article/ji-meng-ai-hua-bao.html" class="card reveal" data-cat="ai" data-star="Mercury"><img class="thumb" src="assets/journal/aiart.jpg" alt="AI画报实验"><div class="body"><div class="tag">AI</div><h3>用即梦AI做了一套知识科普画报</h3><p>把难懂的事，画成一张图一句话。</p></div></a>
-        <a href="/article/yang-tai-xiao-hua-yuan.html" class="card reveal" data-cat="life" data-star="Venus"><img class="thumb" src="assets/journal/balcony.jpg" alt="阳台小花园"><div class="body"><div class="tag">生活</div><h3>周末把阳台改成了小花园</h3><p>种下去的，是下班后的松弛感。</p></div></a>
-        <a href="/article/dai-tuan-dui-di-jiu-nian.html" class="card reveal" data-cat="grow" data-star="Sun"><img class="thumb" src="assets/journal/team.jpg" alt="团队协作"><div class="body"><div class="tag">成长</div><h3>带团队的第九年，我学会了闭嘴</h3><p>不是不说，是让年轻人先说。</p></div></a>
-        <a href="/article/er-shou-nas.html" class="card reveal" data-cat="hobby" data-star="Mars"><img class="thumb" src="assets/journal/nas.jpg" alt="NAS书房"><div class="body"><div class="tag">兴趣</div><h3>折腾了一台二手NAS</h3><p>本地知识库终于有家了。</p></div></a>
-        <a href="/article/zi-dong-ri-bao.html" class="card reveal" data-cat="ai" data-star="Mercury"><img class="thumb" src="assets/journal/autodaily.jpg" alt="自动日报工作流"><div class="body"><div class="tag">AI</div><h3>写了个自动生成日报的工作流</h3><p>每天省下半小时，拿去发呆。</p></div></a>
-        <a href="/article/jin-wan-de-wan-xia.html" class="card reveal" data-cat="life" data-star="Venus"><div class="thumb" style="background-image:url('assets/uploads/ms3ajt6gn0rpi.jpg')"></div><div class="body"><div class="tag">生活</div><h3>今晚的晚霞，值得发一条</h3><p>不为什么，就是好看。</p></div></a>
+      <div class="skill-grid">
+        <div class="skill reveal">
+          <div class="s-idx">01</div>
+          <div class="s-name">需求诊断</div>
+          <div class="s-desc">先听后配，不先推产品。你的处境，比我的货架重要。</div>
+        </div>
+        <div class="skill reveal" data-d="1">
+          <div class="s-idx">02</div>
+          <div class="s-name">产品理解力</div>
+          <div class="s-desc">不只会讲一款产品。重疾、医疗、意外、寿险、年金——各类产品的逻辑和边界我都能拆开讲；你家已有的、该补的，怎么组合最稳，我帮你算明白。你不用懂产品，只要懂"我的保障到底靠不靠谱"。</div>
+        </div>
+        <div class="skill reveal" data-d="2">
+          <div class="s-idx">03</div>
+          <div class="s-name">非标体核保</div>
+          <div class="s-desc">体况复杂，也帮你找最优结论，而不是一句"买不了"打发。</div>
+        </div>
+        <div class="skill reveal">
+          <div class="s-idx">04</div>
+          <div class="s-name">跨周期规划</div>
+          <div class="s-desc">不是卖一张算一张。把过去已有的保单、当下真实的缺口、未来会来的变故（孩子、养老、传承）串成一条线，让保障跟着你的人生阶段走，而不是散着慌。</div>
+        </div>
+        <div class="skill reveal" data-d="1">
+          <div class="s-idx">05</div>
+          <div class="s-name">理赔协同</div>
+          <div class="s-desc">我是代理人，和公司一条线。出险那一刻我就在你这边，协同比转手快。</div>
+        </div>
+        <div class="skill reveal" data-d="2">
+          <div class="s-idx">06</div>
+          <div class="s-name">长期陪伴</div>
+          <div class="s-desc">我正在服务的 982 个家庭，跟着我好些年。孩子出生、老人变故、收入起伏，保障跟着调。过了好些年翻出保单，还能一个电话找着我。</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ====== LAB ====== -->
-  <section class="block" id="lab">
+  <!-- 我的履历 -->
+  <section id="story">
     <div class="wrap">
-      <div class="head fade-up">
-        <div class="eyebrow">AI 实验室</div>
-        <h2>不务正业，但很快乐。</h2>
-        <p class="sub">AI 折腾的过程和作品，点开看我是怎么玩的。</p>
+      <div class="reveal">
+        <div class="eyebrow">MY STORY</div>
+        <h2 class="h2">我的履历</h2>
       </div>
-      <div class="lab-grid">
-        <div class="lab-item reveal"><img class="thumb" src="assets/lab/genart.jpg" alt="AI画报实验"><div class="body"><div class="tag">GENERATIVE</div><h3>即梦AI画报实验</h3><p>从 prompt 到成图的完整记录。</p></div></div>
-        <div class="lab-item reveal"><img class="thumb" src="assets/lab/prompt.jpg" alt="Prompt工程"><div class="body"><div class="tag">PROMPT</div><h3>Prompt 工程笔记</h3><p>把话说清楚，AI 才听得懂。</p></div></div>
-        <div class="lab-item reveal"><img class="thumb" src="assets/lab/auto.jpg" alt="自动化工作流"><div class="body"><div class="tag">AUTOMATION</div><h3>自动化工作流</h3><p>让重复的事，自动发生。</p></div></div>
-        <div class="lab-item reveal"><img class="thumb" src="assets/lab/kb.jpg" alt="知识库搭建"><div class="body"><div class="tag">KNOWLEDGE</div><h3>个人知识库搭建</h3><p>把 scattered 的自己，收拢起来。</p></div></div>
+      <!-- 色块马赛克 -->
+      <div class="story-mosaic reveal">
+        <button class="sq sq-0" data-lb="0" type="button" aria-label="查看：19 年">
+          <img class="sq-bg" src="assets/story-19.jpg" alt="19年入行" loading="lazy"><span class="sq-veil"></span>
+          <span class="sq-hint">查看 →</span>
+          <span class="sq-inner">
+            <span class="sq-num">19<span class="u">年</span></span>
+            <span class="sq-label">入行至今 · 2006 → 今</span>
+          </span>
+        </button>
+        <button class="sq sq-1" data-lb="1" type="button" aria-label="查看：982 户">
+          <img class="sq-bg" src="assets/story-982.jpg" alt="982户家庭保障" loading="lazy"><span class="sq-veil"></span>
+          <span class="sq-hint">查看 →</span>
+          <span class="sq-inner">
+            <span class="sq-num">982<span class="u">户</span></span>
+            <span class="sq-label">家庭保障 · 21 亿保额</span>
+          </span>
+        </button>
+        <button class="sq sq-2" data-lb="2" type="button" aria-label="查看：100% 赔付率">
+          <img class="sq-bg" src="assets/story-100.jpg" alt="100%理赔赔付率" loading="lazy"><span class="sq-veil"></span>
+          <span class="sq-hint">查看 →</span>
+          <span class="sq-inner">
+            <span class="sq-num">100<span class="u">%</span></span>
+            <span class="sq-label">理赔赔付率 · 33 例</span>
+          </span>
+        </button>
+        <button class="sq sq-3" data-lb="3" type="button" aria-label="查看：在。">
+          <img class="sq-bg" src="assets/story-at.jpg" alt="一直都在" loading="lazy"><span class="sq-veil"></span>
+          <span class="sq-hint">查看 →</span>
+          <span class="sq-inner">
+            <span class="sq-num">在<span class="u">。</span></span>
+            <span class="sq-label">一直都在 · 资质 &amp; 邀约</span>
+          </span>
+        </button>
+      </div>
+
+      <!-- 履历灯箱 -->
+      <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="履历详情">
+        <div class="lb-card">
+          <button class="lb-close" id="lbClose" type="button" aria-label="关闭">×</button>
+          <div class="lb-img" id="lbImgWrap">
+            <img id="lbImg" src="" alt="">
+            <div class="ph" id="lbPh"></div>
+          </div>
+          <div class="lb-body">
+            <div class="lb-num" id="lbNum"></div>
+            <div class="lb-tag" id="lbTag"></div>
+            <div class="lb-text" id="lbText"></div>
+            <a class="p-link lb-cta" href="#take">加我微信，当面聊聊 →</a>
+          </div>
+          <div class="lb-nav">
+            <button id="lbPrev" type="button" aria-label="上一项">‹</button>
+            <button id="lbNext" type="button" aria-label="下一项">›</button>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ====== CAREER ====== -->
-  <section class="block" id="career" style="background:var(--surface)">
-    <div class="wrap">
-      <div class="head fade-up">
-        <div class="eyebrow">事业线</div>
-        <h2>正经的那条线，也挺精彩。</h2>
-        <p class="sub">团队、培训、经营——顺手做的事业。</p>
+  <!-- CTA 带走这一页 -->
+  <section id="take" class="cta">
+    <div class="cta-grid">
+      <div class="cta-card reveal">
+        <div class="eyebrow" style="justify-content:center">TAKE THIS PAGE</div>
+        <h2 class="h2">带走这一页</h2>
+        <p class="lead" style="margin-left:auto;margin-right:auto">扫码，或把链接发给你感兴趣的人。这一页的手机版，随时能翻回来。</p>
+        <div class="qr-svg" id="qrCta" aria-label="指向本页的二维码"></div>
+        <button class="qr-copy" id="copyCta" type="button" style="max-width:240px;margin:16px auto 0">复制链接</button>
       </div>
-      <div class="timeline">
-        <div class="tl-item reveal"><div class="yr">2017 — 至今</div><h3>九年团队经营</h3><p>从一个人，到带一支队伍。见过太多人间冷暖，也练出了把复杂讲简单的本事。</p></div>
-        <div class="tl-item reveal"><div class="yr">管理时期</div><h3>管理实战经验</h3><p>在后台看过整个业务的运转，才明白前端每一句话的分量。</p></div>
-        <div class="tl-item reveal"><div class="yr">持续中</div><h3>培训讲师</h3><p>把自己的经验变成别人的起点，是我最享受的事之一。</p></div>
-        <div class="tl-item reveal"><div class="yr">现在</div><h3>用 AI 重构内容生产</h3><p>日报、科普、课程——让 AI 做重复，让人做温度。</p></div>
+      <div class="cta-card reveal">
+        <div class="eyebrow" style="justify-content:center">ADD ME ON WECHAT</div>
+        <h2 class="h2">加我微信</h2>
+        <p class="lead" style="margin-left:auto;margin-right:auto">想当面聊聊、或先理一遍家里的保单，扫码加我。备注一句"保障咨询"更好。</p>
+                <div class="wx-qr">
+          <img src="assets/wechat-qr.png" alt="顾维鲁微信二维码" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="wx-qr-ph">把你的微信二维码图片<br>命名为 <b>wechat-qr.png</b><br>放进 assets/ 目录即可</div>
+          <div class="wx-id">微信号：<b>13551139187</b></div>
+          <div class="wx-id wx-id--sub">扫码或搜索添加，备注「保障咨询」</div>
+        </div>
       </div>
+    </div>
+    <div class="cta-links">
+      <a href="insurance.html">保障主页（全貌）→</a>
+      <a href="life/">回 顾言 GU事（生活站）→</a>
     </div>
   </section>
 
-  <!-- ====== PARTNER / CTA（光标拖尾） ====== -->
-  <section class="partner" id="partner">
-    <div class="partner-inner fade-up">
-      <h2>一起<span style="font-family:var(--font-serif)">折腾</span>点东西</h2>
-      <a href="#journal" class="btn btn-primary magnetic">开始记录</a>
-      <a href="/admin" class="btn btn-ghost magnetic">进入后台</a>
+  <!-- ===== 保险站跨页导航 — 分段控制器风格 ===== -->
+  <style>
+  .site-nav{max-width:520px;margin:52px auto 8px;padding:0 24px}
+  .site-nav .sn-kicker{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#86868b;text-align:center;margin-bottom:14px;font-weight:500}
+  /* 分段控制器容器 */
+  .site-nav .sn-seg{display:inline-flex;background:#efeff5;border-radius:10px;padding:3px;gap:2px}
+  [data-theme="dark"] .site-nav .sn-seg{background:rgba(255,255,255,.06)}
+  .site-nav .sn-seg a{display:inline-flex;align-items:center;gap:5px;padding:9px 18px;border-radius:7px;
+    font-size:13px;font-weight:500;color:#666;text-decoration:none;transition:all .2s ease}
+  [data-theme="dark"] .site-nav .sn-seg a{color:#98989d}
+  .site-nav .sn-seg a:hover{color:#1d1d1f;background:rgba(0,0,0,.03)}
+  [data-theme="dark"] .site-nav .sn-seg a:hover{color:#fff;background:rgba(255,255,255,.07)}
+  /* 当前页：白底浮起 */
+  .site-nav .sn-seg a.cur{background:#fff;color:#1d1d1f;box-shadow:0 1px 5px rgba(0,0,0,.08),0 2px 10px rgba(0,0,0,.05);font-weight:600}
+  [data-theme="dark"] .site-nav .sn-seg a.cur{background:rgba(255,255,255,.11);color:#fff;
+    box-shadow:0 1px 5px rgba(0,0,0,.16),0 2px 10px rgba(0,0,0,.12)}
+  /* 生活站金色语义 */
+  .site-nav .sn-seg a.home{color:#a07d2c}
+  [data-theme="dark"] .site-nav .sn-seg a.home{color:#e9cb8c}
+  .site-nav .sn-seg a.home:hover{color:#8a6a1f;background:rgba(160,125,44,.05)}
+  [data-theme="dark"] .site-nav .sn-seg a.home:hover{color:#f4dcab;background:rgba(233,203,140,.08)}
+  @media(max-width:480px){
+    .site-nav .sn-seg{flex-wrap:justify-center}
+    .site-nav .sn-seg a{padding:8px 14px;font-size:12.5px}
+  }
+  </style>
+  <nav class="site-nav" aria-label="保险站导航">
+    <div class="sn-kicker">顾维鲁 · 保险站</div>
+    <div class="sn-seg">
+      <a href="./" class="cur">个人能力页</a>
+      <a href="insurance.html">保障主页</a>
+      <a href="life/" class="home">生活站</a>
     </div>
-  </section>
+  </nav>
 
-  <footer>
-    <div class="wrap">
-      <div class="f-brand">顾言 <span class='f-gu'>GU事</span></div>
-      <p style="margin-top:10px">正经工作之外，全是热爱。</p>
-      <div class="f-links">
-        <a href="#about">关于</a>
-        <a href="#journal">日记流</a>
-        <a href="#lab">实验室</a>
-        <a href="#career">事业线</a>
-      </div>
-      <p id="fCopy" style="margin-top:22px;opacity:.7">© 2026 顾言 · 一个持续生长的个人站点</p>
-    </div>
+  <footer class="foot">
+    <p>顾维鲁 · 保险代理人</p>
   </footer>
 
-  <!-- ====== 星球内部世界（冲进星球后的视图） ====== -->
-  <div id="world">
-    <button class="wback" id="backBtn">← 回到星海</button>
-    <div class="whead">
-      <div class="wtag" id="wTag"></div>
-      <h2 id="wTitle"></h2>
-      <div class="wsub" id="wSub"></div>
-    </div>
-    <div class="grid" id="wGrid"></div>
-  </div>
+  <button class="back-top" id="backTop" type="button" title="回到顶部" aria-label="返回页面顶部">↑</button>
 
-  <!-- ====== 底部悬浮药丸导航 ====== -->
-  <div class="float-nav" id="floatNav">
-    <span class="v">顾</span>
-    <span class="label-hide" style="font-size:14px;color:var(--muted)">一个人的数字生活志</span>
-    <a href="#journal" class="btn btn-primary magnetic">开始记录</a>
-  </div>
+  <button class="scan-fab" id="scanFab" type="button">扫码带走 ↑</button>
 
-<script>
-// ========== 跑马灯：真实上传图（8 张 ×2 无缝循环） ==========
-(function(){
-  const imgs=[
-    "assets/journal/balcony.jpg","assets/journal/aiart.jpg","assets/journal/nas.jpg",
-    "assets/journal/team.jpg","assets/journal/autodaily.jpg",
-    "assets/lab/genart.jpg","assets/lab/prompt.jpg","assets/lab/auto.jpg","assets/lab/kb.jpg",
-    "assets/uploads/ms36qfn4c8wik.jpg","assets/uploads/ms3ajt6gn0rpi.jpg"
-  ];
-  const track=document.getElementById('marqueeTrack');
-  if(track){
-    const seq=imgs.concat(imgs);
-    track.innerHTML=seq.map(s=>`<img src="${s}" alt="" loading="lazy">`).join('');
-  }
-})();
+  <!-- 二维码库（离线生成，无需网络）：随页面一起部署 _qr.js 即可 -->
+  <script src="_qr.js"></script>
 
-// ========== CUSTOM CURSOR ==========
-const cursor=document.getElementById('cursor');
-let mx=0,my=0,cx=0,cy=0;
-window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
-function loop(){
-  cx+=(mx-cx)*0.18; cy+=(my-cy)*0.18;
-  cursor.style.left=cx+'px'; cursor.style.top=cy+'px';
-  requestAnimationFrame(loop);
-}
-loop();
-document.querySelectorAll('a,button,.magnetic,.card,.lab-item,.stage,.chip,.btn,.satellite').forEach(el=>{
-  el.addEventListener('mouseenter',()=>cursor.classList.add('big'));
-  el.addEventListener('mouseleave',()=>cursor.classList.remove('big'));
-});
+  <!-- 应用逻辑 -->
+  <script>
+  (function(){
+    // 二维码指向「当前打开的页面地址」本身：
+    //  · 局域网/本地测试时，扫码 = 打开局域网地址（手机连同一 WiFi 即可，无需上外网）
+    //  · 正式部署后，扫码 = 自动打开正式网址（无需改代码）
+    //  · 若以本地文件(file://)直接双击打开，则回退到下面的正式网址
+    // 想让二维码指向别的页（比如保障主页 insurance.html），把 DEPLOYED_URL 填上、再把 QR_TARGET 改成它即可。
+    var DEPLOYED_URL = 'https://kalidoit.github.io/';
+    var QR_TARGET = (location.protocol === 'file:')
+        ? DEPLOYED_URL
+        : location.href.split('#')[0];
 
-// ========== MAGNETIC BUTTONS ==========
-document.querySelectorAll('.magnetic').forEach(el=>{
-  el.addEventListener('mousemove',e=>{
-    const r=el.getBoundingClientRect();
-    const x=e.clientX-r.left-r.width/2, y=e.clientY-r.top-r.height/2;
-    el.style.transform=`translate(${x*0.3}px,${y*0.4}px)`;
-  });
-  el.addEventListener('mouseleave',()=>{el.style.transform='translate(0,0)';});
-});
-
-// ========== NAV SCROLL STATE ==========
-const nav=document.getElementById('nav');
-window.addEventListener('scroll',()=>{ nav.classList.toggle('scrolled',window.scrollY>40); });
-
-// ========== DRAWER ==========
-const drawer=document.getElementById('drawer');
-document.getElementById('hamburger').addEventListener('click',()=>drawer.classList.add('open'));
-document.getElementById('drawerClose').addEventListener('click',()=>drawer.classList.remove('open'));
-drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>drawer.classList.remove('open')));
-
-// ========== SPECIAL OVERLAY ==========
-const special=document.getElementById('special');
-document.getElementById('stage').addEventListener('click',()=>special.classList.add('open'));
-document.getElementById('specialClose').addEventListener('click',()=>special.classList.remove('open'));
-document.addEventListener('keydown',e=>{if(e.key==='Escape')special.classList.remove('open');});
-
-// ========== REVEAL (fade-in-up 错落) ==========
-// 服务端渲染的卡片默认不带 fade-up，这里动态补上，使它们也参与错落淡入
-['.attitude .att-card','.journal-grid .card','.lab-grid .lab-item','.timeline .tl-item'].forEach(sel=>{
-  document.querySelectorAll(sel).forEach(el=>el.classList.add('fade-up'));
-});
-const io=new IntersectionObserver((entries)=>{
-  entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('in-view'); io.unobserve(en.target);} });
-},{threshold:0.15});
-document.querySelectorAll('.fade-up').forEach((el,i)=>{
-  el.style.animationDelay=((i%4)*0.1+0.05)+'s';
-  io.observe(el);
-});
-
-// ========== JOURNAL FILTER ==========
-const filters=document.getElementById('filters');
-const grid=document.getElementById('journalGrid');
-filters.addEventListener('click',e=>{
-  const chip=e.target.closest('.chip'); if(!chip)return;
-  filters.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
-  chip.classList.add('active');
-  const f=chip.dataset.f;
-  grid.querySelectorAll('.card').forEach(card=>{
-    const show = f==='all' || card.dataset.cat===f;
-    card.style.display = show ? '' : 'none';
-  });
-});
-
-// ========== 视差图（态度区） ==========
-(function(){
-  const wrap=document.querySelector('.parallax-wrap');
-  const img=document.getElementById('parallaxImg');
-  if(!wrap||!img) return;
-  let ticking=false;
-  function update(){
-    const r=wrap.getBoundingClientRect();
-    const vh=innerHeight;
-    const progress=(vh - r.top)/(vh + r.height); // 0..1 进入视口
-    const offset=Math.max(-120,Math.min(120,(0.5-progress)*240));
-    img.style.transform=`translateY(${offset}px) scale(1.12)`;
-    ticking=false;
-  }
-  addEventListener('scroll',()=>{ if(!ticking){ ticking=true; requestAnimationFrame(update);} },{passive:true});
-  update();
-})();
-
-// ========== 光标拖尾（Partner 区） ==========
-(function(){
-  const sec=document.getElementById('partner');
-  if(!sec) return;
-  const pool=[
-    "assets/journal/balcony.jpg","assets/journal/aiart.jpg","assets/lab/genart.jpg","assets/lab/kb.jpg",
-    "assets/uploads/ms36qfn4c8wik.jpg","assets/uploads/ms3ajt6gn0rpi.jpg"
-  ];
-  let lastSpawn=0;
-  sec.addEventListener('mousemove',e=>{
-    const now=performance.now();
-    if(now-lastSpawn<80) return;
-    lastSpawn=now;
-    const img=document.createElement('img');
-    img.src=pool[(Math.random()*pool.length)|0];
-    img.className='trail';
-    const rot=(Math.random()*20-10).toFixed(1);
-    img.style.left=e.clientX+'px';
-    img.style.top=e.clientY+'px';
-    img.style.transform=`translate(-50%,-50%) rotate(${rot}deg) scale(1)`;
-    img.style.opacity='1';
-    document.body.appendChild(img);
-    requestAnimationFrame(()=>{
-      img.style.transition='opacity 1s ease, transform 1s ease';
-      img.style.opacity='0';
-      img.style.transform=`translate(-50%,-50%) rotate(${rot}deg) scale(0.85)`;
-    });
-    setTimeout(()=>img.remove(),1050);
-  });
-})();
-
-// ========== HERO 进入视口 ==========
-const hero=document.getElementById('hero');
-if(hero){
-  const hio=new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting){ hero.classList.add('in-view'); hio.unobserve(hero);} });
-  },{threshold:0.2});
-  hio.observe(hero);
-}
-
-// ============================================
-// HERO — 6 satellites orbit the title + collision fireworks（原样保留）
-// ============================================
-(function(){
-  const orbitEl = document.querySelector('.hero-orbit');
-  const titleEl = orbitEl && orbitEl.querySelector('.hero-title');
-  const sats = orbitEl ? Array.from(orbitEl.querySelectorAll('.satellite')) : [];
-  const rings = orbitEl ? Array.from(orbitEl.querySelectorAll('.orbit-ring')) : [];
-  const fx = document.getElementById('fx');
-  if(!orbitEl || !titleEl || sats.length<2 || !fx) return;
-  const ctx = fx.getContext('2d');
-  const dpr = Math.min(window.devicePixelRatio||1, 2);
-
-  const RINGS = [{},{},{},{},{},{},{}];
-  let center = {x:0,y:0};
-  function measure(){
-    const tr = titleEl.getBoundingClientRect();
-    const oc = orbitEl.getBoundingClientRect();
-    center.x = oc.left + oc.width/2;
-    center.y = oc.top + oc.height/2;
-    const W = tr.width || 300;
-    // 轨道半径按真实行星距离排序：内圈小、外圈大（与真实太阳系一致），index 0=水星(内) … 5=土星(外)
-    RINGS[0] = {major:W*0.46, tilt:0.30, rot:18};
-    RINGS[1] = {major:W*0.62, tilt:0.34, rot:-12};
-    RINGS[2] = {major:W*0.80, tilt:0.39, rot:30};
-    RINGS[3] = {major:W*0.98, tilt:0.43, rot:6};
-    RINGS[4] = {major:W*1.16, tilt:0.47, rot:-22};
-    RINGS[5] = {major:W*1.34, tilt:0.52, rot:120};
-    // 太阳：最外轨道；半径受视口约束，确保任何屏幕都在可见范围内、可点击
-    RINGS[6] = {major:Math.min(W*1.6, innerWidth*0.42, innerHeight*0.42), tilt:0.56, rot:48};
-    const set=(el,r)=>{ if(el){ el.style.width=(r.major*2)+'px'; el.style.height=(r.major*r.tilt*2)+'px'; el.style.transform=`translate(-50%,-50%) rotate(${r.rot}deg)`; } };
-    RINGS.forEach((r,i)=>set(rings[i],r));
-  }
-
-  const DEF = [{"ring":0,"ang":0,"spd":0.008,"dir":1,"size":8.5,"name":"Saturn","c1":"#cfc6a4","c2":"#a89e76","glow":"rgba(180,170,130,.50)"},{"ring":1,"ang":3.14,"spd":0.011,"dir":-1,"size":7,"name":"Jupiter","c1":"#c2a98f","c2":"#8f7a63","glow":"rgba(180,150,120,.50)"},{"ring":2,"ang":1.1,"spd":0.014,"dir":1,"size":9,"name":"Luna","c1":"#dde0e6","c2":"#a6abb6","glow":"rgba(195,200,210,.50)"},{"ring":3,"ang":3.74,"spd":0.017,"dir":-1,"size":6.5,"name":"Venus","c1":"#cabf9e","c2":"#9a8f6e","glow":"rgba(190,180,140,.50)"},{"ring":4,"ang":2.2,"spd":0.02,"dir":1,"size":7.5,"name":"Mercury","c1":"#b9bcc2","c2":"#6e7178","glow":"rgba(160,165,175,.50)"},{"ring":5,"ang":0.7,"spd":0.0095,"dir":1,"size":8,"name":"Mars","c1":"#b87a6a","c2":"#8a4a3c","glow":"rgba(190,120,100,.55)"},{"ring":6,"ang":5.5,"spd":0.006,"dir":1,"size":18,"name":"Sun","c1":"#ffcf6e","c2":"#ff7a1a","glow":"rgba(255,150,40,.7)"}];
-  // 真实行星物理参数：公转周期(天)、真实距离排序、写实配色
-  const T_DAYS = {Mercury:88, Venus:225, Luna:365, Mars:687, Jupiter:4333, Saturn:10759, Sun:150};
-  const RORDER = {Mercury:0, Venus:1, Luna:2, Mars:3, Jupiter:4, Saturn:5};
-  const PALETTE = {
-    Mercury:{c1:'#cfc8bd',c2:'#6e6a61',glow:'rgba(150,145,135,.5)'},
-    Venus:  {c1:'#f6e8b8',c2:'#a07c2e',glow:'rgba(210,180,120,.5)'},
-    Luna:   {c1:'#e2e2e2',c2:'#6b6b6b',glow:'rgba(190,195,205,.5)'},
-    Mars:   {c1:'#e88a5e',c2:'#6e2a17',glow:'rgba(200,110,90,.5)'},
-    Jupiter:{c1:'#ecd2ad',c2:'#8a6a3a',glow:'rgba(200,160,110,.5)'},
-    Saturn: {c1:'#f0e1b2',c2:'#8a7040',glow:'rgba(210,180,120,.5)'},
-    Sun:    {c1:'#ffd27a',c2:'#ff7a1a',glow:'rgba(255,150,40,.7)'}
-  };
-  // 真实卫星（绕行星的小月亮）：r=行星半径倍数，dur=公转秒，sz=px
-  const MOONS = {
-    Saturn:[{r:1.5,dur:6.0,sz:3.0,c:'#d8cfa8'},{r:2.1,dur:9.0,sz:2.4,c:'#c9bf95'}],
-    Jupiter:[{r:1.5,dur:5.0,sz:3.0,c:'#e8d9b0'},{r:2.2,dur:8.0,sz:2.6,c:'#d8c79a'}],
-    Mars:[{r:1.4,dur:4.0,sz:2.2,c:'#c9a48f'},{r:1.9,dur:6.5,sz:1.6,c:'#b8917f'}]
-  };
-  const BASE_PERIOD = 60;  // 水星绕一圈约 60s（温和）；其余按真实周期比放大
-  const TMERC = 88;
-  const SCALE = 1.9;       // 放大基础球体（原 6.5~9px 偏小）
-
-  const S = DEF.map((d,i)=>{
-    const pal = PALETTE[d.name] || {c1:d.c1,c2:d.c2,glow:d.glow};
-    return {
-      ...d,
-      c1:pal.c1, c2:pal.c2, glow:pal.glow,
-      x:0, y:0, el:sats[i],
-      size:(d.size||8)*SCALE,
-      ring:(RORDER[d.name]!==undefined)?RORDER[d.name]:(d.ring||0),
-      dir:1,  // 同向公转，贴近真实太阳系
-      omega:(2*Math.PI)/(BASE_PERIOD*((T_DAYS[d.name]||400)/TMERC)), // 真实相对角速度(rad/s)
-      ang:(d.ang!==undefined)?d.ang:Math.random()*Math.PI*2,
-      hoverScale:1, targetScale:1, speedFactor:1, targetSpeed:1
-    };
-  });
-  // 太阳（恒星）强制绑定最外轨道 ring6，与 HTML 第 7 条 .orbit-ring 一一对应
-  S.forEach(s=>{ if(s.name==='Sun') s.ring=6; });
-  window.__sats = S;   // 暴露给飞入状态机
-
-  // ===== 原生 WebGL 真实 3D 球体（零依赖，NASA 贴图包裹到球面几何，任意缩放不失真）=====
-  const SPIN_DUR = {Mercury:22,Venus:44,Luna:30,Mars:13,Jupiter:8,Saturn:16,Sun:25};
-  const ATMO_RGB = {Mercury:[0.71,0.71,0.68],Venus:[0.96,0.84,0.51],Luna:[0.78,0.80,0.84],Mars:[0.82,0.43,0.31],Jupiter:[0.86,0.72,0.55],Saturn:[0.90,0.80,0.59],Sun:[1.0,0.55,0.18]};
-  const TILT     = {Mercury:0.12,Venus:0.10,Luna:0.20,Mars:0.30,Jupiter:0.20,Saturn:0.47,Sun:0.13};
-  const _DPR = Math.min(window.devicePixelRatio||1, 2);
-  function createSphere3D(canvas, src, atmo, tilt, opts){
-    const gl = canvas.getContext('webgl', {alpha:true, antialias:true, premultipliedAlpha:false, depth:true}) || canvas.getContext('experimental-webgl');
-    const baseRes = 320;
-    function sizeCanvas(px){ const r=Math.round((px||baseRes)*_DPR); canvas.width=r; canvas.height=r; if(gl) gl.viewport(0,0,r,r); }
-    if(!gl){
-      // 2D 兜底（极少见：浏览器不支持 WebGL）：平铺贴图，至少能显示
-      const c2=canvas.getContext('2d'); const img=new Image();
-      img.onload=function(){ if(c2){ c2.clearRect(0,0,canvas.width,canvas.height); c2.drawImage(img,0,0,canvas.width,canvas.height); } };
-      img.src=src;
-      return { draw:function(){}, setResolution:function(px){ canvas.width=Math.round((px||baseRes)*_DPR); canvas.height=canvas.width; if(c2&&img.complete){ c2.clearRect(0,0,canvas.width,canvas.height); c2.drawImage(img,0,0,canvas.width,canvas.height); } } };
+    function renderQR(el){
+      if(!el || typeof qrcode === 'undefined') return;
+      try{
+        var qr = qrcode(0,'M');
+        qr.addData(QR_TARGET);
+        qr.make();
+        el.innerHTML = qr.createSvgTag({cellSize:6, margin:1});
+      }catch(e){ console.warn('QR 生成失败：', e); }
     }
-    sizeCanvas();
-    // 球几何（UV 球：lat/long 网格，极点自然收敛成点）
-    const latB=48, lonB=64, pos=[],nor=[],uv=[],idx=[];
-    for(let i=0;i<=latB;i++){ const th=i*Math.PI/latB, st=Math.sin(th), ct=Math.cos(th);
-      for(let j=0;j<=lonB;j++){ const ph=j*2*Math.PI/lonB, sp=Math.sin(ph), cp=Math.cos(ph);
-        const x=cp*st, y=ct, z=sp*st; pos.push(x,y,z); nor.push(x,y,z); uv.push(j/lonB, i/latB); } }
-    for(let i=0;i<latB;i++) for(let j=0;j<lonB;j++){ const a=i*(lonB+1)+j, b=a+lonB+1; idx.push(a,b,a+1, b,b+1,a+1); }
-    function mkBuf(d){ const b=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,b); gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(d),gl.STATIC_DRAW); return b; }
-    const pB=mkBuf(pos), nB=mkBuf(nor), uB=mkBuf(uv);
-    const iB=gl.createBuffer(); gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,iB); gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,new Uint16Array(idx),gl.STATIC_DRAW);
-    const VS='attribute vec3 aPos;attribute vec3 aNor;attribute vec2 aUV;uniform float uSpin;uniform float uTilt;varying vec2 vUV;varying vec3 vN;void main(){float cs=cos(uSpin),sn=sin(uSpin),ct=cos(uTilt),tn=sin(uTilt);vec3 p=aPos;float y1=ct*p.y-tn*p.z,z1=tn*p.y+ct*p.z;p.y=y1;p.z=z1;float x2=cs*p.x+sn*p.z,z2=-sn*p.x+cs*p.z;p.x=x2;p.z=z2;vec3 n=aNor;float ny1=ct*n.y-tn*n.z,nz1=tn*n.y+ct*n.z;n.y=ny1;n.z=nz1;float nx2=cs*n.x+sn*n.z,nz2=-sn*n.x+cs*n.z;n.x=nx2;n.z=nz2;vN=n;vUV=aUV;gl_Position=vec4(p.xy*0.98,p.z,1.0);}';
-    const FS='precision mediump float;varying vec2 vUV;varying vec3 vN;uniform sampler2D uTex;uniform vec3 uLight;uniform float uAmb;uniform vec3 uAtmo;uniform float uTime;uniform float uSpec;uniform float uBump;uniform float uPhase;uniform float uEmissive;float lum(vec3 c){return dot(c,vec3(0.299,0.587,0.114));}void main(){vec3 N=normalize(vN);float a=uTime*0.12+uPhase;vec3 L=normalize(vec3(uLight.x*cos(a)-uLight.z*sin(a),uLight.y,uLight.x*sin(a)+uLight.z*cos(a)));float e=0.0022;vec3 tex=texture2D(uTex,vUV).rgb;float h=lum(tex);float hx=lum(texture2D(uTex,vUV+vec2(e,0.0)).rgb);float hy=lum(texture2D(uTex,vUV+vec2(0.0,e)).rgb);vec3 Nb=normalize(N+vec3((h-hx),-(h-hy),0.0)*uBump*42.0);float d=max(dot(Nb,L),0.0);float diff=uAmb+(1.0-uAmb)*smoothstep(0.0,0.82,d);vec3 planet=tex*diff;float fres=pow(1.0-max(dot(normalize(vN),vec3(0.0,0.0,1.0)),0.0),3.0);planet+=uAtmo*fres*(0.4+0.6*d);vec3 V=vec3(0.0,0.0,1.0);vec3 Hh=normalize(L+V);float spec=pow(max(dot(Nb,Hh),0.0),22.0)*uSpec*(0.35+0.65*d);planet+=spec*vec3(1.0);float hot=pow(h,1.25);vec3 star=tex*(0.92+0.7*hot);star+=vec3(1.0,0.5,0.14)*fres*1.7;star+=vec3(1.0,0.55,0.18)*pow(hot,2.0)*0.5;vec3 col=mix(planet,star,uEmissive);gl_FragColor=vec4(col,1.0);}';
-    function sh(t,s){ const o=gl.createShader(t); gl.shaderSource(o,s); gl.compileShader(o); if(!gl.getShaderParameter(o,gl.COMPILE_STATUS)) console.error('sphere shader:',gl.getShaderInfoLog(o)); return o; }
-    const prog=gl.createProgram(); gl.attachShader(prog,sh(gl.VERTEX_SHADER,VS)); gl.attachShader(prog,sh(gl.FRAGMENT_SHADER,FS)); gl.linkProgram(prog);
-    const aPos=gl.getAttribLocation(prog,'aPos'), aNor=gl.getAttribLocation(prog,'aNor'), aUV=gl.getAttribLocation(prog,'aUV');
-    gl.bindBuffer(gl.ARRAY_BUFFER,pB); gl.enableVertexAttribArray(aPos); gl.vertexAttribPointer(aPos,3,gl.FLOAT,false,0,0);
-    gl.bindBuffer(gl.ARRAY_BUFFER,nB); gl.enableVertexAttribArray(aNor); gl.vertexAttribPointer(aNor,3,gl.FLOAT,false,0,0);
-    gl.bindBuffer(gl.ARRAY_BUFFER,uB); gl.enableVertexAttribArray(aUV); gl.vertexAttribPointer(aUV,2,gl.FLOAT,false,0,0);
-    const uSpin=gl.getUniformLocation(prog,'uSpin'), uTilt=gl.getUniformLocation(prog,'uTilt'), uTex=gl.getUniformLocation(prog,'uTex'), uLight=gl.getUniformLocation(prog,'uLight'), uAmb=gl.getUniformLocation(prog,'uAmb'), uAtmo=gl.getUniformLocation(prog,'uAtmo'), uTime=gl.getUniformLocation(prog,'uTime'), uSpec=gl.getUniformLocation(prog,'uSpec'), uBump=gl.getUniformLocation(prog,'uBump'), uPhase=gl.getUniformLocation(prog,'uPhase'), uEmissive=gl.getUniformLocation(prog,'uEmissive');
-    gl.useProgram(prog);
-    gl.uniform1i(uTex,0); gl.uniform3f(uLight,-0.5,0.55,0.85); gl.uniform1f(uAmb,0.30); gl.uniform3f(uAtmo,atmo[0],atmo[1],atmo[2]); gl.uniform1f(uSpec,(opts&&opts.spec!=null)?opts.spec:0.3); gl.uniform1f(uBump,(opts&&opts.bump!=null)?opts.bump:1.0); gl.uniform1f(uPhase,(opts&&opts.phase!=null)?opts.phase:0.0); gl.uniform1f(uEmissive,(opts&&opts.emissive)?1.0:0.0);
-    // 纹理：先用大气色占位（立即有立体感），真实贴图异步加载后替换
-    const tex=gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D,tex);
-    const fc=atmo.map(function(v){return Math.round(v*255);});
-    gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB,1,1,0,gl.RGB,gl.UNSIGNED_BYTE,new Uint8Array([fc[0],fc[1],fc[2]]));
-    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.REPEAT); gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR); gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
-    const img=new Image(); img.onload=function(){ gl.bindTexture(gl.TEXTURE_2D,tex); gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB,gl.RGB,gl.UNSIGNED_BYTE,img); gl.generateMipmap(gl.TEXTURE_2D); };
-    img.src=src;
-    gl.enable(gl.DEPTH_TEST); gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA); gl.clearColor(0,0,0,0);
-    return { setResolution:function(px){ sizeCanvas(px); }, draw:function(spin){ if(!gl) return; gl.viewport(0,0,canvas.width,canvas.height); gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT); gl.useProgram(prog); gl.uniform1f(uSpin,spin); gl.uniform1f(uTilt,tilt); gl.uniform1f(uTime,performance.now()*0.001); gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,iB); gl.drawElements(gl.TRIANGLES,idx.length,gl.UNSIGNED_SHORT,0); } };
-  }
 
-  // 每颗星的光照个性（spec 镜面强度 / bump 表面浮雕 / phase 相位偏移）
-  const RP={Mercury:{spec:0.15,bump:1.2,phase:0.0},Venus:{spec:0.50,bump:0.40,phase:1.1},Luna:{spec:0.10,bump:1.4,phase:2.0},Mars:{spec:0.20,bump:1.0,phase:3.0},Jupiter:{spec:0.35,bump:0.7,phase:4.0},Saturn:{spec:0.40,bump:0.6,phase:5.0},Sun:{spec:0.0,bump:0.5,phase:0.0,emissive:true}};
-  // 构建球体 DOM：.sphere(写实表面) + .pd(细节) + 土星环 / 卫星
-  S.forEach(s=>{
-    const el = s.el;
-    el.style.width=s.size+'px';
-    el.style.height=s.size+'px';
-    el.style.boxShadow=`0 0 10px ${s.glow}, 0 0 22px ${s.glow}`;
-    el.classList.add('sat--'+s.name.toLowerCase());
-    const sphere=document.createElement('div'); sphere.className='sphere';
-    const cv=document.createElement('canvas'); cv.className='sphere-canvas';
-    sphere.appendChild(cv); el.appendChild(sphere);
-    // 真实 3D 球面（NASA 贴图包裹到几何）
-    s.spin=0;
-    s.spinRate=(2*Math.PI)/(SPIN_DUR[s.name]||20)*(s.name==='Venus'?-1:1);
-    s.sphere3d=createSphere3D(cv,'assets/planets/'+s.name.toLowerCase()+'.jpg',ATMO_RGB[s.name]||[0.8,0.8,0.8],TILT[s.name]||0.2,RP[s.name]||{spec:0.3,bump:1.0,phase:0.0});
-    if(s.name==='Sun'){
-      const rays=document.createElement('div'); rays.className='sun-rays';
-      const glow=document.createElement('div'); glow.className='sun-glow';
-      el.appendChild(rays); el.appendChild(glow);
+    function copyLink(btn){
+      var done = function(){ btn.classList.add('done'); var t=btn.textContent; btn.textContent='已复制 ✓'; setTimeout(function(){btn.classList.remove('done');btn.textContent=t;},1800); };
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(QR_TARGET).then(done).catch(function(){ fallbackCopy(QR_TARGET); done(); });
+      }else{ fallbackCopy(QR_TARGET); done(); }
     }
-    if(s.name==='Saturn'){
-      const r1=document.createElement('div'); r1.className='sat-ring';
-      const r2=document.createElement('div'); r2.className='sat-ring r2';
-      el.appendChild(r1); el.appendChild(r2);
+    function fallbackCopy(text){
+      var ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');}catch(e){} document.body.removeChild(ta);
     }
-    if(MOONS[s.name]){
-      const mw=document.createElement('div'); mw.className='sat-moons';
-      const R=s.size/2;
-      MOONS[s.name].forEach(m=>{
-        const orb=document.createElement('div'); orb.className='moon-orbit';
-        orb.style.animationDuration=m.dur+'s';
-        const moon=document.createElement('div'); moon.className='moon';
-        moon.style.width=m.sz+'px'; moon.style.height=m.sz+'px';
-        moon.style.background='radial-gradient(circle at 35% 35%,#f0f1f3,'+m.c+')';
-        moon.style.transform='translate(-50%,-50%) translateY('+(-(R*m.r))+'px)';
-        orb.appendChild(moon); mw.appendChild(orb);
-      });
-      el.appendChild(mw);
-    }
-  });
 
-  const labels = S.map(s=>{
-    const el = document.createElement('span');
-    el.className = 'sat-label';
-    el.textContent = s.name;
-    orbitEl.appendChild(el);
-    return el;
-  });
-
-  let fw = [];
-  const lastBurst = {};
-  function spawnFirework(x,y,n){
-    n = n || 16;
-    for(let i=0;i<n;i++){
-      const a = (i/n)*Math.PI*2 + Math.random()*0.4;
-      const sp = 1.2 + Math.random()*2.2;
-      fw.push({ x, y, vx:Math.cos(a)*sp, vy:Math.sin(a)*sp-0.6, life:1, decay:0.018+Math.random()*0.02, size:2+Math.random()*2.5, hue:`hsl(${(Math.random()*360)|0}, 95%, ${62+Math.random()*13}%)` });
-    }
-  }
-  function checkCollisions(now){
-    // ★ 用实际渲染尺寸（depth 缩放 + hover 放大）做碰撞半径，并排除"一前一后"的假碰撞
-    const pts = S.map(s=>{
-      const front = Math.sin(s.ang) >= 0;
-      const depth = 1 + 0.55 * Math.sin(s.ang);
-      const renderR = (s.size/2) * depth * s.hoverScale;
-      return {name:s.name, x:center.x+s.x, y:center.y+s.y, r:renderR, front:front};
-    });
-    for(let i=0;i<pts.length;i++) for(let j=i+1;j<pts.length;j++){
-      if(pts[i].name==='Sun'||pts[j].name==='Sun') continue;
-      // ★ 深度差太大 = 一前一后，3D 轨道交叉但视觉分离，不算碰撞
-      if(pts[i].front !== pts[j].front) continue;
-      const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y;
-      const dist=Math.hypot(dx,dy);
-      // ★ 实际渲染半径之和（不加额外容差，精确匹配视觉）
-      const min = pts[i].r + pts[j].r;
-      const key = i+'-'+j;
-      if(dist < min && (!lastBurst[key] || now-lastBurst[key] > 700)){
-        lastBurst[key] = now;
-        spawnFirework((pts[i].x+pts[j].x)/2, (pts[i].y+pts[j].y)/2);
+    /* 主题切换：默认浅色，记忆选择，跨页同步 */
+    (function(){
+      var KEY = 'insurance-theme';
+      var root = document.documentElement;
+      var btn = document.getElementById('themeToggle');
+      function apply(t){ root.setAttribute('data-theme', t); try{ localStorage.setItem(KEY, t); }catch(e){} }
+      if(btn){
+        btn.addEventListener('click', function(){
+          var cur = (root.getAttribute('data-theme') === 'dark') ? 'light' : 'dark';
+          apply(cur);
+        });
       }
-    }
-  }
-  function resizeFx(){
-    fx.width = innerWidth*dpr; fx.height = innerHeight*dpr;
-    fx.style.width = innerWidth+'px'; fx.style.height = innerHeight+'px';
-    ctx.setTransform(dpr,0,0,dpr,0,0);
-  }
-  resizeFx(); addEventListener('resize', ()=>{ resizeFx(); measure(); });
+    })();
 
-  let running=false, heroVisible=false, lastT=performance.now();
-  function frame(){
-    const now = performance.now();
-    const dt = Math.min(0.05, (now-lastT)/1000); lastT=now;
-    // 鼠标邻近：每颗星独立判断（与选中无关）→ 减速(不归零)+在2倍直径内放大至5倍
-    if(!window.__flyIn){
-      for(let k=0;k<S.length;k++){
-        const s=S[k];
-        const r=s.el.getBoundingClientRect();
-        const bcx=r.left+r.width/2, bcy=r.top+r.height/2;
-        const D=s.size;                         // 以基础直径为准，避免反馈抖动
-        const dist=Math.hypot(mx-bcx, my-bcy);
-        let tScale=1, tSpeed=1;
-        if(dist < 2*D){ tScale = 1 + 4*(1 - dist/(2*D)); }  // 越近越大，中心最大 5 倍
-        if(dist < 4*D){ tSpeed = 0.12; }                     // 接近即减速，但保留微动（非静止）
-        s.targetScale=tScale; s.targetSpeed=tSpeed;
-      }
-    } else {
-      // 飞入期间：其他星不受任何影响，满速正常公转
-      for(let k=0;k<S.length;k++){ S[k].targetScale=1; S[k].targetSpeed=1; }
-    }
-    for(let k=0;k<S.length;k++){
-      const s = S[k];
-      s.hoverScale  += (s.targetScale  - s.hoverScale )*0.15;  // 平滑放大
-      s.speedFactor += (s.targetSpeed  - s.speedFactor)*0.12;  // 平滑减速
-      s.ang += s.dir * s.omega * dt * s.speedFactor;            // 真实相对角速度
-      const ring = RINGS[s.ring];
-      const lx = Math.cos(s.ang) * ring.major;
-      const ly = Math.sin(s.ang) * ring.major * ring.tilt;
-      const cr = Math.cos(ring.rot*Math.PI/180), sr = Math.sin(ring.rot*Math.PI/180);
-      s.x = lx*cr - ly*sr;
-      s.y = lx*sr + ly*cr;
-      const front = Math.sin(s.ang) >= 0;
-      const depth = 1 + 0.55 * Math.sin(s.ang);
-      const scale = depth * s.hoverScale;
-      s.el.style.transform = `translate(-50%,-50%) translate(${s.x}px,${s.y}px) scale(${scale})`;
-      s.el.style.zIndex = front ? 5 : 0;
-      const offY = s.size/2 + 9;
-      labels[k].style.transform = `translate(-50%,-50%) translate(${s.x}px,${s.y + offY}px)`;
-      const d2 = (Math.sin(s.ang)+1)/2;
-      labels[k].style.opacity = (0.22 + 0.63*d2).toFixed(3);
-      // 真实 3D 球体每帧重绘（自转 + 光照，缩放不变形）
-      if(s.sphere3d){ s.spin += s.spinRate*dt; s.sphere3d.draw(s.spin); }
-    }
-    checkCollisions(now);
-    ctx.clearRect(0,0,innerWidth,innerHeight);
-    for(let i=fw.length-1;i>=0;i--){
-      const p = fw[i];
-      p.x += p.vx; p.y += p.vy; p.vy += 0.04; p.vx *= 0.99;
-      p.life -= p.decay;
-      if(p.life<=0){ fw.splice(i,1); continue; }
-      ctx.globalAlpha = Math.max(0,p.life);
-      ctx.fillStyle = p.hue;
-      ctx.beginPath(); ctx.arc(p.x,p.y,p.size,0,Math.PI*2); ctx.fill();
-    }
-    ctx.globalAlpha = 1;
-    if(running && (heroVisible || fw.length>0)){ requestAnimationFrame(frame); }
-    else { running=false; ctx.clearRect(0,0,innerWidth,innerHeight); }
-  }
-  const hio = new IntersectionObserver((ents)=>{
-    ents.forEach(e=>{
-      heroVisible = e.isIntersecting;
-      if(heroVisible && !running){ running=true; measure(); requestAnimationFrame(frame); }
-    });
-  },{threshold:0.05});
-  hio.observe(hero);
-  measure();
-
-  // ============================================
-// 冲进星球 · 飞入状态机（光晕融合过渡，替代双圆 warp）
-// 交互：点击/键盘聚焦卫星 → 镜头逼近目标星 → 邻近星由小变大、远星飞出
-//        → 光晕从星位爆发扩张 → 融成世界深色背景 → 进入该星内部世界（真实文章）
-// 返回：世界淡出 → 光晕收缩 → 星系复位
-// ============================================
-  if(!window.__sats) return;
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const D = reduce
-    ? { fly:0.35, galaxyFade:0.5, melt:0.6, show:0.7, back:0.5, auraShrink:0.5 }
-    : { fly:0.6, galaxyFade:0.95, melt:0.9, show:1.25, back:1.0, auraShrink:0.8 };
-
-  const WORLDS = {
-    Saturn:{zh:'尘世',sub:'把日子过成慢动作'},
-    Jupiter:{zh:'巨轮',sub:'大东西也有它的节奏'},
-    Luna:{zh:'清辉',sub:'夜里的事，留给月亮'},
-    Venus:{zh:'暖光',sub:'靠近一点，就暖一点'},
-    Mercury:{zh:'灰烬',sub:'烧过的，都成了土'},
-    Mars:{zh:'赤土',sub:'红的是土，也是心跳'},
-    Sun:{zh:'炽核',sub:'最亮的地方，也最烫'}
-  };
-
-  // 每颗行星的大气层配色（冲入过渡用）：hi=高空亮色 / mid=大气主色 / lo=深空边缘色
-  const ATMO_CSS = {
-    Mercury:{hi:'#ece6da',mid:'#b3a791',lo:'#3a352d'},
-    Venus:  {hi:'#fff6d2',mid:'#e8c878',lo:'#5e4a1e'},
-    Luna:   {hi:'#eef1f7',mid:'#b3bccb',lo:'#2b303b'},
-    Mars:   {hi:'#f6bda0',mid:'#c75d39',lo:'#39140c'},
-    Jupiter:{hi:'#f4dec0',mid:'#caa05f',lo:'#473a22'},
-    Saturn: {hi:'#f9eed0',mid:'#d0b67c',lo:'#473a20'},
-    Sun:    {hi:'#fff4d6',mid:'#ff9a2e',lo:'#7a2200'},
-    _def:   {hi:'#dfe6f2',mid:'#8a93a8',lo:'#1a1f29'}
-  };
-
-  const aura=document.getElementById('aura');
-  const world=document.getElementById('world');
-  const navEl=document.getElementById('nav');
-  const floatNav=document.getElementById('floatNav');
-  let flying=false;
-  if(!hero||!aura||!world) return;
-  const auraGlow = aura.querySelector('.atmo-glow');
-  let curAtmo = ATMO_CSS._def;
-
-  // ★ hex → rgba 工具（用于动态生成行星大气色半透明叠层）
-  function hexToRgba(hex, a){
-    var h = hex.replace('#','');
-    if(h.length===3) h=h[0]+h[0]+h[1]+h[1]+h[2]+h[2];
-    var r=parseInt(h.substring(0,2),16), g=parseInt(h.substring(2,4),16), b=parseInt(h.substring(4,6),16);
-    return 'rgba('+r+','+g+','+b+','+a+')';
-  }
-
-  function enterSat(el){
-    if(flying) return;
-    const i=parseInt(el.dataset.i,10);
-    const s=window.__sats[i]; if(!s) return;
-    flying=true; window.__flyIn=true;            // 标记飞入中
-    // ★ 第一时间：全屏 aura 拦截罩 + 卫星级双锁（物理+DOM 双重封死）
-    aura.className='live';   // #aura 变 pointer-events:auto 全屏拦截
-    lockSats();
-    curAtmo = ATMO_CSS[s.name] || ATMO_CSS._def;
-    // ★ 大气配色 + 零黑帧：底色直接是该行星大气层深色，全程绝不出现黑屏
-    aura.style.setProperty('--atmo-hi', curAtmo.hi);
-    aura.style.setProperty('--atmo-mid', curAtmo.mid);
-    aura.style.setProperty('--atmo-lo', curAtmo.lo);
-    aura.style.backgroundColor = curAtmo.lo;
-    document.documentElement.style.backgroundColor = curAtmo.lo;
-    document.body.style.backgroundColor = curAtmo.lo;
-    if(fx){ fx.style.display='none'; fx.style.visibility='hidden'; }   // 双隐藏
-    if(navEl) navEl.style.opacity='0';
-    if(floatNav){ floatNav.style.opacity='0'; floatNav.style.pointerEvents='none'; }  // 双保险
-    document.documentElement.style.overflow='hidden';
-    document.body.style.overflow='hidden';
-
-    const r=el.getBoundingClientRect();
-    const sx=r.left+r.width/2, sy=r.top+r.height/2;
-
-    // 目标星高亮（ball glow 增强）
-    el.classList.add('target');
-    el.dataset.bss=el.style.boxShadow;
-    el.style.boxShadow='0 0 60px 18px '+s.glow+', 0 0 120px 40px '+s.glow;
-    // ★ 飞入放大 48× 前，临时把选中星球画布分辨率拉到接近视口，保证全程清晰不失真
-    if(s.sphere3d) s.sphere3d.setResolution(Math.round(Math.max(innerWidth,innerHeight)*0.9));
-
-    // hero 转 fixed 占满视口，使 transform-origin 可用视口坐标
-    hero.style.position='fixed'; hero.style.inset='0'; hero.style.zIndex='40';
-    // ★ 放大时角落不透白/黑，用大气深色兜底
-    hero.style.backgroundColor = curAtmo.lo;
-    const r2=el.getBoundingClientRect();
-    const cx2=r2.left+r2.width/2, cy2=r2.top+r2.height/2;
-
-    // ① Galaxy（整段 hero）围绕目标星放大 —— 短促可见，制造“冲向星球”的初速度
-    hero.style.transition='transform '+D.fly+'s cubic-bezier(.25,.46,.45,.94)';
-    hero.style.transformOrigin=cx2+'px '+cy2+'px';
-    hero.style.transform='translate('+(innerWidth/2-cx2)+'px,'+(innerHeight/2-cy2)+'px) scale(48)';
-
-    // ② 大气层接管：底色已设好（大气深色），分层涌入云气
-    void aura.offsetWidth;
-    requestAnimationFrame(function(){
-      aura.querySelectorAll('.atmo').forEach(function(l){ l.classList.add('on'); });
-    });
-    // 中心爆光脉冲：俯冲到约 70% 时“击穿云层”的高光
-    setTimeout(function(){ if(auraGlow) auraGlow.classList.add('punch'); }, D.fly*1000*0.7);
-
-    // ③ 时间线：星系淡出（云层之下）→ 世界平滑浮现，云层同步散开露出地表
-    setTimeout(function(){ hero.style.transition='opacity .35s ease'; hero.style.opacity='0'; }, D.galaxyFade*1000);
-    setTimeout(function(){ openWorld(s); }, D.show*1000);
-  }
-
-  function openWorld(s){
-    const info=WORLDS[s.name]||{zh:s.name,sub:''};
-    // ★ 世界页背景色 = 当前行星大气深色（从根上杜绝黑底）
-    world.style.setProperty('--wbg', curAtmo.lo);
-    world.style.backgroundColor = curAtmo.lo;
-    if(s.name==='Sun'){
-      // 太阳世界：灼热亮橙中心 + 暗角，保证卡片文字可读
-      world.style.backgroundImage='radial-gradient(circle at 50% 45%, rgba(255,190,90,.22), rgba(40,14,2,.45) 55%, rgba(14,5,1,.74) 100%), url(assets/planets/sun.jpg)';
-      world.style.backgroundSize='100% 100%, cover';
-      world.style.backgroundPosition='center, center';
-      world.style.backgroundRepeat='no-repeat, no-repeat';
-    } else {
-      // ★ 用行星大气色做半透明叠层（而非硬编码冷黑 rgba(8,12,18,...)）
-      const loRgb = curAtmo.lo;   // 如 Mars=#39140c
-      world.style.backgroundImage='linear-gradient('+hexToRgba(loRgb,.75)+','+hexToRgba(loRgb,.88)+'), url(assets/planets/'+s.name.toLowerCase()+'.jpg)';
-      world.style.backgroundSize='100% 100%, cover';
-      world.style.backgroundPosition='center, center';
-      world.style.backgroundRepeat='no-repeat, no-repeat';
-    }
-    document.getElementById('wTag').textContent=s.name+' · '+info.zh;
-    document.getElementById('wTitle').textContent='「'+info.zh+'」的世界';
-    document.getElementById('wSub').textContent=info.sub;
-    const grid=document.getElementById('wGrid');
-    grid.innerHTML='';
-    // ★ 方案C：按当前行星名过滤已发布文章（data-star 匹配 s.name），而非克隆全部（日记流）
-    const cards = Array.prototype.slice.call(document.querySelectorAll('#journalGrid .card'));
-    // 渐进增强：旧发布卡片无 data-star 时，回退显示全部（重新发布后即按���区分）
-    const hasStarData = cards.some(function(a){ return a.hasAttribute('data-star'); });
-    const matched = hasStarData
-      ? cards.filter(function(a){ return (a.dataset.star||'') === s.name; })
-      : cards;
-    // 主题概览卡（跨整行）：中文名 + 副标 + 该星文章数
-    const overview = document.createElement('div');
-    overview.className = 'w-overview';
-    overview.innerHTML = '<div class="wo-zh">'+info.zh+'</div><div class="wo-sub">'+info.sub+'</div><div class="wo-count">'+matched.length+' 篇生活点滴 · 收在这面</div>';
-    grid.appendChild(overview);
-    if(matched.length === 0){
-      const empty = document.createElement('div');
-      empty.className = 'w-empty';
-      empty.textContent = '这一面还没写进什么 —— 日子还长。';
-      grid.appendChild(empty);
-    } else {
-      matched.forEach(function(a){
-        const href=a.getAttribute('href')||'#';
-        const tag=(a.querySelector('.tag')||{}).textContent||'';
-        const h3=(a.querySelector('h3')||{}).textContent||'';
-        const p=(a.querySelector('p')||{}).textContent||'';
-        const thumb=a.querySelector('.thumb');
-        let bg='background:linear-gradient(135deg,'+s.c1+'33,'+s.c2+'55)';
-        if(thumb){ const bi=thumb.style.backgroundImage||''; if(bi.indexOf('url(')>=0){ bg='background-image:'+bi; } }
-        const c=document.createElement('a');
-        c.className='acard'; c.href=href; c.target='_blank';
-        c.innerHTML='<div class="thumb" style="'+bg+'"></div><div class="body"><div class="cat">'+tag+'</div><h3>'+h3+'</h3><p>'+p+'</p></div>';
-        grid.appendChild(c);
-      });
-    }
-    // ================================================================
-    // ★ 分阶段时序（修复世界内容闪现 bug）
-    //   阶段1 [now]：内容就绪 + 大气层开始退场，world 保持 opacity:0
-    //   阶段2 [+600ms]：aura 完全透明后，world 才淡入上浮
-    //   原因：#aura(z:305) 在 #world(z:300) 上方，若同时反向过渡，
-    //         半透明 aura 会透出下方 world 内容 → 色块闪现
-    // ================================================================
-
-    // 阶段1：预埋世界背景色到 aura 底色（视觉无缝衔接），然后退场
-    aura.style.backgroundColor = curAtmo.lo;
-    if(auraGlow) auraGlow.classList.remove('punch','on');
-    requestAnimationFrame(function(){
-      aura.querySelectorAll('.atmo').forEach(function(l){ l.classList.remove('on'); });
-      aura.classList.remove('live');
-    });
-    // world 此时仍 opacity:0 → 用户只看到 aura 渐隐到纯色 curAtmo.lo
-
-    // 阶段2：等 aura transition(.55s) 结束 + 50ms 缓冲后，世界才浮出
-    setTimeout(function(){
-      world.style.transition='opacity .6s ease, transform .6s ease';
-      world.style.opacity='1';
-      world.style.pointerEvents='auto';
-      world.style.transform='translateY(0)';
-      world.scrollTop=0;
-    }, 600);
-
-    // 底色保持大气深色
-    document.documentElement.style.backgroundColor = curAtmo.lo;
-    document.body.style.backgroundColor = curAtmo.lo;
-  }
-
-  function backToGalaxy(){
-    if(!flying) return;
-    // 世界先淡出，大气层重新回涌（同配色，绝不黑屏）
-    world.style.transition='opacity .4s ease';
-    world.style.opacity='0'; world.style.pointerEvents='none';
-    aura.className='live';
-    aura.style.backgroundColor = curAtmo.lo;
-    void aura.offsetWidth;
-    aura.querySelectorAll('.atmo').forEach(function(l){ l.classList.add('on'); });
-    if(auraGlow) auraGlow.classList.add('punch');
-    const s=window.__sats.find(function(x){return x.el&&x.el.classList.contains('target');})||window.__sats[0];
-    if(s){
-      // ★ 返回后把画布分辨率还原到常规值（省显存）
-      if(s.sphere3d) s.sphere3d.setResolution();
-    }
-    hero.style.transition='transform '+D.back+'s cubic-bezier(.22,.61,.36,1), opacity .5s ease';
-    hero.style.transformOrigin='50% 50%';
-    hero.style.transform='translate(0,0) scale(1)';
-    hero.style.opacity='1';
-    const tEl=hero.querySelector('.satellite.target');
-    if(tEl){ if(tEl.dataset.bss) tEl.style.boxShadow=tEl.dataset.bss; tEl.classList.remove('target'); }
-    window.scrollTo(0,0);
-    // ★ 等星系复位、云层散去后，再彻底移除大气层、恢复站底色
-    setTimeout(function(){
-      aura.querySelectorAll('.atmo').forEach(function(l){ l.classList.remove('on'); });
-      aura.classList.remove('live');
-    }, D.back*1000*0.62);
-    setTimeout(function(){
-      flying=false; window.__flyIn=false;
-      unlockSats();   // ★ 返回星系后恢复所有卫星可点击
-      hero.style.position=''; hero.style.inset=''; hero.style.zIndex='';
-      hero.style.transform=''; hero.style.transformOrigin=''; hero.style.opacity='';
-      hero.style.backgroundColor='';
-      document.documentElement.style.overflow=''; document.body.style.overflow='';
-      document.documentElement.style.backgroundColor='';
-      document.body.style.backgroundColor='';
-      if(fx){ fx.style.display=''; fx.style.visibility=''; }
-      if(navEl) navEl.style.opacity='';
-      if(floatNav){ floatNav.style.opacity=''; floatNav.style.pointerEvents=''; }
-      // ★ 重置 world 状态为初始值（下次进入才能正确触发上浮动画）
-      world.style.transition='opacity 0s, transform 0s';
-      world.style.opacity='0';
-      world.style.pointerEvents='none';
-      world.style.transform='translateY(6px)';
-    }, D.back*1000 + 380);
-  }
-
-  // ★ 三道防重复锁：事件入口锁 + 函数守卫锁 + 全局 pointer-events 锁
-  function lockSats(){
-    sats.forEach(function(s){ s.style.pointerEvents='none'; });
-    const orbit = document.querySelector('.hero-orbit');
-    if(orbit) orbit.style.pointerEvents='none';
-  }
-  function unlockSats(){
-    sats.forEach(function(s){ s.style.pointerEvents=''; });
-    const orbit = document.querySelector('.hero-orbit');
-    if(orbit) orbit.style.pointerEvents='';
-  }
-
-  sats.forEach(function(el){
-    el.addEventListener('click',function(){ if(flying) return; enterSat(el); });
-    el.addEventListener('keydown',function(e){ if(flying) return; if(e.key==='Enter'||e.key===' '){ e.preventDefault(); enterSat(el); } });
-  });
-  document.getElementById('backBtn').addEventListener('click',backToGalaxy);
-  window.addEventListener('keydown',function(e){ if(e.key==='Escape'&&flying&&world.style.opacity==='1') backToGalaxy(); });
-
-  // ============================================================
-  // ★ 设计系统自检（Design System Audit）
-  // 把"已踩过的坑"固化为代码级提示机制：任何破坏设计不变量的改动
-  // （新增行星 / 新增页面 / 改配置）都会在加载时于控制台报警，
-  // 并在页面顶部弹出提示条，避免未来再出现轨道消失 / 背景变黑 / 动画错乱。
-  // —— 设计规则示例（页面背景须遵循上级设计）——
-  //   世界页背景色 = ATMO_CSS[name].lo（与冲入大气层同色系），
-  //   缺登记则回退 _def.lo 深蓝灰偏色 —— 即曾发生的"背景消失"bug。
-  // —— 未来新增相似功能：照此加一行 check(条件, "报警文案") 即可防复发 ——
-  // ============================================================
-  function runDesignAudit(){
-    const issues = [];
-    const check = (cond, msg) => { if(!cond) issues.push(msg); };
-    const nm = s => (s && s.name) || '(未命名)';
-    try {
-      const satsDom  = Array.from(document.querySelectorAll('.satellite'));
-      const ringsDom = Array.from(document.querySelectorAll('.orbit-ring'));
-      const DEF = (window.__sats || []);
-
-      // —— 规则1：轨道环数 == 卫星数 == RINGS 长度 == 后台 satellites 数（数量守恒）——
-      check(ringsDom.length === satsDom.length,
-        `轨道环数量(${ringsDom.length}) ≠ 卫星数量(${satsDom.length})：必有行星轨道不显示（曾发生的太阳轨道消失 bug）`);
-      check(typeof RINGS !== 'undefined' && RINGS.length === satsDom.length,
-        `RINGS 数组长度(${typeof RINGS!=='undefined'?RINGS.length:'?'}) ≠ 卫星数量(${satsDom.length})：measure() 会漏绑轨道`);
-      check(DEF.length === satsDom.length,
-        `后台 satellites(${DEF.length}) ≠ 页面卫星(${satsDom.length})：数据/视图不一致`);
-
-      // —— 规则2：每颗行星配置齐全（缺任一项都会导致显示异常）——
-      DEF.forEach(s => {
-        const n = nm(s);
-        check(ATMO_CSS[s.name] && ATMO_CSS[s.name].lo,
-          `行星「${n}」缺 ATMO_CSS.lo → 世界页背景回退 _def.lo 深蓝灰（曾发生的火星黑底 bug）`);
-        check(PALETTE[s.name],   `行星「${n}」缺 PALETTE（球体色/辉光）`);
-        check(ATMO_RGB[s.name], `行星「${n}」缺 ATMO_RGB（WebGL 大气色）`);
-        check(TILT[s.name] !== undefined, `行星「${n}」缺 TILT（轴倾角）`);
-        check(RP[s.name],       `行星「${n}」缺 RP（WebGL 渲染参数 spec/bump/phase）`);
-        check(SPIN_DUR[s.name], `行星「${n}」缺 SPIN_DUR（自转周期）`);
-        check(T_DAYS[s.name],   `行星「${n}」缺 T_DAYS（公转周期，决定公转速度）`);
-        check(WORLDS[s.name],   `行星「${n}」缺 WORLDS（世界页文案 zh/sub）`);
-        check(s.ring >= 0 && s.ring < ringsDom.length,
-          `行星「${n}」占 ring ${s.ring}，但只有 ${ringsDom.length} 条轨道环 → 轨道不显示`);
-        if (RORDER[s.name] === undefined && s.ring === 0)
-          issues.push(`行星「${n}」未登记 RORDER 且 ring 回退为 0 → 可能错占水星轨道`);
-        if (s.ring > 6)
-          issues.push(`行星「${n}」占 ring ${s.ring} > 后台上限 6 → 发布前须放宽 server.js 的 s.ring>6`);
+    document.addEventListener('DOMContentLoaded', function(){
+      renderQR(document.getElementById('qrHero'));
+      renderQR(document.getElementById('qrCta'));
+      document.getElementById('copyHero').addEventListener('click', function(){ copyLink(this); });
+      document.getElementById('copyCta').addEventListener('click', function(){ copyLink(this); });
+      document.getElementById('scanFab').addEventListener('click', function(){
+        document.getElementById('take').scrollIntoView({behavior:'smooth'});
       });
 
-      // —— 规则3：data-i 连续且唯一（点击进入靠 data-i 索引 __sats）——
-      const ids = satsDom.map(e => +e.dataset.i).sort((a,b)=>a-b);
-      check(ids.length === satsDom.length && ids.every((v,i)=>v===i),
-        `卫星 data-i 不连续/不唯一：[${ids}] → 点击进入会错乱`);
+      // 顶栏滚动态 + 返回顶部按钮
+      var nav=document.getElementById('nav');
+      var backTop=document.getElementById('backTop');
+      var onScroll=function(){
+        if(window.scrollY>30) nav.classList.add('scrolled'); else nav.classList.remove('scrolled');
+        if(window.scrollY>200) backTop.classList.add('show'); else backTop.classList.remove('show');
+      };
+      window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+      backTop.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
 
-      // —— 规则4：DOM 顺序须与 __sats 数组顺序一致 ——
-      let orderOk = true;
-      satsDom.forEach((el,i)=>{ if(+el.dataset.i !== i) orderOk = false; });
-      check(orderOk, `卫星 DOM 顺序与 data-i 不一致 → 数据与视图错位`);
+      // 滚动浮现
+      var io=new IntersectionObserver(function(entries){
+        entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+      }, {threshold:.16});
+      document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
 
-    } catch(e){
-      issues.push('自检脚本异常：' + e.message);
-    }
-
-    const tag = '🎨 设计自检';
-    if (issues.length){
-      console.error(`${tag}：发现 ${issues.length} 处设计不变量被破坏 ⚠️`);
-      issues.forEach((m,i)=>console.error(`  ${i+1}. ${m}`));
-      showAuditBanner(issues);
-    } else {
-      console.log(`${tag}：全部通过 ✅ 新增功能未破坏既有设计规则`);
-    }
-    window.__designAudit = runDesignAudit;   // 控制台可手动重跑
-  }
-
-  // 有问题时才出现的提示条（不影响正常浏览，可关闭）
-  function showAuditBanner(issues){
-    if (document.getElementById('auditBanner')) return;
-    const b = document.createElement('div');
-    b.id = 'auditBanner';
-    b.setAttribute('role','alert');
-    b.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:99999;'
-      + 'background:linear-gradient(90deg,#3a1d1d,#5a2a16);color:#ffd9c2;'
-      + 'font:13px/1.5 -apple-system,system-ui,sans-serif;padding:10px 40px 10px 14px;'
-      + 'box-shadow:0 2px 12px rgba(0,0,0,.4);max-height:42vh;overflow:auto;';
-    const title = document.createElement('div');
-    title.textContent = `⚠️ 设计自检发现 ${issues.length} 处问题（新增/修改功能可能破坏了设计规则）`;
-    title.style.cssText = 'font-weight:700;margin-bottom:4px;';
-    b.appendChild(title);
-    const ul = document.createElement('ul');
-    ul.style.cssText = 'margin:0;padding-left:18px;';
-    issues.forEach(m=>{ const li=document.createElement('li'); li.textContent=m; ul.appendChild(li); });
-    b.appendChild(ul);
-    const x = document.createElement('button');
-    x.textContent = '×';
-    x.setAttribute('aria-label','关闭提示');
-    x.style.cssText = 'position:absolute;top:6px;right:10px;background:none;border:none;'
-      + 'color:#ffd9c2;font-size:20px;cursor:pointer;line-height:1;';
-    x.onclick = ()=> b.remove();
-    b.appendChild(x);
-    (document.body || document.documentElement).appendChild(b);
-  }
-
-  runDesignAudit();
-})();
-
-// ========== 隐藏后台入口（页脚版权连点5次） ==========
-(function(){
-  const el=document.getElementById('fCopy');
-  if(!el) return;
-  let n=0,t=0;
-  el.addEventListener('click',()=>{
-    const now=Date.now();
-    if(now-t>1500) n=0;
-    t=now; n++;
-    if(n>=5){ n=0; location.href='/admin'; }
-  });
-})();
-</script>
+      // 履历 色块马赛克 → 灯箱
+      (function(){
+        var STORY = [
+          { num:'19<span class="u">年</span>', tag:'入行至今 · 2006 → 今', c:0,
+            img:'assets/story-19.jpg', ph:'把一张关于「入行 / 职业起点」的照片<br>命名为 <b>story-19.jpg</b> 放进 assets/ 即可',
+            text:'<p>我是顾维鲁。2006 年底入的行，到今天快二十年了。</p><p>头十年做内勤管理，摸透公司经营模式和业务流程；2017 年 8 月 13 日成为同方全球人寿代理人，到今年 8 月 13 日满 9 年、迈进第十年。这不是图新鲜试试看，是我认准了、打算一直做下去的事。</p>' },
+          { num:'982<span class="u">户</span>', tag:'家庭保障 · 21 亿保额', c:1,
+            img:'assets/story-982.jpg', ph:'放一张「陪伴家庭 / 客户」相关的照片<br>命名为 <b>story-982.jpg</b> 放进 assets/',
+            text:'<p>九年里攒下销售、服务、搭团队、做培训的实打实本事——不是背话术，是陪着家庭走过来的。</p><p>累计陪 982 个家庭把保障铺开，送出去的保额有 21 个亿。落到每家头上，无非一句"万一出事，有人兜着"的踏实。</p>' },
+          { num:'100<span class="u">%</span>', tag:'理赔赔付率 · 33 例', c:2,
+            img:'assets/story-100.jpg', ph:'放一张「理赔 / 交付时刻」相关的照片<br>命名为 <b>story-100.jpg</b> 放进 assets/',
+            text:'<p>理赔服务过的 33 个家庭、196 万多赔款，一个没落下，赔付率 100%。</p><p>理赔从来不是卖完保单的终点，是我和这个家真正开始托付信任的地方。</p>' },
+          { num:'在<span class="u">。</span>', tag:'一直都在 · 资质 &amp; 邀约', c:3,
+            img:'assets/story-at.jpg', ph:'放一张「你本人 / 工作场景」的照片<br>命名为 <b>story-at.jpg</b> 放进 assets/',
+            text:'<p>行业里该有的奖项都拿到过；RFP·A-STEP·RFC·CHFP 四证实考。奖杯是过去时，你真正要紧的，是将来用得上我还在不在、靠不靠得住。</p><p>我不是把合同递给你就消失的人；我是你过了好些年翻出保单、还能一个电话找着的那个人。我在，我一直都在。</p>' }
+        ];
+        var lb = document.getElementById('lb');
+        var lbImg = document.getElementById('lbImg');
+        var lbPh = document.getElementById('lbPh');
+        var lbImgWrap = document.getElementById('lbImgWrap');
+        var lbNum = document.getElementById('lbNum');
+        var lbTag = document.getElementById('lbTag');
+        var lbText = document.getElementById('lbText');
+        var cur = 0;
+        var swapping = false;
+        function render(i){
+          cur = i; var d = STORY[i];
+          lbNum.innerHTML = d.num;
+          lbTag.innerHTML = d.tag;
+          lbText.innerHTML = d.text;
+          lbImgWrap.className = 'lb-img c' + d.c;
+          lbImg.classList.remove('ok');
+          lbImg.onerror = function(){ lbImg.classList.remove('ok'); };
+          lbImg.onload = function(){ lbImg.classList.add('ok'); };
+          lbImg.src = d.img;
+          lbPh.innerHTML = d.ph;
+        }
+        function open(i){
+          if(!lb.classList.contains('open')){
+            render(i);
+          } else {
+            if(swapping) return;
+            swapping = true;
+            lbImg.classList.remove('ok');
+            lbNum.style.opacity = '0'; lbTag.style.opacity = '0';
+            lbText.style.opacity = '0'; lbPh.style.opacity = '0';
+            setTimeout(function(){
+              render(i);
+              lbNum.style.opacity = ''; lbTag.style.opacity = '';
+              lbText.style.opacity = ''; lbPh.style.opacity = '';
+              swapping = false;
+            }, 320);
+          }
+          lb.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        }
+        function close(){
+          lb.classList.remove('open');
+          document.body.style.overflow = '';
+        }
+        document.querySelectorAll('.sq').forEach(function(tile){
+          tile.addEventListener('click', function(){ open(parseInt(this.getAttribute('data-lb'),10)); });
+        });
+        document.getElementById('lbClose').addEventListener('click', close);
+        lb.addEventListener('click', function(e){ if(e.target === lb) close(); });
+        document.getElementById('lbPrev').addEventListener('click', function(){ open((cur-1+STORY.length)%STORY.length); });
+        document.getElementById('lbNext').addEventListener('click', function(){ open((cur+1)%STORY.length); });
+        document.addEventListener('keydown', function(e){
+          if(!lb.classList.contains('open')) return;
+          if(e.key === 'Escape') close();
+          else if(e.key === 'ArrowLeft') open((cur-1+STORY.length)%STORY.length);
+          else if(e.key === 'ArrowRight') open((cur+1)%STORY.length);
+        });
+      })();
+    });
+  })();
+  </script>
 </body>
 </html>

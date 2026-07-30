@@ -376,13 +376,13 @@
 
   <!-- 顶栏 -->
   <nav class="nav" id="nav">
-    <a class="brand" href="insurance-intro.html">
+    <a class="brand" href="./">
       <span class="b-name">顾维鲁</span>
       <span class="b-sub">保险代理人</span>
     </a>
     <div class="nav-right">
       <a class="nav-link" href="insurance.html">深入了解保障 →</a>
-      <a class="nav-link" href="index.html">回生活站</a>
+      <a class="nav-link" href="life/">回生活站</a>
       <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深色或浅色" title="切换深色 / 浅色">
         <svg class="ico-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.6M12 19.4V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.6M19.4 12H22M4.2 19.8l1.8-1.8M18 6l1.8-1.8"/></svg>
         <svg class="ico-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 7 7 0 1 0 20 14.5z"/></svg>
@@ -592,7 +592,7 @@
     </div>
     <div class="cta-links">
       <a href="insurance.html">保障主页（全貌）→</a>
-      <a href="index.html">回 顾言 GU事（生活站）→</a>
+      <a href="life/">回 顾言 GU事（生活站）→</a>
     </div>
   </section>
 
@@ -625,9 +625,9 @@
   <nav class="site-nav" aria-label="保险站导航">
     <div class="sn-kicker">顾维鲁 · 保险站</div>
     <div class="sn-seg">
-      <a href="insurance-intro.html" class="cur">个人能力页</a>
+      <a href="./" class="cur">个人能力页</a>
       <a href="insurance.html">保障主页</a>
-      <a href="index.html" class="home">生活站</a>
+      <a href="life/" class="home">生活站</a>
     </div>
   </nav>
 
@@ -650,7 +650,7 @@
     //  · 正式部署后，扫码 = 自动打开正式网址（无需改代码）
     //  · 若以本地文件(file://)直接双击打开，则回退到下面的正式网址
     // 想让二维码指向别的页（比如保障主页 insurance.html），把 DEPLOYED_URL 填上、再把 QR_TARGET 改成它即可。
-    var DEPLOYED_URL = 'https://your-domain.example/insurance-intro.html';
+    var DEPLOYED_URL = 'https://kalidoit.github.io/';
     var QR_TARGET = (location.protocol === 'file:')
         ? DEPLOYED_URL
         : location.href.split('#')[0];
