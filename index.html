@@ -262,7 +262,8 @@
   #world .grid{max-width:1100px;margin:0 auto;padding:18px 24px 120px;display:grid;gap:22px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
   .acard{display:block;text-decoration:none;background:#fff;border-radius:30px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.10);transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s}
   .acard:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,.18)}
-  .acard .thumb{aspect-ratio:4/3;background-size:cover;background-position:center;background-color:#eef2f6}
+  .acard .thumb{aspect-ratio:4/3;overflow:hidden;background:#eef2f6;position:relative}
+  .acard .thumb img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
   .acard .body{padding:20px 22px 24px}
   .acard .cat{font-family:var(--font-body);font-size:11px;letter-spacing:.16em;color:#8a96a0;text-transform:uppercase}
   .acard h3{font-family:var(--font-serif);font-size:25px;font-weight:400;margin:8px 0 10px;color:var(--ink);line-height:1.15}
@@ -330,23 +331,19 @@
   .journal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;margin-top:34px}
   .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:transform .4s,box-shadow .4s;cursor:pointer;display:block;color:inherit;text-decoration:none}
   .card:hover{transform:translateY(-6px);box-shadow:0 26px 50px -26px rgba(5,26,36,.32)}
-  .card .thumb{aspect-ratio:4/3;background-size:cover;background-position:center;overflow:hidden}
+  .card .thumb{aspect-ratio:4/3;overflow:hidden;position:relative}
+  .card .thumb img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
   .card .body{padding:22px 24px 26px}
   .card .tag{font-size:11px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;font-family:var(--font-serif)}
   .card h3{font-size:19px;margin-top:8px;font-weight:600;color:var(--ink);line-height:1.4}
   .card p{font-size:13px;color:var(--muted);margin-top:9px}
-  .t1{background:linear-gradient(135deg,#EEF4FB,#cfe0f2)}
-  .t2{background:linear-gradient(135deg,#0D212C,#185FA5)}
-  .t3{background:linear-gradient(135deg,#eef2f6,#c9d6e4)}
-  .t4{background:linear-gradient(135deg,#dceafc,#9fc0e8)}
-  .t5{background:linear-gradient(135deg,#1b2a3d,#2f6fb0)}
-  .t6{background:linear-gradient(135deg,#e9eef3,#aebfce)}
 
   /* ---------- lab ---------- */
   .lab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px;margin-top:42px}
   .lab-item{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--surface);transition:transform .4s,box-shadow .4s;cursor:pointer}
   .lab-item:hover{transform:translateY(-6px);box-shadow:0 26px 50px -26px rgba(5,26,36,.32)}
-  .lab-item .thumb{aspect-ratio:1;background:linear-gradient(135deg,#0D212C,#185FA5);position:relative;overflow:hidden}
+  .lab-item .thumb{aspect-ratio:4/3;overflow:hidden;background:#eef2f6;position:relative}
+  .lab-item .thumb img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
   .lab-item .thumb::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.18),transparent 55%)}
   .lab-item .body{padding:20px 22px 24px}
   .lab-item .tag{font-size:11px;color:var(--muted);letter-spacing:1.5px;font-family:var(--font-serif)}
@@ -568,11 +565,11 @@
         <div class="chip" data-f="ai">AI</div>
       </div>
       <div class="journal-grid" id="journalGrid">
-        <a href="/article/ji-meng-ai-hua-bao.html" class="card reveal" data-cat="ai" data-star="Mercury"><div class="thumb t2"></div><div class="body"><div class="tag">AI</div><h3>用即梦AI做了一套知识科普画报</h3><p>把难懂的事，画成一张图一句话。</p></div></a>
-        <a href="/article/yang-tai-xiao-hua-yuan.html" class="card reveal" data-cat="life" data-star="Venus"><div class="thumb t1"></div><div class="body"><div class="tag">生活</div><h3>周末把阳台改成了小花园</h3><p>种下去的，是下班后的松弛感。</p></div></a>
-        <a href="/article/dai-tuan-dui-di-jiu-nian.html" class="card reveal" data-cat="grow" data-star="Sun"><div class="thumb t4"></div><div class="body"><div class="tag">成长</div><h3>带团队的第九年，我学会了闭嘴</h3><p>不是不说，是让年轻人先说。</p></div></a>
-        <a href="/article/er-shou-nas.html" class="card reveal" data-cat="hobby" data-star="Mars"><div class="thumb t3"></div><div class="body"><div class="tag">兴趣</div><h3>折腾了一台二手NAS</h3><p>本地知识库终于有家了。</p></div></a>
-        <a href="/article/zi-dong-ri-bao.html" class="card reveal" data-cat="ai" data-star="Mercury"><div class="thumb t5"></div><div class="body"><div class="tag">AI</div><h3>写了个自动生成日报的工作流</h3><p>每天省下半小时，拿去发呆。</p></div></a>
+        <a href="/article/ji-meng-ai-hua-bao.html" class="card reveal" data-cat="ai" data-star="Mercury"><img class="thumb" src="assets/journal/aiart.jpg" alt="AI画报实验"><div class="body"><div class="tag">AI</div><h3>用即梦AI做了一套知识科普画报</h3><p>把难懂的事，画成一张图一句话。</p></div></a>
+        <a href="/article/yang-tai-xiao-hua-yuan.html" class="card reveal" data-cat="life" data-star="Venus"><img class="thumb" src="assets/journal/balcony.jpg" alt="阳台小花园"><div class="body"><div class="tag">生活</div><h3>周末把阳台改成了小花园</h3><p>种下去的，是下班后的松弛感。</p></div></a>
+        <a href="/article/dai-tuan-dui-di-jiu-nian.html" class="card reveal" data-cat="grow" data-star="Sun"><img class="thumb" src="assets/journal/team.jpg" alt="团队协作"><div class="body"><div class="tag">成长</div><h3>带团队的第九年，我学会了闭嘴</h3><p>不是不说，是让年轻人先说。</p></div></a>
+        <a href="/article/er-shou-nas.html" class="card reveal" data-cat="hobby" data-star="Mars"><img class="thumb" src="assets/journal/nas.jpg" alt="NAS书房"><div class="body"><div class="tag">兴趣</div><h3>折腾了一台二手NAS</h3><p>本地知识库终于有家了。</p></div></a>
+        <a href="/article/zi-dong-ri-bao.html" class="card reveal" data-cat="ai" data-star="Mercury"><img class="thumb" src="assets/journal/autodaily.jpg" alt="自动日报工作流"><div class="body"><div class="tag">AI</div><h3>写了个自动生成日报的工作流</h3><p>每天省下半小时，拿去发呆。</p></div></a>
         <a href="/article/jin-wan-de-wan-xia.html" class="card reveal" data-cat="life" data-star="Venus"><div class="thumb" style="background-image:url('assets/uploads/ms3ajt6gn0rpi.jpg')"></div><div class="body"><div class="tag">生活</div><h3>今晚的晚霞，值得发一条</h3><p>不为什么，就是好看。</p></div></a>
       </div>
     </div>
@@ -587,10 +584,10 @@
         <p class="sub">AI 折腾的过程和作品，点开看我是怎么玩的。</p>
       </div>
       <div class="lab-grid">
-        <div class="lab-item reveal"><div class="thumb"></div><div class="body"><div class="tag">GENERATIVE</div><h3>即梦AI画报实验</h3><p>从 prompt 到成图的完整记录。</p></div></div>
-        <div class="lab-item reveal"><div class="thumb"></div><div class="body"><div class="tag">PROMPT</div><h3>Prompt 工程笔记</h3><p>把话说清楚，AI 才听得懂。</p></div></div>
-        <div class="lab-item reveal"><div class="thumb"></div><div class="body"><div class="tag">AUTOMATION</div><h3>自动化工作流</h3><p>让重复的事，自动发生。</p></div></div>
-        <div class="lab-item reveal"><div class="thumb"></div><div class="body"><div class="tag">KNOWLEDGE</div><h3>个人知识库搭建</h3><p>把 scattered 的自己，收拢起来。</p></div></div>
+        <div class="lab-item reveal"><img class="thumb" src="assets/lab/genart.jpg" alt="AI画报实验"><div class="body"><div class="tag">GENERATIVE</div><h3>即梦AI画报实验</h3><p>从 prompt 到成图的完整记录。</p></div></div>
+        <div class="lab-item reveal"><img class="thumb" src="assets/lab/prompt.jpg" alt="Prompt工程"><div class="body"><div class="tag">PROMPT</div><h3>Prompt 工程笔记</h3><p>把话说清楚，AI 才听得懂。</p></div></div>
+        <div class="lab-item reveal"><img class="thumb" src="assets/lab/auto.jpg" alt="自动化工作流"><div class="body"><div class="tag">AUTOMATION</div><h3>自动化工作流</h3><p>让重复的事，自动发生。</p></div></div>
+        <div class="lab-item reveal"><img class="thumb" src="assets/lab/kb.jpg" alt="知识库搭建"><div class="body"><div class="tag">KNOWLEDGE</div><h3>个人知识库搭建</h3><p>把 scattered 的自己，收拢起来。</p></div></div>
       </div>
     </div>
   </section>
@@ -657,10 +654,10 @@
 // ========== 跑马灯：真实上传图（8 张 ×2 无缝循环） ==========
 (function(){
   const imgs=[
-    "assets/uploads/ms36qfn4c8wik.jpg","assets/uploads/ms38sgx5kpfqu.png",
-    "assets/uploads/ms38wmw3j6pyr.png","assets/uploads/ms390jwxtn1x1.png",
-    "assets/uploads/ms394wur85cvl.png","assets/uploads/ms398nq1j7rf7.png",
-    "assets/uploads/ms39rwhzbpt8a.png","assets/uploads/ms3ajt6gn0rpi.jpg"
+    "assets/journal/balcony.jpg","assets/journal/aiart.jpg","assets/journal/nas.jpg",
+    "assets/journal/team.jpg","assets/journal/autodaily.jpg",
+    "assets/lab/genart.jpg","assets/lab/prompt.jpg","assets/lab/auto.jpg","assets/lab/kb.jpg",
+    "assets/uploads/ms36qfn4c8wik.jpg","assets/uploads/ms3ajt6gn0rpi.jpg"
   ];
   const track=document.getElementById('marqueeTrack');
   if(track){
@@ -760,9 +757,8 @@ filters.addEventListener('click',e=>{
   const sec=document.getElementById('partner');
   if(!sec) return;
   const pool=[
-    "assets/uploads/ms36qfn4c8wik.jpg","assets/uploads/ms38sgx5kpfqu.png",
-    "assets/uploads/ms390jwxtn1x1.png","assets/uploads/ms394wur85cvl.png",
-    "assets/uploads/ms39rwhzbpt8a.png","assets/uploads/ms3ajt6gn0rpi.jpg"
+    "assets/journal/balcony.jpg","assets/journal/aiart.jpg","assets/lab/genart.jpg","assets/lab/kb.jpg",
+    "assets/uploads/ms36qfn4c8wik.jpg","assets/uploads/ms3ajt6gn0rpi.jpg"
   ];
   let lastSpawn=0;
   sec.addEventListener('mousemove',e=>{
