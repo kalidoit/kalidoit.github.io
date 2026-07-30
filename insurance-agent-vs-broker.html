@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>代理人，还是经纪人？| 顾维鲁 · 保险认知</title>
+<meta name="description" content="保险代理人和保险经纪人，到底哪里不一样？客观讲清两种角色的定位与各自优势，不吹不黑——因为我是代理人，也想让你看明白。" />
+<style>
+  :root{
+    /* 基础主题 = Apple 石墨灰（告别深墨 premium 的厚重 navy，深浅双主题统一归入 Apple 语系） */
+    --ink:#1d1d1f;  --ink-2:#2c2c2e;  --ink-3:#3a3a3c;
+    --surface:#2c2c2e;  --surface-2:#3a3a3c;
+    --paper:#F5F5F7;  --paper-2:#FBFAF7;
+    --text:#F5F5F7;  --muted:#A1A1A6;  --muted-2:#8E8E93;
+    --line:rgba(255,255,255,.14);  --line-2:rgba(255,255,255,.22);
+    --blue:#0A84FF;  --blue-soft:rgba(10,132,255,.16);
+    --gold:#C9A24B;  --gold-soft:rgba(201,162,75,.16);
+    --radius:22px;  --radius-lg:30px;  --radius-pill:999px;
+    --maxw:1120px;  --maxw-narrow:820px;
+    --shadow-soft:0 10px 40px rgba(0,0,0,.28);  --shadow-card:0 8px 30px rgba(0,0,0,.24);
+    --font-body:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue","Microsoft YaHei",sans-serif;
+    --font-serif:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue","Microsoft YaHei",sans-serif;
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{font-family:var(--font-body);background:var(--ink);color:var(--text);line-height:1.7;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--blue);color:#fff}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .wrap-narrow{max-width:var(--maxw-narrow);margin:0 auto;padding:0 28px}
+
+  #progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;
+    background:linear-gradient(90deg,var(--blue),var(--gold));box-shadow:0 0 12px rgba(62,142,219,.5);transition:width .12s linear}
+  .nav{position:fixed;top:0;left:0;right:0;z-index:120;display:flex;align-items:center;justify-content:space-between;
+    padding:16px 40px;background:rgba(11,15,22,.55);backdrop-filter:saturate(160%) blur(16px);
+    -webkit-backdrop-filter:saturate(160%) blur(16px);border-bottom:1px solid transparent;transition:background .4s,border-color .4s,padding .4s}
+  .nav.scrolled{background:rgba(11,15,22,.86);border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand img{height:38px;width:38px;border-radius:50%;box-shadow:0 2px 12px rgba(62,142,219,.28);object-fit:cover}
+  .brand .b-name{font-size:15px;font-weight:600;letter-spacing:.02em}
+  .brand .b-sub{font-size:10px;color:var(--muted);letter-spacing:.18em;text-transform:uppercase}
+  .nav-right{display:flex;align-items:center;gap:18px}
+  .nav-back{font-size:13px;color:var(--muted);display:inline-flex;align-items:center;gap:6px;transition:color .25s}
+  .nav-back:hover{color:var(--blue)}
+  .nav-cta{padding:9px 20px;border-radius:var(--radius-pill);font-size:13px;font-weight:500;
+    background:linear-gradient(135deg,#2E6FB0,#1f5fa0);color:#fff;box-shadow:0 4px 18px rgba(62,142,219,.35);transition:transform .25s,box-shadow .25s}
+  .nav-cta:hover{transform:translateY(-1px);box-shadow:0 8px 26px rgba(62,142,219,.5)}
+
+  section{position:relative;padding:clamp(72px,11vw,128px) 0}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--blue);font-weight:600;margin-bottom:18px}
+  .eyebrow::before{content:"";width:24px;height:1px;background:var(--blue);opacity:.6}
+  .h2{font-family:var(--font-serif);font-weight:500;font-size:clamp(28px,4.6vw,46px);line-height:1.2;letter-spacing:-.01em}
+  .lead{font-size:clamp(15px,1.6vw,17px);color:var(--muted);max-width:680px;margin-top:18px;line-height:1.85}
+  .accent{color:var(--gold)}
+
+  .reveal{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  .reveal[data-d="1"]{transition-delay:.08s}
+  .reveal[data-d="2"]{transition-delay:.16s}
+  .reveal[data-d="3"]{transition-delay:.24s}
+  .reveal[data-d="4"]{transition-delay:.32s}
+  @media(prefers-reduced-motion:reduce){
+    .reveal{opacity:1!important;transform:none!important;transition:none!important}
+    html{scroll-behavior:auto}
+  }
+
+  /* HERO */
+  .hero{position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:120px 24px 80px}
+  .hero-bg{position:absolute;inset:0;z-index:0;background:
+    radial-gradient(60% 55% at 50% 38%, rgba(62,142,219,.22), transparent 70%),
+    radial-gradient(45% 50% at 80% 80%, rgba(201,162,75,.12), transparent 70%),
+    radial-gradient(50% 50% at 15% 75%, rgba(62,142,219,.10), transparent 70%),
+    linear-gradient(180deg,var(--ink),var(--ink-2) 60%,var(--ink));}
+  .orb-field{position:absolute;inset:0;z-index:0;will-change:transform}
+  .orb{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;will-change:transform}
+  .orb.a{width:520px;height:520px;background:radial-gradient(circle,rgba(62,142,219,.55),transparent 65%);top:-8%;left:8%;animation:floatA 16s ease-in-out infinite}
+  .orb.b{width:440px;height:440px;background:radial-gradient(circle,rgba(201,162,75,.4),transparent 65%);bottom:-6%;right:10%;animation:floatB 19s ease-in-out infinite}
+  .orb.c{width:360px;height:360px;background:radial-gradient(circle,rgba(94,160,230,.4),transparent 65%);top:40%;left:55%;animation:floatC 22s ease-in-out infinite}
+  @keyframes floatA{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,30px) scale(1.08)}}
+  @keyframes floatB{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-30px,-24px) scale(1.06)}}
+  @keyframes floatC{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-26px,20px) scale(1.1)}}
+  .hero-grid{position:absolute;inset:0;z-index:1;opacity:.35;
+    background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+    background-size:54px 54px;mask-image:radial-gradient(70% 60% at 50% 45%,#000,transparent 80%)}
+  .hero-inner{position:relative;z-index:2;max-width:880px}
+  .hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:13px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--blue);font-weight:600;padding:8px 18px;border:1px solid var(--blue-soft);border-radius:var(--radius-pill);
+    background:rgba(62,142,219,.06);margin-bottom:30px}
+  .hero h1{font-family:var(--font-serif);font-weight:500;font-size:clamp(38px,7vw,76px);line-height:1.1;letter-spacing:-.02em}
+  .hero h1 .soul{color:var(--gold)}
+  .hero .sub{font-size:clamp(15px,1.9vw,19px);color:var(--muted);margin:26px auto 0;max-width:620px;line-height:1.9}
+  .hero .sub b{color:var(--text);font-weight:500}
+  .hero-cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:42px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--font-body);
+    font-weight:500;border:none;cursor:pointer;transition:transform .25s,box-shadow .25s,background .25s}
+  .btn-primary{position:relative;overflow:hidden;background:linear-gradient(135deg,#2E6FB0,#1f5fa0);
+    color:#fff;padding:15px 34px;border-radius:var(--radius-pill);font-size:15px;box-shadow:0 6px 24px rgba(62,142,219,.4)}
+  .btn-primary::after{content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;
+    background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);transition:left .6s ease}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 34px rgba(62,142,219,.55)}
+  .btn-primary:hover::after{left:140%}
+  .btn-ghost{border:1px solid var(--line-2);color:var(--text);padding:15px 32px;border-radius:var(--radius-pill);font-size:15px;background:rgba(255,255,255,.03)}
+  .btn-ghost:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-2px)}
+  .scroll-hint{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:2;
+    font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted-2);display:flex;flex-direction:column;align-items:center;gap:10px}
+  .scroll-hint .line{width:1px;height:42px;background:linear-gradient(var(--blue),transparent);animation:hintPulse 2s ease-in-out infinite}
+  @keyframes hintPulse{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+
+  /* ---------- 角色双卡（双色分割） ---------- */
+  .roles{background:var(--ink-2)}
+  .role-split{display:flex;position:relative;margin-top:48px;border-radius:var(--radius-lg);
+    overflow:hidden;box-shadow:var(--shadow-card);min-height:480px}
+  .role-side{flex:1;padding:clamp(28px,4vw,48px) clamp(24px,3vw,40px);position:relative;z-index:1;display:flex;flex-direction:column;justify-content:center}
+  .role-side.agent{
+    background:linear-gradient(145deg,#1a3a5c 0%,#0e2240 50%,#0a1a30 100%)}
+  .role-side.broker{
+    background:linear-gradient(145deg,#5a4232 0%,#3d2c1a 50%,#2a1e12 100%)}
+  /* 波浪分割线 */
+  .split-curve{position:absolute;left:50%;top:0;bottom:0;width:72px;transform:translateX(-50%);
+    z-index:2;pointer-events:none;overflow:hidden}
+  .split-curve svg{width:100%;height:100%;display:block}
+  .role-side .tag{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;letter-spacing:.04em;
+    padding:6px 14px;border-radius:var(--radius-pill);margin-bottom:18px;width:fit-content}
+  .role-side.agent .tag{color:#7eb8ff;background:rgba(126,184,255,.10);border:1px solid rgba(126,184,255,.18)}
+  .role-side.broker .tag{color:#e8c87a;background:rgba(232,200,122,.10);border:1px solid rgba(232,200,122,.18)}
+  .role-side h3{font-family:var(--font-serif);font-weight:500;font-size:clamp(22px,3vw,30px);margin-bottom:14px;line-height:1.25}
+  .role-side.agent h3{color:#7eb8ff}
+  .role-side.broker h3{color:#e8c87a}
+  .role-side .def{color:rgba(255,255,255,.65);font-size:15px;line-height:1.9;margin-bottom:24px}
+  .role-side .def b{color:rgba(255,255,255,.92);font-weight:500}
+  .role-side .adv-title{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:12px}
+  .role-side ul{list-style:none}
+  .role-side li{display:flex;align-items:flex-start;gap:10px;padding:9px 0;font-size:14.5px;color:rgba(255,255,255,.85);border-top:1px solid rgba(255,255,255,.08)}
+  .role-side.agent li::before{content:"✦";color:#7eb8ff;flex:0 0 auto;margin-top:1px}
+  .role-side.broker li::before{content:"✦";color:#e8c87a;flex:0 0 auto;margin-top:1px}
+  @media(max-width:768px){
+    .role-split{flex-direction:column;min-height:auto}
+    .split-curve{top:auto;left:0;right:0;bottom:0;width:100%;height:36px;transform:none}
+    .split-curve svg{transform:rotate(90deg) scale(1.5,1);transform-origin:center}
+  }
+
+  /* ---------- 感性场景 ---------- */
+  .scenes{background:var(--ink)}
+  .scene{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-top:54px}
+  .scene:nth-child(even) .scene-visual{order:2}
+  .scene-text .scene-no{font-family:var(--font-serif);font-size:14px;color:var(--gold);letter-spacing:.2em;margin-bottom:14px}
+  .scene-text h3{font-family:var(--font-serif);font-weight:500;font-size:clamp(22px,3vw,30px);line-height:1.3;margin-bottom:18px}
+  .scene-text p{color:var(--muted);font-size:15.5px;line-height:1.95;margin-bottom:14px}
+  .scene-text p b{color:var(--text);font-weight:500}
+  .scene-payoff{margin-top:18px;padding:16px 20px;border-left:3px solid var(--blue);border-radius:0 14px 14px 0;
+    background:linear-gradient(90deg,var(--blue-soft),transparent);font-size:14px;color:var(--text)}
+  .scene-payoff b{color:var(--blue)}
+  .scene-visual{position:relative;aspect-ratio:1/1;border-radius:var(--radius-lg);overflow:hidden;
+    background:radial-gradient(120% 120% at 30% 20%,rgba(62,142,219,.18),transparent 60%),linear-gradient(160deg,var(--surface),var(--ink-3));
+    border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center}
+  .scene-visual .glyph{font-family:var(--font-serif);font-size:clamp(80px,14vw,150px);color:var(--blue);opacity:.22;line-height:1}
+  .scene-visual .caption{position:absolute;left:22px;bottom:20px;right:22px;font-size:13px;color:var(--muted)}
+
+  /* ---------- 对照表 ---------- */
+  .compare{background:var(--ink-2)}
+  .cmp-table{width:100%;border-collapse:collapse;margin-top:44px;border:1px solid var(--line-2);border-radius:var(--radius);overflow:hidden}
+  .cmp-table th,.cmp-table td{padding:18px 22px;text-align:left;font-size:14.5px;border-bottom:1px solid var(--line);vertical-align:top}
+  .cmp-table thead th{background:var(--surface);font-family:var(--font-serif);font-weight:500;font-size:16px}
+  .cmp-table thead th.col-agent{color:var(--blue)}
+  .cmp-table thead th.col-broker{color:var(--gold)}
+  .cmp-table thead th:first-child{color:var(--muted-2);font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+  .cmp-table tbody tr:last-child td{border-bottom:none}
+  .cmp-table td.dim{color:var(--muted-2);font-size:13px}
+  .cmp-table td b{color:var(--text);font-weight:500}
+  .cmp-note{margin-top:20px;font-size:13.5px;color:var(--muted-2);text-align:center}
+
+  /* ---------- 我的选择 ---------- */
+  .choice{background:linear-gradient(180deg,var(--ink),var(--ink-3))}
+  .choice .big{font-family:var(--font-serif);font-weight:500;font-size:clamp(24px,3.4vw,38px);line-height:1.5;letter-spacing:-.01em}
+  .choice .big .soul{color:var(--gold)}
+  .choice p{color:var(--muted);font-size:16px;line-height:1.95;margin-top:26px;max-width:720px}
+  .choice .sign{margin-top:30px;font-size:14px;color:var(--muted-2);letter-spacing:.06em}
+
+  /* ---------- 收尾 CTA ---------- */
+  .closing{background:var(--ink-2);text-align:center}
+  .closing .h2{margin-bottom:26px}
+  .closing .hero-cta{margin-top:0}
+
+  /* FOOTER */
+  .footer{background:var(--ink);padding:48px 0;border-top:1px solid var(--line)}
+  .footer .f-top{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .f-brand{display:flex;align-items:center;gap:12px}
+  .f-brand img{height:38px;width:38px;border-radius:50%;box-shadow:0 2px 12px rgba(62,142,219,.28)}
+  .f-brand .fn{font-size:15px;font-weight:600}
+  .f-brand .fs{font-size:12px;color:var(--muted-2);letter-spacing:.1em}
+  .f-back{font-size:13px;color:var(--muted);transition:color .25s}
+  .f-back:hover{color:var(--blue)}
+
+  /* FAB */
+  .fab{position:fixed;right:26px;bottom:26px;z-index:150;width:56px;height:56px;border-radius:50%;
+    background:linear-gradient(135deg,#2E6FB0,#1f5fa0);color:#fff;border:none;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 8px 28px rgba(62,142,219,.5);
+    opacity:0;transform:translateY(20px) scale(.8);pointer-events:none;transition:opacity .35s,transform .35s}
+  .fab.show{opacity:1;transform:none;pointer-events:auto}
+  .fab:hover{transform:translateY(-3px)}
+  @media(hover:none){.fab{width:50px;height:50px}}
+
+  /* 响应式 */
+  @media(max-width:980px){
+    .role-split{flex-direction:column;min-height:auto}
+    .split-curve{top:auto;left:0;right:0;bottom:0;width:100%;height:36px;transform:none}
+    .split-curve svg{transform:rotate(90deg) scale(1.5,1);transform-origin:center}
+    .scene{grid-template-columns:1fr;gap:28px}
+    .scene:nth-child(even) .scene-visual{order:0}
+    .scene-visual{max-width:420px;margin:0 auto;width:100%}
+  }
+  @media(max-width:640px){
+    .wrap,.wrap-narrow{padding:0 20px}
+    .nav{padding:13px 20px}
+    .nav-right .nav-back{display:none}
+    .hero{padding:110px 18px 70px}
+    .role-side{padding:28px 22px}
+    .role-side h3{font-size:22px}
+    .cmp-table{display:block;overflow-x:auto;white-space:nowrap}
+    .cmp-table th,.cmp-table td{white-space:normal;min-width:140px}
+    .fab{right:18px;bottom:18px}
+    .footer .f-top{flex-direction:column;align-items:flex-start}
+  }
+  @media(min-width:1600px){:root{--maxw:1240px}}
+
+  /* =========================================================
+     浅色主题（Apple 官网风：白 / 浅灰底 + 近黑字）
+     默认应用；开关切到深色。变量层翻转 + 组件层覆盖。
+     ========================================================= */
+  [data-theme="light"]{
+    --ink:#f5f5f7;
+    --ink-2:#ffffff;
+    --ink-3:#fbfbfd;
+    --surface:#ffffff;
+    --surface-2:#f5f5f7;
+    --paper:#1d1d1f;
+    --text:#1d1d1f;
+    --muted:#6e6e73;
+    --muted-2:#6e6e73;
+    --line:rgba(0,0,0,.1);
+    --line-2:rgba(0,0,0,.16);
+    --blue:#1f6fb8;
+    --blue-soft:rgba(31,111,184,.1);
+    --gold:#a07d2c;
+    --gold-soft:rgba(160,125,44,.12);
+    --shadow-soft:0 10px 40px rgba(0,0,0,.12);
+    --shadow-card:0 8px 30px rgba(0,0,0,.1);
+  }
+  .theme-toggle{width:38px;height:38px;border-radius:50%;flex:0 0 auto;cursor:pointer;
+    display:inline-flex;align-items:center;justify-content:center;
+    border:1px solid var(--line-2);background:rgba(255,255,255,.04);color:var(--text);
+    transition:border-color .25s,color .25s,transform .25s}
+  .theme-toggle:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-1px)}
+  .theme-toggle svg{width:18px;height:18px;fill:none;stroke:currentColor;
+    stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .theme-toggle .ico-moon{display:none}
+  [data-theme="light"] .theme-toggle .ico-sun{display:block}
+  [data-theme="light"] .theme-toggle .ico-moon{display:none}
+  [data-theme="dark"]  .theme-toggle .ico-sun{display:none}
+  [data-theme="dark"]  .theme-toggle .ico-moon{display:block}
+  [data-theme="light"] body{background:var(--ink)}
+  [data-theme="light"] .nav{background:rgba(255,255,255,.72)}
+  [data-theme="light"] .nav.scrolled{background:rgba(255,255,255,.9);border-bottom-color:var(--line)}
+  [data-theme="light"] .hero-bg{
+    background:
+      radial-gradient(60% 55% at 50% 30%, rgba(31,111,184,.12), transparent 70%),
+      radial-gradient(45% 50% at 80% 80%, rgba(160,125,44,.08), transparent 70%),
+      linear-gradient(180deg,#fbfbfd,#f5f5f7 60%,#fbfbfd);
+  }
+  [data-theme="light"] .qr-card{background:#fff;border-color:var(--line-2);box-shadow:var(--shadow-card)}
+  [data-theme="light"] .prob{background:#fff;border-color:var(--line-2)}
+  [data-theme="light"] .prob:hover{border-color:var(--blue)}
+  [data-theme="light"] .skill{background:#fff;border-color:var(--line-2)}
+  [data-theme="light"] .skill:hover{background:var(--blue-soft);border-color:rgba(31,111,184,.3)}
+  [data-theme="light"] .compare{background:var(--surface);border-color:var(--line-2)}
+  [data-theme="light"] .site-nav .sn-seg{background:#efeff5}
+  [data-theme="light"] .site-nav .sn-seg a{color:#666}
+  [data-theme="light"] .site-nav .sn-seg a:hover{color:#1d1d1f;background:rgba(0,0,0,.03)}
+  [data-theme="light"] .site-nav .sn-seg a.cur{background:#fff;color:#1d1d1f;box-shadow:0 1px 5px rgba(0,0,0,.08),0 2px 10px rgba(0,0,0,.05)}
+  [data-theme="light"] .site-nav .sn-seg a.home{color:#a07d2c}
+  [data-theme="light"] .foot{border-top-color:var(--line)}
+  /* 角色双卡：浅色下改为浅底卡片 + 蓝/金强调（深色模式保留深蓝/深棕品牌块） */
+  [data-theme="light"] .roles{background:var(--surface-2)}
+  [data-theme="light"] .role-side.agent{background:linear-gradient(160deg,#eef4ff,#dce9ff)}
+  [data-theme="light"] .role-side.broker{background:linear-gradient(160deg,#fbf4e6,#f4e8cf)}
+  [data-theme="light"] .role-side.agent .tag{color:#004a99;background:rgba(0,113,227,.10);border-color:rgba(0,113,227,.22)}
+  [data-theme="light"] .role-side.broker .tag{color:#7a5a14;background:rgba(160,125,44,.12);border-color:rgba(160,125,44,.25)}
+  [data-theme="light"] .role-side.agent h3{color:#004a99}
+  [data-theme="light"] .role-side.broker h3{color:#7a5a14}
+  [data-theme="light"] .role-side .def{color:rgba(28,28,30,.72)}
+  [data-theme="light"] .role-side .def b{color:#1d1d1f;font-weight:600}
+  [data-theme="light"] .role-side .adv-title{color:rgba(28,28,30,.45)}
+  [data-theme="light"] .role-side li{color:rgba(28,28,30,.82);border-top-color:rgba(0,0,0,.08)}
+  [data-theme="light"] .role-side.agent li::before{color:#0A84FF}
+  [data-theme="light"] .role-side.broker li::before{color:#a07d2c}
+  [data-theme="light"] .split-curve{display:none}
+</style>
+<script>
+  (function(){
+    try{
+      var t = localStorage.getItem('insurance-theme');
+      if(t !== 'dark' && t !== 'light'){ t = 'light'; }
+      document.documentElement.setAttribute('data-theme', t);
+    }catch(e){ document.documentElement.setAttribute('data-theme','light'); }
+  })();
+</script>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<nav class="nav" id="nav">
+  <a class="brand" href="insurance-intro.html">
+    <img src="assets/logo-gu-circle.png" alt="顾维鲁 GU" onerror="this.style.display='none'">
+    <span><span class="b-name">顾维鲁 · 保险代理人</span><br><span class="b-sub">GU WEILU · INSURANCE AGENT</span></span>
+  </a>
+  <div class="nav-right">
+    <a class="nav-back" href="insurance-intro.html">个人能力页</a>
+    <a class="nav-back" href="insurance.html">← 回到保障主页</a>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深色或浅色" title="切换深色 / 浅色">
+      <svg class="ico-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.6M12 19.4V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.6M19.4 12H22M4.2 19.8l1.8-1.8M18 6l1.8-1.8"/></svg>
+      <svg class="ico-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 7 7 0 1 0 20 14.5z"/></svg>
+    </button>
+    <a class="nav-cta" href="insurance.html#contact">聊一次</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="orb-field" id="orbField"><div class="orb a"></div><div class="orb b"></div><div class="orb c"></div></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">保险认知 · 客观聊聊</div>
+    <h1>代理人，<span class="soul">还是</span>经纪人？</h1>
+    <p class="sub">同样是为你买保险，路径却不一样。<br>我把自己放在<b>代理人</b>这一边，也把两种角色，<b>客观讲给你听</b>。<br><span style="font-size:13px;opacity:.82">这页是给想弄清楚两种角色区别的人准备的——不急着看，先回保障主页也行。</span></p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#roles">先说清楚两种角色</a>
+      <a class="btn btn-ghost" href="insurance.html">回到保障主页</a>
+    </div>
+  </div>
+  <div class="scroll-hint"><span>向下</span><span class="line"></span></div>
+</header>
+
+<!-- ===== 角色双卡 ===== -->
+<section class="roles" id="roles">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">先说清楚，两种角色</span>
+      <h2 class="h2">不是对手，是两条不同的路</h2>
+      <p class="lead">帮你买保险的人，主要分两类。它们<b>各有优势，没有谁一定更好</b>——只是分工和擅长的事不同。</p>
+    </div>
+    <div class="role-split reveal">
+      <!-- 左侧：代理人（蓝系） -->
+      <div class="role-side agent">
+        <span class="tag">● 我是这一类</span>
+        <h3>保险代理人</h3>
+        <p class="def">与<b>一家或少数几家</b>保险公司签约，专门销售这些公司的产品。我日常打交道的，就是这一家人。</p>
+        <div class="adv-title">天然的优势</div>
+        <ul>
+          <li>对所服务公司的产品，理解更深、更细</li>
+          <li>理赔环节直接对接公司，协同更顺</li>
+          <li>投保到续期，服务链条更短、更连贯</li>
+          <li>长期陪伴同一个人，更懂你的变化</li>
+        </ul>
+      </div>
+      <!-- 波浪分割线 -->
+      <div class="split-curve">
+        <svg viewBox="0 0 72 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M36 0 C16 20, 16 50, 36 80 C56 95, 66 98, 72 100 L72 0 Z" fill="rgba(0,0,0,.4)" opacity=".6"/>
+          <path d="M36 0 C16 25, 18 55, 38 82 C54 96, 64 99, 72 100 L72 0 Z" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="1"/>
+        </svg>
+      </div>
+      <!-- 右侧：经纪人（暖系） -->
+      <div class="role-side broker">
+        <span class="tag">○ 另一种选择</span>
+        <h3>保险经纪人</h3>
+        <p class="def">接受<b>投保人委托</b>，可以面向<b>多家</b>保险公司挑选、组合产品，不代表某一家。</p>
+        <div class="adv-title">天然的优势</div>
+        <ul>
+          <li>方案视角更客观，不受单一公司局限</li>
+          <li>选择面更广，可跨公司横向比较</li>
+          <li>体况复杂时，可向多家预核保择优</li>
+          <li>站在委托人一边做方案与协调</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 感性场景 ===== -->
+<section class="scenes" id="scenes">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">讲个故事，你就懂了</span>
+      <h2 class="h2">三个瞬间，看出两条路的不同</h2>
+      <p class="lead">不堆名词，就说说真实会遇到的时刻。</p>
+    </div>
+
+    <div class="scene reveal" data-d="1">
+      <div class="scene-text">
+        <div class="scene-no">场景一 · 理赔那一刻</div>
+        <h3>出险了，谁替你跑？</h3>
+        <p>深夜接到理赔报案，代理人因为<b>就是这家公司的人</b>，核保理赔端口有现成的内部协同，一个电话就能对接到具体的人，材料怎么备、节点卡在哪，清清楚楚。</p>
+        <p>经纪人同样负责，但理赔要跨公司居中协调，链路更长一些——广度是优势，落地时多绕一道弯。</p>
+        <div class="scene-payoff">代理人的这份优势：<b>理赔协同更直接，你少跑、少等。</b></div>
+      </div>
+      <div class="scene-visual"><div class="glyph">理</div><div class="caption">理赔时，熟悉的端口比陌生的流程更省心。</div></div>
+    </div>
+
+    <div class="scene reveal" data-d="2">
+      <div class="scene-text">
+        <div class="scene-no">场景二 · 一款产品的深浅</div>
+        <h3>把一款产品，吃透到什么程度？</h3>
+        <p>同一款重疾险，代理人对它的<b>条款细节、历次升级、理赔口径</b>如数家珍——哪项能赔、哪项有坑、哪年改过，张口就来。</p>
+        <p>经纪人看得多、比得广，单款产品的深度，往往靠经验一点点攒。广度是长项，深度要靠时间。</p>
+        <div class="scene-payoff">代理人的这份优势：<b>单品够深，讲得清、踩得准。</b></div>
+      </div>
+      <div class="scene-visual"><div class="glyph">深</div><div class="caption">把一件事做透，比认识很多件事更踏实。</div></div>
+    </div>
+
+    <div class="scene reveal" data-d="3">
+      <div class="scene-text">
+        <div class="scene-no">场景三 · 十年以后</div>
+        <h3>陪你走很久的，是谁？</h3>
+        <p>换工作是常事，但<b>换掉陪你十年的人</b>不容易。代理人给你做续期提醒、保全变更、年度复盘，始终是同一张脸、同一份交情。</p>
+        <p>经纪人也讲长期服务，只是人员流动下，对接人未必一直没变。</p>
+        <div class="scene-payoff">代理人的这份优势：<b>长期陪伴稳，人一直在。</b></div>
+      </div>
+      <div class="scene-visual"><div class="glyph">久</div><div class="caption">保险是几十年的事，陪得住比认识得多更重要。</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 对照表 ===== -->
+<section class="compare" id="compare">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">一张表，看明白</span>
+      <h2 class="h2">各有优势，各适合谁</h2>
+      <p class="lead">客观对照，不偏不倚。哪条更适合你，取决于你当下的需求。</p>
+    </div>
+    <div class="reveal" data-d="1">
+      <table class="cmp-table">
+        <thead>
+          <tr><th>维度</th><th class="col-agent">保险代理人</th><th class="col-broker">保险经纪人</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="dim">代表方</td><td><b>所服务的保险公司</b></td><td><b>接受投保人委托</b></td></tr>
+          <tr><td class="dim">产品范围</td><td>签约公司的产品</td><td>多家公司可选</td></tr>
+          <tr><td class="dim">单品深度</td><td><b>深，细节如数家珍</b></td><td>广，靠经验积累</td></tr>
+          <tr><td class="dim">方案广度</td><td>聚焦，做精做透</td><td><b>跨公司横向比较</b></td></tr>
+          <tr><td class="dim">理赔协同</td><td><b>直接对接，链路短</b></td><td>居中协调，链路长</td></tr>
+          <tr><td class="dim">长期陪伴</td><td><b>同一人，更稳定</b></td><td>视人员流动而定</td></tr>
+          <tr><td class="dim">更适合谁</td><td>认准一家公司、看重深度与陪伴的人</td><td>想多公司比价、体况复杂要广撒网的人</td></tr>
+        </tbody>
+      </table>
+      <p class="cmp-note">两种角色都受监管、都持证上岗。选哪种，看你需要「深」还是「广」。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 我的选择 ===== -->
+<section class="choice" id="choice">
+  <div class="wrap-narrow">
+    <div class="reveal">
+      <span class="eyebrow">我的选择</span>
+      <p class="big">我相信，把一款产品<b class="soul">吃透</b>、陪一个人<b class="soul">走很久</b>，<br>比认识很多家公司，更适合我这份工作。</p>
+      <p>所以我做了代理人。这不是说经纪人不好——只是我更想成为那个，你十年后想起保险、第一个想到的人。</p>
+      <p>我也由衷尊重选择经纪人的人。需求不同，没有对错，只有合不合适。你能看明白两种角色，本身就已经少踩很多坑。</p>
+      <div class="sign">—— 顾维鲁</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 收尾 CTA ===== -->
+<section class="closing" id="closing">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow" style="justify-content:center">看明白了，下一步</span>
+      <h2 class="h2">想聊聊你自己的保障？</h2>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="insurance.html#contact">回到保障主页，找我聊</a>
+        <a class="btn btn-ghost" href="index.html">回到顾言 GU事（生活站）</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 保险站跨页导航 — 分段控制器风格 ===== -->
+<style>
+.site-nav{max-width:580px;margin:52px auto 8px;padding:0 24px}
+.site-nav .sn-kicker{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#86868b;text-align:center;margin-bottom:14px;font-weight:500}
+[data-theme="dark"] .site-nav .sn-kicker{color:#7c8aa6}
+/* 分段控制器容器 */
+.site-nav .sn-seg{display:inline-flex;background:#efeff5;border-radius:10px;padding:3px;gap:2px;flex-wrap:wrap;justify-content:center}
+[data-theme="dark"] .site-nav .sn-seg{background:rgba(255,255,255,.06)}
+.site-nav .sn-seg a{display:inline-flex;align-items:center;gap:5px;padding:9px 16px;border-radius:7px;
+  font-size:13px;font-weight:500;color:#666;text-decoration:none;transition:all .2s ease}
+[data-theme="dark"] .site-nav .sn-seg a{color:#98989d}
+.site-nav .sn-seg a:hover{color:#1d1d1f;background:rgba(0,0,0,.03)}
+[data-theme="dark"] .site-nav .sn-seg a:hover{color:#fff;background:rgba(255,255,255,.07)}
+/* 当前页：白底浮起 */
+.site-nav .sn-seg a.cur{background:#fff;color:#1d1d1f;box-shadow:0 1px 5px rgba(0,0,0,.08),0 2px 10px rgba(0,0,0,.05);font-weight:600}
+[data-theme="dark"] .site-nav .sn-seg a.cur{background:rgba(255,255,255,.11);color:#fff;
+  box-shadow:0 1px 5px rgba(0,0,0,.16),0 2px 10px rgba(0,0,0,.12)}
+/* 生活站金色语义 */
+.site-nav .sn-seg a.home{color:#a07d2c}
+[data-theme="dark"] .site-nav .sn-seg a.home{color:#e9cb8c}
+.site-nav .sn-seg a.home:hover{color:#8a6a1f;background:rgba(160,125,44,.05)}
+[data-theme="dark"] .site-nav .sn-seg a.home:hover{color:#f4dcab;background:rgba(233,203,140,.08)}
+@media(max-width:480px){
+  .site-nav .sn-seg a{padding:8px 12px;font-size:12px}
+}
+</style>
+<nav class="site-nav" aria-label="保险站导航">
+  <div class="sn-kicker">顾维鲁 · 保险站</div>
+  <div class="sn-seg">
+    <a href="insurance-intro.html">个人能力页</a>
+    <a href="insurance.html">保障主页</a>
+    <a href="insurance-agent-vs-broker.html" class="cur">代理 vs 经纪人</a>
+    <a href="index.html" class="home">生活站</a>
+  </div>
+</nav>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="f-top">
+      <div class="f-brand">
+        <img src="assets/logo-gu-circle.png" alt="顾维鲁 GU" onerror="this.style.display='none'">
+        <div><div class="fn">顾维鲁 · 保险代理人</div><div class="fs">GU WEILU · INSURANCE AGENT</div></div>
+      </div>
+      <a class="f-back" href="index.html">← 回到顾言 GU事（生活站）</a>
+    </div>
+  </div>
+</footer>
+
+<button class="fab" id="fab" aria-label="回到顶部">↑</button>
+
+<script>
+(function(){
+  'use strict';
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* 主题切换：默认浅色，记忆选择，跨页同步 */
+  (function(){
+    var KEY = 'insurance-theme';
+    var root = document.documentElement;
+    var btn = document.getElementById('themeToggle');
+    function apply(t){ root.setAttribute('data-theme', t); try{ localStorage.setItem(KEY, t); }catch(e){} }
+    if(btn){
+      btn.addEventListener('click', function(){
+        var cur = (root.getAttribute('data-theme') === 'dark') ? 'light' : 'dark';
+        apply(cur);
+      });
+    }
+  })();
+  var progress = document.getElementById('progress');
+  var nav = document.getElementById('nav');
+  var fab = document.getElementById('fab');
+  function onScroll(){
+    var h = document.documentElement;
+    var scrolled = h.scrollTop;
+    var max = h.scrollHeight - h.clientHeight;
+    var p = max>0 ? (scrolled/max)*100 : 0;
+    progress.style.width = p+'%';
+    if(scrolled>40){ nav.classList.add('scrolled'); } else { nav.classList.remove('scrolled'); }
+    if(scrolled>500){ fab.classList.add('show'); } else { fab.classList.remove('show'); }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  fab.addEventListener('click', function(){ window.scrollTo({top:0, behavior: reduce?'auto':'smooth'}); });
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+  var orbField = document.getElementById('orbField');
+  var heroBg = document.getElementById('heroBg');
+  if(!reduce && window.matchMedia('(hover:hover)').matches){
+    var hero = document.getElementById('top');
+    hero.addEventListener('mousemove', function(e){
+      var r = hero.getBoundingClientRect();
+      var cx = (e.clientX - r.left)/r.width - 0.5;
+      var cy = (e.clientY - r.top)/r.height - 0.5;
+      if(orbField) orbField.style.transform = 'translate('+(cx*22)+'px,'+(cy*22)+'px)';
+      if(heroBg) heroBg.style.transform = 'translate('+(cx*14)+'px,'+(cy*14)+'px)';
+    });
+    hero.addEventListener('mouseleave', function(){
+      if(orbField) orbField.style.transform = '';
+      if(heroBg) heroBg.style.transform = '';
+    });
+  }
+  onScroll();
+})();
+</script>
+</body>
+</html>

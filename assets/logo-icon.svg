@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 240 240" fill="none">
+  <defs>
+    <linearGradient id="metal" x1="20" y1="0" x2="220" y2="240" gradientUnits="userSpaceOnUse">
+      <stop offset="0"   stop-color="#EAF1F8"/>
+      <stop offset=".30" stop-color="#9DB8D6"/>
+      <stop offset=".52" stop-color="#185FA5"/>
+      <stop offset=".74" stop-color="#6E97C4"/>
+      <stop offset="1"   stop-color="#F4F8FC"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="0" y2="240" gradientUnits="userSpaceOnUse">
+      <stop offset="0"   stop-color="#FFFFFF" stop-opacity=".95"/>
+      <stop offset=".45" stop-color="#FFFFFF" stop-opacity=".15"/>
+      <stop offset="1"   stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <!-- logo artwork: outer ring + gU monogram (all strokes) -->
+    <g id="gu" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="120" cy="120" r="104"/>
+      <circle cx="86" cy="104" r="34" stroke-dasharray="194 22"/>
+      <path d="M120 122 L120 140 Q120 152 107 152"/>
+      <path d="M128 76 L128 128 Q152 150 176 128 L176 76"/>
+    </g>
+  </defs>
+
+  <!-- 1) dark base — gives the strokes a sense of thickness -->
+  <use href="#gu" xlink:href="#gu" stroke="#0E3E6E" stroke-width="16"/>
+  <!-- 2) metal body — the brushed-metal gradient -->
+  <use href="#gu" xlink:href="#gu" stroke="url(#metal)" stroke-width="11"/>
+  <!-- 3) inner shine — the bright highlight line (the "double-line" feel) -->
+  <use href="#gu" xlink:href="#gu" stroke="url(#shine)" stroke-width="3.2"/>
+</svg>

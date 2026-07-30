@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>顾维鲁 · 保险代理人 | 把保障说清楚，把托付做温热</title>
+<meta name="description" content="顾维鲁，保险代理人。深耕所服务公司的产品与理赔，把复杂的条款讲成你听得懂的大白话：需求诊断、保单检视、方案定制、非标体核保、高端医疗、养老与财富传承、理赔协同、终身托管。" />
+<style>
+  /* =========================================================
+     DESIGN TOKENS — 保险站独立视觉（premium dark + 冰蓝/暖金双色调）
+     与生活站共享 gU 标识 + 冰蓝线索，但改用深墨底，强调"信任 + 价值"
+     ========================================================= */
+  :root{
+    /* 基础主题 = Apple 石墨灰（告别深墨 premium 的厚重 navy，深浅双主题统一归入 Apple 语系） */
+    --ink:#1d1d1f;            /* Apple 石墨主底 */
+    --ink-2:#2c2c2e;
+    --ink-3:#3a3a3c;
+    --surface:#2c2c2e;
+    --surface-2:#3a3a3c;
+    --paper:#F5F5F7;         /* 暖纸白（浅色区块底） */
+    --paper-2:#FBFAF7;
+    --text:#F5F5F7;          /* 深底上的主文字 */
+    --muted:#A1A1A6;
+    --muted-2:#8E8E93;
+    --line:rgba(255,255,255,.14);
+    --line-2:rgba(255,255,255,.22);
+
+    --blue:#0A84FF;          /* Apple 系统蓝（品牌线索 / 信任） */
+    --blue-soft:rgba(10,132,255,.16);
+    --gold:#C9A24B;          /* 暖金（价值 / 守护） */
+    --gold-soft:rgba(201,162,75,.16);
+
+    --radius:22px;
+    --radius-lg:30px;
+    --radius-pill:999px;
+    --maxw:1120px;
+    --maxw-narrow:820px;
+
+    --shadow-soft:0 10px 40px rgba(0,0,0,.28);
+    --shadow-card:0 8px 30px rgba(0,0,0,.24);
+
+    --font-body:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue","Microsoft YaHei",sans-serif;
+    --font-serif:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue","Microsoft YaHei",sans-serif;
+
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    font-family:var(--font-body);
+    background:var(--ink);
+    color:var(--text);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--blue);color:#fff}
+  .serif{font-family:var(--font-serif);font-weight:400;letter-spacing:.01em}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .wrap-narrow{max-width:var(--maxw-narrow);margin:0 auto;padding:0 28px}
+
+  /* ---------- 滚动进度条 ---------- */
+  #progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;
+    background:linear-gradient(90deg,var(--blue),var(--gold));
+    box-shadow:0 0 12px rgba(62,142,219,.5);transition:width .12s linear}
+
+  /* ---------- 顶栏 ---------- */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:120;display:flex;align-items:center;justify-content:space-between;
+    padding:16px 40px;background:rgba(11,15,22,.55);backdrop-filter:saturate(160%) blur(16px);
+    -webkit-backdrop-filter:saturate(160%) blur(16px);border-bottom:1px solid transparent;transition:background .4s,border-color .4s,padding .4s}
+  .nav.scrolled{background:rgba(11,15,22,.86);border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand img{height:38px;width:38px;border-radius:50%;box-shadow:0 2px 12px rgba(62,142,219,.28);object-fit:cover}
+  .brand .b-name{font-size:15px;font-weight:600;letter-spacing:.02em}
+  .brand .b-sub{font-size:10px;color:var(--muted);letter-spacing:.18em;text-transform:uppercase}
+  .nav-right{display:flex;align-items:center;gap:18px}
+  .nav-back{font-size:13px;color:var(--muted);display:inline-flex;align-items:center;gap:6px;
+    border:1px solid var(--line-2);padding:7px 16px;border-radius:999px;
+    transition:all .25s cubic-bezier(.4,0,.2,1)}
+  .nav-back:hover{color:var(--blue);border-color:rgba(120,180,255,.45);background:rgba(120,180,255,.08);transform:translateY(-1px)}
+  .nav-cta{padding:9px 20px;border-radius:var(--radius-pill);font-size:13px;font-weight:500;white-space:nowrap;
+    background:linear-gradient(135deg,#2E6FB0,#1f5fa0);color:#fff;box-shadow:0 4px 18px rgba(62,142,219,.35);
+    transition:transform .25s,box-shadow .25s}
+  .nav-cta:hover{transform:translateY(-1px);box-shadow:0 8px 26px rgba(62,142,219,.5)}
+
+  /* ---------- 通用区块 ---------- */
+  section{position:relative;padding:clamp(72px,11vw,128px) 0}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:18px}
+  .eyebrow::before{content:"";width:24px;height:1px;background:var(--blue);opacity:.6}
+  .h2{font-family:var(--font-serif);font-weight:500;font-size:clamp(28px,4.6vw,46px);line-height:1.2;letter-spacing:-.01em}
+  .lead{font-size:clamp(15px,1.6vw,17px);color:var(--muted);max-width:680px;margin-top:18px;line-height:1.85}
+  .accent{color:var(--gold)}
+
+  /* ---------- 滚动浮现 ---------- */
+  .reveal{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  .reveal[data-d="1"]{transition-delay:.08s}
+  .reveal[data-d="2"]{transition-delay:.16s}
+  .reveal[data-d="3"]{transition-delay:.24s}
+  .reveal[data-d="4"]{transition-delay:.32s}
+  @media(prefers-reduced-motion:reduce){
+    .reveal{opacity:1!important;transform:none!important;transition:none!important}
+    html{scroll-behavior:auto}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;
+    text-align:center;overflow:hidden;padding:120px 24px 80px}
+  .hero-bg{position:absolute;inset:0;z-index:0;background:
+    url('assets/hero-bg.png') center/130% no-repeat,
+    radial-gradient(60% 55% at 50% 38%, rgba(10,132,255,.18), transparent 70%),
+    radial-gradient(45% 50% at 80% 80%, rgba(201,162,75,.12), transparent 70%),
+    radial-gradient(50% 50% at 15% 75%, rgba(10,132,255,.10), transparent 70%),
+    linear-gradient(180deg,var(--ink),var(--ink-2) 60%,var(--ink));}
+  .orb-field{position:absolute;inset:0;z-index:0;will-change:transform}
+  .orb{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;will-change:transform}
+  .orb.a{width:520px;height:520px;background:radial-gradient(circle,rgba(62,142,219,.55),transparent 65%);top:-8%;left:8%;animation:floatA 16s ease-in-out infinite}
+  .orb.b{width:440px;height:440px;background:radial-gradient(circle,rgba(201,162,75,.4),transparent 65%);bottom:-6%;right:10%;animation:floatB 19s ease-in-out infinite}
+  .orb.c{width:360px;height:360px;background:radial-gradient(circle,rgba(94,160,230,.4),transparent 65%);top:40%;left:55%;animation:floatC 22s ease-in-out infinite}
+  @keyframes floatA{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,30px) scale(1.08)}}
+  @keyframes floatB{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-30px,-24px) scale(1.06)}}
+  @keyframes floatC{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-26px,20px) scale(1.1)}}
+  .hero-grid{position:absolute;inset:0;z-index:1;opacity:.35;
+    background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+    background-size:54px 54px;mask-image:radial-gradient(70% 60% at 50% 45%,#000,transparent 80%)}
+  .hero-inner{position:relative;z-index:2;max-width:880px}
+  .hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:13px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--blue);font-weight:600;padding:8px 18px;border:1px solid var(--blue-soft);border-radius:var(--radius-pill);
+    background:rgba(62,142,219,.06);margin-bottom:30px}
+  .hero h1{font-family:var(--font-serif);font-weight:500;font-size:clamp(38px,7vw,76px);line-height:1.1;letter-spacing:-.02em}
+  .hero h1 .soul{color:var(--gold)}
+  .hero .sub{font-size:clamp(15px,1.9vw,19px);color:var(--text);margin:26px auto 0;max-width:660px;line-height:1.95;
+    text-shadow:0 1px 4px rgba(0,0,0,.4),0 0 20px rgba(0,0,0,.15)}
+  .hero .sub b{color:var(--gold);font-weight:600}
+  /* Hero 区 ghost 按钮：图片背景上需要玻璃质感才看得清 */
+  .hero .btn-ghost{background:rgba(11,15,22,.45);border-color:rgba(255,255,255,.18);
+    color:#fff;backdrop-filter:saturate(140%) blur(8px);-webkit-backdrop-filter:saturate(140%) blur(8px);
+    box-shadow:0 2px 12px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.08)}
+  .hero .btn-ghost:hover{background:rgba(62,142,219,.35);border-color:rgba(120,180,255,.5);
+    color:#fff;box-shadow:0 6px 24px rgba(62,142,219,.3),inset 0 1px 0 rgba(255,255,255,.14)}
+  .hero-cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:42px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--font-body);
+    font-weight:500;border:none;cursor:pointer;transition:transform .25s,box-shadow .25s,background .25s}
+  .btn-primary{position:relative;overflow:hidden;background:linear-gradient(135deg,#2E6FB0,#1f5fa0);
+    color:#fff;padding:15px 34px;border-radius:var(--radius-pill);font-size:15px;box-shadow:0 6px 24px rgba(62,142,219,.4)}
+  .btn-primary::after{content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;
+    background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);
+    transition:left .6s ease}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 34px rgba(62,142,219,.55)}
+  .btn-primary:hover::after{left:140%}
+  .btn-ghost{border:1px solid var(--line-2);color:var(--text);padding:15px 32px;border-radius:var(--radius-pill);
+    font-size:15px;background:transparent;transition:transform .25s,box-shadow .25s,background .25s,color .25s,border-color .25s}
+  .btn-ghost:hover{border-color:var(--blue);background:rgba(62,142,219,.10);color:var(--blue);transform:translateY(-2px);box-shadow:0 4px 18px rgba(62,142,219,.15)}
+  .scroll-hint{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:2;
+    font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted-2);display:flex;flex-direction:column;align-items:center;gap:10px}
+  .scroll-hint .line{width:1px;height:42px;background:linear-gradient(var(--blue),transparent);animation:hintPulse 2s ease-in-out infinite}
+  @keyframes hintPulse{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+
+  /* ---------- 我是谁 / 立场 ---------- */
+  .about{background:var(--ink-2)}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-top:46px}
+  .about-portrait{position:relative;aspect-ratio:4/5;border-radius:var(--radius-lg);overflow:hidden;
+    border:1px solid var(--line);box-shadow:var(--shadow-card)}
+  .about-portrait img{width:100%;height:100%;object-fit:cover;object-position:center 15%}
+  .about-portrait::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.45) 0%,transparent 50%);pointer-events:none}
+  .about-portrait .tag{position:absolute;left:20px;bottom:20px;font-size:12px;color:rgba(255,255,255,.85);letter-spacing:.1em;z-index:1;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+  .about-copy p{color:var(--muted);font-size:15px;line-height:1.95;margin-bottom:16px}
+  .about-copy p b{color:var(--text);font-weight:500}
+  .stance{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:stretch;margin-top:24px}
+  .stance .col{padding:22px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.02)}
+  .stance .col h4{font-size:14px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .stance .agent h4{color:var(--muted-2)}
+  .stance .broker h4{color:var(--blue)}
+  .stance ul{list-style:none;font-size:13.5px;color:var(--muted);line-height:1.7}
+  .stance li{padding:5px 0;display:flex;gap:8px;align-items:flex-start}
+  .stance li::before{content:"";flex:0 0 5px;width:5px;height:5px;border-radius:50%;margin-top:9px;background:var(--muted-2)}
+  .stance .broker li::before{background:var(--blue)}
+  .stance .vs{display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);color:var(--gold);font-size:20px}
+  .stance-note{margin-top:28px;padding:26px 28px;border-radius:18px;border:1px solid var(--line-2);
+    background:linear-gradient(135deg,rgba(24,95,165,.07),rgba(196,160,92,.05));box-shadow:var(--shadow-card)}
+  .stance-note p{color:var(--muted);font-size:14.5px;line-height:1.85;margin-bottom:12px}
+  .stance-note p b{color:var(--text);font-weight:500}
+  .stance-note .btn{margin-top:8px}
+
+  /* ---------- 痛点（图片打底灯箱卡片） ---------- */
+  .pain{background:var(--ink)}
+  .pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+  .pain-card{position:relative;aspect-ratio:4/3;border-radius:var(--radius);overflow:hidden;
+    cursor:pointer;transition:transform .35s var(--ease),box-shadow .35s}
+  .pain-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    transition:transform .5s var(--ease)}
+  .pain-card:hover{transform:translateY(-8px);box-shadow:0 20px 55px rgba(0,0,0,.32)}
+  .pain-card:hover img{transform:scale(1.05)}
+  .pain-card::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(0,0,0,.15) 0%,rgba(0,0,0,.65) 70%);pointer-events:none}
+  .pain-card .pain-label{position:absolute;left:0;right:0;bottom:0;padding:22px 20px 18px;
+    color:#fff;z-index:1;display:flex;flex-direction:column;gap:4px}
+  .pain-card .pain-num{font-family:var(--font-serif);font-size:24px;opacity:.45;line-height:1}
+  .pain-card .pain-title{font-size:16px;font-weight:600;line-height:1.3}
+
+  /* ---------- 生活场景（客户视角入口 · Apple 全屏情境大图） ---------- */
+  .scenes{background:var(--ink-2);padding-bottom:0}
+  .scenes .lead{max-width:100%}
+  .scene-stack{margin-top:48px;display:flex;flex-direction:column;gap:10px}
+  .scene{position:relative;height:86vh;min-height:520px;border-radius:22px;overflow:hidden;
+    display:flex;align-items:flex-end;scroll-snap-align:start;box-shadow:0 20px 60px rgba(0,0,0,.28)}
+  .scene img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.4s cubic-bezier(.4,0,.2,1)}
+  .scene:hover img{transform:scale(1.05)}
+  .scene::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(to top,rgba(8,12,18,.88) 0%,rgba(8,12,18,.4) 46%,rgba(8,12,18,0) 72%)}
+  .scene-body{position:relative;z-index:2;padding:clamp(28px,5vw,64px);max-width:680px;color:#fff;transform:translateY(var(--py,0))}
+  .scene .tag{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;letter-spacing:.03em;
+    padding:8px 18px;border-radius:999px;background:rgba(255,255,255,.16);backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);margin-bottom:20px}
+  .scene .tag .emoji{font-size:18px}
+  .scene h4{font-size:clamp(23px,3.2vw,37px);font-weight:700;line-height:1.28;margin-bottom:14px;text-shadow:0 2px 20px rgba(0,0,0,.4)}
+  .scene p{font-size:clamp(15px,1.4vw,18px);line-height:1.85;color:rgba(255,255,255,.9);max-width:560px;margin-bottom:24px}
+  .scene .go{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:600;color:#fff;
+    padding:13px 28px;border-radius:999px;border:1px solid rgba(255,255,255,.55);background:rgba(255,255,255,.1);
+    transition:all .3s cubic-bezier(.4,0,.2,1)}
+  .scene .go:hover{background:rgba(255,255,255,.2);border-color:#fff;transform:translateY(-2px)}
+  @media(max-width:980px){.scene{height:74vh;min-height:440px}}
+  @media(max-width:640px){.scene{height:64vh;min-height:380px}.scene-body{padding:26px 22px}.scene p{font-size:14px;margin-bottom:18px}}
+
+  /* ---------- 服务 ---------- */
+  .svc{background:var(--paper);color:#1A212B}
+  .svc .eyebrow{color:var(--blue)}
+  .svc .eyebrow::before{background:var(--blue)}
+  .svc .h2{color:#0E1622}
+  .svc .lead{color:#5B6675}
+  .svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:48px;position:relative}
+  .svc-grid::before{content:"";position:absolute;left:12.5%;right:12.5%;top:64px;height:1px;
+    background:linear-gradient(90deg,transparent,var(--blue),var(--gold),transparent);opacity:.4;z-index:0}
+  .scard{position:relative;z-index:1;border-radius:20px;overflow:hidden;
+    background:var(--ink-3);aspect-ratio:3/4;transition:transform .4s var(--ease),box-shadow .4s;cursor:pointer}
+  .scard:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 24px 56px rgba(11,15,22,.35)}
+  .scard img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+  .scard:hover img{transform:scale(1.06)}
+  .scard-body{position:absolute;left:0;right:0;bottom:0;padding:28px 22px 24px;
+    background:linear-gradient(to top,rgba(0,0,0,.82) 0%,rgba(0,0,0,.45) 60%,transparent 100%);
+    color:#fff;display:flex;flex-direction:column;gap:8px}
+  .scard h4{font-size:17px;font-weight:600;color:#fff;margin:0;line-height:1.35}
+  .scard p{font-size:13px;color:rgba(255,255,255,.78);line-height:1.7;margin:0}
+
+  /* ---------- 服务灯箱 ---------- */
+  .lb{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;
+    background:rgba(8,11,17,.86);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    opacity:0;visibility:hidden;transition:opacity .5s var(--ease),visibility .5s}
+  .lb.open{opacity:1;visibility:visible}
+  .lb-card{position:relative;display:grid;grid-template-columns:1.05fr 1fr;gap:0;
+    max-width:960px;width:calc(100% - 48px);max-height:86vh;background:#0E131C;
+    border:1px solid rgba(255,255,255,.12);border-radius:22px;overflow:hidden;
+    box-shadow:0 40px 100px rgba(0,0,0,.6);transform:translateY(20px) scale(.98);transition:transform .6s var(--ease);will-change:transform}
+  .lb.open .lb-card{transform:none}
+  .lb-img{position:relative;min-height:380px;background:#111}
+  .lb-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    transition:opacity .35s var(--ease)}
+  .lb-img img.swap-out{opacity:0}
+  .lb-text{padding:38px 36px;color:#fff;overflow-y:auto;display:flex;flex-direction:column}
+  .lb-kicker{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:14px;
+    transition:opacity .25s var(--ease)}
+  .lb-text h3{font-size:26px;font-weight:700;margin:0 0 14px;line-height:1.3;
+    transition:opacity .25s var(--ease)}
+  .lb-lead{font-size:15px;line-height:1.75;color:rgba(255,255,255,.82);margin:0 0 22px;
+    transition:opacity .25s var(--ease)}
+  .lb-points{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:13px}
+  .lb-points li{position:relative;padding-left:26px;font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.9);
+    transition:opacity .2s var(--ease)}
+  .lb-points li::before{content:"";position:absolute;left:0;top:8px;width:8px;height:8px;border-radius:50%;
+    background:linear-gradient(135deg,var(--blue),var(--gold))}
+  .lb-close{position:absolute;top:22px;right:26px;width:42px;height:42px;border:none;border-radius:50%;
+    background:rgba(255,255,255,.12);color:#fff;font-size:24px;line-height:1;cursor:pointer;z-index:3;
+    display:flex;align-items:center;justify-content:center;transition:background .25s,transform .25s}
+  .lb-close:hover{background:rgba(255,255,255,.24);transform:rotate(90deg)}
+  .lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border:none;border-radius:50%;
+    background:rgba(255,255,255,.1);color:#fff;font-size:28px;line-height:1;cursor:pointer;z-index:3;
+    display:flex;align-items:center;justify-content:center;transition:background .25s}
+  .lb-nav:hover{background:rgba(255,255,255,.22)}
+  .lb-prev{left:22px}
+  .lb-next{right:22px}
+  @media(max-width:760px){
+    .lb-card{grid-template-columns:1fr;max-height:90vh}
+    .lb-img{min-height:220px;height:36vh}
+    .lb-text{padding:26px 22px 30px}
+    .lb-nav{display:none}
+  }
+
+  /* ---------- 视差滚动(Parallax) ---------- */
+  .parallax-slow{will-change:transform;transition:transform .05s linear}
+  @media(prefers-reduced-motion:reduce){.parallax-slow{transform:none!important}}
+
+  /* ---------- 保障体系金字塔 ---------- */
+  .pyr{background:var(--ink-2);position:relative;overflow:hidden}
+  .pyramid{margin:54px auto 0;max-width:760px;display:flex;flex-direction:column;gap:14px;align-items:center}
+  .tier{width:100%;border-radius:18px;padding:24px 28px;border:1px solid var(--line);position:relative;overflow:hidden;
+    transition:box-shadow .3s var(--ease),opacity .8s var(--ease),transform .8s var(--ease)}
+  .tier:hover{box-shadow:0 8px 32px rgba(0,0,0,.15)}
+  .tier .badge{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:600}
+  .tier h4{font-size:19px;font-weight:600;margin:6px 0 8px}
+  .tier p{font-size:13.5px;color:var(--muted);line-height:1.8}
+  .tier.t1{width:62%;background:linear-gradient(120deg,rgba(62,142,219,.16),rgba(62,142,219,.04));border-color:rgba(62,142,219,.3)}
+  .tier.t1 .badge{color:var(--blue)}
+  .tier.t2{width:82%;background:linear-gradient(120deg,rgba(120,160,210,.12),rgba(120,160,210,.03));border-color:var(--line-2)}
+  .tier.t2 .badge{color:#8FB4DD}
+  .tier.t3{width:100%;background:linear-gradient(120deg,rgba(201,162,75,.14),rgba(201,162,75,.03));border-color:rgba(201,162,75,.3)}
+  .tier.t3 .badge{color:var(--gold)}
+  .pyr-principles{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
+  .pp{padding:20px;border-radius:16px;background:rgba(255,255,255,.02);border:1px solid var(--line);text-align:center;
+    transition:opacity .6s var(--ease),transform .6s var(--ease)}
+  .pp .n{font-family:var(--font-serif);font-size:24px;color:var(--gold)}
+  .pp p{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.7}
+
+  /* ---------- 流程 ---------- */
+  .flow{background:var(--ink)}
+  .timeline{position:relative;margin-top:54px;padding-left:0}
+  .timeline .axis{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+  .step{position:relative;padding:0 18px;text-align:center}
+  .step .dot{width:54px;height:54px;border-radius:50%;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;
+    font-family:var(--font-serif);font-size:22px;color:var(--text);background:var(--surface);border:1px solid var(--line-2);
+    position:relative;z-index:2;transition:background .4s,color .4s,border-color .4s,transform .4s}
+  .step.on .dot{background:linear-gradient(135deg,#2E6FB0,#1f5fa0);color:#fff;border-color:transparent;transform:scale(1.06)}
+  .step h4{font-size:16px;font-weight:600;margin-bottom:8px}
+  .step p{font-size:13px;color:var(--muted);line-height:1.75;max-width:200px;margin:0 auto}
+  .axis-line{position:absolute;top:27px;left:12.5%;right:12.5%;height:2px;background:var(--line);z-index:1}
+  .axis-fill{position:absolute;top:27px;left:12.5%;height:2px;width:0;background:linear-gradient(90deg,var(--blue),var(--gold));z-index:1;transition:width .3s linear}
+
+  /* ---------- 信条 ---------- */
+  .credo{background:linear-gradient(180deg,var(--ink),var(--ink-2));text-align:center}
+  .credo .big{font-family:var(--font-serif);font-size:clamp(26px,4.4vw,44px);line-height:1.35;max-width:840px;margin:0 auto;font-weight:400}
+  .credo .big .soul{color:var(--gold)}
+  .credo-trio{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:56px;max-width:980px;margin-left:auto;margin-right:auto}
+  .credo-trio .ct{padding:26px 24px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid var(--line);
+    transition:transform .35s var(--ease),border-color .35s,background .35s}
+  .credo-trio .ct:hover{transform:translateY(-4px);border-color:var(--line-2);background:rgba(255,255,255,.07)}
+  .credo-trio .ct summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:14px}
+  .credo-trio .ct summary::-webkit-details-marker{display:none}
+  .credo-trio .ct .ct-ic{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,var(--blue-soft),var(--gold-soft));color:var(--blue);flex-shrink:0}
+  .credo-trio .ct .ct-ic svg{width:22px;height:22px}
+  .credo-trio .ct .k{font-family:var(--font-serif);font-size:19px;font-weight:500;color:var(--text);flex:1;letter-spacing:.01em}
+  .credo-trio .ct .plus{font-size:22px;color:var(--muted);transition:transform .3s;line-height:1;flex-shrink:0}
+  .credo-trio .ct[open] .plus{transform:rotate(45deg)}
+  .credo-trio .ct p{font-size:14px;color:var(--muted);line-height:1.85;margin-top:14px;padding-top:16px;border-top:1px solid var(--line)}
+
+  /* ---------- Apple 大色块延伸（履历风：信条 复用 mosaic 语言；痛点已改为图片灯箱卡片） ---------- */
+  .pcard,.credo-trio .ct{color:#fff;border:none;overflow:hidden}
+  .pcard::before{display:none}
+  .pcard .num,.pcard h4,.pcard p,.pcard .fix,
+  .credo-trio .ct .k,.credo-trio .ct p,.credo-trio .ct summary{color:#fff}
+  .credo-trio .ct .ct-ic{background:rgba(255,255,255,.18);color:#fff}
+  .credo-trio .ct .plus{color:rgba(255,255,255,.85)}
+  .credo-trio .ct:nth-child(1){background:radial-gradient(125% 125% at 22% 12%,#7cb0f7,#2f6fe0 47%,#1e40c8)}
+  .credo-trio .ct:nth-child(2){background:radial-gradient(125% 125% at 22% 12%,#5cc8f5,#0ea5e9 47%,#0369a1)}
+  .credo-trio .ct:nth-child(3){background:radial-gradient(125% 125% at 22% 12%,#aeb8fb,#6366f1 47%,#4338ca)}
+  .pcard:hover,.credo-trio .ct:hover{transform:translateY(-6px);box-shadow:0 20px 55px rgba(0,0,0,.32)}
+
+  /* ---------- FAQ ---------- */
+  .faq{background:var(--ink-2)}
+  .faq-list{max-width:760px;margin:46px auto 0}
+  .fitem{border-bottom:1px solid var(--line)}
+  .fq{width:100%;text-align:left;background:none;border:none;color:var(--text);cursor:pointer;
+    padding:22px 8px;font-size:16px;font-weight:500;font-family:var(--font-body);display:flex;justify-content:space-between;align-items:center;gap:16px}
+  .fq .plus{font-size:22px;color:var(--blue);transition:transform .3s var(--ease);flex:0 0 auto}
+  .fitem.open .fq .plus{transform:rotate(45deg)}
+  .fa{max-height:0;overflow:hidden;transition:max-height .4s var(--ease)}
+  .fa p{padding:0 8px 24px;color:var(--muted);font-size:14.5px;line-height:1.9}
+
+  /* ---------- 联系 ---------- */
+  .contact{background:var(--ink)}
+  .contact-card{max-width:880px;margin:46px auto 0;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;
+    padding:48px;border-radius:var(--radius-lg);background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-soft)}
+  .contact-card h3{font-family:var(--font-serif);font-size:26px;font-weight:500;margin-bottom:14px}
+  .contact-card .lead{margin-top:0;font-size:14.5px}
+  .wx-box{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+    padding:28px;border-radius:20px;background:rgba(255,255,255,.02);border:1px solid var(--line);position:relative;overflow:visible}
+  .qr{width:160px;height:160px;border-radius:16px;object-fit:cover;box-shadow:0 6px 24px rgba(0,0,0,.3)}
+  .wx-id{font-size:14px;color:var(--muted)}
+  .wx-id b{color:var(--text);font-weight:600;letter-spacing:.04em}
+
+  /* ===== 二维码花丛边框 ===== */
+  .wx-box{position:relative}
+  /* 二维码区：保持干净，无花装饰 */
+
+  /* ---------- 页脚 ---------- */
+  .footer{background:var(--ink-2);padding:48px 0 36px;border-top:1px solid var(--line)}
+  .footer .f-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;margin-bottom:28px}
+  .footer .f-brand{display:flex;align-items:center;gap:12px}
+  .footer .f-brand img{height:34px;width:34px;border-radius:50%}
+  .footer .disc{font-size:12px;color:var(--muted-2);line-height:1.8;margin-top:8px}
+  .footer .f-back{font-size:13px;color:var(--blue);display:inline-flex;align-items:center;gap:6px}
+
+  /* ---------- 浮动按钮 ---------- */
+  .fab{position:fixed;right:26px;bottom:26px;z-index:150;width:56px;height:56px;border-radius:50%;
+    background:linear-gradient(135deg,#2E6FB0,#1f5fa0);color:#fff;border:none;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 8px 28px rgba(62,142,219,.5);
+    opacity:0;transform:translateY(20px) scale(.8);pointer-events:none;transition:opacity .35s,transform .35s}
+  .fab.show{opacity:1;transform:none;pointer-events:auto}
+  .fab:hover{transform:translateY(-3px)}
+  @media(hover:none){.fab{width:50px;height:50px}}
+
+  /* ---------- 响应式 ---------- */
+  @media(max-width:980px){
+    .about-grid{grid-template-columns:1fr;gap:32px}
+    .about-portrait{max-width:360px}
+    .pain-grid{grid-template-columns:repeat(2,1fr)}
+    .svc-grid{grid-template-columns:repeat(2,1fr)}
+    .svc-grid::before{display:none}
+    .pyr-principles{grid-template-columns:repeat(2,1fr)}
+    .credo-trio{grid-template-columns:1fr;gap:14px}
+    .contact-card{grid-template-columns:1fr;gap:28px}
+    .timeline .axis{grid-template-columns:repeat(2,1fr);gap:28px 0}
+    .axis-line,.axis-fill{display:none}
+    .step{padding:0 14px}
+    /* 导航栏中等屏幕适配 */
+    .nav-right .nav-back{display:none}
+    .brand .b-name{font-size:14px}
+    .nav-cta{white-space:nowrap;padding:8px 16px;font-size:13px}
+  }
+  @media(max-width:640px){
+    .wrap,.wrap-narrow{padding:0 20px}
+    .nav{padding:12px 18px}
+    .nav-right{gap:12px}
+    .brand img{height:32px;width:32px}
+    .brand .b-name{font-size:13px}
+    .brand .b-sub{display:none}
+    .nav-cta{padding:7px 14px;font-size:12.5px;white-space:nowrap}
+    .hero{padding:110px 18px 70px}
+    .pain-grid{grid-template-columns:1fr}
+    .svc-grid{grid-template-columns:1fr}
+    .pyr-principles{grid-template-columns:1fr}
+    .tier.t1,.tier.t2,.tier.t3{width:100%}
+    .timeline .axis{grid-template-columns:1fr;gap:34px}
+    .contact-card{padding:30px 22px}
+    .stance{grid-template-columns:1fr}
+    .stance .vs{padding:6px 0}
+    .footer .f-top{flex-direction:column;align-items:flex-start}
+    .fab{right:18px;bottom:18px}
+  }
+  @media(min-width:1600px){
+    :root{--maxw:1240px}
+  }
+
+  /* =========================================================
+     浅色主题（Apple 官网风：白 / 浅灰底 + 近黑字）
+     默认应用；开关切到深色。变量层翻转 + 组件层覆盖。
+     ========================================================= */
+  [data-theme="light"]{
+    --ink:#f5f5f7;
+    --ink-2:#ffffff;
+    --ink-3:#fbfbfd;
+    --surface:#ffffff;
+    --surface-2:#f5f5f7;
+    --paper:#1d1d1f;
+    --text:#1d1d1f;
+    --muted:#6e6e73;
+    --muted-2:#6e6e73;
+    --line:rgba(0,0,0,.1);
+    --line-2:rgba(0,0,0,.16);
+    --blue:#0071E3;          /* Apple 浅色蓝 */
+    --blue-soft:rgba(0,113,227,.1);
+    --gold:#B0863A;
+    --gold-soft:rgba(176,134,58,.12);
+    --shadow-soft:0 10px 40px rgba(0,0,0,.12);
+    --shadow-card:0 8px 30px rgba(0,0,0,.1);
+  }
+  .theme-toggle{width:38px;height:38px;border-radius:50%;flex:0 0 auto;cursor:pointer;
+    display:inline-flex;align-items:center;justify-content:center;
+    border:1px solid var(--line-2);background:rgba(255,255,255,.04);color:var(--text);
+    transition:border-color .25s,color .25s,transform .25s}
+  .theme-toggle:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-1px)}
+  .theme-toggle svg{width:18px;height:18px;fill:none;stroke:currentColor;
+    stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .theme-toggle .ico-moon{display:none}
+  [data-theme="light"] .theme-toggle .ico-sun{display:block}
+  [data-theme="light"] .theme-toggle .ico-moon{display:none}
+  [data-theme="dark"]  .theme-toggle .ico-sun{display:none}
+  [data-theme="dark"]  .theme-toggle .ico-moon{display:block}
+  [data-theme="light"] body{background:var(--ink)}
+  [data-theme="light"] .nav{background:rgba(255,255,255,.72)}
+  [data-theme="light"] .nav.scrolled{background:rgba(255,255,255,.9);border-bottom-color:var(--line)}
+  [data-theme="light"] .hero-bg{
+    background:
+      url('assets/hero-bg.png') center/130% no-repeat,
+      radial-gradient(60% 55% at 50% 30%, rgba(31,111,184,.12), transparent 70%),
+      radial-gradient(45% 50% at 80% 80%, rgba(160,125,44,.08), transparent 70%),
+      linear-gradient(180deg,#fbfbfd,#f5f5f7 60%,#fbfbfd);
+  }
+  [data-theme="light"] .qr-card{background:#fff;border-color:var(--line-2);box-shadow:var(--shadow-card)}
+  [data-theme="light"] .prob{background:#fff;border-color:var(--line-2)}
+  [data-theme="light"] .prob:hover{border-color:var(--blue)}
+  [data-theme="light"] .skill{background:#fff;border-color:var(--line-2)}
+  [data-theme="light"] .skill:hover{background:var(--blue-soft);border-color:rgba(31,111,184,.3)}
+  /* insurance.html 专属 */
+  [data-theme="light"] .stance .col{background:#fff;border-color:var(--line-2)}
+  [data-theme="light"] .stance-note{background:#fff;border-color:var(--line-2)}
+  [data-theme="light"] .tier{background:#fff;border-color:var(--line-2);box-shadow:var(--shadow-card)}
+  [data-theme="light"] .tier.t1{background:linear-gradient(120deg,rgba(31,111,184,.08),rgba(31,111,184,.02));border-color:rgba(31,111,184,.2)}
+  [data-theme="light"] .tier.t2{background:linear-gradient(120deg,rgba(143,180,213,.06),rgba(143,180,213,.02));border-color:var(--line-2)}
+  [data-theme="light"] .tier.t3{background:linear-gradient(120deg,rgba(160,125,44,.08),rgba(160,125,44,.02));border-color:rgba(160,125,44,.2)}
+  [data-theme="light"] .about-portrait{border-color:var(--line-2)}
+  [data-theme="light"] .about-portrait .ring{border-color:var(--blue-soft)}
+  [data-theme="light"] .site-nav .sn-seg{background:#efeff5}
+  [data-theme="light"] .site-nav .sn-seg a{color:#666}
+  [data-theme="light"] .site-nav .sn-seg a:hover{color:#1d1d1f;background:rgba(0,0,0,.03)}
+  [data-theme="light"] .site-nav .sn-seg a.cur{background:#fff;color:#1d1d1f;box-shadow:0 1px 5px rgba(0,0,0,.08),0 2px 10px rgba(0,0,0,.05)}
+  [data-theme="light"] .site-nav .sn-seg a.home{color:#a07d2c}
+  [data-theme="light"] .scenes{background:#f5f5f7}
+  [data-theme="light"] .svc{background:var(--ink);color:var(--text)}
+  [data-theme="light"] .svc .h2{color:var(--text)}
+  [data-theme="light"] .svc .lead{color:var(--muted)}
+  [data-theme="light"] .credo{background:linear-gradient(180deg,#f5f5f7,#ebebed);color:var(--text)}
+  [data-theme="light"] .credo .big{color:var(--text)}
+  [data-theme="light"] .credo-trio .ct{background:#fff;border-color:var(--line-2)}
+  [data-theme="light"] .credo-trio .ct:hover{border-color:rgba(31,111,184,.35);background:#fff}
+  [data-theme="light"] .credo-trio .ct .k{color:var(--text)}
+  [data-theme="light"] .credo-trio .ct p{color:var(--muted);border-top-color:var(--line)}
+  /* 按钮浅色适配 */
+  [data-theme="light"] .btn-ghost{border-color:var(--line-2);color:var(--text);background:transparent}
+  [data-theme="light"] .btn-ghost:hover{background:rgba(31,111,184,.08);color:var(--blue);border-color:rgba(31,111,184,.35)}
+  /* Hero 区 ghost 按钮浅色：图片背景上需要半透明白底才看得清 */
+  [data-theme="light"] .hero .btn-ghost{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.12);
+    color:#1d1d1f;backdrop-filter:saturate(140%) blur(8px);-webkit-backdrop-filter:saturate(140%) blur(8px);
+    box-shadow:0 2px 12px rgba(0,0,0,.1),inset 0 1px 0 rgba(255,255,255,.6)}
+  [data-theme="light"] .hero .btn-ghost:hover{background:rgba(255,255,255,.75);border-color:rgba(31,111,184,.4);
+    color:var(--blue);box-shadow:0 6px 24px rgba(31,111,184,.18),inset 0 1px 0 rgba(255,255,255,.8)}
+  /* 导航栏链接浅色适配 */
+  [data-theme="light"] .nav-back{color:var(--muted);border:1px solid var(--line-2);padding:7px 16px;border-radius:999px;transition:all .25s}
+  [data-theme="light"] .nav-back:hover{color:var(--blue);border-color:rgba(31,111,184,.4);background:rgba(31,111,184,.06)}
+  [data-theme="light"] .nav-cta{box-shadow:0 4px 14px rgba(31,111,184,.3)}
+  [data-theme="light"] .qr{box-shadow:0 6px 24px rgba(0,0,0,.12)}
+  [data-theme="light"] .foot{border-top-color:var(--line)}
+</style>
+<script>
+  (function(){
+    try{
+      var t = localStorage.getItem('insurance-theme');
+      if(t !== 'dark' && t !== 'light'){ t = 'light'; }
+      document.documentElement.setAttribute('data-theme', t);
+    }catch(e){ document.documentElement.setAttribute('data-theme','light'); }
+  })();
+</script>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- ===== NAV ===== -->
+<nav class="nav" id="nav">
+  <a class="brand" href="insurance-intro.html">
+    <img src="assets/logo-gu-circle.png" alt="顾维鲁 GU" onerror="this.style.display='none'">
+    <span>
+      <span class="b-name">顾维鲁 · 保障规划</span><br>
+      <span class="b-sub">保险代理人</span>
+    </span>
+  </a>
+  <div class="nav-right">
+    <a class="nav-back" href="insurance-intro.html">← 个人能力页</a>
+    <a class="nav-back" href="index.html">← 回到顾言 GU事</a>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深色或浅色" title="切换深色 / 浅色">
+      <svg class="ico-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.6M12 19.4V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.6M19.4 12H22M4.2 19.8l1.8-1.8M18 6l1.8-1.8"/></svg>
+      <svg class="ico-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 7 7 0 1 0 20 14.5z"/></svg>
+    </button>
+    <a class="nav-cta" href="#contact">预约对话</a>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<header class="hero" id="top">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="orb-field" id="orbField"><div class="orb a"></div><div class="orb b"></div><div class="orb c"></div></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner parallax-slow" data-parallax="0.35">
+    <div class="hero-eyebrow">保险代理人 · 深耕产品，长情陪伴</div>
+    <h1>把保障<span class="soul">说清楚</span>，<br>把托付做温热。</h1>
+    <p class="sub">我是<b>顾维鲁</b>。你不需要弄懂保险——那些看不懂的条款、怕踩的坑、出事后的麻烦，都交给我。<br>你只管过好日子，保障的事，我来扛。</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#contact">预约一次对话</a>
+      <a class="btn btn-ghost" href="#about">先了解我是谁</a>
+    </div>
+  </div>
+  <div class="scroll-hint"><span>向下</span><span class="line"></span></div>
+</header>
+
+<!-- ===== 你正经历哪件事（生活场景入口） ===== -->
+<section class="scenes" id="scenes">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">你正站在哪个路口</span>
+      <h2 class="h2">不用懂保险，先看看你正经历什么</h2>
+      <p class="lead">保险不是一上来就谈产品。你的人生走到哪一步，保障就该接住哪一步。哪一句说的正是你？</p>
+    </div>
+    <div class="scene-stack">
+      <div class="scene reveal" data-d="1">
+        <img src="assets/scene-wedding.png" alt="刚成家 / 准备结婚" loading="lazy">
+        <div class="scene-body">
+          <span class="tag"><span class="emoji">💍</span> 刚成家 / 准备结婚</span>
+          <h4>两个人变成一家人，要养的人多了，扛的风险也翻倍了。</h4>
+          <p>房贷、另一半的收入、将来孩子的开销——家越大，越怕顶梁柱塌。先把"万一"兜底，再去谈"万一无忧"。</p>
+          <a class="go" href="#contact">我能帮你 →</a>
+        </div>
+      </div>
+      <div class="scene reveal" data-d="2">
+        <img src="assets/scene-house.png" alt="买了房 / 背了贷" loading="lazy">
+        <div class="scene-body">
+          <span class="tag"><span class="emoji">🏠</span> 买了房 / 背了贷</span>
+          <h4>月供之外，还欠银行一笔，断不得。</h4>
+          <p>万一收入断了，房子不能断供。用一份定寿，悄悄把房贷那笔债还上，家人不用卖房、不用搬家。</p>
+          <a class="go" href="#contact">我能帮你 →</a>
+        </div>
+      </div>
+      <div class="scene reveal" data-d="3">
+        <img src="assets/scene-baby.png" alt="家里添了新成员" loading="lazy">
+        <div class="scene-body">
+          <span class="tag"><span class="emoji">👶</span> 家里添了新成员</span>
+          <h4>小人儿一降临，你成了别人全世界的天。</h4>
+          <p>得先把自己撑住，才撑得住那个小生命。重疾、医疗、教育金，趁早把他的安全感备好。</p>
+          <a class="go" href="#contact">我能帮你 →</a>
+        </div>
+      </div>
+      <div class="scene reveal" data-d="4">
+        <img src="assets/scene-parent.png" alt="父母开始变老" loading="lazy">
+        <div class="scene-body">
+          <span class="tag"><span class="emoji">🧓</span> 父母开始变老</span>
+          <h4>曾经给你撑伞的人，现在轮到你替他撑伞。</h4>
+          <p>健康和钱都要跟上。一份医疗加意外，让父母看病不愁，你也不被突如其来的账单掏空。</p>
+          <a class="go" href="#contact">我能帮你 →</a>
+        </div>
+      </div>
+      <div class="scene reveal" data-d="5">
+        <img src="assets/scene-retire.png" alt="开始为自己打算" loading="lazy">
+        <div class="scene-body">
+          <span class="tag"><span class="emoji">🌅</span> 开始为自己打算</span>
+          <h4>你替父母撑伞的这些年，也该想想自己老去时，谁替你撑伞。</h4>
+          <p>现在每月留一点，老去时就多一份从容。年金、增额寿与养老社区权益，把未来的现金流先锁定好——不靠子女、不靠运气。</p>
+          <a class="go" href="#contact">我能帮你 →</a>
+        </div>
+      </div>
+      <div class="scene reveal" data-d="6">
+        <img src="assets/scene-health.png" alt="体检出了小异常" loading="lazy">
+        <div class="scene-body">
+          <span class="tag"><span class="emoji">🩺</span> 体检出了小异常</span>
+          <h4>身体亮了黄灯，投保要趁还能选的时候。</h4>
+          <p>越早越主动——选择越多、保费越友好。别等小异常变成大门槛，再想买就难了。</p>
+          <a class="go" href="#contact">我能帮你 →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 我是谁 / 立场 ===== -->
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">我是谁</span>
+      <h2 class="h2">一个把托付做温热的人</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-portrait reveal" data-d="1">
+        <img src="assets/story-about.jpg" alt="顾维鲁在工作中" loading="lazy">
+        <span class="tag">GU WEILU · 顾维鲁</span>
+      </div>
+      <div class="about-copy reveal" data-d="2">
+        <p>买保险，最怕的不是贵，是<b>条款读不懂、出事没人管</b>。我是保险代理人——和所服务的保险公司站在一起，也和你站在一起：你的保单，我来翻译成大白话；你的理赔，我替你跟公司争取。</p>
+        <p>我的工作，是把动辄几十页、满是术语的条款，讲成你能完全看懂的话；是把一款产品从投保、核保到理赔的每一个口径，摸得比谁都清楚——因为这就是我日常打交道的那一家。</p>
+        <p>签单只是服务的开始。方案能不能跟上你结婚、生子、换房、老去的人生节奏，理赔时有没有人一直陪着你，才是我真正在意的。</p>
+        <div class="stance-note">
+          <p>买保险不是一锤子买卖——从需求诊断、方案配置到理赔跟进，每个环节都有人在。我是保险代理人，你的保单我来翻译成大白话，你的理赔我替你跟公司争取。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 你在担心什么（痛点） ===== -->
+<section class="pain" id="pain">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">你可能正在担心</span>
+      <h2 class="h2">买保险，怕的其实就这几件事</h2>
+      <p class="lead">这些不是你的问题，是行业旧模式留下的坑。我的存在，就是把这些坑一个个填平。</p>
+    </div>
+    <div class="pain-grid">
+      <div class="pain-card reveal" data-pain="0"><img src="assets/pain-01.png" alt="怕条款看不懂" loading="lazy">
+        <div class="pain-label"><span class="pain-num">01</span><span class="pain-title">怕条款看不懂</span></div></div>
+      <div class="pain-card reveal" data-pain="1"><img src="assets/pain-02.png" alt="怕出事没人管" loading="lazy">
+        <div class="pain-label"><span class="pain-num">02</span><span class="pain-title">怕出事没人管</span></div></div>
+      <div class="pain-card reveal" data-pain="2"><img src="assets/pain-03.png" alt="怕身体不过关" loading="lazy">
+        <div class="pain-label"><span class="pain-num">03</span><span class="pain-title">怕身体不过关</span></div></div>
+      <div class="pain-card reveal" data-pain="3"><img src="assets/pain-04.png" alt="怕钱花在刀背上" loading="lazy">
+        <div class="pain-label"><span class="pain-num">04</span><span class="pain-title">怕钱花在刀背上</span></div></div>
+      <div class="pain-card reveal" data-pain="4"><img src="assets/pain-05.png" alt="怕理赔被拒" loading="lazy">
+        <div class="pain-label"><span class="pain-num">05</span><span class="pain-title">怕理赔被拒</span></div></div>
+      <div class="pain-card reveal" data-pain="5"><img src="assets/pain-06.png" alt="怕保障过时" loading="lazy">
+        <div class="pain-label"><span class="pain-num">06</span><span class="pain-title">怕保障过时</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 我能做什么（服务） ===== -->
+<section class="svc" id="services">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">你把心放下</span>
+      <h2 class="h2">你只管生活，保障交给我</h2>
+      <p class="lead">从读懂条款、核保投保，到理赔争权益、随人生阶段调方案——这些麻烦事，我替你扛。你需要的能力，我都能接住。</p>
+    </div>
+    <div class="svc-grid">
+      <div class="scard reveal" data-d="1">
+        <img src="assets/svc-audit.png" alt="需求诊断与保单检视" loading="lazy">
+        <div class="scard-body"><h4>需求诊断与保单检视</h4><p>理清家庭风险、财务状况与已有保单，查漏补缺，先看清再决策。</p></div>
+      </div>
+      <div class="scard reveal" data-d="2">
+        <img src="assets/svc-plan.png" alt="方案定制" loading="lazy">
+        <div class="scard-body"><h4>方案定制</h4><p>基于所服务公司的优质产品组合，把责任与价格摊开，不将就、不藏猫腻。</p></div>
+      </div>
+      <div class="scard reveal" data-d="3">
+        <img src="assets/svc-medical.png" alt="非标体预核保" loading="lazy">
+        <div class="scard-body"><h4>非标体预核保</h4><p>体检有异常？向所服务公司预核保，争取最优承保条件与绿通。</p></div>
+      </div>
+      <div class="scard reveal" data-d="4">
+        <img src="assets/svc-premium.png" alt="高端医疗与资源" loading="lazy">
+        <div class="scard-body"><h4>高端医疗与资源</h4><p>对接全球顶级医疗资源、直付与绿通，让保险成为品质生活入口。</p></div>
+      </div>
+      <div class="scard reveal" data-d="1">
+        <img src="assets/svc-retire.png" alt="养老与现金流" loading="lazy">
+        <div class="scard-body"><h4>养老与现金流</h4><p>年金、增额寿与养老社区权益，锁定未来品质生活与稳定现金流。</p></div>
+      </div>
+      <div class="scard reveal" data-d="2">
+        <img src="assets/svc-trust.png" alt="保险金信托" loading="lazy">
+        <div class="scard-body"><h4>保险金信托</h4><p>以信托实现资产隔离与传承控制，覆盖企业主家庭的责任与传承。</p></div>
+      </div>
+      <div class="scard reveal" data-d="3">
+        <img src="assets/svc-claims.png" alt="理赔协同" loading="lazy">
+        <div class="scard-body"><h4>理赔协同</h4><p>不幸出险时替你整理材料、对接公司、争取应得权益。</p></div>
+      </div>
+      <div class="scard reveal" data-d="4">
+        <img src="assets/svc-manage.png" alt="保单终身托管" loading="lazy">
+        <div class="scard-body"><h4>保单终身托管</h4><p>定期健检、随人生阶段调整方案，做你长期信赖的财务合伙人。</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 保障体系金字塔 ===== -->
+<section class="pyr" id="pyramid">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center">
+      <span class="eyebrow" style="justify-content:center">科学的配置逻辑</span>
+      <h2 class="h2">保障体系，像盖房子一样分层</h2>
+      <p class="lead" style="margin-left:auto;margin-right:auto">你不用记这套逻辑，我按这个顺序帮你一层层搭起来——先兜底、再防大病、最后才谈资产。顺序对了，保障才稳。</p>
+    </div>
+    <div class="pyramid">
+      <div class="tier t3 reveal" data-d="1"><div class="badge">塔尖 · 品质规划</div><h4>年金险 / 增额终身寿</h4>
+        <p>资产稳健保全，锁定养老与子女教育的未来现金流，平滑市场波动。</p></div>
+      <div class="tier t2 reveal" data-d="2"><div class="badge">中坚 · 核心健康</div><h4>医疗险 + 重疾险</h4>
+        <p>守住家庭财富、防止因病返贫。大额医疗报销 + 确诊即赔，是多数家庭最主要的保障缺口。</p></div>
+      <div class="tier t1 reveal" data-d="3"><div class="badge">基石 · 基础兜底</div><h4>意外险 + 定期寿险</h4>
+        <p>守住家庭最低风险底线。经济支柱专属，极端风险下留爱不留债。</p></div>
+    </div>
+    <div class="pyr-principles">
+      <div class="pp reveal" data-d="1"><div class="n">先</div><p>保障优先，理财后置</p></div>
+      <div class="pp reveal" data-d="2"><div class="n">柱</div><p>先经济支柱，后其他成员</p></div>
+      <div class="pp reveal" data-d="3"><div class="n">5-10%</div><p>年保费占年收入比例</p></div>
+      <div class="pp reveal" data-d="4"><div class="n">3-5年</div><p>定寿保额覆盖刚性支出+负债</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 怎么合作（流程） ===== -->
+<section class="flow" id="flow">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">怎么合作</span>
+      <h2 class="h2">四步，把复杂留给我</h2>
+    </div>
+    <div class="timeline">
+      <div class="axis-line"></div>
+      <div class="axis-fill" id="axisFill"></div>
+      <div class="axis">
+        <div class="step" data-step="1"><div class="dot">1</div><h4>聊清楚</h4><p>KYC 需求诊断：家庭、健康、财务、已有保单，先看清全貌。</p></div>
+        <div class="step" data-step="2"><div class="dot">2</div><h4>出方案</h4><p>定制组合方案，列明每款产品的责任、价格与对应解决的问题。</p></div>
+        <div class="step" data-step="3"><div class="dot">3</div><h4>帮你投</h4><p>预核保筛选最优承保条件，协助完成投保，你只做最后确认。</p></div>
+        <div class="step" data-step="4"><div class="dot">4</div><h4>长期管</h4><p>保单托管 + 定期检视 + 理赔兜底，陪伴穿越人生每个阶段。</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 信条 ===== -->
+<section class="credo">
+  <div class="wrap-narrow">
+    <div class="reveal">
+      <p class="big">保险不该是套路，<br>而是一次<b class="soul">安心的托付</b>。</p>
+    </div>
+    <div class="credo-trio">
+      <details class="ct reveal" data-d="1" open>
+        <summary>
+          <span class="ct-ic"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M6 7h12M3.5 7L2 13h3zM20.5 7L19 13h3z"/></svg></span>
+          <span class="k">客观中立</span>
+          <span class="plus">+</span>
+        </summary>
+        <p>不夸大、不藏猫腻，只站事实与你的利益。每一份方案，责任、免责、价格我都摊开讲清，不让你在模糊里做决定。</p>
+      </details>
+      <details class="ct reveal" data-d="2" open>
+        <summary>
+          <span class="ct-ic"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 13.7-5.6M20 12a8 8 0 0 1-13.7 5.6M17.5 3v4h-4M6.5 21v-4h4"/></svg></span>
+          <span class="k">长期主义</span>
+          <span class="plus">+</span>
+        </summary>
+        <p>不追一锤子买卖。保单是几十年的事，我做你长期的财务合伙人，陪你走过人生的每个阶段，而非签完字就消失。</p>
+      </details>
+      <details class="ct reveal" data-d="3" open>
+        <summary>
+          <span class="ct-ic"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg></span>
+          <span class="k">客户立场</span>
+          <span class="plus">+</span>
+        </summary>
+        <p>条款我替你读，理赔我替你争，难处我替你扛。你的利益始终在先，而不是某家公司的销售指标。</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">常见问题</span>
+      <h2 class="h2">你大概会想问</h2>
+    </div>
+    <div class="faq-list">
+      <div class="fitem reveal"><button class="fq">代理人的佣金从哪来？会不会更贵？<span class="plus">+</span></button>
+        <div class="fa"><p>佣金同样来自保险公司，产品价格由公司统一定价——你找我买，和自己去买价格一致，不会更贵。而我作为代理人，对所服务公司的产品细节、理赔口径更熟，投保和理赔时能更直接地帮你对接，中间少绕一道弯。</p></div></div>
+      <div class="fitem reveal"><button class="fq">身体有异常（结节、三高）还能买吗？<span class="plus">+</span></button>
+        <div class="fa"><p>可以。我会先帮你做预核保，向所服务公司争取最优的承保结论——能标体就标体，能加费就加费，把不确定变成确定。体况复杂时，我们也一起看看还有哪些适配的通道，尽量不留下拒保记录影响后续投保。</p></div></div>
+      <div class="fitem reveal"><button class="fq">我已经有一些保单了，还要重新买吗？<span class="plus">+</span></button>
+        <div class="fa"><p>不需要盲目重买。我会先做保单检视，看清已有的保障缺口与重复，只补你真正缺的部分，避免花冤枉钱。查漏补缺，比推倒重来更负责。</p></div></div>
+      <div class="fitem reveal"><button class="fq">理赔真的会有人管吗？<span class="plus">+</span></button>
+        <div class="fa"><p>会。出险后第一时间联系我，我会指导你准备材料、对接保险公司、在争议时站在你的立场争取权益。签单只是开始，理赔才是服务真正的试金石。</p></div></div>
+      <div class="fitem reveal"><button class="fq">高端医疗、保险金信托这些，普通人用得上吗？<span class="plus">+</span></button>
+        <div class="fa"><p>取决于你的阶段与需求。对注重就医品质、有传承或资产隔离诉求的家庭，这些是实打实能解决问题的工具。我们先聊清楚你的真实需求，再决定是否、以及如何用，绝不硬推。</p></div></div>
+      <div class="fitem reveal"><button class="fq">买了保险后悔了，能退吗？<span class="plus">+</span></button>
+        <div class="fa"><p><b>犹豫期内可以无损退保</b>——通常签收合同后 10-15 天（具体看条款），全额退保费，无损失。过了犹豫期再退，只能拿回现金价值，一般会有损失。所以建议：先想清楚再签，签完利用好犹豫期把条款再读一遍。</p></div></div>
+      <div class="fitem reveal"><button class="fq">保费可以分期交吗？<span class="plus">+</span></button>
+        <div class="fa"><p>可以。大部分长期险支持年交、半年、季交或月交，按你的现金流选节奏就好。长险一般不建议趸交——分期交相当于用小钱撬动大保障，而且带保费豁免条款的话，后续保费可能不用再交。</p></div></div>
+      <div class="fitem reveal"><button class="fq">以后想换 / 加产品怎么办？<span class="plus">+</span></button>
+        <div class="fa"><p>年度保单体检时一起看，不合适的再调整，不强行续。方案是动态的，跟着你的人生节奏走——结婚、生子、换房、收入变化，随时找我重新梳理。</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 联系 ===== -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center">
+      <span class="eyebrow" style="justify-content:center">开始对话</span>
+      <h2 class="h2">把你的保障，交给一个长情靠谱的人</h2>
+    </div>
+    <div class="contact-card reveal" data-d="1">
+      <div>
+        <h3>聊一次，不收费，不推销</h3>
+        <p class="lead">先做一次需求诊断与保单检视，看清你真正需要什么、不需要什么。哪怕最后不找我买，你也比来时更清楚。</p>
+        <div style="margin-top:24px;display:flex;gap:14px;flex-wrap:wrap">
+          <a class="btn btn-primary" href="#top">预约一次对话</a>
+          <a class="btn btn-ghost" href="index.html">回到顾言 GU事</a>
+        </div>
+      </div>
+      <div class="wx-box">
+        <img class="qr" src="assets/wechat-qr.png" alt="微信二维码">
+        <div class="wx-id">微信号：<b>13551139187</b></div>
+        <div class="wx-id" style="font-size:12px;color:var(--muted-2)">（扫码或搜索添加，备注「保障规划」）</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 保险站跨页导航 — 分段控制器风格 ===== -->
+<style>
+.site-nav{max-width:520px;margin:52px auto 8px;padding:0 24px}
+.site-nav .sn-kicker{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#86868b;text-align:center;margin-bottom:14px;font-weight:500}
+[data-theme="dark"] .site-nav .sn-kicker{color:#7c8aa6}
+/* 分段控制器容器 */
+.site-nav .sn-seg{display:inline-flex;background:#efeff5;border-radius:10px;padding:3px;gap:2px}
+[data-theme="dark"] .site-nav .sn-seg{background:rgba(255,255,255,.06)}
+.site-nav .sn-seg a{display:inline-flex;align-items:center;gap:5px;padding:9px 18px;border-radius:7px;
+  font-size:13px;font-weight:500;color:#666;text-decoration:none;transition:all .2s ease}
+[data-theme="dark"] .site-nav .sn-seg a{color:#98989d}
+.site-nav .sn-seg a:hover{color:#1d1d1f;background:rgba(0,0,0,.03)}
+[data-theme="dark"] .site-nav .sn-seg a:hover{color:#fff;background:rgba(255,255,255,.07)}
+/* 当前页：白底浮起 */
+.site-nav .sn-seg a.cur{background:#fff;color:#1d1d1f;box-shadow:0 1px 5px rgba(0,0,0,.08),0 2px 10px rgba(0,0,0,.05);font-weight:600}
+[data-theme="dark"] .site-nav .sn-seg a.cur{background:rgba(255,255,255,.11);color:#fff;
+  box-shadow:0 1px 5px rgba(0,0,0,.16),0 2px 10px rgba(0,0,0,.12)}
+/* 生活站金色语义 */
+.site-nav .sn-seg a.home{color:#a07d2c}
+[data-theme="dark"] .site-nav .sn-seg a.home{color:#e9cb8c}
+.site-nav .sn-seg a.home:hover{color:#8a6a1f;background:rgba(160,125,44,.05)}
+[data-theme="dark"] .site-nav .sn-seg a.home:hover{color:#f4dcab;background:rgba(233,203,140,.08)}
+@media(max-width:480px){
+  .site-nav .sn-seg{flex-wrap:justify-center}
+  .site-nav .sn-seg a{padding:8px 14px;font-size:12.5px}
+}
+</style>
+<nav class="site-nav" aria-label="保险站导航">
+  <div class="sn-kicker">顾维鲁 · 保险站</div>
+  <div class="sn-seg">
+    <a href="insurance-intro.html">个人能力页</a>
+    <a href="insurance.html" class="cur">保障主页</a>
+    <a href="index.html" class="home">生活站</a>
+  </div>
+</nav>
+
+<!-- ===== 页脚 ===== -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="f-top">
+      <div class="f-brand">
+        <img src="assets/logo-gu-circle.png" alt="顾维鲁 GU" onerror="this.style.display='none'">
+        <div>
+          <div style="font-size:15px;font-weight:600">顾维鲁 · 保险代理人</div>
+          <div style="font-size:12px;color:var(--muted-2);letter-spacing:.1em">GU WEILU · INSURANCE AGENT</div>
+        </div>
+      </div>
+      <a class="f-back" href="index.html">← 回到顾言 GU事（生活站）</a>
+    </div>
+    <p class="disc">本页面内容仅供保险知识普及与需求沟通之用，不构成任何保险产品要约或投资/法律建议。具体保险责任、保障范围、免责条款以保险合同（保险单及保险条款）载明为准。保险代理人为所服务保险公司提供销售服务，同时以专业与诚信服务每一位客户。</p>
+  </div>
+</footer>
+
+<button class="fab" id="fab" aria-label="回到顶部">↑</button>
+
+<script>
+(function(){
+  'use strict';
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* 滚动进度条 + 顶栏状态 + 浮动按钮 */
+  var progress = document.getElementById('progress');
+  var nav = document.getElementById('nav');
+  var fab = document.getElementById('fab');
+  function onScroll(){
+    var h = document.documentElement;
+    var scrolled = h.scrollTop;
+    var max = h.scrollHeight - h.clientHeight;
+    var p = max>0 ? (scrolled/max)*100 : 0;
+    progress.style.width = p+'%';
+    if(scrolled>40){ nav.classList.add('scrolled'); } else { nav.classList.remove('scrolled'); }
+    if(scrolled>500){ fab.classList.add('show'); } else { fab.classList.remove('show'); }
+    updateSteps();
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  fab.addEventListener('click', function(){ window.scrollTo({top:0, behavior: reduce?'auto':'smooth'}); });
+
+  /* ---- 视差滚动(Parallax) ---- */
+  var parallaxEls = document.querySelectorAll('[data-parallax]');
+  var sceneBodies = document.querySelectorAll('.scene-body');
+  var rafId = null;
+  function updateParallax(){
+    var scrolled = window.pageYOffset;
+    var vh = window.innerHeight;
+    // Hero 等通用视差元素
+    parallaxEls.forEach(function(el){
+      var rect = el.getBoundingClientRect();
+      var factor = parseFloat(el.dataset.parallax) || 0.3;
+      if(rect.bottom > 0 && rect.top < vh){
+        var offset = (rect.top - vh/2) * factor * -1;
+        el.style.transform = 'translateY(' + offset + 'px)';
+      }
+    });
+    // 场景卡文字层视差
+    sceneBodies.forEach(function(body){
+      var scene = body.closest('.scene');
+      if(!scene) return;
+      var rect = scene.getBoundingClientRect();
+      if(rect.bottom > 0 && rect.top < vh){
+        // 文字比图片慢移 0.2x → "往上走"错觉
+        var progress = (vh - rect.top) / (vh + rect.height);
+        var offsetY = (progress - 0.5) * 40; // ±20px 范围
+        body.style.setProperty('--py', offsetY + 'px');
+      }
+    });
+    rafId = null;
+  }
+  function onParallaxScroll(){
+    if(!rafId) rafId = requestAnimationFrame(updateParallax);
+  }
+  if(!reduce && (parallaxEls.length || sceneBodies.length)){
+    window.addEventListener('scroll', onParallaxScroll, {passive:true});
+    updateParallax(); // 初始化
+  }
+
+
+  /* 滚动浮现 */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+  /* 流程步骤：随滚动点亮 */
+  var steps = Array.prototype.slice.call(document.querySelectorAll('.step'));
+  var axisFill = document.getElementById('axisFill');
+  function updateSteps(){
+    if(!steps.length) return;
+    var vh = window.innerHeight;
+    var mid = vh*0.62;
+    var done = 0;
+    steps.forEach(function(s){
+      var r = s.getBoundingClientRect();
+      if(r.top < mid){ s.classList.add('on'); done++; } else { s.classList.remove('on'); }
+    });
+    if(axisFill){
+      var total = steps.length;
+      axisFill.style.width = (total>1 ? ((done-1)/(total-1))*75 : 0) + '%';
+    }
+  }
+
+  /* FAQ 手风琴 */
+  document.querySelectorAll('.fitem .fq').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var item = btn.parentElement;
+      var fa = item.querySelector('.fa');
+      var open = item.classList.contains('open');
+      document.querySelectorAll('.fitem').forEach(function(it){
+        it.classList.remove('open');
+        it.querySelector('.fa').style.maxHeight = null;
+      });
+      if(!open){
+        item.classList.add('open');
+        fa.style.maxHeight = fa.scrollHeight + 'px';
+      }
+    });
+  });
+
+  /* Hero 鼠标视差（作用于包裹层，避免覆盖云团自身浮动动画） */
+  var orbField = document.getElementById('orbField');
+  var heroBg = document.getElementById('heroBg');
+  if(!reduce && window.matchMedia('(hover:hover)').matches){
+    var hero = document.getElementById('top');
+    hero.addEventListener('mousemove', function(e){
+      var r = hero.getBoundingClientRect();
+      var cx = (e.clientX - r.left)/r.width - 0.5;
+      var cy = (e.clientY - r.top)/r.height - 0.5;
+      if(orbField) orbField.style.transform = 'translate('+(cx*22)+'px,'+(cy*22)+'px)';
+      if(heroBg) heroBg.style.backgroundPosition = 'calc(50% + '+(cx*14)+'px) calc(50% + '+(cy*14)+'px)';
+    });
+    hero.addEventListener('mouseleave', function(){
+      if(orbField) orbField.style.transform = '';
+      if(heroBg) heroBg.style.backgroundPosition = '';
+    });
+  }
+
+  /* 主题切换：默认浅色，记忆选择，跨页同步 */
+  (function(){
+    var KEY = 'insurance-theme';
+    var root = document.documentElement;
+    var btn = document.getElementById('themeToggle');
+    function apply(t){ root.setAttribute('data-theme', t); try{ localStorage.setItem(KEY, t); }catch(e){} }
+    if(btn){
+      btn.addEventListener('click', function(){
+        var cur = (root.getAttribute('data-theme') === 'dark') ? 'light' : 'dark';
+        apply(cur);
+      });
+    }
+  })();
+
+  onScroll();
+})();
+</script>
+
+  <!-- 服务灯箱 -->
+  <div class="lb" id="svcLightbox" role="dialog" aria-modal="true" aria-hidden="true">
+    <button class="lb-close" id="lbClose" aria-label="关闭">&times;</button>
+    <button class="lb-nav lb-prev" id="lbPrev" aria-label="上一项">&lsaquo;</button>
+    <button class="lb-nav lb-next" id="lbNext" aria-label="下一项">&rsaquo;</button>
+    <div class="lb-card">
+      <div class="lb-img"><img id="lbImg" src="" alt=""></div>
+      <div class="lb-text">
+        <span class="lb-kicker" id="lbKicker"></span>
+        <h3 id="lbTitle"></h3>
+        <p class="lb-lead" id="lbLead"></p>
+        <ul class="lb-points" id="lbPoints"></ul>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function(){
+    'use strict';
+    var SERVICES = [
+      {img:'assets/svc-audit.png', kicker:'服务 01 / 08', title:'需求诊断与保单检视',
+       lead:'不急着买，先看清你到底缺什么、已有保单有没有重复或断档。',
+       points:['梳理家庭结构与负债，算出真实风险缺口','盘点已有保单，标出重复投保与保障空白','结合收入与现金流，定出预算天花板','产出一份人人能看懂的「保障地图」']},
+      {img:'assets/svc-plan.png', kicker:'服务 02 / 08', title:'方案定制',
+       lead:'不堆产品、不塞贵的，只把你真正需要的责任摊开讲清楚。',
+       points:['基于所服务公司的优质产品做组合，责任/价格透明','按优先级分层：先保人、再保钱、后做传承','每一分保费对应哪块风险，逐条对得上','留出随家庭变化再调整的空间']},
+      {img:'assets/svc-medical.png', kicker:'服务 03 / 08', title:'非标体预核保',
+       lead:'体检有箭头不用慌，很多「异常」在核保眼里只是小事。',
+       points:['先看报告，判断哪些异常会影响承保','向所服务公司做预核保，争取标体或最优加费','必要时走绿通、补充资料，避免直接被拒','结论不理想时如实告知，不硬塞产品']},
+      {img:'assets/svc-premium.png', kicker:'服务 04 / 08', title:'高端医疗与资源',
+       lead:'让保险不止是赔款，更是你触达好医疗的钥匙。',
+       points:['对接全球/全国顶级医疗资源与专家','直付网络内就医，不用自己先垫钱','住院绿通、二次诊疗意见等稀缺资源','让「看病体验」成为保障的一部分']},
+      {img:'assets/svc-retire.png', kicker:'服务 05 / 08', title:'养老与现金流',
+       lead:'现在每月留一点，老去时多一份不靠人的从容。',
+       points:['年金/增额寿锁定长期复利，穿越利率下行','养老社区权益，把「住哪里」提前安排好','现金流测算，算清退休后每月能领多少','与社保、理财做组合，不把鸡蛋放一个篮子']},
+      {img:'assets/svc-trust.png', kicker:'服务 06 / 08', title:'保险金信托',
+       lead:'把钱「按你的意思」传给想传的人，而不是按法定的来。',
+       points:['以信托架构做资产隔离，防范债务与婚姻风险','设定分期、附条件给付，避免一次性被挥霍','覆盖企业主家庭的责任与传承安排','与保单配合，实现「人走钱不乱」']},
+      {img:'assets/svc-claims.png', kicker:'服务 07 / 08', title:'理赔协同',
+       lead:'出险最慌的时候，你不用一个人面对保险公司。',
+       points:['出险第一时间介入，告诉你每一步怎么做','替你整理病历、发票、证明等材料','对接所服务公司理赔通道，跟进度、催时效','遇争议时代理你沟通，争取应得权益']},
+      {img:'assets/svc-manage.png', kicker:'服务 08 / 08', title:'保单终身托管',
+       lead:'卖完不是结束，是长期陪伴的开始。',
+       points:['每年保单「体检」，看保障是否还跟得上生活','人生大事（结婚/买房/有娃）时主动提醒调整','信息变更、续期、受益人变更全程协助','做你长期信赖、随叫随到的财务合伙人']}
+    ];
+    var lb = document.getElementById('svcLightbox');
+    var elImg = document.getElementById('lbImg');
+    var elKicker = document.getElementById('lbKicker');
+    var elTitle = document.getElementById('lbTitle');
+    var elLead = document.getElementById('lbLead');
+    var elPoints = document.getElementById('lbPoints');
+    var cards = document.querySelectorAll('.scard');
+    var current = 0;
+    var swapping = false;
+    function render(i, instant){
+      var s = SERVICES[i];
+      if(instant || !lb.classList.contains('open')){
+        elImg.src = s.img; elImg.alt = s.title;
+        elKicker.textContent = s.kicker; elTitle.textContent = s.title;
+        elLead.textContent = s.lead;
+        elPoints.innerHTML = s.points.map(function(p){ return '<li>' + p + '</li>'; }).join('');
+        current = i; return;
+      }
+      if(swapping) return;
+      swapping = true;
+      elImg.classList.add('swap-out');
+      elKicker.style.opacity = '0'; elTitle.style.opacity = '0';
+      elLead.style.opacity = '0';
+      var lis = elPoints.querySelectorAll('li');
+      lis.forEach(function(li){ li.style.opacity = '0'; });
+      setTimeout(function(){
+        elImg.src = s.img; elImg.alt = s.title;
+        elKicker.textContent = s.kicker; elTitle.textContent = s.title;
+        elLead.textContent = s.lead;
+        elPoints.innerHTML = s.points.map(function(p){ return '<li style="opacity:0">' + p + '</li>'; }).join('');
+        elImg.classList.remove('swap-out');
+        elKicker.style.opacity = ''; elTitle.style.opacity = ''; elLead.style.opacity = '';
+        var newLis = elPoints.querySelectorAll('li');
+        newLis.forEach(function(li, idx){ li.style.transitionDelay = (idx * .04) + 's'; li.style.opacity = ''; });
+        current = i; swapping = false;
+      }, 320);
+    }
+    function lockScroll(){ var sw = window.innerWidth - document.documentElement.clientWidth; document.body.style.overflow = 'hidden'; if(sw > 0) document.body.style.paddingRight = sw + 'px'; }
+    function unlockScroll(){ document.body.style.overflow = ''; document.body.style.paddingRight = ''; }
+    function openLb(i){ render(i, true); lb.classList.add('open'); lb.setAttribute('aria-hidden','false'); lockScroll(); }
+    function closeLb(){
+      if(!lb.classList.contains('open')) return;
+      lb.classList.remove('open'); lb.setAttribute('aria-hidden','true');
+      var done = false;
+      var onEnd = function(e){
+        if(e.target !== lb || e.propertyName !== 'opacity' || done) return;
+        done = true; lb.removeEventListener('transitionend', onEnd); unlockScroll();
+      };
+      lb.addEventListener('transitionend', onEnd);
+      setTimeout(function(){ if(!done){ done = true; lb.removeEventListener('transitionend', onEnd); unlockScroll(); } }, 700);
+    }
+    cards.forEach(function(c, i){
+      c.addEventListener('click', function(){ openLb(i); });
+      c.setAttribute('tabindex','0');
+      c.setAttribute('role','button');
+      c.addEventListener('keydown', function(e){ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); openLb(i); } });
+    });
+    document.getElementById('lbClose').addEventListener('click', closeLb);
+    document.getElementById('lbPrev').addEventListener('click', function(){ openLb((current-1+SERVICES.length) % SERVICES.length); });
+    document.getElementById('lbNext').addEventListener('click', function(){ openLb((current+1) % SERVICES.length); });
+    lb.addEventListener('click', function(e){ if(e.target===lb) closeLb(); });
+    document.addEventListener('keydown', function(e){
+      if(!lb.classList.contains('open')) return;
+      if(e.key==='Escape') closeLb();
+      else if(e.key==='ArrowLeft') openLb((current-1+SERVICES.length) % SERVICES.length);
+      else if(e.key==='ArrowRight') openLb((current+1) % SERVICES.length);
+    });
+  })();
+  </script>
+
+  <!-- 痛点灯箱 -->
+  <div class="lb" id="painLightbox" role="dialog" aria-modal="true" aria-hidden="true">
+    <button class="lb-close" id="painLbClose" aria-label="关闭">&times;</button>
+    <button class="lb-nav lb-prev" id="painLbPrev" aria-label="上一项">&lsaquo;</button>
+    <button class="lb-nav lb-next" id="painLbNext" aria-label="下一项">&rsaquo;</button>
+    <div class="lb-card">
+      <div class="lb-img"><img id="painLbImg" src="" alt=""></div>
+      <div class="lb-text">
+        <span class="lb-kicker" id="painLbKicker"></span>
+        <h3 id="painLbTitle"></h3>
+        <p class="lb-lead" id="painLbLead"></p>
+        <ul class="lb-points" id="painLbPoints"></ul>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function(){
+    'use strict';
+    var PAINS = [
+      {img:'assets/pain-01.png', kicker:'担心 01 / 06', title:'怕条款看不懂',
+       lead:'几十页合同像天书，签字时心里没底——不知道保什么、不保什么、什么情况赔、什么情况不赔。',
+       points:['把条款翻译成大白话，逐条讲清责任边界','重点标注等待期、免责条款、免赔额','告诉你哪些是"看起来有其实没用"的噱头','签字前逐条过一遍，确保你真的看懂了']},
+      {img:'assets/pain-02.png', kicker:'担心 02 / 06', title:'怕出事没人管',
+       lead:'买了保险就失联，业务员换了一茬又一茬，真到用时找不到人。',
+       points:['终身陪伴，不是卖完就走','出事第一时间响应，全程跟进到底','定期主动联系，不是你找我我才出现','家庭结构变化时主动提醒调整方案']},
+      {img:'assets/pain-03.png', kicker:'担心 03 / 06', title:'怕身体不过关',
+       lead:'体检有点小毛病，一投保就被卡——拒保、除外、加费，越问越被动。',
+       points:['预核保先行，不盲目提交正式投保','多公司联投，分散风险争取最优条件','熟悉各公司核保偏好，帮你选对方向','即使被除外承保，也帮你争取最小范围限制']},
+      {img:'assets/pain-04.png', kicker:'担心 04 / 06', title:'怕钱花在刀背上',
+       lead:'交了好几年保费，某天才发现保障跟自己的风险根本对不上——白交了。',
+       points:['先诊断后配置，每分保费对应真实缺口','按优先级分层：先保大风险，再补细节','不做捆绑销售，不推不需要的产品','每年检视一次，确保钱花在刀刃上']},
+      {img:'assets/pain-05.png', kicker:'担心 05 / 06', title:'怕理赔被拒',
+       lead:'申请了一大堆材料，等了很久，最后收到一张拒赔通知书——那种无力感。',
+       points:['理赔前置指导，出事第一时间告诉我该怎么做','材料预审，避免因格式问题被打回','替你跟公司沟通争取，不只是递交了事','即使被拒，也帮你分析原因和申诉路径']},
+      {img:'assets/pain-06.png', kicker:'担心 06 / 06', title:'怕保障过时',
+       lead:'结婚生子、换房换工作、收入变化——十年前的方案早跟不上现在的人生了。',
+       points:['定期保单检视，建议频率不低于一年一次','人生重大变化时主动提醒复盘','随收入和家庭结构调整保障额度','让保险跟着你的人生一起成长']}
+    ];
+    var lb = document.getElementById('painLightbox');
+    var elImg = document.getElementById('painLbImg');
+    var elKicker = document.getElementById('painLbKicker');
+    var elTitle = document.getElementById('painLbTitle');
+    var elLead = document.getElementById('painLbLead');
+    var elPoints = document.getElementById('painLbPoints');
+    var cards = document.querySelectorAll('.pain-card');
+    var current = 0;
+    var swapping = false;
+    function render(i, instant){
+      var s = PAINS[i];
+      if(instant || !lb.classList.contains('open')){
+        elImg.src = s.img; elImg.alt = s.title;
+        elKicker.textContent = s.kicker; elTitle.textContent = s.title;
+        elLead.textContent = s.lead;
+        elPoints.innerHTML = s.points.map(function(p){ return '<li>' + p + '</li>'; }).join('');
+        current = i; return;
+      }
+      if(swapping) return;
+      swapping = true;
+      elImg.classList.add('swap-out');
+      elKicker.style.opacity = '0'; elTitle.style.opacity = '0';
+      elLead.style.opacity = '0';
+      var lis = elPoints.querySelectorAll('li');
+      lis.forEach(function(li){ li.style.opacity = '0'; });
+      setTimeout(function(){
+        elImg.src = s.img; elImg.alt = s.title;
+        elKicker.textContent = s.kicker; elTitle.textContent = s.title;
+        elLead.textContent = s.lead;
+        elPoints.innerHTML = s.points.map(function(p){ return '<li style="opacity:0">' + p + '</li>'; }).join('');
+        elImg.classList.remove('swap-out');
+        elKicker.style.opacity = ''; elTitle.style.opacity = ''; elLead.style.opacity = '';
+        var newLis = elPoints.querySelectorAll('li');
+        newLis.forEach(function(li, idx){ li.style.transitionDelay = (idx * .04) + 's'; li.style.opacity = ''; });
+        current = i; swapping = false;
+      }, 320);
+    }
+    function lockScroll(){ var sw = window.innerWidth - document.documentElement.clientWidth; document.body.style.overflow = 'hidden'; if(sw > 0) document.body.style.paddingRight = sw + 'px'; }
+    function unlockScroll(){ document.body.style.overflow = ''; document.body.style.paddingRight = ''; }
+    function openLb(i){ render(i, true); lb.classList.add('open'); lb.setAttribute('aria-hidden','false'); lockScroll(); }
+    function closeLb(){
+      if(!lb.classList.contains('open')) return;
+      lb.classList.remove('open'); lb.setAttribute('aria-hidden','true');
+      var done = false;
+      var onEnd = function(e){
+        if(e.target !== lb || e.propertyName !== 'opacity' || done) return;
+        done = true; lb.removeEventListener('transitionend', onEnd); unlockScroll();
+      };
+      lb.addEventListener('transitionend', onEnd);
+      setTimeout(function(){ if(!done){ done = true; lb.removeEventListener('transitionend', onEnd); unlockScroll(); } }, 700);
+    }
+    cards.forEach(function(c, i){
+      c.addEventListener('click', function(){ openLb(i); });
+      c.setAttribute('tabindex','0');
+      c.setAttribute('role','button');
+      c.addEventListener('keydown', function(e){ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); openLb(i); } });
+    });
+    document.getElementById('painLbClose').addEventListener('click', closeLb);
+    document.getElementById('painLbPrev').addEventListener('click', function(){ openLb((current-1+PAINS.length) % PAINS.length); });
+    document.getElementById('painLbNext').addEventListener('click', function(){ openLb((current+1) % PAINS.length); });
+    lb.addEventListener('click', function(e){ if(e.target===lb) closeLb(); });
+    document.addEventListener('keydown', function(e){
+      if(!lb.classList.contains('open')) return;
+      if(e.key==='Escape') closeLb();
+      else if(e.key==='ArrowLeft') openLb((current-1+PAINS.length) % PAINS.length);
+      else if(e.key==='ArrowRight') openLb((current+1) % PAINS.length);
+    });
+  })();
+  </script>
+</body>
+</html>

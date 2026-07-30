@@ -1,0 +1,63 @@
+# ===== 敏感/本地配置（绝不部署）=====
+.env
+.env.*
+!.env.example
+
+# ===== 数据库 & 运行时（绝不部署）=====
+data/
+site.db*
+*.sqlite*
+*.sqlite3*
+*.sqlite-shm
+*.sqlite-wal
+*.log
+.DS_Store
+
+# ===== Node 后台（本地发布工具，不部署）=====
+server.js
+auth.js
+db.js
+check-db.js
+admin.html
+admin-preview.html
+node_modules/
+package.json
+package-lock.json
+
+# ===== 构建/测试/发布辅助（不部署）=====
+templates/
+test/
+backups/
+.playwright-cli/
+.workbuddy/
+generated-images/
+archive/
+
+# ===== 文档/草稿/源素材（不部署）=====
+*.md
+*.docx
+DEPLOY.md
+*.bak
+*-demo.html
+*test*.html
+guyan-*.html
+galaxy-*.html
+particle-*.html
+cinema-*.html
+preview.html
+gen-checklist.js
+个人介绍-*.md
+
+# ===== assets 噪声（快照/上传/备份，不部署）=====
+assets/_snapshot_*
+assets/_snapshot_before_crop_*
+assets/uploads/*
+# index.html（生活站）实际引用、已公开展示的图片，单独放行
+!assets/uploads/ms36qfn4c8wik.jpg
+!assets/uploads/ms38sgx5kpfqu.png
+!assets/uploads/ms38wmw3j6pyr.png
+!assets/uploads/ms390jwxtn1x1.png
+!assets/uploads/ms394wur85cvl.png
+!assets/uploads/ms398nq1j7rf7.png
+!assets/uploads/ms39rwhzbpt8a.png
+!assets/uploads/ms3ajt6gn0rpi.jpg

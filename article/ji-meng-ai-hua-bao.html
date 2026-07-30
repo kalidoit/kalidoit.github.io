@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>用即梦AI做了一套知识科普画报 · 顾言 GU事</title>
+<style>
+  :root{
+    --bg:#F7F9FB; --surface:#FFFFFF; --ink:#14202E; --muted:#5B6B7B;
+    --accent:#185FA5; --accent-l:#378ADD; --tint:#E6F1FB; --line:#E3EAF2;
+    --dark:#0E1726; --dark-2:#14202E;
+    --radius:16px; --maxw:720px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent-l);text-decoration:none;transition:opacity .2s}
+  a:hover{opacity:.75}
+  ::selection{background:var(--accent);color:#fff}
+
+  /* nav */
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 28px;
+    background:rgba(255,255,255,.82);
+    backdrop-filter:saturate(180%) blur(20px);
+    -webkit-backdrop-filter:saturate(180%) blur(20px);
+    border-bottom:1px solid rgba(0,0,0,.05);
+  }
+  .nav-brand{display:flex;align-items:center;gap:10px}
+  .nav-brand img{height:36px;width:auto;border-radius:50%}
+  .nav-brand span{font-size:14px;font-weight:600;color:var(--ink)}
+  .nav-back{font-size:13px;color:var(--muted);cursor:pointer;display:flex;align-items:center;gap:4px}
+  .nav-back:hover{color:var(--accent)}
+
+  /* hero cover */
+  .cover{
+    margin-top:60px;height:320px;position:relative;overflow:hidden;
+    background:var(--dark);
+  }
+  .cover-img{
+    width:100%;height:100%;object-fit:cover;object-position:center;
+  }
+  .cover-fallback{
+    width:100%;height:100%;
+    background:linear-gradient(135deg,var(--dark),var(--accent));
+  }
+  .cover-overlay{
+    position:absolute;inset:0;
+    background:linear-gradient(180deg,transparent 45%,rgba(14,23,38,.72) 100%);
+  }
+  .cover-meta{
+    position:absolute;top:20px;left:28px;display:flex;align-items:center;gap:10px;z-index:2;
+  }
+  .tag-pill{
+    background:var(--accent-l);color:#fff;font-size:11px;font-weight:600;
+    padding:4px 12px;border-radius:12px;letter-spacing:1.5px;text-transform:uppercase;
+  }
+  .cover-date{color:rgba(255,255,255,.7);font-size:13px}
+
+  /* article body */
+  .article-wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .article-header{
+    margin-top:-56px;position:relative;z-index:2;padding-bottom:32px;
+  }
+  .article-title{
+    font-size:clamp(24px,5vw,34px);font-weight:700;line-height:1.3;
+    color:var(--surface);text-shadow:0 2px 20px rgba(0,0,0,.35);
+    margin-bottom:16px;
+  }
+  .article-excerpt{
+    font-size:clamp(15px,2.5vw,18px);color:var(--muted);
+    line-height:1.65;margin-bottom:8px;
+  }
+
+  .divider{height:1px;background:var(--line);margin:0 0 32px}
+
+  .article-content{
+    font-size:15px;line-height:1.85;color:var(--dark-2);
+  }
+  .article-content p{margin:0 0 18px}
+  .article-content h2{font-size:20px;font-weight:600;margin:32px 0 12px;color:var(--ink)}
+  .article-content h3{font-size:17px;font-weight:600;margin:24px 0 10px;color:var(--ink)}
+  .article-content img{
+    max-width:100%;border-radius:var(--radius);margin:20px 0;
+  }
+  .article-content blockquote{
+    border-left:3px solid var(--accent-l);padding:12px 20px;
+    margin:20px 0;color:var(--muted);background:var(--tint);border-radius:0 var(--radius) var(--radius) 0;
+  }
+  .article-content code{
+    background:var(--tint);padding:2px 6px;border-radius:4px;font-size:13px;
+  }
+  .article-content hr{border:none;border-top:1px solid var(--line);margin:32px 0}
+
+  /* footer */
+  .article-footer{
+    border-top:1px solid var(--line);padding:20px 28px;margin-top:48px;
+    display:flex;justify-content:space-between;align-items:center;
+    background:var(--surface);
+  }
+  .article-footer .home-link{font-size:13px;display:flex;align-items:center;gap:4px}
+  .article-footer .brand-sig{font-size:11px;color:var(--muted);letter-spacing:1.5px}
+
+  /* responsive */
+  @media(max-width:640px){
+    .cover{height:240px}
+    .article-header{margin-top:-44px}
+    .article-title{text-shadow:0 1px 12px rgba(0,0,0,.4)}
+    .nav{padding:12px 18px}
+    .article-wrap{padding:0 18px}
+    .cover-meta{top:14px;left:18px}
+    .article-footer{flex-direction:column;gap:12px;text-align:center}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-brand">
+    <img src="/assets/logo-gu-circle.png" alt="顾言 GU事" /><span>顾言 GU事</span>
+  </a>
+  <a href="/" class="nav-back">← 返回首页</a>
+</nav>
+
+<section class="cover">
+  <div class="cover-fallback"></div>
+  <div class="cover-overlay"></div>
+  <div class="cover-meta">
+    <span class="tag-pill">AI</span>
+    <span class="cover-date">2026-07-27</span>
+  </div>
+</section>
+
+<main class="article-wrap">
+  <header class="article-header">
+    <h1 class="article-title">用即梦AI做了一套知识科普画报</h1>
+    <p class="article-excerpt">把难懂的事，画成一张图一句话。</p>
+  </header>
+
+  <div class="divider"></div>
+
+  <article class="article-content">
+从 prompt 到成图的完整记录。把难懂的事，画成一张图一句话。
+  </article>
+</main>
+
+<footer class="article-footer">
+  <a href="/" class="home-link">← 返回首页</a>
+  <span class="brand-sig">GU YAN · STORY</span>
+</footer>
+
+</body>
+</html>
