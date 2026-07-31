@@ -158,6 +158,65 @@
   .skill .s-name{font-size:17px;font-weight:600;margin-top:10px}
   .skill .s-desc{font-size:14px;color:var(--muted);margin-top:10px;line-height:1.8}
 
+  /* ---------- 擅长网格 · 可点击卡片 ---------- */
+  .skill{cursor:pointer}
+  .skill:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+  .skill:active,.skill.active{border-color:var(--blue);background:rgba(10,132,255,.08);box-shadow:0 0 0 1px var(--blue)}
+  /* 滚动入场（轻量淡入，不抢 modal 风头） */
+  .skill.bloom-item{opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+  .skill.bloom-item.in{opacity:1;transform:none}
+  .skill-grid.is-bloom .bloom-item:nth-child(1){transition-delay:0s}
+  .skill-grid.is-bloom .bloom-item:nth-child(2){transition-delay:.07s}
+  .skill-grid.is-bloom .bloom-item:nth-child(3){transition-delay:.14s}
+  .skill-grid.is-bloom .bloom-item:nth-child(4){transition-delay:.21s}
+  .skill-grid.is-bloom .bloom-item:nth-child(5){transition-delay:.28s}
+  .skill-grid.is-bloom .bloom-item:nth-child(6){transition-delay:.35s}
+  @media(prefers-reduced-motion:reduce){
+    .skill.bloom-item{opacity:1!important;transform:none!important;transition:none!important}
+  }
+
+  /* ---------- 擅长详情 · 灯箱（复用 .lb 体系 + 左右切换） ---------- */
+  .skill-lb-side{position:relative;background:#10203a;
+    display:flex;flex-direction:column;justify-content:flex-end;padding:46px 46px;min-height:420px;overflow:hidden}
+  .skill-lb-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;transition:opacity .5s ease}
+  .skill-lb-side::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(to top, rgba(8,12,20,.74) 0%, rgba(8,12,20,.30) 40%, rgba(8,12,20,0) 72%),
+      radial-gradient(60% 60% at 80% 90%, rgba(201,162,75,.28), transparent 70%)}
+  .slb-idx{position:relative;z-index:2;font-family:var(--font-serif);font-size:clamp(72px,10vw,120px);
+    font-weight:600;line-height:.9;color:#fff;letter-spacing:-3px}
+  .slb-idx .u{font-size:.3em;margin-left:6px;opacity:.85}
+  .slb-kicker{position:relative;z-index:2;margin-top:14px;font-size:13px;letter-spacing:.16em;
+    text-transform:uppercase;color:rgba(255,255,255,.82);font-weight:600}
+  .skill-lb-title{font-family:var(--font-serif);font-size:clamp(22px,3vw,30px);font-weight:500;
+    line-height:1.3;letter-spacing:-.01em;margin:12px 0 18px;color:var(--text)}
+  .lb-text{transition:opacity .2s ease}
+  [data-theme="light"] .skill-lb-side{background:#10203a}
+  [data-theme="light"] .slb-idx{color:#0a4fb8}
+  [data-theme="light"] .slb-kicker{color:#3a6fc0}
+  [data-theme="light"] .skill-lb-title{color:#1d1d1f}
+
+  /* 灯箱固定浅色明亮风（Apple 风格：半透明白遮罩 + 白卡片黑字，不随站点主题翻转） */
+  #skillLb{background:rgba(250,250,252,.5)}
+  #skillLb .lb-card{background:#fff;border-color:rgba(0,0,0,.1);box-shadow:0 30px 80px rgba(0,0,0,.22)}
+  #skillLb .lb-body{color:#1d1d1f}
+  #skillLb .lb-tag{color:#0a84ff}
+  #skillLb .skill-lb-title{color:#1d1d1f}
+  #skillLb .lb-text,#skillLb .lb-text p{color:#3a3a3c}
+  #skillLb .lb-text{transition:opacity .5s ease}
+  #skillLb .lb-cta{color:#0a84ff}
+  #skillLb .skill-lb-side{background:#10203a}
+  #skillLb .slb-idx{color:#fff}
+  #skillLb .slb-kicker{color:rgba(255,255,255,.82)}
+  #skillLb .lb-close{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.14);color:#1d1d1f}
+  #skillLb .lb-close:hover{background:rgba(0,0,0,.1);color:#000}
+  #skillLb .lb-nav button{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.14);color:#1d1d1f}
+  #skillLb .lb-nav button:hover{background:rgba(0,0,0,.1)}
+
+  @media(max-width:720px){
+    .skill-lb-side{min-height:150px;aspect-ratio:16/9;padding:26px 24px;justify-content:center}
+    .slb-idx{font-size:clamp(48px,16vw,72px)}
+  }
+
   /* ---------- 履历 Apple 色块马赛克 + 灯箱 ---------- */
   .story-mosaic{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:44px}
   .sq{position:relative;aspect-ratio:4/3;border:none;padding:0;cursor:pointer;overflow:hidden;
@@ -186,12 +245,12 @@
   /* 灯箱 */
   .lb{position:fixed;inset:0;z-index:300;background:rgba(6,9,15,.94);backdrop-filter:blur(10px);
     display:flex;align-items:center;justify-content:center;padding:24px;
-    opacity:0;visibility:hidden;transition:opacity .35s ease}
-  .lb.open{opacity:1;visibility:visible}
+    opacity:0;visibility:hidden;transition:opacity .55s cubic-bezier(.22,1,.36,1), visibility 0s linear .55s}
+  .lb.open{opacity:1;visibility:visible;transition:opacity .55s cubic-bezier(.22,1,.36,1), visibility 0s}
   .lb-card{position:relative;width:min(1180px,94%);max-height:92vh;background:#0e1320;border:1px solid var(--line-2);
     border-radius:var(--radius-lg);overflow:hidden;display:grid;grid-template-columns:1.3fr .7fr;
-    transform:translateY(22px) scale(.98);transition:transform .42s cubic-bezier(.22,1,.36,1)}
-  .lb.open .lb-card{transform:none}
+    transform:scale(.92);opacity:0;transition:transform .55s cubic-bezier(.22,1,.36,1), opacity .55s ease}
+  .lb.open .lb-card{transform:none;opacity:1}
   .lb-img{position:relative;background:#1a2233;min-height:460px;overflow:hidden}
   .lb-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s}
   .lb-img img.ok{opacity:1}
@@ -467,33 +526,33 @@
         <h2 class="h2">我擅长什么</h2>
         <p class="lead">代理人这件事，我的长板在这里——不广撒网，把服务过的每一条产品线做深做透。</p>
       </div>
-      <div class="skill-grid">
-        <div class="skill reveal">
+      <div class="skill-grid is-bloom">
+        <div class="skill bloom-item" data-skill="0" tabindex="0" role="button" aria-label="查看详情：需求诊断">
           <div class="s-idx">01</div>
           <div class="s-name">需求诊断</div>
           <div class="s-desc">先听后配，不先推产品。你的处境，比我的货架重要。</div>
         </div>
-        <div class="skill reveal" data-d="1">
+        <div class="skill bloom-item" data-skill="1" tabindex="0" role="button" aria-label="查看详情：产品理解力">
           <div class="s-idx">02</div>
           <div class="s-name">产品理解力</div>
           <div class="s-desc">不只会讲一款产品。重疾、医疗、意外、寿险、年金——各类产品的逻辑和边界我都能拆开讲；你家已有的、该补的，怎么组合最稳，我帮你算明白。你不用懂产品，只要懂"我的保障到底靠不靠谱"。</div>
         </div>
-        <div class="skill reveal" data-d="2">
+        <div class="skill bloom-item" data-skill="2" tabindex="0" role="button" aria-label="查看详情：非标体核保">
           <div class="s-idx">03</div>
           <div class="s-name">非标体核保</div>
           <div class="s-desc">体况复杂，也帮你找最优结论，而不是一句"买不了"打发。</div>
         </div>
-        <div class="skill reveal">
+        <div class="skill bloom-item" data-skill="3" tabindex="0" role="button" aria-label="查看详情：跨周期规划">
           <div class="s-idx">04</div>
           <div class="s-name">跨周期规划</div>
           <div class="s-desc">不是卖一张算一张。把过去已有的保单、当下真实的缺口、未来会来的变故（孩子、养老、传承）串成一条线，让保障跟着你的人生阶段走，而不是散着慌。</div>
         </div>
-        <div class="skill reveal" data-d="1">
+        <div class="skill bloom-item" data-skill="4" tabindex="0" role="button" aria-label="查看详情：理赔协同">
           <div class="s-idx">05</div>
           <div class="s-name">理赔协同</div>
           <div class="s-desc">我是代理人，和公司一条线。出险那一刻我就在你这边，协同比转手快。</div>
         </div>
-        <div class="skill reveal" data-d="2">
+        <div class="skill bloom-item" data-skill="5" tabindex="0" role="button" aria-label="查看详情：长期陪伴">
           <div class="s-idx">06</div>
           <div class="s-name">长期陪伴</div>
           <div class="s-desc">我正在服务的 982 个家庭，跟着我好些年。孩子出生、老人变故、收入起伏，保障跟着调。过了好些年翻出保单，还能一个电话找着我。</div>
@@ -598,7 +657,7 @@
 
   <!-- ===== 保险站跨页导航 — 分段控制器风格 ===== -->
   <style>
-  .site-nav{max-width:520px;margin:52px auto 8px;padding:0 24px}
+  .site-nav{max-width:520px;margin:52px auto 8px;padding:0 24px;text-align:center}
   .site-nav .sn-kicker{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#86868b;text-align:center;margin-bottom:14px;font-weight:500}
   /* 分段控制器容器 */
   .site-nav .sn-seg{display:inline-flex;background:#efeff5;border-radius:10px;padding:3px;gap:2px}
@@ -623,7 +682,6 @@
   }
   </style>
   <nav class="site-nav" aria-label="保险站导航">
-    <div class="sn-kicker">顾维鲁 · 保险站</div>
     <div class="sn-seg">
       <a href="./" class="cur">个人能力页</a>
       <a href="insurance.html">保障主页</a>
@@ -632,7 +690,7 @@
   </nav>
 
   <footer class="foot">
-    <p>顾维鲁 · 保险代理人</p>
+    <p>顾维鲁 · 保险站</p>
   </footer>
 
   <button class="back-top" id="backTop" type="button" title="回到顶部" aria-label="返回页面顶部">↑</button>
@@ -715,6 +773,125 @@
       }, {threshold:.16});
       document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
 
+      // 擅长网格 · 滚动入场 + 点击打开灯箱（复用 .lb 体系，支持左右切换）
+      (function(){
+        var grid=document.querySelector('.skill-grid.is-bloom');
+        if(!grid) return;
+        var items=grid.querySelectorAll('.bloom-item');
+        var lb=document.getElementById('skillLb');
+        var elIdx=document.getElementById('slbIdx');
+        var elKicker=document.getElementById('slbKicker');
+        var elTag=document.getElementById('skillLbTag');
+        var elTitle=document.getElementById('skillLbTitle');
+        var elBody=document.getElementById('skillLbBody');
+        var elLink=document.getElementById('skillLbLink');
+        var elImg=document.getElementById('skillLbImg');
+        var closeBtn=document.getElementById('skillLbClose');
+
+        // 6 张卡片的扩展内容（左侧编号 / 右侧标题 + 正文）
+        var SKILLS=[
+          { idx:'01', kicker:'WHAT I DO WELL', tag:'需求诊断', title:'先听后配，不先推产品',
+            body:'<p>你的处境，比我的货架重要。</p><p>我不会上来就推产品。第一步永远是坐下来听——你担心什么、已经有什么、将来怕什么。把这些问题理清楚了，该补什么、优先保谁、预算怎么分配，方案自然就出来了。</p><p>很多人以为买保险就是选产品，其实不是。买保险是先把问题想清楚，再找工具去解决。我帮你做的是前面那一步。</p>',
+            link:'了解我的咨询方式', href:'#take' },
+          { idx:'02', kicker:'WHAT I DO WELL', tag:'产品理解力', title:'各类产品的逻辑和边界，我能拆开讲',
+            body:'<p>不只会讲一款产品。重疾、医疗、意外、寿险、年金——各类产品的逻辑和边界我都能拆开讲。</p><p>你家已有的、该补的，怎么组合最稳，我帮你算明白。</p><p>你不用懂产品，只要懂"我的保障到底靠不靠谱"。条款里哪些是真保障、哪些是限定条件、哪些情况不赔——这些是我要对你讲清楚的。</p>',
+            link:'看保障主页详解', href:'insurance.html#pyramid' },
+          { idx:'03', kicker:'WHAT I DO WELL', tag:'非标体核保', title:'体况复杂也帮你找最优结论',
+            body:'<p>体检报告上有些异常，不代表买不了保险。</p><p>结节、高血压、血糖偏高……每种情况在不同公司的核保口径不一样。有的直接拒保，有的除外承保，有的加费，还有的可能标准体过。关键在于：找对公司、报对资料、说对口径。</p><p>我不会一句"买不了"打发你。能试的渠道我会帮你试，能争的空间我会帮你争。</p>',
+            link:'聊聊你的具体情况', href:'#take' },
+          { idx:'04', kicker:'WHAT I DO WELL', tag:'跨周期规划', title:'把保障串成一条线，跟着人生阶段走',
+            body:'<p>不是卖一张算一张。</p><p>把过去已有的保单、当下真实的缺口、未来会来的变故（孩子、养老、传承）串成一条线。让保障跟着你的人生阶段走，而不是散着慌。</p><p>单看一张保单可能觉得够了，放在一起一看才发现：重疾保了但医疗没跟上、大人保了但孩子漏了、当年买的额度现在已经不够了。这种事很常见，帮你理一遍就清楚了。</p>',
+            link:'预约一次家庭保障梳理', href:'#take' },
+          { idx:'05', kicker:'WHAT I DO WELL', tag:'理赔协同', title:'出险那一刻，我就在你这边',
+            body:'<p>我是代理人，和公司一条线。</p><p>出险那一刻我就在你这边，协同比转手快。报案流程、资料准备、进度跟进、赔款到账——全程陪同，不用你自己去跟客服排队。</p><p>理赔服务过的 33 个家庭、196 万多赔款，一个没落下。理赔从来不是卖完保单的终点，是我和你真正开始托付信任的地方。</p>',
+            link:'了解理赔服务', href:'insurance.html#claims' },
+          { idx:'06', kicker:'WHAT I DO WELL', tag:'长期陪伴', title:'过了好些年翻出保单，还能一个电话找着我',
+            body:'<p>我正在服务的 982 个家庭，跟着我好些年。</p><p>孩子出生、老人变故、收入起伏、搬家换城市——保障跟着调。保单不是买了就扔抽屉里的东西，它需要随着你的生活一起更新。</p><p>过了好些年翻出保单，还能一个电话找着我。我不是把合同递给你就消失的人。</p>',
+            link:'联系我', href:'#take' }
+        ];
+
+        var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var cur=0, open=false, locked=false;
+
+        // 滚动入场
+        function bloom(){ items.forEach(function(el){ el.classList.add('in'); }); }
+        if(reduceMotion){ bloom(); } else {
+          var bio=new IntersectionObserver(function(es){
+            es.forEach(function(e){ if(e.isIntersecting){ bloom(); bio.unobserve(e.target); } });
+          }, {threshold:.2});
+          bio.observe(grid);
+        }
+
+        function fill(i){
+          var s=SKILLS[i];
+          elIdx.innerHTML = s.idx + '<span class="u">项</span>';
+          elKicker.textContent = s.kicker;
+          elTag.textContent = s.tag;
+          elTitle.textContent = s.title;
+          elBody.innerHTML = s.body;
+          elLink.textContent = s.link;
+          elLink.href = s.href || '#take';
+          elImg.src = 'assets/skill-' + String(i+1).padStart(2,'0') + '.jpg'; elImg.alt = s.title;
+          items.forEach(function(el,j){ el.classList.toggle('active', j===i); });
+        }
+
+        // 左右切换（带轻量淡出淡入）
+        function swap(i){
+          if(locked) return; locked=true;
+          cur=(i+SKILLS.length)%SKILLS.length;
+          if(reduceMotion){ fill(cur); locked=false; return; }
+          elBody.style.opacity='0';
+          elImg.style.opacity='0';
+          setTimeout(function(){ fill(cur); elBody.style.opacity='1'; elImg.style.opacity='1'; locked=false; }, 500);
+        }
+
+        // 锁定 body 滚动时补偿滚动条宽度，避免页面横向跳动（卡顿根因之一）
+        function lockScroll(){
+          var sw = window.innerWidth - document.documentElement.clientWidth;
+          if(sw>0) document.body.style.paddingRight = sw + 'px';
+          document.body.style.overflow = 'hidden';
+        }
+        function unlockScroll(){
+          document.body.style.overflow = '';
+          document.body.style.paddingRight = '';
+        }
+
+        function openLb(i){
+          if(open||locked) return; locked=true;
+          cur=i; fill(cur);
+          elBody.style.opacity='1'; elImg.style.opacity='1';   // 打开时无淡入闪烁
+          // 先填充内容，下一帧再触发过渡，避免“先弹空壳再填字”的跳帧
+          requestAnimationFrame(function(){
+            lb.classList.add('open'); open=true;
+            lockScroll();
+            closeBtn.focus(); locked=false;
+          });
+        }
+        function closeLb(){
+          if(!open||locked) return; locked=true;
+          lb.classList.remove('open'); open=false;
+          unlockScroll();
+          items.forEach(function(el){ el.classList.remove('active'); });
+          setTimeout(function(){ locked=false; }, 650);
+        }
+
+        // 卡片点击 / 键盘
+        items.forEach(function(el){
+          var i=+el.getAttribute('data-skill');
+          el.addEventListener('click', function(){ openLb(i); });
+          el.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openLb(i); } });
+        });
+
+        // 关闭：× / 点遮罩 / Esc
+        closeBtn.addEventListener('click', closeLb);
+        lb.addEventListener('click', function(e){ if(e.target===lb) closeLb(); });
+        document.addEventListener('keydown', function(e){
+          if(!open) return;
+          if(e.key==='Escape') closeLb();
+        });
+        elLink.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); closeLb(); } });
+      })();
+
       // 履历 色块马赛克 → 灯箱
       (function(){
         var STORY = [
@@ -792,5 +969,24 @@
     });
   })();
   </script>
+
+  <!-- 擅长详情 · 灯箱（复用履历灯箱体系，支持左右切换） -->
+  <div class="lb" id="skillLb" role="dialog" aria-modal="true" aria-label="擅长详情">
+    <div class="lb-card">
+      <button class="lb-close" id="skillLbClose" type="button" aria-label="关闭">✕</button>
+      <div class="skill-lb-side" id="skillLbSide">
+        <img class="skill-lb-img" id="skillLbImg" alt="" src="assets/skill-01.jpg">
+        <div class="slb-idx" id="slbIdx"></div>
+        <div class="slb-kicker" id="slbKicker"></div>
+      </div>
+      <div class="lb-body">
+        <div class="lb-tag" id="skillLbTag"></div>
+        <h3 class="skill-lb-title" id="skillLbTitle"></h3>
+        <div class="lb-text" id="skillLbBody"></div>
+        <a class="p-link lb-cta" id="skillLbLink" href="#take">进一步了解 →</a>
+      </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

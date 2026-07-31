@@ -173,10 +173,10 @@
   .cmp-note{margin-top:20px;font-size:13.5px;color:var(--muted-2);text-align:center}
 
   /* ---------- 我的选择 ---------- */
-  .choice{background:linear-gradient(180deg,var(--ink),var(--ink-3))}
+  .choice{background:linear-gradient(180deg,var(--ink),var(--ink-3));text-align:center}
   .choice .big{font-family:var(--font-serif);font-weight:500;font-size:clamp(24px,3.4vw,38px);line-height:1.5;letter-spacing:-.01em}
   .choice .big .soul{color:var(--gold)}
-  .choice p{color:var(--muted);font-size:16px;line-height:1.95;margin-top:26px;max-width:720px}
+  .choice p{color:var(--muted);font-size:16px;line-height:1.95;margin:26px auto 0;max-width:720px}
   .choice .sign{margin-top:30px;font-size:14px;color:var(--muted-2);letter-spacing:.06em}
 
   /* ---------- 收尾 CTA ---------- */
@@ -489,48 +489,12 @@
   </div>
 </section>
 
-<!-- ===== 保险站跨页导航 — 分段控制器风格 ===== -->
-<style>
-.site-nav{max-width:580px;margin:52px auto 8px;padding:0 24px}
-.site-nav .sn-kicker{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#86868b;text-align:center;margin-bottom:14px;font-weight:500}
-[data-theme="dark"] .site-nav .sn-kicker{color:#7c8aa6}
-/* 分段控制器容器 */
-.site-nav .sn-seg{display:inline-flex;background:#efeff5;border-radius:10px;padding:3px;gap:2px;flex-wrap:wrap;justify-content:center}
-[data-theme="dark"] .site-nav .sn-seg{background:rgba(255,255,255,.06)}
-.site-nav .sn-seg a{display:inline-flex;align-items:center;gap:5px;padding:9px 16px;border-radius:7px;
-  font-size:13px;font-weight:500;color:#666;text-decoration:none;transition:all .2s ease}
-[data-theme="dark"] .site-nav .sn-seg a{color:#98989d}
-.site-nav .sn-seg a:hover{color:#1d1d1f;background:rgba(0,0,0,.03)}
-[data-theme="dark"] .site-nav .sn-seg a:hover{color:#fff;background:rgba(255,255,255,.07)}
-/* 当前页：白底浮起 */
-.site-nav .sn-seg a.cur{background:#fff;color:#1d1d1f;box-shadow:0 1px 5px rgba(0,0,0,.08),0 2px 10px rgba(0,0,0,.05);font-weight:600}
-[data-theme="dark"] .site-nav .sn-seg a.cur{background:rgba(255,255,255,.11);color:#fff;
-  box-shadow:0 1px 5px rgba(0,0,0,.16),0 2px 10px rgba(0,0,0,.12)}
-/* 生活站金色语义 */
-.site-nav .sn-seg a.home{color:#a07d2c}
-[data-theme="dark"] .site-nav .sn-seg a.home{color:#e9cb8c}
-.site-nav .sn-seg a.home:hover{color:#8a6a1f;background:rgba(160,125,44,.05)}
-[data-theme="dark"] .site-nav .sn-seg a.home:hover{color:#f4dcab;background:rgba(233,203,140,.08)}
-@media(max-width:480px){
-  .site-nav .sn-seg a{padding:8px 12px;font-size:12px}
-}
-</style>
-<nav class="site-nav" aria-label="保险站导航">
-  <div class="sn-kicker">顾维鲁 · 保险站</div>
-  <div class="sn-seg">
-    <a href="index.html">个人能力页</a>
-    <a href="insurance.html">保障主页</a>
-    <a href="insurance-agent-vs-broker.html" class="cur">代理 vs 经纪人</a>
-    <a href="life/" class="home">生活站</a>
-  </div>
-</nav>
-
 <footer class="footer">
   <div class="wrap">
     <div class="f-top">
       <div class="f-brand">
         <img src="assets/logo-gu-circle.png" alt="顾维鲁 GU" onerror="this.style.display='none'">
-        <div><div class="fn">顾维鲁 · 保险代理人</div><div class="fs">GU WEILU · INSURANCE AGENT</div></div>
+        <div><div class="fn">顾维鲁 · 保险站</div><div class="fs">GU WEILU · INSURANCE</div></div>
       </div>
       <a class="f-back" href="life/">← 回到顾言 GU事（生活站）</a>
     </div>
