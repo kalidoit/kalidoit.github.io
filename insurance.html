@@ -217,10 +217,6 @@
   .scene .tag .emoji{font-size:18px}
   .scene h4{font-size:clamp(23px,3.2vw,37px);font-weight:700;line-height:1.28;margin-bottom:14px;text-shadow:0 2px 20px rgba(0,0,0,.4)}
   .scene p{font-size:clamp(15px,1.4vw,18px);line-height:1.85;color:rgba(255,255,255,.9);max-width:560px;margin-bottom:24px}
-  .scene .go{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:600;color:#fff;
-    padding:13px 28px;border-radius:999px;border:1px solid rgba(255,255,255,.55);background:rgba(255,255,255,.1);
-    transition:all .3s cubic-bezier(.4,0,.2,1)}
-  .scene .go:hover{background:rgba(255,255,255,.2);border-color:#fff;transform:translateY(-2px)}
   @media(max-width:980px){.scene{height:74vh;min-height:440px}}
   @media(max-width:640px){.scene{height:64vh;min-height:380px}.scene-body{padding:26px 22px}.scene p{font-size:14px;margin-bottom:18px}}
 
@@ -531,6 +527,8 @@
   [data-theme="light"] .nav-cta{box-shadow:0 4px 14px rgba(31,111,184,.3)}
   [data-theme="light"] .qr{box-shadow:0 6px 24px rgba(0,0,0,.12)}
   [data-theme="light"] .foot{border-top-color:var(--line)}
+  /* Hero 副标题浅色模式：锁定深色 + 浅底适配 shadow */
+  [data-theme="light"] .hero .sub{color:#1d1d1f;text-shadow:0 1px 2px rgba(255,255,255,.6),0 0 12px rgba(255,255,255,.25)}
 </style>
 <script>
   (function(){
@@ -598,8 +596,7 @@
           <span class="tag"><span class="emoji">💍</span> 刚成家 / 准备结婚</span>
           <h4>两个人变成一家人，要养的人多了，扛的风险也翻倍了。</h4>
           <p>房贷、另一半的收入、将来孩子的开销——家越大，越怕顶梁柱塌。先把"万一"兜底，再去谈"万一无忧"。</p>
-          <a class="go" href="#contact">我能帮你 →</a>
-        </div>
+                  </div>
       </div>
       <div class="scene reveal" data-d="2">
         <img src="assets/scene-house.png" alt="买了房 / 背了贷" loading="lazy">
@@ -607,8 +604,7 @@
           <span class="tag"><span class="emoji">🏠</span> 买了房 / 背了贷</span>
           <h4>月供之外，还欠银行一笔，断不得。</h4>
           <p>万一收入断了，房子不能断供。用一份定寿，悄悄把房贷那笔债还上，家人不用卖房、不用搬家。</p>
-          <a class="go" href="#contact">我能帮你 →</a>
-        </div>
+                  </div>
       </div>
       <div class="scene reveal" data-d="3">
         <img src="assets/scene-baby.png" alt="家里添了新成员" loading="lazy">
@@ -616,8 +612,7 @@
           <span class="tag"><span class="emoji">👶</span> 家里添了新成员</span>
           <h4>小人儿一降临，你成了别人全世界的天。</h4>
           <p>得先把自己撑住，才撑得住那个小生命。重疾、医疗、教育金，趁早把他的安全感备好。</p>
-          <a class="go" href="#contact">我能帮你 →</a>
-        </div>
+                  </div>
       </div>
       <div class="scene reveal" data-d="4">
         <img src="assets/scene-parent.png" alt="父母开始变老" loading="lazy">
@@ -625,8 +620,7 @@
           <span class="tag"><span class="emoji">🧓</span> 父母开始变老</span>
           <h4>曾经给你撑伞的人，现在轮到你替他撑伞。</h4>
           <p>健康和钱都要跟上。一份医疗加意外，让父母看病不愁，你也不被突如其来的账单掏空。</p>
-          <a class="go" href="#contact">我能帮你 →</a>
-        </div>
+                  </div>
       </div>
       <div class="scene reveal" data-d="5">
         <img src="assets/scene-retire.png" alt="开始为自己打算" loading="lazy">
@@ -634,8 +628,7 @@
           <span class="tag"><span class="emoji">🌅</span> 开始为自己打算</span>
           <h4>你替父母撑伞的这些年，也该想想自己老去时，谁替你撑伞。</h4>
           <p>现在每月留一点，老去时就多一份从容。年金、增额寿与养老社区权益，把未来的现金流先锁定好——不靠子女、不靠运气。</p>
-          <a class="go" href="#contact">我能帮你 →</a>
-        </div>
+                  </div>
       </div>
       <div class="scene reveal" data-d="6">
         <img src="assets/scene-health.png" alt="体检出了小异常" loading="lazy">
@@ -643,8 +636,7 @@
           <span class="tag"><span class="emoji">🩺</span> 体检出了小异常</span>
           <h4>身体亮了黄灯，投保要趁还能选的时候。</h4>
           <p>越早越主动——选择越多、保费越友好。别等小异常变成大门槛，再想买就难了。</p>
-          <a class="go" href="#contact">我能帮你 →</a>
-        </div>
+                  </div>
       </div>
     </div>
   </div>
@@ -1081,7 +1073,6 @@
     <div class="lb-card">
       <div class="lb-img"><img id="lbImg" src="" alt=""></div>
       <div class="lb-text">
-        <span class="lb-kicker" id="lbKicker"></span>
         <h3 id="lbTitle"></h3>
         <p class="lb-lead" id="lbLead"></p>
         <ul class="lb-points" id="lbPoints"></ul>
@@ -1092,34 +1083,33 @@
   (function(){
     'use strict';
     var SERVICES = [
-      {img:'assets/svc-audit.png', kicker:'服务 01 / 08', title:'需求诊断与保单检视',
+      {img:'assets/svc-audit.png', title:'需求诊断与保单检视',
        lead:'不急着买，先看清你到底缺什么、已有保单有没有重复或断档。',
        points:['梳理家庭结构与负债，算出真实风险缺口','盘点已有保单，标出重复投保与保障空白','结合收入与现金流，定出预算天花板','产出一份人人能看懂的「保障地图」']},
-      {img:'assets/svc-plan.png', kicker:'服务 02 / 08', title:'方案定制',
+      {img:'assets/svc-plan.png', title:'方案定制',
        lead:'不堆产品、不塞贵的，只把你真正需要的责任摊开讲清楚。',
        points:['基于所服务公司的优质产品做组合，责任/价格透明','按优先级分层：先保人、再保钱、后做传承','每一分保费对应哪块风险，逐条对得上','留出随家庭变化再调整的空间']},
-      {img:'assets/svc-medical.png', kicker:'服务 03 / 08', title:'非标体预核保',
+      {img:'assets/svc-medical.png', title:'非标体预核保',
        lead:'体检有箭头不用慌，很多「异常」在核保眼里只是小事。',
        points:['先看报告，判断哪些异常会影响承保','向所服务公司做预核保，争取标体或最优加费','必要时走绿通、补充资料，避免直接被拒','结论不理想时如实告知，不硬塞产品']},
-      {img:'assets/svc-premium.png', kicker:'服务 04 / 08', title:'高端医疗与资源',
+      {img:'assets/svc-premium.png', title:'高端医疗与资源',
        lead:'让保险不止是赔款，更是你触达好医疗的钥匙。',
        points:['对接全球/全国顶级医疗资源与专家','直付网络内就医，不用自己先垫钱','住院绿通、二次诊疗意见等稀缺资源','让「看病体验」成为保障的一部分']},
-      {img:'assets/svc-retire.png', kicker:'服务 05 / 08', title:'养老与现金流',
+      {img:'assets/svc-retire.png', title:'养老与现金流',
        lead:'现在每月留一点，老去时多一份不靠人的从容。',
        points:['年金/增额寿锁定长期复利，穿越利率下行','养老社区权益，把「住哪里」提前安排好','现金流测算，算清退休后每月能领多少','与社保、理财做组合，不把鸡蛋放一个篮子']},
-      {img:'assets/svc-trust.png', kicker:'服务 06 / 08', title:'保险金信托',
+      {img:'assets/svc-trust.png', title:'保险金信托',
        lead:'把钱「按你的意思」传给想传的人，而不是按法定的来。',
        points:['以信托架构做资产隔离，防范债务与婚姻风险','设定分期、附条件给付，避免一次性被挥霍','覆盖企业主家庭的责任与传承安排','与保单配合，实现「人走钱不乱」']},
-      {img:'assets/svc-claims.png', kicker:'服务 07 / 08', title:'理赔协同',
+      {img:'assets/svc-claims.png', title:'理赔协同',
        lead:'出险最慌的时候，你不用一个人面对保险公司。',
        points:['出险第一时间介入，告诉你每一步怎么做','替你整理病历、发票、证明等材料','对接所服务公司理赔通道，跟进度、催时效','遇争议时代理你沟通，争取应得权益']},
-      {img:'assets/svc-manage.png', kicker:'服务 08 / 08', title:'保单终身托管',
+      {img:'assets/svc-manage.png', title:'保单终身托管',
        lead:'卖完不是结束，是长期陪伴的开始。',
        points:['每年保单「体检」，看保障是否还跟得上生活','人生大事（结婚/买房/有娃）时主动提醒调整','信息变更、续期、受益人变更全程协助','做你长期信赖、随叫随到的财务合伙人']}
     ];
     var lb = document.getElementById('svcLightbox');
     var elImg = document.getElementById('lbImg');
-    var elKicker = document.getElementById('lbKicker');
     var elTitle = document.getElementById('lbTitle');
     var elLead = document.getElementById('lbLead');
     var elPoints = document.getElementById('lbPoints');
@@ -1130,7 +1120,7 @@
       var s = SERVICES[i];
       if(instant || !lb.classList.contains('open')){
         elImg.src = s.img; elImg.alt = s.title;
-        elKicker.textContent = s.kicker; elTitle.textContent = s.title;
+        elTitle.textContent = s.title;
         elLead.textContent = s.lead;
         elPoints.innerHTML = s.points.map(function(p){ return '<li>' + p + '</li>'; }).join('');
         current = i; return;
@@ -1138,17 +1128,17 @@
       if(swapping) return;
       swapping = true;
       elImg.classList.add('swap-out');
-      elKicker.style.opacity = '0'; elTitle.style.opacity = '0';
+      elTitle.style.opacity = '0';
       elLead.style.opacity = '0';
       var lis = elPoints.querySelectorAll('li');
       lis.forEach(function(li){ li.style.opacity = '0'; });
       setTimeout(function(){
         elImg.src = s.img; elImg.alt = s.title;
-        elKicker.textContent = s.kicker; elTitle.textContent = s.title;
+        elTitle.textContent = s.title;
         elLead.textContent = s.lead;
         elPoints.innerHTML = s.points.map(function(p){ return '<li style="opacity:0">' + p + '</li>'; }).join('');
         elImg.classList.remove('swap-out');
-        elKicker.style.opacity = ''; elTitle.style.opacity = ''; elLead.style.opacity = '';
+        elTitle.style.opacity = ''; elLead.style.opacity = '';
         var newLis = elPoints.querySelectorAll('li');
         newLis.forEach(function(li, idx){ li.style.transitionDelay = (idx * .04) + 's'; li.style.opacity = ''; });
         current = i; swapping = false;
@@ -1195,7 +1185,6 @@
     <div class="lb-card">
       <div class="lb-img"><img id="painLbImg" src="" alt=""></div>
       <div class="lb-text">
-        <span class="lb-kicker" id="painLbKicker"></span>
         <h3 id="painLbTitle"></h3>
         <p class="lb-lead" id="painLbLead"></p>
         <ul class="lb-points" id="painLbPoints"></ul>
@@ -1206,28 +1195,27 @@
   (function(){
     'use strict';
     var PAINS = [
-      {img:'assets/pain-01.png', kicker:'担心 01 / 06', title:'怕条款看不懂',
+      {img:'assets/pain-01.png', title:'怕条款看不懂',
        lead:'几十页合同像天书，签字时心里没底——不知道保什么、不保什么、什么情况赔、什么情况不赔。',
        points:['把条款翻译成大白话，逐条讲清责任边界','重点标注等待期、免责条款、免赔额','告诉你哪些是"看起来有其实没用"的噱头','签字前逐条过一遍，确保你真的看懂了']},
-      {img:'assets/pain-02.png', kicker:'担心 02 / 06', title:'怕出事没人管',
+      {img:'assets/pain-02.png', title:'怕出事没人管',
        lead:'买了保险就失联，业务员换了一茬又一茬，真到用时找不到人。',
        points:['终身陪伴，不是卖完就走','出事第一时间响应，全程跟进到底','定期主动联系，不是你找我我才出现','家庭结构变化时主动提醒调整方案']},
-      {img:'assets/pain-03.png', kicker:'担心 03 / 06', title:'怕身体不过关',
+      {img:'assets/pain-03.png', title:'怕身体不过关',
        lead:'体检有点小毛病，一投保就被卡——拒保、除外、加费，越问越被动。',
        points:['预核保先行，不盲目提交正式投保','多公司联投，分散风险争取最优条件','熟悉各公司核保偏好，帮你选对方向','即使被除外承保，也帮你争取最小范围限制']},
-      {img:'assets/pain-04.png', kicker:'担心 04 / 06', title:'怕钱花在刀背上',
+      {img:'assets/pain-04.png', title:'怕钱花在刀背上',
        lead:'交了好几年保费，某天才发现保障跟自己的风险根本对不上——白交了。',
        points:['先诊断后配置，每分保费对应真实缺口','按优先级分层：先保大风险，再补细节','不做捆绑销售，不推不需要的产品','每年检视一次，确保钱花在刀刃上']},
-      {img:'assets/pain-05.png', kicker:'担心 05 / 06', title:'怕理赔被拒',
+      {img:'assets/pain-05.png', title:'怕理赔被拒',
        lead:'申请了一大堆材料，等了很久，最后收到一张拒赔通知书——那种无力感。',
        points:['理赔前置指导，出事第一时间告诉我该怎么做','材料预审，避免因格式问题被打回','替你跟公司沟通争取，不只是递交了事','即使被拒，也帮你分析原因和申诉路径']},
-      {img:'assets/pain-06.png', kicker:'担心 06 / 06', title:'怕保障过时',
+      {img:'assets/pain-06.png', title:'怕保障过时',
        lead:'结婚生子、换房换工作、收入变化——十年前的方案早跟不上现在的人生了。',
        points:['定期保单检视，建议频率不低于一年一次','人生重大变化时主动提醒复盘','随收入和家庭结构调整保障额度','让保险跟着你的人生一起成长']}
     ];
     var lb = document.getElementById('painLightbox');
     var elImg = document.getElementById('painLbImg');
-    var elKicker = document.getElementById('painLbKicker');
     var elTitle = document.getElementById('painLbTitle');
     var elLead = document.getElementById('painLbLead');
     var elPoints = document.getElementById('painLbPoints');
@@ -1238,7 +1226,7 @@
       var s = PAINS[i];
       if(instant || !lb.classList.contains('open')){
         elImg.src = s.img; elImg.alt = s.title;
-        elKicker.textContent = s.kicker; elTitle.textContent = s.title;
+        elTitle.textContent = s.title;
         elLead.textContent = s.lead;
         elPoints.innerHTML = s.points.map(function(p){ return '<li>' + p + '</li>'; }).join('');
         current = i; return;
@@ -1246,17 +1234,17 @@
       if(swapping) return;
       swapping = true;
       elImg.classList.add('swap-out');
-      elKicker.style.opacity = '0'; elTitle.style.opacity = '0';
+      elTitle.style.opacity = '0';
       elLead.style.opacity = '0';
       var lis = elPoints.querySelectorAll('li');
       lis.forEach(function(li){ li.style.opacity = '0'; });
       setTimeout(function(){
         elImg.src = s.img; elImg.alt = s.title;
-        elKicker.textContent = s.kicker; elTitle.textContent = s.title;
+        elTitle.textContent = s.title;
         elLead.textContent = s.lead;
         elPoints.innerHTML = s.points.map(function(p){ return '<li style="opacity:0">' + p + '</li>'; }).join('');
         elImg.classList.remove('swap-out');
-        elKicker.style.opacity = ''; elTitle.style.opacity = ''; elLead.style.opacity = '';
+        elTitle.style.opacity = ''; elLead.style.opacity = '';
         var newLis = elPoints.querySelectorAll('li');
         newLis.forEach(function(li, idx){ li.style.transitionDelay = (idx * .04) + 's'; li.style.opacity = ''; });
         current = i; swapping = false;
