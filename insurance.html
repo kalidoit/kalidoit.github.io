@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>顾维鲁 · 保险代理人 | 把保障说清楚，把托付做温热</title>
+<title>顾维鲁 · 保障配置全貌</title>
 <meta name="description" content="顾维鲁，保险代理人。深耕所服务公司的产品与理赔，把复杂的条款讲成你听得懂的大白话：需求诊断、保单检视、方案定制、非标体核保、高端医疗、养老与财富传承、理赔协同、终身托管。" />
 <style>
   /* =========================================================
@@ -374,17 +374,22 @@
   .qr{width:160px;height:160px;border-radius:16px;object-fit:cover;box-shadow:0 6px 24px rgba(0,0,0,.3)}
   .wx-id{font-size:14px;color:var(--muted)}
   .wx-id b{color:var(--text);font-weight:600;letter-spacing:.04em}
+  .point-right{font-size:22px;animation:pointBounce 1.6s ease-in-out infinite;filter:drop-shadow(0 2px 4px rgba(0,0,0,.15))}
+  @keyframes pointBounce{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
 
   /* ===== 二维码花丛边框 ===== */
   .wx-box{position:relative}
   /* 二维码区：保持干净，无花装饰 */
 
   /* ---------- 页脚 ---------- */
-  .footer{background:var(--ink-2);padding:48px 0 36px;border-top:1px solid var(--line)}
+  .footer{background:var(--ink-2);padding:48px 0 36px;border-top:1px solid var(--line);text-align:center}
   .footer .f-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;margin-bottom:28px}
   .footer .f-brand{display:flex;align-items:center;gap:12px}
   .footer .f-brand img{height:34px;width:34px;border-radius:50%}
   .footer .disc{font-size:12px;color:var(--muted-2);line-height:1.8;margin-top:8px}
+
+  /* IP 保护：版权声明 */
+  .foot .ip-note,.footer .ip-note{font-size:12px;color:var(--muted-2);line-height:1.7;margin:0 0 6px}
   .footer .f-back{font-size:13px;color:var(--blue);display:inline-flex;align-items:center;gap:6px}
 
   /* ---------- 浮动按钮 ---------- */
@@ -409,8 +414,7 @@
     .timeline .axis{grid-template-columns:repeat(2,1fr);gap:28px 0}
     .axis-line,.axis-fill{display:none}
     .step{padding:0 14px}
-    /* 导航栏中等屏幕适配 */
-    .nav-right .nav-back{display:none}
+    /* 导航栏中等屏幕适配：平板保留顺序链接，手机端由底部站点导航承接 */
     .brand .b-name{font-size:14px}
     .nav-cta{white-space:nowrap;padding:8px 16px;font-size:13px}
   }
@@ -418,6 +422,7 @@
     .wrap,.wrap-narrow{padding:0 20px}
     .nav{padding:12px 18px}
     .nav-right{gap:12px}
+    .nav-seq,.nav-life{display:none}
     .brand img{height:32px;width:32px}
     .brand .b-name{font-size:13px}
     .brand .b-sub{display:none}
@@ -542,20 +547,18 @@
 </head>
 <body>
 
-<div id="progress"></div>
-
 <!-- ===== NAV ===== -->
 <nav class="nav" id="nav">
   <a class="brand" href="index.html">
     <img src="assets/logo-gu-circle.png" alt="顾维鲁 GU" onerror="this.style.display='none'">
     <span>
-      <span class="b-name">顾维鲁 · 保障规划</span><br>
+      <span class="b-name">顾维鲁</span><br>
       <span class="b-sub">保险代理人</span>
     </span>
   </a>
   <div class="nav-right">
-    <a class="nav-back" href="index.html">← 个人能力页</a>
-    <a class="nav-back" href="life/">← 回到顾言 GU事</a>
+    <a class="nav-back nav-seq" href="about.html">← 上一页 · 关于我</a>
+    <a class="nav-back nav-seq" href="index.html">← 个人名片页</a>
     <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深色或浅色" title="切换深色 / 浅色">
       <svg class="ico-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.6M12 19.4V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.6M19.4 12H22M4.2 19.8l1.8-1.8M18 6l1.8-1.8"/></svg>
       <svg class="ico-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 7 7 0 1 0 20 14.5z"/></svg>
@@ -857,9 +860,9 @@
       <div>
         <h3>聊一次，不收费，不推销</h3>
         <p class="lead">先做一次需求诊断与保单检视，看清你真正需要什么、不需要什么。哪怕最后不找我买，你也比来时更清楚。</p>
-        <div style="margin-top:24px;display:flex;gap:14px;justify-content:center;flex-wrap:nowrap">
-          <a class="btn btn-primary" href="#top">预约一次对话</a>
-          <a class="btn btn-ghost" href="life/">回到顾言 GU事</a>
+        <div style="margin-top:24px;display:flex;gap:14px;justify-content:center;flex-wrap:nowrap;align-items:center">
+          <span class="btn btn-primary" role="button" tabindex="0">预约一次对话</span>
+          <span class="point-right" aria-hidden="true">👉</span>
         </div>
       </div>
       <div class="wx-box">
@@ -900,9 +903,9 @@
 </style>
 <nav class="site-nav" aria-label="保险站导航">
   <div class="sn-seg">
-    <a href="index.html">个人能力页</a>
-    <a href="insurance.html" class="cur">保障主页</a>
-    <a href="life/" class="home">生活站</a>
+      <a href="index.html">个人名片页</a>
+      <a href="about.html">关于我</a>
+      <a href="insurance.html" class="cur">保障配置全貌</a>
   </div>
 </nav>
 
@@ -912,13 +915,14 @@
     <div class="f-top">
       <div class="f-brand">
         <img src="assets/logo-gu-circle.png" alt="顾维鲁 GU" onerror="this.style.display='none'">
-        <div>
+        <div style="text-align:left">
           <div style="font-size:15px;font-weight:600">顾维鲁 · 保险站</div>
-          <div style="font-size:12px;color:var(--muted-2);letter-spacing:.1em">GU WEILU · INSURANCE</div>
+          <div style="font-size:12px;color:var(--muted-2);letter-spacing:.1em;text-align:left">GU WEILU · INSURANCE</div>
         </div>
       </div>
-      <a class="f-back" href="life/">← 回到顾言 GU事（生活站）</a>
+      <a class="f-back" href="life/">回生活站</a>
     </div>
+    <p class="ip-note">© 顾维鲁 · 本页内容仅供个人参考，未经授权不得转载、截取或商用。</p>
     <p class="disc">本页面内容仅供保险知识普及与需求沟通之用，不构成任何保险产品要约或投资/法律建议。具体保险责任、保障范围、免责条款以保险合同（保险单及保险条款）载明为准。保险代理人为所服务保险公司提供销售服务，同时以专业与诚信服务每一位客户。</p>
   </div>
 </footer>
@@ -1011,6 +1015,7 @@
       axisFill.style.width = (total>1 ? ((done-1)/(total-1))*75 : 0) + '%';
     }
   }
+  updateSteps(); // 初始化（区块已在视口时直接点亮）
 
   /* FAQ 手风琴 */
   document.querySelectorAll('.fitem .fq').forEach(function(btn){

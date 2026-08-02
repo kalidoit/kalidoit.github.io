@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>顾维鲁 · 家庭保障顾问 | 把保障说清楚的人</title>
+<title>顾维鲁 · 个人名片页</title>
 <meta name="description" content="顾维鲁，保险代理人。这一页只讲三件事：我能解决什么问题、我擅长什么、以及我的履历。感兴趣的人可以扫码，在手机上慢慢看完整的保障讲解。" />
 <style>
   /* =========================================================
@@ -65,11 +65,13 @@
     -webkit-backdrop-filter:saturate(160%) blur(16px);border-bottom:1px solid transparent;transition:background .4s,border-color .4s,padding .4s}
   .nav.scrolled{background:rgba(11,15,22,.86);border-bottom:1px solid var(--line)}
   .brand{display:flex;align-items:center;gap:12px}
+  .brand img{height:38px;width:38px;border-radius:50%;box-shadow:0 2px 12px rgba(62,142,219,.28);object-fit:cover}
   .brand .b-name{font-size:15px;font-weight:600;letter-spacing:.02em}
   .brand .b-sub{font-size:10px;color:var(--muted);letter-spacing:.18em;text-transform:uppercase}
   .nav-right{display:flex;align-items:center;gap:18px}
-  .nav-link{font-size:13px;color:var(--muted);display:inline-flex;align-items:center;gap:6px;transition:color .25s}
-  .nav-link:hover{color:var(--text)}
+  .nav-back{font-size:13px;color:var(--muted);display:inline-flex;align-items:center;gap:6px;
+    border:1px solid transparent;padding:7px 16px;border-radius:999px;transition:all .25s}
+  .nav-back:hover{color:var(--blue);border-color:rgba(120,180,255,.45);background:rgba(120,180,255,.08);transform:translateY(-1px)}
   .nav-cta{padding:9px 20px;border-radius:var(--radius-pill);font-size:13px;font-weight:500;
     background:linear-gradient(135deg,#2E6FB0,#1f5fa0);color:#fff;box-shadow:0 4px 18px rgba(62,142,219,.35);
     transition:transform .25s,box-shadow .25s}
@@ -396,9 +398,14 @@
 
 
   /* ---------- 页脚 ---------- */
-  .foot{padding:48px 24px;border-top:1px solid var(--line);text-align:center;color:var(--muted-2);font-size:13px}
-  .foot a{color:var(--muted);transition:color .25s}
-  .foot a:hover{color:var(--text)}
+  .footer{background:var(--ink-2);padding:48px 0 36px;border-top:1px solid var(--line);text-align:center}
+  .footer .f-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;margin-bottom:28px}
+  .footer .f-brand{display:flex;align-items:center;gap:12px}
+  .footer .f-brand img{height:34px;width:34px;border-radius:50%}
+  .footer .disc{font-size:12px;color:var(--muted-2);line-height:1.8;margin-top:8px}
+
+  /* IP 保护：版权声明 */
+  .foot .ip-note,.footer .ip-note{font-size:12px;color:var(--muted-2);line-height:1.7;margin:0 0 6px}
 
   /* ---------- 底部操作栏（回顶部 + 加微信） ---------- */
   .action-bar{position:fixed;left:0;right:0;bottom:0;z-index:130;display:flex;justify-content:center;gap:12px;
@@ -431,8 +438,13 @@
   }
   @media(max-width:640px){
     .nav{padding:14px 20px}
-    .nav-right .nav-link{display:none}
+    .nav-right .nav-seq{display:none}
+    .brand img{height:32px;width:32px}
+    .brand .b-name{font-size:13px}
+    .brand .b-sub{display:none}
+    .nav-cta{padding:7px 14px;font-size:12.5px;white-space:nowrap}
     .prob-grid,.skill-grid{grid-template-columns:1fr}
+    .footer .f-top{flex-direction:column;align-items:flex-start;margin-bottom:20px}
   }
 
   /* =========================================================
@@ -476,6 +488,9 @@
   /* 浅色下各组件覆盖 */
   [data-theme="light"] body{background:var(--ink)}
   [data-theme="light"] .nav{background:rgba(255,255,255,.72)}
+  [data-theme="light"] .nav-back{color:var(--muted);border:1px solid var(--line-2);padding:7px 16px;border-radius:999px;transition:all .25s}
+  [data-theme="light"] .nav-back:hover{color:var(--blue);border-color:rgba(31,111,184,.4);background:rgba(31,111,184,.06)}
+  [data-theme="light"] .nav-cta{box-shadow:0 4px 14px rgba(31,111,184,.3)}
   [data-theme="light"] .nav.scrolled{background:rgba(255,255,255,.9);border-bottom-color:var(--line)}
   [data-theme="light"] .hero-bg{
     background:
@@ -520,16 +535,16 @@
 </script>
 </head>
 <body id="top">
-
-  <!-- 顶栏 -->
   <nav class="nav" id="nav">
     <a class="brand" href="./">
-      <span class="b-name">顾维鲁</span>
-      <span class="b-sub">保险代理人</span>
+      <img src="assets/logo-gu-circle.png" alt="顾维鲁 GU" onerror="this.style.display='none'">
+      <span>
+        <span class="b-name">顾维鲁</span><br>
+        <span class="b-sub">保险代理人</span>
+      </span>
     </a>
     <div class="nav-right">
-      <a class="nav-link" href="insurance.html">深入了解保障 →</a>
-      <a class="nav-link" href="life/">回生活站</a>
+      <a class="nav-back nav-seq" href="about.html">下一页 → 关于我</a>
       <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深色或浅色" title="切换深色 / 浅色">
         <svg class="ico-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.6M12 19.4V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.6M19.4 12H22M4.2 19.8l1.8-1.8M18 6l1.8-1.8"/></svg>
         <svg class="ico-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 7 7 0 1 0 20 14.5z"/></svg>
@@ -545,7 +560,7 @@
     <div class="orb b"></div>
     <div class="hero-inner">
       <div class="hero-text reveal">
-        <div class="eyebrow">顾维鲁 · 家庭保障顾问</div>
+        <div class="eyebrow">顾维鲁 · 个人名片页</div>
         <h1>把复杂的保障，<br>讲成你<span class="em">听得懂</span>的话。</h1>
         <p class="hero-sub">我不是急着把产品递给你的人。我先听你要什么，再把条款拆开、摆平、说清楚——让你自己做决定时，心里有底。</p>
         <div class="hero-hint"><span class="h-mark">✱</span><span>顺手对一下，下面这些如果中了好几个，我们值得聊一次。</span></div>
@@ -605,14 +620,26 @@
   </style>
   <nav class="site-nav" aria-label="保险站导航">
     <div class="sn-seg">
-      <a href="./" class="cur">家庭保障顾问</a>
-      <a href="insurance.html">保障主页</a>
-      <a href="life/" class="home">生活站</a>
+      <a href="index.html" class="cur">个人名片页</a>
+      <a href="about.html">关于我</a>
+      <a href="insurance.html">保障配置全貌</a>
     </div>
   </nav>
 
-  <footer class="foot">
-    <p>顾维鲁 · 保险站</p>
+  <footer class="footer">
+    <div class="wrap">
+      <div class="f-top">
+        <div class="f-brand">
+          <img src="assets/logo-gu-circle.png" alt="顾维鲁 GU" onerror="this.style.display='none'">
+          <div style="text-align:left">
+            <div style="font-size:15px;font-weight:600">顾维鲁 · 保险站</div>
+            <div style="font-size:12px;color:var(--muted-2);letter-spacing:.1em;text-align:left">GU WEILU · INSURANCE</div>
+          </div>
+        </div>
+      </div>
+      <p class="ip-note">© 顾维鲁 · 本页内容仅供个人参考，未经授权不得转载、截取或商用。</p>
+      <p class="disc">本页面内容仅供保险知识普及与需求沟通之用，不构成任何保险产品要约或投资/法律建议。具体保险责任、保障范围、免责条款以保险合同（保险单及保险条款）载明为准。保险代理人为所服务保险公司提供销售服务，同时以专业与诚信服务每一位客户。</p>
+    </div>
   </footer>
 
   <div class="action-bar" id="actionBar" role="toolbar" aria-label="页面操作">
@@ -630,7 +657,7 @@
     //  · 局域网/本地测试时，扫码 = 打开局域网地址（手机连同一 WiFi 即可，无需上外网）
     //  · 正式部署后，扫码 = 自动打开正式网址（无需改代码）
     //  · 若以本地文件(file://)直接双击打开，则回退到下面的正式网址
-    // 想让二维码指向别的页（比如保障主页 insurance.html），把 DEPLOYED_URL 填上、再把 QR_TARGET 改成它即可。
+    // 想让二维码指向别的页（比如保障配置全貌 insurance.html），把 DEPLOYED_URL 填上、再把 QR_TARGET 改成它即可。
     var DEPLOYED_URL = 'https://kalidoit.github.io/';
     var QR_TARGET = (location.protocol === 'file:')
         ? DEPLOYED_URL
@@ -735,8 +762,8 @@
         if(!btn) return;
         var url=location.href.split('#')[0]||'https://kalidoit.github.io/';
         var shareData={
-          title:'顾维鲁 · 家庭保障顾问',
-          text:'一位把保障讲清楚的家庭保障顾问，推荐你看一下。',
+          title:'顾维鲁 · 个人名片页',
+          text:'这是顾维鲁的个人名片页，把保障讲清楚，推荐你看一下。',
           url:url
         };
         btn.addEventListener('click', function(){
@@ -814,7 +841,7 @@
             link:'了解我的咨询方式', href:'#take' },
           { idx:'02', kicker:'WHAT I DO WELL', tag:'产品理解力', title:'各类产品的逻辑和边界，我能拆开讲',
             body:'<p>不只会讲一款产品。重疾、医疗、意外、寿险、年金——各类产品的逻辑和边界我都能拆开讲。</p><p>你家已有的、该补的，怎么组合最稳，我帮你算明白。</p><p>你不用懂产品，只要懂"我的保障到底靠不靠谱"。条款里哪些是真保障、哪些是限定条件、哪些情况不赔——这些是我要对你讲清楚的。</p>',
-            link:'看保障主页详解', href:'insurance.html#pyramid' },
+            link:'看保障配置全貌详解', href:'insurance.html#pyramid' },
           { idx:'03', kicker:'WHAT I DO WELL', tag:'非标体核保', title:'体况复杂也帮你找最优结论',
             body:'<p>体检报告上有些异常，不代表买不了保险。</p><p>结节、高血压、血糖偏高……每种情况在不同公司的核保口径不一样。有的直接拒保，有的除外承保，有的加费，还有的可能标准体过。关键在于：找对公司、报对资料、说对口径。</p><p>我不会一句"买不了"打发你。能试的渠道我会帮你试，能争的空间我会帮你争。</p>',
             link:'聊聊你的具体情况', href:'#take' },
