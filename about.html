@@ -251,17 +251,19 @@
   /* 基础态（关闭态）：文字层携带 .3s 延迟——关闭时二维码先退、文字后回 */
   #skillLb .lb-body > *{transition:transform .9s cubic-bezier(.22,1,.36,1) .3s, opacity 1s ease .3s;
     will-change:transform,opacity}
-  /* 打开态：文字立刻右滑淡出（0s 起步，先走） */
+  /* 打开态：文字立刻右滑淡出（0s 起步，先走）；缓动与二维码统一，进出同频更丝滑 */
   #skillLb.qr-open .lb-body > *:not(.lb-qrcode-panel){transform:translateX(60px);opacity:0;pointer-events:none;
-    transition:transform .9s cubic-bezier(.4,0,.2,1) 0s, opacity 1s ease 0s}
+    transition:transform .9s cubic-bezier(.22,1,.36,1) 0s, opacity 1s ease 0s}
   /* 原灯箱关闭按钮也随文字消失 */
-  #skillLb.qr-open .lb-close{opacity:0;pointer-events:none;transition:opacity .9s ease 0s}
-  /* 二维码面板：基础态 0s 起步——关闭时立刻退场 */
+  #skillLb.qr-open .lb-close{opacity:0;pointer-events:none;transition:opacity .6s ease 0s}
+  /* 底部切换箭头同样随文字隐藏，避免二维码展开时右下角漏出 */
+  #skillLb.qr-open .lb-nav{opacity:0;pointer-events:none;transition:opacity .5s ease 0s}
+  /* 二维码面板：基础态 0s 起步——关闭时立刻退场；缓动与文字一致保持丝滑 */
   .lb-qrcode-panel{position:absolute;top:0;left:0;right:0;bottom:0;width:100%;
     background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:36px 28px;gap:12px;
     transform:translateX(100%);opacity:0;pointer-events:none;
-    transition:transform .9s cubic-bezier(.4,0,.2,1) 0s, opacity 1s ease 0s;
-    z-index:2;overflow-y:auto}
+    transition:transform .9s cubic-bezier(.22,1,.36,1) 0s, opacity 1s ease 0s;
+    z-index:2;overflow-y:auto;will-change:transform,opacity}
   /* 打开态：延迟 .3s 即进场（文字退场中途就探入，消除空白期），但文字仍先走 */
   #skillLb.qr-open .lb-qrcode-panel{transform:translateX(0);opacity:1;pointer-events:auto;
     transition:transform .9s cubic-bezier(.22,1,.36,1) .3s, opacity 1s ease .3s}
