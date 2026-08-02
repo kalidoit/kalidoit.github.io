@@ -248,23 +248,23 @@
   /* 灯箱内二维码面板 —— 左图不动，右侧文字区内容切换动画 */
   /* .lb-body 作为右侧容器，内部文字和二维码做交叉滑入滑出 */
   #skillLb .lb-body{position:relative;overflow:hidden}
-  /* 基础态（关闭态）：文字层携带 .35s 延迟——关闭时二维码先退、文字后回 */
-  #skillLb .lb-body > *{transition:transform .6s cubic-bezier(.22,1,.36,1) .35s, opacity .7s ease .35s;
+  /* 基础态（关闭态）：文字层携带 .5s 延迟——关闭时二维码先退、文字后回 */
+  #skillLb .lb-body > *{transition:transform .9s cubic-bezier(.22,1,.36,1) .5s, opacity 1s ease .5s;
     will-change:transform,opacity}
-  /* 打开态：文字立刻右滑淡出（0s 起步，先走） */
+  /* 打开态：文字立刻右滑淡出（0s 起步，先走，放慢至 1s） */
   #skillLb.qr-open .lb-body > *:not(.lb-qrcode-panel){transform:translateX(52px);opacity:0;pointer-events:none;
-    transition:transform .6s cubic-bezier(.22,1,.36,1) 0s, opacity .7s ease 0s}
+    transition:transform .9s cubic-bezier(.22,1,.36,1) 0s, opacity 1s ease 0s}
   /* 原灯箱关闭按钮也随文字消失 */
-  #skillLb.qr-open .lb-close{opacity:0;pointer-events:none;transition:opacity .6s ease 0s}
+  #skillLb.qr-open .lb-close{opacity:0;pointer-events:none;transition:opacity .9s ease 0s}
   /* 二维码面板：基础态 0s 起步——关闭时立刻退场 */
   .lb-qrcode-panel{position:absolute;top:0;left:0;right:0;bottom:0;width:100%;
     background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:36px 28px;gap:12px;
     transform:translateX(100%);opacity:0;pointer-events:none;
-    transition:transform .6s cubic-bezier(.22,1,.36,1) 0s, opacity .65s ease 0s;
+    transition:transform .9s cubic-bezier(.22,1,.36,1) 0s, opacity 1s ease 0s;
     z-index:2;overflow-y:auto}
-  /* 打开态：延迟 .45s 才从右侧滑入+淡入（文字快消失时才出现），整体更慢 */
+  /* 打开态：延迟 .6s 才从右侧滑入+淡入（文字快消失时才出现） */
   #skillLb.qr-open .lb-qrcode-panel{transform:translateX(0);opacity:1;pointer-events:auto;
-    transition:transform .65s cubic-bezier(.22,1,.36,1) .45s, opacity .7s ease .45s}
+    transition:transform .9s cubic-bezier(.22,1,.36,1) .6s, opacity 1s ease .6s}
   .lb-qr-close{position:absolute;top:12px;right:14px;z-index:3;width:34px;height:34px;
     border-radius:50%;border:1px solid rgba(0,0,0,.12);background:rgba(0,0,0,.04);
     color:#666;font-size:18px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;
