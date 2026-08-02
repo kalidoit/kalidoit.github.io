@@ -245,42 +245,30 @@
   #skillLb .lb-nav button{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.14);color:#1d1d1f}
   #skillLb .lb-nav button:hover{background:rgba(0,0,0,.1)}
 
-  /* 灯箱内二维码面板 —— 左图不动，右侧文字区内容切换动画
-   * 精确时间轴：
-   *   t=0.0s  文字开始右滑淡出（持续 0.6s，ease-in-out 渐进可见）
-   *   t=0.4s  二维码开始从右滑入（持续 0.6s）← 文字退到 2/3 时探入
-   *   t=0.6s  文字完全消失
-   *   t=1.0s  二维码完全就位
-   * 关闭时反向：二维码立刻退(0.6s) → 文字延迟 .15s 后回(0.6s)
+  /* 灯箱内二维码面板 —— 左图不动，右侧文字区纯淡入淡出切换
+   * 原理：文字和 QR 面板叠在同一位置（都不位移），只用 opacity + visibility 交叉切换
+   * 无 translate = 无溢出 = 不可能漏出
+   *
+   * 打开时间轴：t=0 文字淡出(0.4s) → t=0.2s QR淡入(0.3s) → t=0.4s 文字完全消失 → t=0.5s QR到位
+   * 关闭时间轴：t=0 QR淡出(0.3s) → t=0.15s 文字淡入(0.4s) → t=0.55s 完成
    */
-  #skillLb .lb-body{position:relative;overflow:hidden !important}
-  /* 关闭态基础：文字子元素携带延迟——关二维码时先退二维码、后回文字 */
-  #skillLb .lb-body > *{transition:transform .6s cubic-bezier(.4,0,.2,1) .15s, opacity .55s ease .18s;
-    will-change:transform,opacity}
-  /* 打开态：文字用 ease-in-out 右滑淡出，0.6s 完成，渐进感强不突兀 */
-  #skillLb.qr-open .lb-body > *:not(.lb-qrcode-panel){transform:translateX(60px);opacity:0;pointer-events:none;
-    transition:transform .6s cubic-bezier(.4,0,.2,1) 0s, opacity .55s ease 0s}
+  #skillLb .lb-body{position:relative}
+  /* 文字子元素：默认可见，携带延迟（关 QR 时先退 QR、后回文字） */
+  #skillLb .lb-body > *{transition:opacity .4s ease .18s, visibility 0s linear .18s}
+  /* 打开态：文字淡出，0.4s 完成 */
+  #skillLb.qr-open .lb-body > *:not(.lb-qrcode-panel){opacity:0;visibility:hidden;pointer-events:none;
+    transition:opacity .4s ease 0s, visibility 0s linear .4s}
   /* 原灯箱关闭按钮随文字淡出 */
-  #skillLb.qr-open .lb-close{opacity:0;pointer-events:none;transition:opacity .4s ease 0s}
-  /* 兜底：QR 展开时隐藏卡片内所有非内容区的绝对定位元素（箭头/其他），防漏出 */
-  #skillLb.qr-open .lb-card > *:not(.skill-lb-side):not(.lb-body){visibility:hidden;pointer-events:none}
-  /* ★ 漏出根因修复：QR 展开时遮罩层 100% 不透光 + 最高层级隔离 */
-  #skillLb.qr-open{background:rgba(6,9,15,1)!important;z-index:999!important;isolation:isolate}
-  /* 卡片本身也强制裁剪，杜绝任何子元素溢出 */
-  #skillLb.qr-open .lb-card{overflow:hidden!important}
-  /* 二维码面板：关闭态靠右待命；打开态延迟 0.4s 进场，0.6s 滑完 */
+  #skillLb.qr-open .lb-close{opacity:0;pointer-events:none;transition:opacity .3s ease 0s}
+  /* 二维码面板：默认隐藏（同位置待命），打开时淡入 */
   .lb-qrcode-panel{position:absolute;top:0;left:0;right:0;bottom:0;width:100%;
     background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:36px 28px;gap:12px;
-    transform:translateX(100%);opacity:0;pointer-events:none;
-    transition:transform .6s cubic-bezier(.4,0,.2,1) 0s, opacity .55s ease 0s;
-    z-index:2;overflow:hidden;will-change:transform,opacity}
-  /* 打开态：延迟 0.4s 进场（文字退了 2/3 时探入），0.6s 到位 */
-  #skillLb.qr-open .lb-qrcode-panel{transform:translateX(0);opacity:1;pointer-events:auto;
-    transition:transform .6s cubic-bezier(.4,0,.2,1) .4s, opacity .55s ease .4s}
-  /* ★★ 兜底白色遮盖条：覆盖 QR 面板右侧边缘可能漏出的任何内容（浏览器扩展/GPU残留等） */
-  .lb-qrcode-panel::after{content:'';position:absolute;top:0;right:0;bottom:0;width:40px;
-    background:#fff;pointer-events:none;z-index:100;display:none}
-  #skillLb.qr-open .lb-qrcode-panel::after{display:block}
+    opacity:0;visibility:hidden;pointer-events:none;
+    transition:opacity .3s ease .15s, visibility 0s linear .45s;
+    z-index:2}
+  /* 打开态：延迟 0.2s 淡入（文字快消失时探入），0.3s 到位 */
+  #skillLb.qr-open .lb-qrcode-panel{opacity:1;visibility:visible;pointer-events:auto;
+    transition:opacity .3s ease .2s, visibility 0s linear .2s}
   .lb-qr-close{position:absolute;top:12px;right:14px;z-index:3;width:34px;height:34px;
     border-radius:50%;border:1px solid rgba(0,0,0,.12);background:rgba(0,0,0,.04);
     color:#666;font-size:18px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;
@@ -294,10 +282,8 @@
   .lb-qrcode-panel .wx-id{font-size:13px;color:#444;text-align:center;margin-top:4px}
   .lb-qrcode-panel .wx-id--sub{font-size:11px;color:#999;margin-top:2px}
   @media(max-width:720px){
-    #skillLb.qr-open .lb-body > *:not(.lb-qrcode-panel){transform:translateX(28px);opacity:0}
     .lb-qrcode-panel{padding:24px 20px}
     .lb-qrcode-panel .take-qr-img{width:150px;height:150px}
-  }
     .skill-lb-side{min-height:150px;aspect-ratio:16/9;padding:26px 24px;justify-content:center}
     .slb-idx{font-size:clamp(48px,16vw,72px)}
   }
