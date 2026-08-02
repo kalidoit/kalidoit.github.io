@@ -245,28 +245,34 @@
   #skillLb .lb-nav button{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.14);color:#1d1d1f}
   #skillLb .lb-nav button:hover{background:rgba(0,0,0,.1)}
 
-  /* 灯箱内二维码面板 —— 左图不动，右侧文字区内容切换动画 */
-  /* .lb-body 作为右侧容器，内部文字和二维码做交叉滑入滑出 */
-  #skillLb .lb-body{position:relative;overflow:hidden}
-  /* 基础态（关闭态）：文字层携带 .3s 延迟——关闭时二维码先退、文字后回 */
-  #skillLb .lb-body > *{transition:transform .9s cubic-bezier(.22,1,.36,1) .3s, opacity 1s ease .3s;
+  /* 灯箱内二维码面板 —— 左图不动，右侧文字区内容切换动画
+   * 精确时间轴：
+   *   t=0.0s  文字开始右滑淡出（持续 0.6s）
+   *   t=0.4s  二维码开始从右滑入（持续 0.6s）← 文字退到 2/3 时探入
+   *   t=0.6s  文字完全消失
+   *   t=1.0s  二维码完全就位
+   * 关闭时反向：二维码立刻退(0.6s) → 文字延迟 .15s 后回(0.6s)
+   */
+  #skillLb .lb-body{position:relative;overflow:hidden !important}
+  /* 关闭态基础：文字子元素携带延迟——关二维码时先退二维码、后回文字 */
+  #skillLb .lb-body > *{transition:transform .6s cubic-bezier(.22,1,.36,1) .15s, opacity .55s ease .18s;
     will-change:transform,opacity}
-  /* 打开态：文字立刻右滑淡出（0s 起步，先走）；缓动与二维码统一，进出同频更丝滑 */
+  /* 打开态：文字立即右滑淡出，0.6s 完成 */
   #skillLb.qr-open .lb-body > *:not(.lb-qrcode-panel){transform:translateX(60px);opacity:0;pointer-events:none;
-    transition:transform .9s cubic-bezier(.22,1,.36,1) 0s, opacity 1s ease 0s}
-  /* 原灯箱关闭按钮也随文字消失 */
-  #skillLb.qr-open .lb-close{opacity:0;pointer-events:none;transition:opacity .6s ease 0s}
-  /* 底部切换箭头同样随文字隐藏，避免二维码展开时右下角漏出 */
-  #skillLb.qr-open .lb-nav{opacity:0;pointer-events:none;transition:opacity .5s ease 0s}
-  /* 二维码面板：基础态 0s 起步——关闭时立刻退场；缓动与文字一致保持丝滑 */
+    transition:transform .6s cubic-bezier(.22,1,.36,1) 0s, opacity .55s ease 0s}
+  /* 原灯箱关闭按钮随文字淡出 */
+  #skillLb.qr-open .lb-close{opacity:0;pointer-events:none;transition:opacity .4s ease 0s}
+  /* 兜底：QR 展开时隐藏卡片内所有非内容区的绝对定位元素（箭头/其他），防漏出 */
+  #skillLb.qr-open .lb-card > *:not(.skill-lb-side):not(.lb-body){visibility:hidden;pointer-events:none}
+  /* 二维码面板：关闭态靠右待命；打开态延迟 0.4s 进场，0.6s 滑完 */
   .lb-qrcode-panel{position:absolute;top:0;left:0;right:0;bottom:0;width:100%;
     background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:36px 28px;gap:12px;
     transform:translateX(100%);opacity:0;pointer-events:none;
-    transition:transform .9s cubic-bezier(.22,1,.36,1) 0s, opacity 1s ease 0s;
+    transition:transform .6s cubic-bezier(.22,1,.36,1) 0s, opacity .55s ease 0s;
     z-index:2;overflow-y:auto;will-change:transform,opacity}
-  /* 打开态：延迟 .3s 即进场（文字退场中途就探入，消除空白期），但文字仍先走 */
+  /* 打开态：延迟 0.4s 进场（文字退了 2/3 时探入），0.6s 到位 */
   #skillLb.qr-open .lb-qrcode-panel{transform:translateX(0);opacity:1;pointer-events:auto;
-    transition:transform .9s cubic-bezier(.22,1,.36,1) .3s, opacity 1s ease .3s}
+    transition:transform .6s cubic-bezier(.22,1,.36,1) .4s, opacity .55s ease .4s}
   .lb-qr-close{position:absolute;top:12px;right:14px;z-index:3;width:34px;height:34px;
     border-radius:50%;border:1px solid rgba(0,0,0,.12);background:rgba(0,0,0,.04);
     color:#666;font-size:18px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;
