@@ -264,17 +264,23 @@
   #skillLb.qr-open .lb-close{opacity:0;pointer-events:none;transition:opacity .4s ease 0s}
   /* 兜底：QR 展开时隐藏卡片内所有非内容区的绝对定位元素（箭头/其他），防漏出 */
   #skillLb.qr-open .lb-card > *:not(.skill-lb-side):not(.lb-body){visibility:hidden;pointer-events:none}
-  /* ★ 漏出根因修复：QR 展开时遮罩层 100% 不透光，杜绝底层页面内容透过 6% 缝隙显形 */
-  #skillLb.qr-open{background:rgba(6,9,15,1)!important}
+  /* ★ 漏出根因修复：QR 展开时遮罩层 100% 不透光 + 最高层级隔离 */
+  #skillLb.qr-open{background:rgba(6,9,15,1)!important;z-index:999!important;isolation:isolate}
+  /* 卡片本身也强制裁剪，杜绝任何子元素溢出 */
+  #skillLb.qr-open .lb-card{overflow:hidden!important}
   /* 二维码面板：关闭态靠右待命；打开态延迟 0.4s 进场，0.6s 滑完 */
   .lb-qrcode-panel{position:absolute;top:0;left:0;right:0;bottom:0;width:100%;
     background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:36px 28px;gap:12px;
     transform:translateX(100%);opacity:0;pointer-events:none;
     transition:transform .6s cubic-bezier(.4,0,.2,1) 0s, opacity .55s ease 0s;
-    z-index:2;overflow-y:auto;will-change:transform,opacity}
+    z-index:2;overflow:hidden;will-change:transform,opacity}
   /* 打开态：延迟 0.4s 进场（文字退了 2/3 时探入），0.6s 到位 */
   #skillLb.qr-open .lb-qrcode-panel{transform:translateX(0);opacity:1;pointer-events:auto;
     transition:transform .6s cubic-bezier(.4,0,.2,1) .4s, opacity .55s ease .4s}
+  /* ★★ 兜底白色遮盖条：覆盖 QR 面板右侧边缘可能漏出的任何内容（浏览器扩展/GPU残留等） */
+  .lb-qrcode-panel::after{content:'';position:absolute;top:0;right:0;bottom:0;width:40px;
+    background:#fff;pointer-events:none;z-index:100;display:none}
+  #skillLb.qr-open .lb-qrcode-panel::after{display:block}
   .lb-qr-close{position:absolute;top:12px;right:14px;z-index:3;width:34px;height:34px;
     border-radius:50%;border:1px solid rgba(0,0,0,.12);background:rgba(0,0,0,.04);
     color:#666;font-size:18px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;
