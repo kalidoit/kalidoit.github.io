@@ -245,30 +245,19 @@
   #skillLb .lb-nav button{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.14);color:#1d1d1f}
   #skillLb .lb-nav button:hover{background:rgba(0,0,0,.1)}
 
-  /* 灯箱内二维码面板（CTA 点击后右滑入，背后页面不动） */
-  #skillLb .lb-card{transition:transform .45s cubic-bezier(.22,1,.36,1), opacity .55s ease;overflow:hidden}
-  #skillLb .lb-card.qr-open{transform:translateX(-240px)}
-  /* 左侧内容在二维码打开时淡出，避免与面板重叠 */
-  #skillLb .lb-card .lb-body,
-  #skillLb .lb-card .lb-img,
-  #skillLb .lb-card .lb-tag,
-  #skillLb .lb-card .skill-lb-title,
-  #skillLb .lb-card .lb-text,
-  #skillLb .lb-card .lb-cta,
-  #skillLb .lb-card .lb-nav{transition:opacity .35s ease .1s}
-  #skillLb .lb-card.qr-open .lb-body,
-  #skillLb .lb-card.qr-open .lb-img,
-  #skillLb .lb-card.qr-open .lb-tag,
-  #skillLb .lb-card.qr-open .skill-lb-title,
-  #skillLb .lb-card.qr-open .lb-text,
-  #skillLb .lb-card.qr-open .lb-cta,
-  #skillLb .lb-card.qr-open .lb-nav{opacity:.15;pointer-events:none}
-  .lb-qrcode-panel{position:absolute;top:0;right:0;bottom:0;width:320px;
-    background:#fff;border-left:1px solid rgba(0,0,0,.08);
-    display:flex;flex-direction:column;align-items:center;justify-content:center;padding:36px 28px;gap:12px;
+  /* 灯箱内二维码面板 —— 左图不动，右侧文字区内容切换动画 */
+  /* .lb-body 作为右侧容器，内部文字和二维码做交叉滑入滑出 */
+  #skillLb .lb-body{position:relative;overflow:hidden}
+  /* 文字内容层 */
+  #skillLb .lb-body > *{transition:transform .42s cubic-bezier(.22,1,.36,1), opacity .32s ease;
+    will-change:transform,opacity}
+  #skillLb.qr-open .lb-body > *{transform:translateX(40px);opacity:0;pointer-events:none}
+  /* 二维码面板：绝对定位填满 .lb-body 区域，从右侧滑入 */
+  .lb-qrcode-panel{position:absolute;top:0;left:0;right:0;bottom:0;width:100%;
+    background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:36px 28px;gap:12px;
     transform:translateX(100%);opacity:0;pointer-events:none;
-    transition:transform .45s cubic-bezier(.22,1,.36,1), opacity .4s ease;
-    z-index:2;overflow-y:auto;box-shadow:-8px 0 30px rgba(0,0,0,.08)}
+    transition:transform .45s cubic-bezier(.22,1,.36,1), opacity .38s ease;
+    z-index:2;overflow-y:auto}
   #skillLb.qr-open .lb-qrcode-panel{transform:translateX(0);opacity:1;pointer-events:auto}
   .lb-qr-close{position:absolute;top:12px;right:14px;z-index:3;width:34px;height:34px;
     border-radius:50%;border:1px solid rgba(0,0,0,.12);background:rgba(0,0,0,.04);
@@ -283,15 +272,8 @@
   .lb-qrcode-panel .wx-id{font-size:13px;color:#444;text-align:center;margin-top:4px}
   .lb-qrcode-panel .wx-id--sub{font-size:11px;color:#999;margin-top:2px}
   @media(max-width:720px){
-    #skillLb .lb-card.qr-open{transform:translateX(-60px)}
-    #skillLb .lb-card.qr-open .lb-body,
-    #skillLb .lb-card.qr-open .lb-img,
-    #skillLb .lb-card.qr-open .lb-tag,
-    #skillLb .lb-card.qr-open .skill-lb-title,
-    #skillLb .lb-card.qr-open .lb-text,
-    #skillLb .lb-card.qr-open .lb-cta,
-    #skillLb .lb-card.qr-open .lb-nav{opacity:.08}
-    .lb-qrcode-panel{width:280px;padding:24px 20px}
+    #skillLb.qr-open .lb-body > *{transform:translateX(20px);opacity:0}
+    .lb-qrcode-panel{padding:24px 20px}
     .lb-qrcode-panel .take-qr-img{width:150px;height:150px}
   }
     .skill-lb-side{min-height:150px;aspect-ratio:16/9;padding:26px 24px;justify-content:center}
