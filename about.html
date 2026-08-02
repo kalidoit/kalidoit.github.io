@@ -245,7 +245,33 @@
   #skillLb .lb-nav button{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.14);color:#1d1d1f}
   #skillLb .lb-nav button:hover{background:rgba(0,0,0,.1)}
 
+  /* 灯箱内二维码面板（CTA 点击后右滑入，背后页面不动） */
+  #skillLb .lb-card{transition:transform .45s cubic-bezier(.22,1,.36,1), opacity .55s ease}
+  #skillLb .lb-card.qr-open{transform:translateX(-240px)}
+  .lb-qrcode-panel{position:absolute;top:0;right:0;bottom:0;width:320px;
+    background:#fff;border-left:1px solid rgba(0,0,0,.08);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;padding:36px 28px;gap:12px;
+    transform:translateX(100%);opacity:0;pointer-events:none;
+    transition:transform .45s cubic-bezier(.22,1,.36,1), opacity .4s ease;
+    z-index:2;overflow-y:auto}
+  #skillLb.qr-open .lb-qrcode-panel{transform:translateX(0);opacity:1;pointer-events:auto}
+  .lb-qr-close{position:absolute;top:12px;right:14px;z-index:3;width:34px;height:34px;
+    border-radius:50%;border:1px solid rgba(0,0,0,.12);background:rgba(0,0,0,.04);
+    color:#666;font-size:18px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;
+    transition:all .25s}
+  .lb-qr-close:hover{background:rgba(0,0,0,.08);color:#000;transform:rotate(90deg)}
+  .qr-panel-title{font-family:var(--font-serif);font-size:20px;font-weight:600;color:#1d1d1f;margin:4px 0 2px;text-align:center}
+  .lb-qrcode-panel .qr-eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#999;font-weight:600}
+  .lb-qrcode-panel .qr-note{font-size:13px;color:#666;text-align:center;line-height:1.7}
+  .lb-qrcode-panel .take-qr-img{width:180px;height:180px;object-fit:contain;border-radius:10px;border:1px solid #eee}
+  .lb-qrcode-panel .wx-qr-ph{display:none;font-size:12px;color:#999;text-align:center;line-height:1.6;padding:16px;background:#f9f9fb;border-radius:8px}
+  .lb-qrcode-panel .wx-id{font-size:13px;color:#444;text-align:center;margin-top:4px}
+  .lb-qrcode-panel .wx-id--sub{font-size:11px;color:#999;margin-top:2px}
   @media(max-width:720px){
+    #skillLb .lb-card.qr-open{transform:translateX(-60px)}
+    .lb-qrcode-panel{width:280px;padding:24px 20px}
+    .lb-qrcode-panel .take-qr-img{width:150px;height:150px}
+  }
     .skill-lb-side{min-height:150px;aspect-ratio:16/9;padding:26px 24px;justify-content:center}
     .slb-idx{font-size:clamp(48px,16vw,72px)}
   }
@@ -950,11 +976,24 @@
         }
         function closeLb(){
           if(!open||locked) return; locked=true;
-          lb.classList.remove('open'); open=false;
+          lb.classList.remove('open'); lb.classList.remove('qr-open');
+          lb.querySelector('.lb-card').classList.remove('qr-open');
+          open=false;
           unlockScroll();
           items.forEach(function(el){ el.classList.remove('active'); });
           setTimeout(function(){ locked=false; }, 650);
         }
+
+        // 灯箱内二维码面板（CTA 点击后右滑入，背后页面不动）
+        var qrPanel=document.getElementById('skillLbQrPanel');
+        var qrCloseBtn=document.getElementById('skillLbQrClose');
+        var lbCard=lb.querySelector('.lb-card');
+        function openQrPanel(){ if(locked) return; lbCard.classList.add('qr-open'); lb.classList.add('qr-open'); qrCloseBtn.focus(); }
+        function closeQrPanel(){ lbCard.classList.remove('qr-open'); lb.classList.remove('qr-open'); }
+        elLink.addEventListener('click', function(e){ e.preventDefault(); openQrPanel(); });
+        elLink.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openQrPanel(); } });
+        qrCloseBtn.addEventListener('click', function(e){ e.stopPropagation(); closeQrPanel(); });
+        qrPanel.addEventListener('click', function(e){ if(e.target===qrPanel) closeQrPanel(); });
 
         // 卡片点击 / 键盘
         items.forEach(function(el){
@@ -1064,7 +1103,18 @@
         <div class="lb-tag" id="skillLbTag"></div>
         <h3 class="skill-lb-title" id="skillLbTitle"></h3>
         <div class="lb-text" id="skillLbBody"></div>
-        <a class="p-link lb-cta" id="skillLbLink" href="#take">进一步了解 →</a>
+        <a class="p-link lb-cta" id="skillLbLink" href="javascript:void(0)">进一步了解 →</a>
+      </div>
+      <!-- 二维码面板（默认隐藏，CTA 点击后右滑入） -->
+      <div class="lb-qrcode-panel" id="skillLbQrPanel">
+        <button class="lb-qr-close" id="skillLbQrClose" type="button" aria-label="关闭二维码">✕</button>
+        <div class="qr-eyebrow">ADD ME ON WECHAT</div>
+        <h3 class="qr-panel-title">扫码加我微信</h3>
+        <div class="qr-note">想当面聊聊、或先理一遍家里的保单。<br>备注一句「保障咨询」更好。</div>
+        <img src="assets/wechat-qr.png" alt="顾维鲁微信二维码" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" class="take-qr-img">
+        <div class="wx-qr-ph">把你的微信二维码图片<br>命名为 <b>wechat-qr.png</b><br>放进 assets/ 目录即可</div>
+        <div class="wx-id">微信号：<b>13551139187</b></div>
+        <div class="wx-id wx-id--sub">扫码或搜索添加，备注「保障咨询」</div>
       </div>
       </div>
     </div>
