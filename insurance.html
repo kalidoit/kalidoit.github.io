@@ -342,9 +342,9 @@
   .credo-trio .ct p{font-size:14px;color:var(--muted);line-height:1.85;text-align:left !important;width:100%;box-sizing:border-box}
 
   /* 信条卡片：丝滑展开/折叠（grid 0fr↔1fr + 淡入，单一过渡避免抖动） */
-  .credo-trio .ct-body{display:grid;grid-template-rows:1fr;
+  .credo-trio .ct-body{display:grid;grid-template-rows:1fr;min-height:0;
     transition:grid-template-rows .42s cubic-bezier(.4,0,.2,1)}
-  .credo-trio .ct-body .ct-body-in{overflow:hidden;opacity:1;transition:opacity .42s cubic-bezier(.4,0,.2,1)}
+  .credo-trio .ct-body .ct-body-in{overflow:hidden;min-height:0;opacity:1;transition:opacity .42s cubic-bezier(.4,0,.2,1)}
   .credo-trio .ct[data-open="0"] .ct-body{grid-template-rows:0fr}
   .credo-trio .ct[data-open="0"] .ct-body .ct-body-in{opacity:0}
   .credo-trio .ct-body p{margin:14px 0 0;padding-top:16px;border-top:1px solid var(--line)}
