@@ -97,7 +97,6 @@
   .eyebrow::before{content:"";width:24px;height:1px;background:var(--blue);opacity:.6}
   .h2{font-family:var(--font-serif);font-weight:500;font-size:clamp(28px,4.6vw,46px);line-height:1.2;letter-spacing:-.01em}
   .lead{font-size:clamp(15px,1.6vw,17px);color:var(--muted);max-width:680px;margin-top:18px;line-height:1.85}
-  .accent{color:var(--gold)}
 
   /* ---------- 滚动浮现 ---------- */
   .reveal{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
@@ -174,16 +173,6 @@
   .about-portrait .tag{position:absolute;left:20px;bottom:20px;font-size:12px;color:rgba(255,255,255,.85);letter-spacing:.1em;z-index:1;text-shadow:0 1px 6px rgba(0,0,0,.5)}
   .about-copy p{color:var(--muted);font-size:15px;line-height:1.95;margin-bottom:16px}
   .about-copy p b{color:var(--text);font-weight:500}
-  .stance{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:stretch;margin-top:24px}
-  .stance .col{padding:22px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.02)}
-  .stance .col h4{font-size:14px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
-  .stance .agent h4{color:var(--muted-2)}
-  .stance .broker h4{color:var(--blue)}
-  .stance ul{list-style:none;font-size:13.5px;color:var(--muted);line-height:1.7}
-  .stance li{padding:5px 0;display:flex;gap:8px;align-items:flex-start}
-  .stance li::before{content:"";flex:0 0 5px;width:5px;height:5px;border-radius:50%;margin-top:9px;background:var(--muted-2)}
-  .stance .broker li::before{background:var(--blue)}
-  .stance .vs{display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);color:var(--gold);font-size:20px}
   .stance-note{margin-top:28px;padding:26px 28px;border-radius:18px;border:1px solid var(--line-2);
     background:linear-gradient(135deg,rgba(24,95,165,.07),rgba(196,160,92,.05));box-shadow:var(--shadow-card)}
   .stance-note p{color:var(--muted);font-size:14.5px;line-height:1.85;margin-bottom:12px}
@@ -398,9 +387,6 @@
   .point-right{font-size:22px;animation:pointBounce 1.6s ease-in-out infinite;filter:drop-shadow(0 2px 4px rgba(0,0,0,.15))}
   @keyframes pointBounce{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
 
-  /* ===== 二维码花丛边框 ===== */
-  .wx-box{position:relative}
-  /* 二维码区：保持干净，无花装饰 */
 
   /* ---------- 页脚 ---------- */
   .footer{background:var(--ink-2);padding:48px 0 36px;border-top:1px solid var(--line);text-align:center}
@@ -514,11 +500,6 @@
       radial-gradient(45% 50% at 80% 80%, rgba(160,125,44,.08), transparent 70%),
       linear-gradient(180deg,#fbfbfd,#f5f5f7 60%,#fbfbfd);
   }
-  [data-theme="light"] .qr-card{background:#fff;border-color:var(--line-2);box-shadow:var(--shadow-card)}
-  [data-theme="light"] .prob{background:#fff;border-color:var(--line-2)}
-  [data-theme="light"] .prob:hover{border-color:var(--blue)}
-  [data-theme="light"] .skill{background:#fff;border-color:var(--line-2)}
-  [data-theme="light"] .skill:hover{background:var(--blue-soft);border-color:rgba(31,111,184,.3)}
   /* insurance.html 专属 */
   [data-theme="light"] .stance .col{background:#fff;border-color:var(--line-2)}
   [data-theme="light"] .stance-note{background:#fff;border-color:var(--line-2)}
@@ -527,12 +508,6 @@
   [data-theme="light"] .tier.t2{background:linear-gradient(120deg,rgba(143,180,213,.06),rgba(143,180,213,.02));border-color:var(--line-2)}
   [data-theme="light"] .tier.t3{background:linear-gradient(120deg,rgba(160,125,44,.08),rgba(160,125,44,.02));border-color:rgba(160,125,44,.2)}
   [data-theme="light"] .about-portrait{border-color:var(--line-2)}
-  [data-theme="light"] .about-portrait .ring{border-color:var(--blue-soft)}
-  [data-theme="light"] .site-nav .sn-seg{background:#efeff5}
-  [data-theme="light"] .site-nav .sn-seg a{color:#666}
-  [data-theme="light"] .site-nav .sn-seg a:hover{color:#1d1d1f;background:rgba(0,0,0,.03)}
-  [data-theme="light"] .site-nav .sn-seg a.cur{background:#fff;color:#1d1d1f;box-shadow:0 1px 5px rgba(0,0,0,.08),0 2px 10px rgba(0,0,0,.05)}
-  [data-theme="light"] .site-nav .sn-seg a.home{color:#a07d2c}
   [data-theme="light"] .scenes{background:#f5f5f7}
   [data-theme="light"] .svc{background:var(--ink);color:var(--text)}
   [data-theme="light"] .svc .h2{color:var(--text)}
@@ -1143,7 +1118,7 @@
   <script>
   (function(){
     'use strict';
-    var SERVICES = [
+        var SERVICES = [
       {img:'assets/svc-audit.png', title:'需求诊断与保单检视',
        lead:'不急着买，先看清你到底缺什么、已有保单有没有重复或断档。',
        points:['梳理家庭结构与负债，算出真实风险缺口','盘点已有保单，标出重复投保与保障空白','结合收入与现金流，定出预算天花板','产出一份人人能看懂的「保障地图」']},
@@ -1169,93 +1144,7 @@
        lead:'卖完不是结束，是长期陪伴的开始。',
        points:['每年保单「体检」，看保障是否还跟得上生活','人生大事（结婚/买房/有娃）时主动提醒调整','信息变更、续期、受益人变更全程协助','做你长期信赖、随叫随到的财务合伙人']}
     ];
-    var lb = document.getElementById('svcLightbox');
-    var elImg = document.getElementById('lbImg');
-    var elTitle = document.getElementById('lbTitle');
-    var elLead = document.getElementById('lbLead');
-    var elPoints = document.getElementById('lbPoints');
-    var cards = document.querySelectorAll('.scard');
-    var current = 0;
-    var swapping = false;
-    function render(i, instant){
-      var s = SERVICES[i];
-      if(instant || !lb.classList.contains('open')){
-        elImg.src = s.img; elImg.alt = s.title;
-        elTitle.textContent = s.title;
-        elLead.textContent = s.lead;
-        elPoints.innerHTML = s.points.map(function(p){ return '<li>' + p + '</li>'; }).join('');
-        current = i; return;
-      }
-      if(swapping) return;
-      swapping = true;
-      elImg.classList.add('swap-out');
-      elTitle.style.opacity = '0';
-      elLead.style.opacity = '0';
-      var lis = elPoints.querySelectorAll('li');
-      lis.forEach(function(li){ li.style.opacity = '0'; });
-      setTimeout(function(){
-        elImg.src = s.img; elImg.alt = s.title;
-        elTitle.textContent = s.title;
-        elLead.textContent = s.lead;
-        elPoints.innerHTML = s.points.map(function(p){ return '<li style="opacity:0">' + p + '</li>'; }).join('');
-        elImg.classList.remove('swap-out');
-        elTitle.style.opacity = ''; elLead.style.opacity = '';
-        var newLis = elPoints.querySelectorAll('li');
-        newLis.forEach(function(li, idx){ li.style.transitionDelay = (idx * .04) + 's'; li.style.opacity = ''; });
-        current = i; swapping = false;
-      }, 320);
-    }
-    function lockScroll(){ var sw = window.innerWidth - document.documentElement.clientWidth; document.body.style.overflow = 'hidden'; if(sw > 0) document.body.style.paddingRight = sw + 'px'; }
-    function unlockScroll(){ document.body.style.overflow = ''; document.body.style.paddingRight = ''; }
-    function openLb(i){ render(i, true); lb.classList.add('open'); lb.setAttribute('aria-hidden','false'); lockScroll(); }
-    function closeLb(){
-      if(!lb.classList.contains('open')) return;
-      lb.classList.remove('open'); lb.setAttribute('aria-hidden','true');
-      var done = false;
-      var onEnd = function(e){
-        if(e.target !== lb || e.propertyName !== 'opacity' || done) return;
-        done = true; lb.removeEventListener('transitionend', onEnd); unlockScroll();
-      };
-      lb.addEventListener('transitionend', onEnd);
-      setTimeout(function(){ if(!done){ done = true; lb.removeEventListener('transitionend', onEnd); unlockScroll(); } }, 700);
-    }
-    cards.forEach(function(c, i){
-      c.addEventListener('click', function(){ openLb(i); });
-      c.setAttribute('tabindex','0');
-      c.setAttribute('role','button');
-      c.addEventListener('keydown', function(e){ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); openLb(i); } });
-    });
-    document.getElementById('lbClose').addEventListener('click', closeLb);
-    document.getElementById('lbPrev').addEventListener('click', function(){ openLb((current-1+SERVICES.length) % SERVICES.length); });
-    document.getElementById('lbNext').addEventListener('click', function(){ openLb((current+1) % SERVICES.length); });
-    lb.addEventListener('click', function(e){ if(e.target===lb) closeLb(); });
-    document.addEventListener('keydown', function(e){
-      if(!lb.classList.contains('open')) return;
-      if(e.key==='Escape') closeLb();
-      else if(e.key==='ArrowLeft') openLb((current-1+SERVICES.length) % SERVICES.length);
-      else if(e.key==='ArrowRight') openLb((current+1) % SERVICES.length);
-    });
-  })();
-  </script>
-
-  <!-- 痛点灯箱 -->
-  <div class="lb" id="painLightbox" role="dialog" aria-modal="true" aria-hidden="true">
-    <button class="lb-close" id="painLbClose" aria-label="关闭">&times;</button>
-    <button class="lb-nav lb-prev" id="painLbPrev" aria-label="上一项">&lsaquo;</button>
-    <button class="lb-nav lb-next" id="painLbNext" aria-label="下一项">&rsaquo;</button>
-    <div class="lb-card">
-      <div class="lb-img"><img id="painLbImg" src="" alt=""></div>
-      <div class="lb-text">
-        <h3 id="painLbTitle"></h3>
-        <p class="lb-lead" id="painLbLead"></p>
-        <ul class="lb-points" id="painLbPoints"></ul>
-      </div>
-    </div>
-  </div>
-  <script>
-  (function(){
-    'use strict';
-    var PAINS = [
+        var PAINS = [
       {img:'assets/pain-01.png', title:'怕条款看不懂',
        lead:'几十页合同像天书，签字时心里没底——不知道保什么、不保什么、什么情况赔、什么情况不赔。',
        points:['把条款翻译成大白话，逐条讲清责任边界','重点标注等待期、免责条款、免赔额','告诉你哪些是"看起来有其实没用"的噱头','签字前逐条过一遍，确保你真的看懂了']},
@@ -1275,73 +1164,167 @@
        lead:'结婚生子、换房换工作、收入变化——十年前的方案早跟不上现在的人生了。',
        points:['定期保单检视，建议频率不低于一年一次','人生重大变化时主动提醒复盘','随收入和家庭结构调整保障额度','让保险跟着你的人生一起成长']}
     ];
-    var lb = document.getElementById('painLightbox');
-    var elImg = document.getElementById('painLbImg');
-    var elTitle = document.getElementById('painLbTitle');
-    var elLead = document.getElementById('painLbLead');
-    var elPoints = document.getElementById('painLbPoints');
-    var cards = document.querySelectorAll('.pain-card');
-    var current = 0;
-    var swapping = false;
-    function render(i, instant){
-      var s = PAINS[i];
-      if(instant || !lb.classList.contains('open')){
-        elImg.src = s.img; elImg.alt = s.title;
-        elTitle.textContent = s.title;
-        elLead.textContent = s.lead;
-        elPoints.innerHTML = s.points.map(function(p){ return '<li>' + p + '</li>'; }).join('');
-        current = i; return;
+
+    // 通用灯箱逻辑（服务灯箱 + 痛点灯箱共享）
+    function createLightbox(lbId, prefix, data, cardSelector){
+      var lb = document.getElementById(lbId);
+      var elImg = document.getElementById(prefix + 'Img');
+      var elTitle = document.getElementById(prefix + 'Title');
+      var elLead = document.getElementById(prefix + 'Lead');
+      var elPoints = document.getElementById(prefix + 'Points');
+      var cards = document.querySelectorAll(cardSelector);
+      var current = 0;
+      var swapping = false;
+      function render(i, instant){
+        var s = data[i];
+        if(instant || !lb.classList.contains('open')){
+          elImg.src = s.img; elImg.alt = s.title;
+          elTitle.textContent = s.title;
+          elLead.textContent = s.lead;
+          elPoints.innerHTML = s.points.map(function(p){ return '<li>' + p + '</li>'; }).join('');
+          current = i; return;
+        }
+        if(swapping) return;
+        swapping = true;
+        elImg.classList.add('swap-out');
+        elTitle.style.opacity = '0';
+        elLead.style.opacity = '0';
+        var lis = elPoints.querySelectorAll('li');
+        lis.forEach(function(li){ li.style.opacity = '0'; });
+        setTimeout(function(){
+          elImg.src = s.img; elImg.alt = s.title;
+          elTitle.textContent = s.title;
+          elLead.textContent = s.lead;
+          elPoints.innerHTML = s.points.map(function(p){ return '<li style="opacity:0">' + p + '</li>'; }).join('');
+          elImg.classList.remove('swap-out');
+          elTitle.style.opacity = ''; elLead.style.opacity = '';
+          var newLis = elPoints.querySelectorAll('li');
+          newLis.forEach(function(li, idx){ li.style.transitionDelay = (idx * .04) + 's'; li.style.opacity = ''; });
+          current = i; swapping = false;
+        }, 320);
       }
-      if(swapping) return;
-      swapping = true;
-      elImg.classList.add('swap-out');
-      elTitle.style.opacity = '0';
-      elLead.style.opacity = '0';
-      var lis = elPoints.querySelectorAll('li');
-      lis.forEach(function(li){ li.style.opacity = '0'; });
-      setTimeout(function(){
-        elImg.src = s.img; elImg.alt = s.title;
-        elTitle.textContent = s.title;
-        elLead.textContent = s.lead;
-        elPoints.innerHTML = s.points.map(function(p){ return '<li style="opacity:0">' + p + '</li>'; }).join('');
-        elImg.classList.remove('swap-out');
-        elTitle.style.opacity = ''; elLead.style.opacity = '';
-        var newLis = elPoints.querySelectorAll('li');
-        newLis.forEach(function(li, idx){ li.style.transitionDelay = (idx * .04) + 's'; li.style.opacity = ''; });
-        current = i; swapping = false;
-      }, 320);
+      function lockScroll(){ var sw = window.innerWidth - document.documentElement.clientWidth; document.body.style.overflow = 'hidden'; if(sw > 0) document.body.style.paddingRight = sw + 'px'; }
+      function unlockScroll(){ document.body.style.overflow = ''; document.body.style.paddingRight = ''; }
+      function openLb(i){ render(i, true); lb.classList.add('open'); lb.setAttribute('aria-hidden','false'); lockScroll(); }
+      function closeLb(){
+        if(!lb.classList.contains('open')) return;
+        lb.classList.remove('open'); lb.setAttribute('aria-hidden','true');
+        var done = false;
+        var onEnd = function(e){
+          if(e.target !== lb || e.propertyName !== 'opacity' || done) return;
+          done = true; lb.removeEventListener('transitionend', onEnd); unlockScroll();
+        };
+        lb.addEventListener('transitionend', onEnd);
+        setTimeout(function(){ if(!done){ done = true; lb.removeEventListener('transitionend', onEnd); unlockScroll(); } }, 700);
+      }
+      cards.forEach(function(c, i){
+        c.addEventListener('click', function(){ openLb(i); });
+        c.setAttribute('tabindex','0');
+        c.setAttribute('role','button');
+        c.addEventListener('keydown', function(e){ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); openLb(i); } });
+      });
+      document.getElementById(prefix + 'Close').addEventListener('click', closeLb);
+      document.getElementById(prefix + 'Prev').addEventListener('click', function(){ openLb((current-1+data.length) % data.length); });
+      document.getElementById(prefix + 'Next').addEventListener('click', function(){ openLb((current+1) % data.length); });
+      lb.addEventListener('click', function(e){ if(e.target===lb) closeLb(); });
+      document.addEventListener('keydown', function(e){
+        if(!lb.classList.contains('open')) return;
+        if(e.key==='Escape') closeLb();
+        else if(e.key==='ArrowLeft') openLb((current-1+data.length) % data.length);
+        else if(e.key==='ArrowRight') openLb((current+1) % data.length);
+      });
     }
-    function lockScroll(){ var sw = window.innerWidth - document.documentElement.clientWidth; document.body.style.overflow = 'hidden'; if(sw > 0) document.body.style.paddingRight = sw + 'px'; }
-    function unlockScroll(){ document.body.style.overflow = ''; document.body.style.paddingRight = ''; }
-    function openLb(i){ render(i, true); lb.classList.add('open'); lb.setAttribute('aria-hidden','false'); lockScroll(); }
-    function closeLb(){
-      if(!lb.classList.contains('open')) return;
-      lb.classList.remove('open'); lb.setAttribute('aria-hidden','true');
-      var done = false;
-      var onEnd = function(e){
-        if(e.target !== lb || e.propertyName !== 'opacity' || done) return;
-        done = true; lb.removeEventListener('transitionend', onEnd); unlockScroll();
-      };
-      lb.addEventListener('transitionend', onEnd);
-      setTimeout(function(){ if(!done){ done = true; lb.removeEventListener('transitionend', onEnd); unlockScroll(); } }, 700);
-    }
-    cards.forEach(function(c, i){
-      c.addEventListener('click', function(){ openLb(i); });
-      c.setAttribute('tabindex','0');
-      c.setAttribute('role','button');
-      c.addEventListener('keydown', function(e){ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); openLb(i); } });
-    });
-    document.getElementById('painLbClose').addEventListener('click', closeLb);
-    document.getElementById('painLbPrev').addEventListener('click', function(){ openLb((current-1+PAINS.length) % PAINS.length); });
-    document.getElementById('painLbNext').addEventListener('click', function(){ openLb((current+1) % PAINS.length); });
-    lb.addEventListener('click', function(e){ if(e.target===lb) closeLb(); });
-    document.addEventListener('keydown', function(e){
-      if(!lb.classList.contains('open')) return;
-      if(e.key==='Escape') closeLb();
-      else if(e.key==='ArrowLeft') openLb((current-1+PAINS.length) % PAINS.length);
-      else if(e.key==='ArrowRight') openLb((current+1) % PAINS.length);
-    });
+
+    // 初始化服务灯箱（元素 ID: lbImg/lbTitle/lbLead/lbPoints, 按钮: lbClose/lbPrev/lbNext）
+    // 注意：服务灯箱的元素 ID 没有前缀，需要特殊处理
+    (function(){
+      var lb = document.getElementById('svcLightbox');
+      var elImg = document.getElementById('lbImg');
+      var elTitle = document.getElementById('lbTitle');
+      var elLead = document.getElementById('lbLead');
+      var elPoints = document.getElementById('lbPoints');
+      var cards = document.querySelectorAll('.scard');
+      var current = 0;
+      var swapping = false;
+      function render(i, instant){
+        var s = SERVICES[i];
+        if(instant || !lb.classList.contains('open')){
+          elImg.src = s.img; elImg.alt = s.title;
+          elTitle.textContent = s.title;
+          elLead.textContent = s.lead;
+          elPoints.innerHTML = s.points.map(function(p){ return '<li>' + p + '</li>'; }).join('');
+          current = i; return;
+        }
+        if(swapping) return;
+        swapping = true;
+        elImg.classList.add('swap-out');
+        elTitle.style.opacity = '0';
+        elLead.style.opacity = '0';
+        var lis = elPoints.querySelectorAll('li');
+        lis.forEach(function(li){ li.style.opacity = '0'; });
+        setTimeout(function(){
+          elImg.src = s.img; elImg.alt = s.title;
+          elTitle.textContent = s.title;
+          elLead.textContent = s.lead;
+          elPoints.innerHTML = s.points.map(function(p){ return '<li style="opacity:0">' + p + '</li>'; }).join('');
+          elImg.classList.remove('swap-out');
+          elTitle.style.opacity = ''; elLead.style.opacity = '';
+          var newLis = elPoints.querySelectorAll('li');
+          newLis.forEach(function(li, idx){ li.style.transitionDelay = (idx * .04) + 's'; li.style.opacity = ''; });
+          current = i; swapping = false;
+        }, 320);
+      }
+      function lockScroll(){ var sw = window.innerWidth - document.documentElement.clientWidth; document.body.style.overflow = 'hidden'; if(sw > 0) document.body.style.paddingRight = sw + 'px'; }
+      function unlockScroll(){ document.body.style.overflow = ''; document.body.style.paddingRight = ''; }
+      function openLb(i){ render(i, true); lb.classList.add('open'); lb.setAttribute('aria-hidden','false'); lockScroll(); }
+      function closeLb(){
+        if(!lb.classList.contains('open')) return;
+        lb.classList.remove('open'); lb.setAttribute('aria-hidden','true');
+        var done = false;
+        var onEnd = function(e){
+          if(e.target !== lb || e.propertyName !== 'opacity' || done) return;
+          done = true; lb.removeEventListener('transitionend', onEnd); unlockScroll();
+        };
+        lb.addEventListener('transitionend', onEnd);
+        setTimeout(function(){ if(!done){ done = true; lb.removeEventListener('transitionend', onEnd); unlockScroll(); } }, 700);
+      }
+      cards.forEach(function(c, i){
+        c.addEventListener('click', function(){ openLb(i); });
+        c.setAttribute('tabindex','0');
+        c.setAttribute('role','button');
+        c.addEventListener('keydown', function(e){ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); openLb(i); } });
+      });
+      document.getElementById('lbClose').addEventListener('click', closeLb);
+      document.getElementById('lbPrev').addEventListener('click', function(){ openLb((current-1+SERVICES.length) % SERVICES.length); });
+      document.getElementById('lbNext').addEventListener('click', function(){ openLb((current+1) % SERVICES.length); });
+      lb.addEventListener('click', function(e){ if(e.target===lb) closeLb(); });
+      document.addEventListener('keydown', function(e){
+        if(!lb.classList.contains('open')) return;
+        if(e.key==='Escape') closeLb();
+        else if(e.key==='ArrowLeft') openLb((current-1+SERVICES.length) % SERVICES.length);
+        else if(e.key==='ArrowRight') openLb((current+1) % SERVICES.length);
+      });
+    })();
+
+    // 初始化痛点灯箱
+    createLightbox('painLightbox', 'painLb', PAINS, '.pain-card');
   })();
   </script>
+
+  <!-- 痛点灯箱 -->
+  <div class="lb" id="painLightbox" role="dialog" aria-modal="true" aria-hidden="true">
+    <button class="lb-close" id="painLbClose" aria-label="关闭">&times;</button>
+    <button class="lb-nav lb-prev" id="painLbPrev" aria-label="上一项">&lsaquo;</button>
+    <button class="lb-nav lb-next" id="painLbNext" aria-label="下一项">&rsaquo;</button>
+    <div class="lb-card">
+      <div class="lb-img"><img id="painLbImg" src="" alt=""></div>
+      <div class="lb-text">
+        <h3 id="painLbTitle"></h3>
+        <p class="lb-lead" id="painLbLead"></p>
+        <ul class="lb-points" id="painLbPoints"></ul>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
