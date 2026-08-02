@@ -248,10 +248,12 @@
   /* 灯箱内二维码面板 —— 左图不动，右侧文字区内容切换动画 */
   /* .lb-body 作为右侧容器，内部文字和二维码做交叉滑入滑出 */
   #skillLb .lb-body{position:relative;overflow:hidden}
-  /* 文字内容层 */
+  /* 文字内容层（含原关闭按钮）——右滑淡出 */
   #skillLb .lb-body > *{transition:transform .42s cubic-bezier(.22,1,.36,1), opacity .32s ease;
     will-change:transform,opacity}
-  #skillLb.qr-open .lb-body > *{transform:translateX(40px);opacity:0;pointer-events:none}
+  #skillLb.qr-open .lb-body > *:not(.lb-qrcode-panel){transform:translateX(40px);opacity:0;pointer-events:none}
+  /* 原灯箱关闭按钮也随文字消失 */
+  #skillLb.qr-open .lb-close{opacity:0;pointer-events:none;transition:opacity .32s ease}
   /* 二维码面板：绝对定位填满 .lb-body 区域，从右侧滑入 */
   .lb-qrcode-panel{position:absolute;top:0;left:0;right:0;bottom:0;width:100%;
     background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:36px 28px;gap:12px;
@@ -272,7 +274,7 @@
   .lb-qrcode-panel .wx-id{font-size:13px;color:#444;text-align:center;margin-top:4px}
   .lb-qrcode-panel .wx-id--sub{font-size:11px;color:#999;margin-top:2px}
   @media(max-width:720px){
-    #skillLb.qr-open .lb-body > *{transform:translateX(20px);opacity:0}
+    #skillLb.qr-open .lb-body > *:not(.lb-qrcode-panel){transform:translateX(20px);opacity:0}
     .lb-qrcode-panel{padding:24px 20px}
     .lb-qrcode-panel .take-qr-img{width:150px;height:150px}
   }
@@ -1108,18 +1110,17 @@
         <h3 class="skill-lb-title" id="skillLbTitle"></h3>
         <div class="lb-text" id="skillLbBody"></div>
         <a class="p-link lb-cta" id="skillLbLink" href="javascript:void(0)">进一步了解 →</a>
-      </div>
-      <!-- 二维码面板（默认隐藏，CTA 点击后右滑入） -->
-      <div class="lb-qrcode-panel" id="skillLbQrPanel">
-        <button class="lb-qr-close" id="skillLbQrClose" type="button" aria-label="关闭二维码">✕</button>
-        <div class="qr-eyebrow">ADD ME ON WECHAT</div>
-        <h3 class="qr-panel-title">扫码加我微信</h3>
-        <div class="qr-note">想当面聊聊、或先理一遍家里的保单。<br>备注一句「保障咨询」更好。</div>
-        <img src="assets/wechat-qr.png" alt="顾维鲁微信二维码" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" class="take-qr-img">
-        <div class="wx-qr-ph">把你的微信二维码图片<br>命名为 <b>wechat-qr.png</b><br>放进 assets/ 目录即可</div>
-        <div class="wx-id">微信号：<b>13551139187</b></div>
-        <div class="wx-id wx-id--sub">扫码或搜索添加，备注「保障咨询」</div>
-      </div>
+        <!-- 二维码面板（默认隐藏，CTA 点击后右滑入，仅替换右侧文字区） -->
+        <div class="lb-qrcode-panel" id="skillLbQrPanel">
+          <button class="lb-qr-close" id="skillLbQrClose" type="button" aria-label="关闭二维码">✕</button>
+          <div class="qr-eyebrow">ADD ME ON WECHAT</div>
+          <h3 class="qr-panel-title">扫码加我微信</h3>
+          <div class="qr-note">想当面聊聊、或先理一遍家里的保单。<br>备注一句「保障咨询」更好。</div>
+          <img src="assets/wechat-qr.png" alt="顾维鲁微信二维码" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" class="take-qr-img">
+          <div class="wx-qr-ph">把你的微信二维码图片<br>命名为 <b>wechat-qr.png</b><br>放进 assets/ 目录即可</div>
+          <div class="wx-id">微信号：<b>13551139187</b></div>
+          <div class="wx-id wx-id--sub">扫码或搜索添加，备注「保障咨询」</div>
+        </div>
       </div>
     </div>
   </div>
