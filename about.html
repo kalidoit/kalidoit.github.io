@@ -749,6 +749,56 @@
     </div>
   </section>
 
+  <!-- ===== 页间过渡引导 — 关于我→保障配置全貌 ===== -->
+  <style>
+  .page-bridge{display:flex;flex-direction:column;align-items:center;gap:12px;
+    padding:48px 24px 32px;text-align:center;position:relative}
+  .page-bridge .pb-label{font-size:12px;letter-spacing:.18em;color:var(--muted);font-weight:500}
+  /* 页间引导按钮 — 淡蓝光圈呼吸（取消流光描边） */
+  .pb-glow{position:relative;display:inline-block;border-radius:var(--radius-pill);
+    border:2px solid rgba(46,111,176,.16);
+    animation:auraPulse 2.8s ease-in-out infinite}
+  @keyframes auraPulse{
+    0%,100%{box-shadow:0 0 6px 0 rgba(46,111,176,.18)}
+    50%{box-shadow:0 0 18px 2px rgba(74,150,230,.45)}}
+  @media (prefers-reduced-motion:reduce){.pb-glow{animation:none}}
+
+  .page-bridge .pb-link{display:inline-flex;align-items:center;gap:8px;
+    font-size:15px;font-weight:600;color:#1d1d1f;text-decoration:none;
+    padding:10px 28px;border-radius:var(--radius-pill);
+    border:0;background:rgba(250,250,252,.9);
+    transition:all .3s ease;position:relative;overflow:hidden}
+  .page-bridge .pb-link::before{content:"";position:absolute;inset:0;
+    background:linear-gradient(135deg,rgba(46,111,176,.06),rgba(160,125,44,.06));
+    opacity:0;transition:opacity .3s}
+  .page-bridge .pb-link:hover{color:var(--blue);
+    transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.08);
+    background:#fff}
+  .page-bridge .pb-link:hover::before{opacity:1}
+  .page-bridge .pb-arrow{display:inline-block;animation:pbBounce 2s ease-in-out infinite}
+  @keyframes pbBounce{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(5px)}
+  }
+  [data-theme="dark"] .pb-glow{border-color:rgba(120,180,255,.3)}
+  [data-theme="dark"] .page-bridge .pb-link{
+    color:#e8e8ed;background:rgba(255,255,255,.04)}
+  [data-theme="dark"] .page-bridge .pb-link:hover{
+    color:var(--blue);box-shadow:0 4px 16px rgba(0,0,0,.3)}
+  @media(max-width:640px){
+    .page-bridge{padding:36px 20px 24px;gap:10px}
+    .page-bridge .pb-link{padding:12px 32px;font-size:15.5px}
+    .page-bridge .pb-label{font-size:11.5px}
+  }
+  </style>
+  <div class="page-bridge">
+    <span class="pb-label">接下来</span>
+    <span class="pb-glow"><a class="pb-link" href="insurance.html">
+      我的保障思路
+      <svg class="pb-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+    </a></span>
+  </div>
+
   <!-- ===== 保险站跨页导航 — 分段控制器风格 ===== -->
   <style>
   .site-nav{max-width:520px;margin:52px auto 8px;padding:0 24px;text-align:center}
@@ -757,7 +807,14 @@
   .site-nav .sn-seg{display:inline-flex;background:#efeff5;border-radius:10px;padding:3px;gap:2px}
   [data-theme="dark"] .site-nav .sn-seg{background:rgba(255,255,255,.06)}
   .site-nav .sn-seg a{display:inline-flex;align-items:center;gap:5px;padding:9px 18px;border-radius:7px;
-    font-size:13px;font-weight:500;color:#666;text-decoration:none;transition:all .2s ease}
+    font-size:13px;font-weight:500;color:#666;text-decoration:none;transition:all .2s ease;position:relative}
+  .site-nav .sn-seg a[data-next]::after{content:"";position:absolute;top:-3px;right:-3px;
+    width:6px;height:6px;border-radius:50%;background:var(--blue);
+    animation:pbPulse 2s ease-in-out infinite}
+  @keyframes pbPulse{
+    0%,100%{opacity:.6;transform:scale(1)}
+    50%{opacity:1;transform:scale(1.35)}
+  }
   [data-theme="dark"] .site-nav .sn-seg a{color:#98989d}
   .site-nav .sn-seg a:hover{color:#1d1d1f;background:rgba(0,0,0,.03)}
   [data-theme="dark"] .site-nav .sn-seg a:hover{color:#fff;background:rgba(255,255,255,.07)}
@@ -779,7 +836,7 @@
     <div class="sn-seg">
       <a href="index.html">个人名片页</a>
       <a href="about.html" class="cur">关于我</a>
-      <a href="insurance.html">保障配置全貌</a>
+      <a href="insurance.html" data-next>保障配置全貌</a>
     </div>
   </nav>
 

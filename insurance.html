@@ -149,7 +149,9 @@
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--font-body);
     font-weight:500;border:none;cursor:pointer;transition:transform .25s,box-shadow .25s,background .25s}
   .btn-primary{position:relative;overflow:hidden;background:linear-gradient(135deg,#2E6FB0,#1f5fa0);
-    color:#fff;padding:15px 34px;border-radius:var(--radius-pill);font-size:15px;box-shadow:0 6px 24px rgba(62,142,219,.4)}
+    color:#fff;padding:15px 34px;border-radius:var(--radius-pill);font-size:15px;
+    box-shadow:0 6px 24px rgba(62,142,219,.4);
+    animation:auraPulse 2.8s ease-in-out infinite}
   .btn-primary::after{content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;
     background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);
     transition:left .6s ease}
@@ -384,8 +386,14 @@
   .qr{width:160px;height:160px;border-radius:16px;object-fit:cover;box-shadow:0 6px 24px rgba(0,0,0,.3)}
   .wx-id{font-size:14px;color:var(--muted)}
   .wx-id b{color:var(--text);font-weight:600;letter-spacing:.04em}
-  .point-right{font-size:22px;animation:pointBounce 1.6s ease-in-out infinite;filter:drop-shadow(0 2px 4px rgba(0,0,0,.15))}
-  @keyframes pointBounce{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
+  /* 预约按钮 — 淡蓝光圈呼吸（取消流光描边） */
+  .btn-glow{position:relative;display:inline-block;border-radius:var(--radius-pill);
+    border:2px solid rgba(46,111,176,.16);
+    animation:auraPulse 2.8s ease-in-out infinite}
+  @keyframes auraPulse{
+    0%,100%{box-shadow:0 0 6px 0 rgba(46,111,176,.18)}
+    50%{box-shadow:0 0 18px 2px rgba(74,150,230,.45)}}
+  @media (prefers-reduced-motion:reduce){.btn-glow,.btn-primary{animation:none}}
 
 
   /* ---------- 页脚 ---------- */
@@ -868,8 +876,9 @@
         <h3>聊一次，不收费，不推销</h3>
         <p class="lead">先做一次需求诊断与保单检视，看清你真正需要什么、不需要什么。哪怕最后不找我买，你也比来时更清楚。</p>
         <div style="margin-top:24px;display:flex;gap:14px;justify-content:center;flex-wrap:nowrap;align-items:center">
-          <span class="btn btn-primary" role="button" tabindex="0">预约一次对话</span>
-          <span class="point-right" aria-hidden="true">👉</span>
+          <span class="btn-glow">
+            <span class="btn btn-primary" role="button" tabindex="0">预约一次对话</span>
+          </span>
         </div>
       </div>
       <div class="wx-box">
