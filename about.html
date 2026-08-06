@@ -745,14 +745,9 @@
   .page-bridge{display:flex;flex-direction:column;align-items:center;gap:12px;
     padding:48px 24px 32px;text-align:center;position:relative}
   .page-bridge .pb-label{font-size:12px;letter-spacing:.18em;color:var(--muted);font-weight:500}
-  /* 页间引导按钮 — 淡蓝光圈呼吸（取消流光描边） */
+  /* 页间引导按钮 — 纯容器（边框全权交给 border-beam line-ice） */
   .pb-glow{position:relative;display:inline-block;border-radius:var(--radius-pill);
-    border:2px solid rgba(46,111,176,.16);
-    animation:auraPulse 2.8s ease-in-out infinite}
-  @keyframes auraPulse{
-    0%,100%{box-shadow:0 0 6px 0 rgba(46,111,176,.18)}
-    50%{box-shadow:0 0 18px 2px rgba(74,150,230,.45)}}
-  @media (prefers-reduced-motion:reduce){.pb-glow{animation:none}}
+    isolation:isolate;overflow:hidden}
 
   .page-bridge .pb-link{display:inline-flex;align-items:center;gap:8px;
     font-size:15px;font-weight:600;color:#1d1d1f;text-decoration:none;
@@ -771,7 +766,7 @@
     0%,100%{transform:translateY(0)}
     50%{transform:translateY(5px)}
   }
-  [data-theme="dark"] .pb-glow{border-color:rgba(120,180,255,.3)}
+  /* .pb-glow 边框由 line-ice ::after 全权接管，无需 dark 覆盖 */
   [data-theme="dark"] .page-bridge .pb-link{
     color:#e8e8ed;background:rgba(255,255,255,.04)}
   [data-theme="dark"] .page-bridge .pb-link:hover{
@@ -781,10 +776,336 @@
     .page-bridge .pb-link{padding:12px 32px;font-size:15.5px}
     .page-bridge .pb-label{font-size:11.5px}
   }
+
+  /* =========================================================
+     胶囊按钮 — border-beam@1.1.0 line 预设（底边光团横向滑动/水波）
+     配色：Ice·冰蓝（line-ice-dark / line-ice-light）
+     ========================================================= */
+@property --beam-x-line-ice-dark{
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: true;
+}
+
+@property --beam-w-line-ice-dark{
+  syntax: "<number>";
+  initial-value: 1;
+  inherits: true;
+}
+
+@property --beam-h-line-ice-dark{
+  syntax: "<number>";
+  initial-value: 1;
+  inherits: true;
+}
+
+@property --beam-spike-line-ice-dark{
+  syntax: "<number>";
+  initial-value: 1;
+  inherits: true;
+}
+
+@property --beam-spike2-line-ice-dark{
+  syntax: "<number>";
+  initial-value: 1;
+  inherits: true;
+}
+
+@property --beam-edge-line-ice-dark{
+  syntax: "<number>";
+  initial-value: 1;
+  inherits: true;
+}
+
+@property --beam-opacity-line-ice-dark{
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: true;
+}
+
+[data-beam="line-ice-dark"]{
+  position: relative;
+  border-radius: var(--bb-radius, 16px);
+  overflow: hidden;
+}
+
+[data-beam="line-ice-dark"][data-active]{
+  animation:
+    beam-travel-line-ice-dark 3.1s linear infinite,
+    beam-edge-fade-line-ice-dark 3.1s linear infinite,
+    beam-breathe-line-ice-dark 4.0s ease-in-out infinite,
+    beam-spike-line-ice-dark 4.1s ease-in-out infinite,
+    beam-spike2-line-ice-dark 5.3s ease-in-out infinite,
+    beam-fade-in-line-ice-dark 0.6s ease forwards;
+}
+
+[data-beam="line-ice-dark"][data-fading]{
+  animation:
+    beam-travel-line-ice-dark 3.1s linear infinite,
+    beam-edge-fade-line-ice-dark 3.1s linear infinite,
+    beam-breathe-line-ice-dark 4.0s ease-in-out infinite,
+    beam-spike-line-ice-dark 4.1s ease-in-out infinite,
+    beam-spike2-line-ice-dark 5.3s ease-in-out infinite,
+    beam-fade-out-line-ice-dark 0.5s ease forwards;
+}
+
+[data-beam="line-ice-dark"][data-active]::after,
+[data-beam="line-ice-dark"][data-fading]::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--bb-radius, 15px);
+  padding: 1px;
+  clip-path: inset(0 round var(--bb-radius, 16px));
+  background: radial-gradient(
+        ellipse calc(24px * var(--beam-w-line-ice-dark)) calc(28px * var(--beam-h-line-ice-dark)) at calc(var(--beam-x-line-ice-dark) * 100%) calc(100% + 2px),
+        rgba(255, 255, 255, 0.38) 0%,
+        rgba(255, 255, 255, 0.12) 30%,
+        transparent 65%
+      ), radial-gradient(ellipse calc(36px * var(--beam-w-line-ice-dark)) calc(36px * var(--beam-h-line-ice-dark)) at calc(var(--beam-x-line-ice-dark) * 100%) calc(100% + 2px), rgb(50, 190, 255), transparent),
+       radial-gradient(ellipse calc(30px * var(--beam-w-line-ice-dark)) calc(32px * var(--beam-h-line-ice-dark)) at calc(var(--beam-x-line-ice-dark) * 100% + 39px) calc(100%), rgb(90, 140, 250), transparent),
+       radial-gradient(ellipse calc(33px * var(--beam-w-line-ice-dark)) calc(28px * var(--beam-h-line-ice-dark)) at calc(var(--beam-x-line-ice-dark) * 100% - 36px) calc(100% + 2px), rgb(130, 210, 255), transparent),
+       radial-gradient(ellipse calc(29px * var(--beam-w-line-ice-dark)) calc(34px * var(--beam-h-line-ice-dark)) at calc(var(--beam-x-line-ice-dark) * 100% - 54px) calc(100%), rgb(75, 180, 252), transparent),
+       radial-gradient(ellipse calc(27px * var(--beam-w-line-ice-dark)) calc(30px * var(--beam-h-line-ice-dark)) at calc(var(--beam-x-line-ice-dark) * 100% + 51px) calc(100% - 1px), rgb(195, 240, 255), transparent),
+       radial-gradient(ellipse calc(36px * var(--beam-w-line-ice-dark)) calc(24px * var(--beam-h-line-ice-dark)) at calc(var(--beam-x-line-ice-dark) * 100% + 21px) calc(100% + 1px), rgb(110, 150, 245), transparent),
+       radial-gradient(ellipse calc(30px * var(--beam-w-line-ice-dark)) calc(22px * var(--beam-h-line-ice-dark)) at calc(var(--beam-x-line-ice-dark) * 100% - 21px) calc(100%), rgb(80, 165, 250), transparent),
+       radial-gradient(ellipse calc(25px * var(--beam-w-line-ice-dark)) calc(28px * var(--beam-h-line-ice-dark)) at calc(var(--beam-x-line-ice-dark) * 100% + 66px) calc(100% + 1px), rgb(100, 185, 255), transparent),
+       radial-gradient(ellipse calc(23px * var(--beam-w-line-ice-dark)) calc(30px * var(--beam-h-line-ice-dark)) at calc(var(--beam-x-line-ice-dark) * 100% - 66px) calc(100% - 1px), rgb(70, 170, 248), transparent);
+  pointer-events: none;
+  z-index: 2;
+  opacity: calc(var(--beam-opacity-line-ice-dark) * 1.14 * var(--beam-stroke-opacity, 1) * var(--beam-strength, 1));
+  animation: beam-hue-shift-line-ice-dark 12s ease-in-out infinite;
+}
+
+[data-beam="line-ice-dark"] [data-beam-bloom]{
+  display: none;
+  position: absolute;
+  inset: 0;
+  border-radius: var(--bb-radius, 16px);
+  clip-path: inset(0 round var(--bb-radius, 16px));
+  background: radial-gradient(ellipse calc(0.8px * var(--beam-spike-line-ice-dark)) calc(92px * var(--beam-h-line-ice-dark)) at 8% calc(100% - 2px), rgb(75, 170, 250), rgb(75, 170, 250) 30%, transparent 88%),
+       radial-gradient(ellipse calc(10px * var(--beam-spike2-line-ice-dark)) calc(35px * var(--beam-h-line-ice-dark)) at 22% calc(100% - 4px), rgba(45, 185, 255, 0.98), rgba(45, 185, 255, 0.98) 50%, transparent 95%),
+       radial-gradient(ellipse calc(2px * (2 - var(--beam-spike-line-ice-dark))) calc(72px * var(--beam-h-line-ice-dark)) at 36% calc(100% - 3px), rgb(130, 210, 255), rgba(130, 210, 255, 1) 40%, transparent 90%),
+       radial-gradient(ellipse calc(14px * var(--beam-spike2-line-ice-dark)) calc(28px * var(--beam-h-line-ice-dark)) at 50% calc(100% - 2px), rgba(100, 185, 255, 0.91), rgba(100, 185, 255, 0.45) 55%, transparent 96%),
+       radial-gradient(ellipse calc(1.2px * (2 - var(--beam-spike2-line-ice-dark))) calc(85px * var(--beam-h-line-ice-dark)) at 64% calc(100% - 4px), rgb(80, 165, 250), rgba(80, 165, 250, 1) 35%, transparent 89%),
+       radial-gradient(ellipse calc(7px * var(--beam-spike-line-ice-dark)) calc(45px * var(--beam-h-line-ice-dark)) at 78% calc(100% - 2px), rgb(110, 150, 245), rgba(110, 150, 245, 1) 48%, transparent 94%),
+       radial-gradient(ellipse calc(0.6px * (2 - var(--beam-spike-line-ice-dark))) calc(60px * var(--beam-h-line-ice-dark)) at 92% calc(100% - 3px), rgba(195, 240, 255, 0.59), rgba(195, 240, 255, 0.29) 42%, transparent 91%),
+       radial-gradient(ellipse calc(21px * var(--beam-spike-line-ice-dark)) calc(15px * var(--beam-spike2-line-ice-dark)) at calc(var(--beam-x-line-ice-dark) * 100%) calc(100% + 1px), rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.9) 20%, rgba(255, 255, 255, 0.5) 50%, transparent 100%),
+       radial-gradient(ellipse calc(42px * var(--beam-w-line-ice-dark)) calc(40px * var(--beam-h-line-ice-dark)) at calc(var(--beam-x-line-ice-dark) * 100%) 100%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.12) 25%, rgba(255, 255, 255, 0.03) 55%, transparent 80%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  padding: 1px;
+  filter: blur(8px) brightness(1.30) saturate(1.20);
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+}
+
+[data-beam="line-ice-dark"][data-active] [data-beam-bloom],
+[data-beam="line-ice-dark"][data-fading] [data-beam-bloom]{
+  display: block;
+  opacity: calc(var(--beam-opacity-line-ice-dark) * 0.80 * var(--beam-bloom-opacity, 1) * var(--beam-strength, 1));
+}
+
+@keyframes beam-travel-line-ice-dark{ to { --beam-x-line-ice-dark: 1; } }
+
+@keyframes beam-edge-fade-line-ice-dark{ 0% { --beam-edge-line-ice-dark: 1; } 50% { --beam-edge-line-ice-dark: 0.3; } 100% { --beam-edge-line-ice-dark: 1; } }
+
+@keyframes beam-breathe-line-ice-dark{ 0% { --beam-w-line-ice-dark: 1; --beam-h-line-ice-dark: 1; } 50% { --beam-w-line-ice-dark: 0.6; --beam-h-line-ice-dark: 1.4; } 100% { --beam-w-line-ice-dark: 1; --beam-h-line-ice-dark: 1; } }
+
+@keyframes beam-spike-line-ice-dark{ 0% { --beam-spike-line-ice-dark: 1; } 50% { --beam-spike-line-ice-dark: 0.4; } 100% { --beam-spike-line-ice-dark: 1; } }
+
+@keyframes beam-spike2-line-ice-dark{ 0% { --beam-spike2-line-ice-dark: 1; } 50% { --beam-spike2-line-ice-dark: 0.6; } 100% { --beam-spike2-line-ice-dark: 1; } }
+
+@keyframes beam-fade-in-line-ice-dark{ to { --beam-opacity-line-ice-dark: 1; } }
+
+@keyframes beam-fade-out-line-ice-dark{ from { --beam-opacity-line-ice-dark: 1; } to { --beam-opacity-line-ice-dark: 0; } }
+
+@keyframes beam-hue-shift-line-ice-dark{
+  0% { filter: hue-rotate(calc(var(--beam-hue-base, 0deg) - 13deg)) brightness(1.30) saturate(1.20); }
+  50% { filter: hue-rotate(calc(var(--beam-hue-base, 0deg) + 13deg)) brightness(1.30) saturate(1.20); }
+  100% { filter: hue-rotate(calc(var(--beam-hue-base, 0deg) - 13deg)) brightness(1.30) saturate(1.20); }
+}
+
+@keyframes beam-hue-shift-bloom-line-ice-dark{
+  0% { filter: blur(8px) hue-rotate(calc(var(--beam-hue-base, 0deg) - 23deg)) brightness(1.30) saturate(1.20); }
+  50% { filter: blur(8px) hue-rotate(calc(var(--beam-hue-base, 0deg) + 23deg)) brightness(1.30) saturate(1.20); }
+  100% { filter: blur(8px) hue-rotate(calc(var(--beam-hue-base, 0deg) - 23deg)) brightness(1.30) saturate(1.20); }
+}
+
+[data-beam="line-ice-dark"][data-paused],
+[data-beam="line-ice-dark"][data-paused]::after,
+[data-beam="line-ice-dark"][data-paused] [data-beam-bloom]{
+  animation-play-state: paused !important;
+}
+
+@property --beam-x-line-ice-light{
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: true;
+}
+
+@property --beam-w-line-ice-light{
+  syntax: "<number>";
+  initial-value: 1;
+  inherits: true;
+}
+
+@property --beam-h-line-ice-light{
+  syntax: "<number>";
+  initial-value: 1;
+  inherits: true;
+}
+
+@property --beam-spike-line-ice-light{
+  syntax: "<number>";
+  initial-value: 1;
+  inherits: true;
+}
+
+@property --beam-spike2-line-ice-light{
+  syntax: "<number>";
+  initial-value: 1;
+  inherits: true;
+}
+
+@property --beam-edge-line-ice-light{
+  syntax: "<number>";
+  initial-value: 1;
+  inherits: true;
+}
+
+@property --beam-opacity-line-ice-light{
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: true;
+}
+
+[data-beam="line-ice-light"]{
+  position: relative;
+  border-radius: var(--bb-radius, 16px);
+  overflow: hidden;
+}
+
+[data-beam="line-ice-light"][data-active]{
+  animation:
+    beam-travel-line-ice-light 3.1s linear infinite,
+    beam-edge-fade-line-ice-light 3.1s linear infinite,
+    beam-breathe-line-ice-light 4.0s ease-in-out infinite,
+    beam-spike-line-ice-light 4.1s ease-in-out infinite,
+    beam-spike2-line-ice-light 5.3s ease-in-out infinite,
+    beam-fade-in-line-ice-light 0.6s ease forwards;
+}
+
+[data-beam="line-ice-light"][data-fading]{
+  animation:
+    beam-travel-line-ice-light 3.1s linear infinite,
+    beam-edge-fade-line-ice-light 3.1s linear infinite,
+    beam-breathe-line-ice-light 4.0s ease-in-out infinite,
+    beam-spike-line-ice-light 4.1s ease-in-out infinite,
+    beam-spike2-line-ice-light 5.3s ease-in-out infinite,
+    beam-fade-out-line-ice-light 0.5s ease forwards;
+}
+
+[data-beam="line-ice-light"][data-active]::after,
+[data-beam="line-ice-light"][data-fading]::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--bb-radius, 15px);
+  padding: 1px;
+  clip-path: inset(0 round var(--bb-radius, 16px));
+  background: radial-gradient(
+        ellipse calc(35px * var(--beam-w-line-ice-light)) calc(28px * var(--beam-h-line-ice-light)) at calc(var(--beam-x-line-ice-light) * 100%) calc(100% + 2px),
+        rgba(0, 0, 0, 0.6) 0%,
+        rgba(0, 0, 0, 0.25) 35%,
+        transparent 70%
+      ), radial-gradient(ellipse calc(45px * var(--beam-w-line-ice-light)) calc(36px * var(--beam-h-line-ice-light)) at calc(var(--beam-x-line-ice-light) * 100%) calc(100% + 2px), rgb(30, 150, 220), transparent),
+       radial-gradient(ellipse calc(35px * var(--beam-w-line-ice-light)) calc(32px * var(--beam-h-line-ice-light)) at calc(var(--beam-x-line-ice-light) * 100% + 65px) calc(100%), rgb(65, 110, 200), transparent),
+       radial-gradient(ellipse calc(40px * var(--beam-w-line-ice-light)) calc(28px * var(--beam-h-line-ice-light)) at calc(var(--beam-x-line-ice-light) * 100% - 60px) calc(100% + 2px), rgb(100, 170, 220), transparent),
+       radial-gradient(ellipse calc(35px * var(--beam-w-line-ice-light)) calc(34px * var(--beam-h-line-ice-light)) at calc(var(--beam-x-line-ice-light) * 100% - 90px) calc(100%), rgb(50, 140, 205), transparent),
+       radial-gradient(ellipse calc(38px * var(--beam-w-line-ice-light)) calc(30px * var(--beam-h-line-ice-light)) at calc(var(--beam-x-line-ice-light) * 100% + 85px) calc(100% - 1px), rgb(160, 200, 220), transparent),
+       radial-gradient(ellipse calc(50px * var(--beam-w-line-ice-light)) calc(24px * var(--beam-h-line-ice-light)) at calc(var(--beam-x-line-ice-light) * 100% + 35px) calc(100% + 1px), rgb(85, 120, 200), transparent),
+       radial-gradient(ellipse calc(40px * var(--beam-w-line-ice-light)) calc(22px * var(--beam-h-line-ice-light)) at calc(var(--beam-x-line-ice-light) * 100% - 35px) calc(100%), rgb(60, 130, 200), transparent),
+       radial-gradient(ellipse calc(35px * var(--beam-w-line-ice-light)) calc(28px * var(--beam-h-line-ice-light)) at calc(var(--beam-x-line-ice-light) * 100% + 110px) calc(100% + 1px), rgb(75, 150, 210), transparent),
+       radial-gradient(ellipse calc(30px * var(--beam-w-line-ice-light)) calc(30px * var(--beam-h-line-ice-light)) at calc(var(--beam-x-line-ice-light) * 100% - 110px) calc(100% - 1px), rgb(50, 140, 200), transparent);
+  pointer-events: none;
+  z-index: 2;
+  opacity: calc(var(--beam-opacity-line-ice-light) * 0.18 * var(--beam-stroke-opacity, 1) * var(--beam-strength, 1));
+  animation: beam-hue-shift-line-ice-light 12s ease-in-out infinite;
+}
+
+[data-beam="line-ice-light"] [data-beam-bloom]{
+  display: none;
+  position: absolute;
+  inset: 0;
+  border-radius: var(--bb-radius, 16px);
+  clip-path: inset(0 round var(--bb-radius, 16px));
+  background: radial-gradient(ellipse calc(0.8px * var(--beam-spike-line-ice-light)) calc(92px * var(--beam-h-line-ice-light)) at 8% calc(100% - 2px), rgb(50, 140, 210), rgb(50, 140, 210) 30%, transparent 88%),
+       radial-gradient(ellipse calc(10px * var(--beam-spike2-line-ice-light)) calc(35px * var(--beam-h-line-ice-light)) at 22% calc(100% - 4px), rgb(65, 160, 230), rgb(65, 160, 230) 50%, transparent 95%),
+       radial-gradient(ellipse calc(2px * (2 - var(--beam-spike-line-ice-light))) calc(72px * var(--beam-h-line-ice-light)) at 36% calc(100% - 3px), rgb(100, 170, 210), rgba(100, 170, 210, 0.82) 40%, transparent 90%),
+       radial-gradient(ellipse calc(14px * var(--beam-spike2-line-ice-light)) calc(28px * var(--beam-h-line-ice-light)) at 50% calc(100% - 2px), rgb(75, 150, 200), rgba(75, 150, 200, 0.7) 55%, transparent 96%),
+       radial-gradient(ellipse calc(1.2px * (2 - var(--beam-spike2-line-ice-light))) calc(85px * var(--beam-h-line-ice-light)) at 64% calc(100% - 4px), rgb(60, 130, 200), rgba(60, 130, 200, 0.78) 35%, transparent 89%),
+       radial-gradient(ellipse calc(7px * var(--beam-spike-line-ice-light)) calc(45px * var(--beam-h-line-ice-light)) at 78% calc(100% - 2px), rgb(70, 115, 195), rgba(70, 115, 195, 0.8) 48%, transparent 94%),
+       radial-gradient(ellipse calc(0.6px * (2 - var(--beam-spike-line-ice-light))) calc(60px * var(--beam-h-line-ice-light)) at 92% calc(100% - 3px), rgba(160, 200, 210, 0.7), rgba(160, 200, 210, 0.46) 42%, transparent 91%),
+       radial-gradient(ellipse calc(21px * var(--beam-spike-line-ice-light)) calc(15px * var(--beam-spike2-line-ice-light)) at calc(var(--beam-x-line-ice-light) * 100%) calc(100% + 1px), rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.32) 20%, rgba(0, 0, 0, 0.18) 50%, transparent 100%),
+       radial-gradient(ellipse calc(42px * var(--beam-w-line-ice-light)) calc(40px * var(--beam-h-line-ice-light)) at calc(var(--beam-x-line-ice-light) * 100%) 100%, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.18) 25%, rgba(0, 0, 0, 0.04) 55%, transparent 80%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  padding: 1px;
+  filter: blur(8px) brightness(1.05) saturate(1.80);
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+}
+
+[data-beam="line-ice-light"][data-active] [data-beam-bloom],
+[data-beam="line-ice-light"][data-fading] [data-beam-bloom]{
+  display: block;
+  opacity: calc(var(--beam-opacity-line-ice-light) * 0.28 * var(--beam-bloom-opacity, 1) * var(--beam-strength, 1));
+}
+
+@keyframes beam-travel-line-ice-light{ to { --beam-x-line-ice-light: 1; } }
+
+@keyframes beam-edge-fade-line-ice-light{ 0% { --beam-edge-line-ice-light: 1; } 50% { --beam-edge-line-ice-light: 0.3; } 100% { --beam-edge-line-ice-light: 1; } }
+
+@keyframes beam-breathe-line-ice-light{ 0% { --beam-w-line-ice-light: 1; --beam-h-line-ice-light: 1; } 50% { --beam-w-line-ice-light: 0.6; --beam-h-line-ice-light: 1.4; } 100% { --beam-w-line-ice-light: 1; --beam-h-line-ice-light: 1; } }
+
+@keyframes beam-spike-line-ice-light{ 0% { --beam-spike-line-ice-light: 1; } 50% { --beam-spike-line-ice-light: 0.4; } 100% { --beam-spike-line-ice-light: 1; } }
+
+@keyframes beam-spike2-line-ice-light{ 0% { --beam-spike2-line-ice-light: 1; } 50% { --beam-spike2-line-ice-light: 0.6; } 100% { --beam-spike2-line-ice-light: 1; } }
+
+@keyframes beam-fade-in-line-ice-light{ to { --beam-opacity-line-ice-light: 1; } }
+
+@keyframes beam-fade-out-line-ice-light{ from { --beam-opacity-line-ice-light: 1; } to { --beam-opacity-line-ice-light: 0; } }
+
+@keyframes beam-hue-shift-line-ice-light{
+  0% { filter: hue-rotate(calc(var(--beam-hue-base, 0deg) - 13deg)) brightness(1.05) saturate(1.80); }
+  50% { filter: hue-rotate(calc(var(--beam-hue-base, 0deg) + 13deg)) brightness(1.05) saturate(1.80); }
+  100% { filter: hue-rotate(calc(var(--beam-hue-base, 0deg) - 13deg)) brightness(1.05) saturate(1.80); }
+}
+
+@keyframes beam-hue-shift-bloom-line-ice-light{
+  0% { filter: blur(8px) hue-rotate(calc(var(--beam-hue-base, 0deg) - 23deg)) brightness(1.05) saturate(1.80); }
+  50% { filter: blur(8px) hue-rotate(calc(var(--beam-hue-base, 0deg) + 23deg)) brightness(1.05) saturate(1.80); }
+  100% { filter: blur(8px) hue-rotate(calc(var(--beam-hue-base, 0deg) - 23deg)) brightness(1.05) saturate(1.80); }
+}
+
+[data-beam="line-ice-light"][data-paused],
+[data-beam="line-ice-light"][data-paused]::after,
+[data-beam="line-ice-light"][data-paused] [data-beam-bloom]{
+  animation-play-state: paused !important;
+}
+  /* 转速放慢：原包 3.1s → 5.5s */
+  [data-beam^="line-ice-"][data-active]{ animation-duration: 5.5s, 5.5s, .6s; }
   </style>
   <div class="page-bridge">
     <span class="pb-label">接下来</span>
-    <span class="pb-glow"><a class="pb-link" href="insurance.html">
+    <span class="pb-glow" data-beam="line-ice-dark" data-active><div data-beam-bloom></div><a class="pb-link" href="insurance.html">
       我的保障思路
       <svg class="pb-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
     </a></span>
@@ -889,7 +1210,21 @@
       var KEY = 'insurance-theme';
       var root = document.documentElement;
       var btn = document.getElementById('themeToggle');
-      function apply(t){ root.setAttribute('data-theme', t); try{ localStorage.setItem(KEY, t); }catch(e){} }
+      function apply(t){ root.setAttribute('data-theme', t); try{ localStorage.setItem(KEY, t); }catch(e){}
+        /* 同步胶囊 line-ice 主题 */
+        document.querySelectorAll('.pb-glow[data-beam]').forEach(function(el){
+          el.setAttribute('data-beam', 'line-ice-' + t);
+        });
+      }
+      /* 初始加载同步：若存的是 light 主题，胶囊也要切到 line-ice-light */
+      (function(){
+        var saved = localStorage.getItem(KEY);
+        if(saved === 'light' || saved === 'dark'){
+          document.querySelectorAll('.pb-glow[data-beam]').forEach(function(el){
+            el.setAttribute('data-beam', 'line-ice-' + saved);
+          });
+        }
+      })();
       if(btn){
         btn.addEventListener('click', function(){
           var cur = (root.getAttribute('data-theme') === 'dark') ? 'light' : 'dark';
