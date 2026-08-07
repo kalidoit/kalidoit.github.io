@@ -209,7 +209,7 @@
 
 
   /* ---------- 页脚 ---------- */
-  .footer{background:var(--ink-2);padding:48px 0 36px;border-top:1px solid var(--line);text-align:center}
+  .footer{background:var(--ink-2);padding:48px 0 36px;border-top:1px solid var(--line);text-align:left}
   .footer .f-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;margin-bottom:28px}
   .footer .f-brand{display:flex;align-items:center;gap:12px}
   .footer .f-brand img{height:34px;width:34px;border-radius:50%}
@@ -503,12 +503,12 @@
 }
 [data-beam="md-ice-light"][data-active]{
   animation:
-    beam-spin-md-ice-light 1.96s linear infinite,
+    beam-spin-md-ice-light 4.5s linear infinite,
     beam-fade-in-md-ice-light 0.6s ease forwards;
 }
 [data-beam="md-ice-light"][data-fading]{
   animation:
-    beam-spin-md-ice-light 1.96s linear infinite,
+    beam-spin-md-ice-light 4.5s linear infinite,
     beam-fade-out-md-ice-light 0.5s ease forwards;
 }
 [data-beam="md-ice-light"][data-active]::after,
@@ -755,7 +755,7 @@
 
       <!-- 左栏：身份 + 价值主张 -->
       <div class="hero-main reveal">
-        <div class="eyebrow">顾维鲁 · 个人名片</div>
+        <div class="eyebrow">顾维鲁 · 保险代理人</div>
         <h1>把复杂的保障，<br>讲成你<span class="em">听得懂</span>的话。</h1>
         <p class="hero-sub">不急着推产品。先听你要什么，再把条款拆开、摆平、说清楚——让你自己做决定时，心里有底。</p>
 
@@ -1185,7 +1185,7 @@
   </style>
   <div class="page-bridge">
     <span class="pb-label">还有更多</span>
-    <span class="pb-glow" data-beam="line-ice-dark" data-active><div data-beam-bloom></div><a class="pb-link" href="about.html">
+    <span class="pb-glow" data-beam="md-ice-light" data-active style="--bb-radius:999px;animation-duration:4.5s,.6s"><div data-beam-bloom></div><a class="pb-link" href="about.html">
       继续了解我
       <svg class="pb-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
     </a></span>

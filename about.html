@@ -50,7 +50,7 @@
     --ease:cubic-bezier(.22,.61,.36,1);
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scrollbar-gutter:stable}
   body{
     font-family:var(--font-body);
     background:var(--ink);
@@ -181,7 +181,10 @@
 
   /* ---------- 擅长网格 ---------- */
   .skill-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
-  .skill{position:relative;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px 50px;transition:transform .35s var(--ease),background .35s,border-color .35s}
+  .skill{position:relative;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:var(--radius);padding:0;transition:transform .35s var(--ease),background .35s,border-color .35s;overflow:hidden;display:flex;flex-direction:column}
+  .skill .s-cover{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;display:block;flex-shrink:0;border-radius:var(--radius) var(--radius) 0 0}
+  .skill .s-body{padding:20px 22px 50px;display:flex;flex-direction:column;flex:1}
+  [data-theme="light"] .skill .s-body{background:#fff}
   .skill:hover{transform:translateY(-4px);background:rgba(62,142,219,.06);border-color:rgba(62,142,219,.25)}
   .skill .s-idx{font-family:var(--font-serif);font-size:14px;color:var(--gold);opacity:.7}
   .skill .s-name{font-size:17px;font-weight:600;margin-top:10px}
@@ -197,6 +200,8 @@
   /* 滚动入场（轻量淡入，不抢 modal 风头） */
   .skill.bloom-item{opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
   .skill.bloom-item.in{opacity:1;transform:none}
+  /* 移动端横向画廊分页圆点：桌面/平板隐藏 */
+  .skill-nav-btns{display:none}
   .skill-grid.is-bloom .bloom-item:nth-child(1){transition-delay:0s}
   .skill-grid.is-bloom .bloom-item:nth-child(2){transition-delay:.07s}
   .skill-grid.is-bloom .bloom-item:nth-child(3){transition-delay:.14s}
@@ -265,6 +270,8 @@
     opacity:0;visibility:hidden;pointer-events:none;
     transition:opacity .3s ease .15s, visibility 0s linear .45s;
     z-index:2}
+  /* 覆盖 [data-beam=md-ice-dark] 注入的 position:relative（特异度 1-0-0 > 0-1-0） */
+  #skillLbQrPanel{position:absolute}
   /* 打开态：延迟 0.2s 淡入（文字快消失时探入），0.3s 到位 */
   #skillLb.qr-open .lb-qrcode-panel{opacity:1;visibility:visible;pointer-events:auto;
     transition:opacity .3s ease .2s, visibility 0s linear .2s}
@@ -317,7 +324,7 @@
     display:flex;align-items:center;justify-content:center;padding:24px;
     opacity:0;visibility:hidden;transition:opacity .55s cubic-bezier(.22,1,.36,1), visibility 0s linear .55s}
   .lb.open{opacity:1;visibility:visible;transition:opacity .55s cubic-bezier(.22,1,.36,1), visibility 0s}
-  .lb-card{position:relative;width:min(1180px,94%);height:min(600px,88vh);max-height:92vh;background:#0e1320;border:1px solid var(--line-2);
+  .lb-card{position:relative;width:min(1180px,94%);height:min(680px,90vh);max-height:92vh;background:#0e1320;border:1px solid var(--line-2);
     border-radius:var(--radius-lg);overflow:hidden;display:grid;grid-template-columns:1.3fr .7fr;
     transform:scale(.92);opacity:0;transition:transform .55s cubic-bezier(.22,1,.36,1), opacity .55s ease}
   .lb.open .lb-card{transform:none;opacity:1}
@@ -328,7 +335,7 @@
   .lb-img .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;
     padding:34px;color:#9fb0cb;font-size:14px;line-height:1.8;letter-spacing:.02em}
   .lb-img.c0,.lb-img.c1,.lb-img.c2,.lb-img.c3{background:radial-gradient(120% 120% at 30% 20%,#21242c,#14161b)}
-  .lb-body{padding:46px 46px;overflow-y:auto;display:flex;flex-direction:column}
+  .lb-body{padding:40px 46px;overflow-x:hidden;overflow-y:auto;display:flex;flex-direction:column}
   .lb-num{font-family:var(--font-serif);font-size:clamp(60px,8vw,92px);font-weight:600;line-height:.95;color:var(--gold);letter-spacing:-2px}
   .lb-num .u{font-size:.36em;margin-left:5px;opacity:.85}
   .lb-tag{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);font-weight:600;margin:14px 0 20px}
@@ -346,9 +353,9 @@
   .lb-nav button:hover{background:rgba(255,255,255,.15)}
   @media(max-width:720px){
     .story-mosaic{grid-template-columns:1fr;gap:14px}
-    .lb-card{grid-template-columns:1fr;height:min(86vh,640px);max-height:92vh}
-    .lb-img{min-height:200px;aspect-ratio:16/10}
-    .lb-body{padding:28px 24px}
+    .lb-card{grid-template-columns:1fr;height:min(96vh,820px);max-height:98vh}
+    .lb-img{min-height:150px;aspect-ratio:2/1}
+    .lb-body{padding:22px 22px}
     .lb-num{font-size:clamp(44px,12vw,60px)}
   }
 
@@ -381,7 +388,7 @@
 
 
   /* ---------- 页脚 ---------- */
-  .footer{background:var(--ink-2);padding:48px 0 36px;border-top:1px solid var(--line);text-align:center}
+  .footer{background:var(--ink-2);padding:48px 0 36px;border-top:1px solid var(--line);text-align:left}
   .footer .f-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;margin-bottom:28px}
   .footer .f-brand{display:flex;align-items:center;gap:12px}
   .footer .f-brand img{height:34px;width:34px;border-radius:50%}
@@ -425,7 +432,19 @@
     .brand .b-name{font-size:13px}
     .brand .b-sub{display:none}
     .nav-cta{padding:7px 14px;font-size:12.5px;white-space:nowrap}
-    .skill-grid{grid-template-columns:1fr}
+    /* 擅长卡 · 移动端横向 snap 画廊（借 Apple 先刷重点：peek 露边 + 逐卡吸附 + 分页圆点） */
+    .skill-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+      scrollbar-width:none;gap:14px;margin-top:32px;
+      margin-left:-28px;margin-right:-28px;padding:4px 28px 16px;scroll-padding-left:28px;position:relative}
+    .skill-grid::-webkit-scrollbar{display:none}
+    .skill-grid .skill{flex:0 0 82%;scroll-snap-align:center;min-height:340px}
+    .skill-nav-btns{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:14px}
+    .skill-nav-btn{width:44px;height:44px;border-radius:50%;border:0;padding:0;background:rgba(255,255,255,.85);color:#86868b;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;transition:color .2s var(--ease),background .2s var(--ease),opacity .2s var(--ease);
+      box-shadow:0 1px 4px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.04);flex-shrink:0}
+    .skill-nav-btn:hover:not(:disabled){background:#fff;color:#1d1d1f}
+    .skill-nav-btn:disabled{opacity:.3;cursor:default;pointer-events:none}
+    .skill-nav-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
     .take-row{grid-template-columns:1fr;max-width:400px;margin-left:auto;margin-right:auto}
     .footer .f-top{flex-direction:column;align-items:flex-start;margin-bottom:20px}
   }
@@ -548,6 +567,128 @@
     </div>
   </header>
 
+  <!-- 本页章节吸顶导航（长页定位） + 信任锚点带 -->
+  <style>
+  /* 长页吸顶章节导航 */
+  .section-nav{position:sticky;top:0;z-index:60;margin:0;
+    background:rgba(29,29,31,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line)}
+  [data-theme="light"] .section-nav{background:rgba(245,245,247,.82)}
+  .section-nav .sn-inner{max-width:var(--maxw);margin:0 auto;display:flex;gap:4px;
+    padding:10px 24px;overflow-x:auto;-webkit-overflow-scrolling:touch;position:relative}
+  /* 滑动指示器：跟随悬停/active 药丸移动的蓝色背景块 */
+  .section-nav .sn-slider{position:absolute;height:calc(100% - 12px);top:6px;left:0;
+    border-radius:999px;background:var(--blue);pointer-events:none;z-index:0;
+    transition:left .28s cubic-bezier(.25,0,.35,1),width .28s cubic-bezier(.25,0,.35,1)}
+  .section-nav a{font-size:13px;color:var(--muted);text-decoration:none;padding:6px 14px;
+    border-radius:999px;white-space:nowrap;transition:color .2s ease;position:relative;z-index:1}
+  .section-nav a:hover{color:var(--text)}
+  .section-nav a.on-slider{color:#fff}
+  /* 信任锚点带（复用履历区现有数字，仅做视觉强化） */
+  .trust-band{max-width:var(--maxw);margin:36px auto 8px;padding:22px 24px;
+    display:grid;grid-template-columns:repeat(4,1fr);gap:16px;
+    background:linear-gradient(135deg,var(--blue-soft),var(--gold-soft));
+    border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-card)}
+  .tb-item{text-align:center}
+  .tb-num{font-family:var(--font-serif);font-size:clamp(36px,5vw,52px);font-weight:700;color:var(--text);line-height:1.05;letter-spacing:-.8px}
+  .tb-num span{font-size:.38em;font-weight:500;margin-left:3px;color:var(--muted)}
+  .tb-label{font-size:12.5px;color:var(--muted);margin-top:7px}
+  /* 痛点三栏分组 */
+  .prob-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:30px;align-items:start}
+  .prob-col{display:flex;flex-direction:column;gap:14px}
+  .prob-col-head{display:flex;align-items:baseline;gap:8px;font-size:15px;font-weight:600;
+    color:var(--text);padding-bottom:10px;border-bottom:1px solid var(--line);margin-bottom:2px}
+  .prob-col-ic{font-size:18px;line-height:1}
+  .prob-col-sub{font-size:12px;color:var(--muted);font-weight:400;letter-spacing:.04em}
+  .prob-col-note{font-size:12.5px;color:var(--muted-2);line-height:1.65;margin-top:4px;
+    padding:10px 12px;background:var(--gold-soft);border-radius:12px}
+  section[id]{scroll-margin-top:64px}
+  @media(max-width:860px){
+    .prob-cols{grid-template-columns:1fr;gap:26px}
+    .prob-col-head{font-size:16px}
+    .trust-band{grid-template-columns:repeat(2,1fr);gap:18px 12px;padding:18px 18px}
+    /* 痛点卡 · 手风琴折叠（单列时默认只露标题，点中展开解答；桌面不受影响）
+       复用 grid 0fr/1fr 约定：min-height:0 只加内层 .p-fix，外层 align-items:start 已有 */
+    .prob{overflow:hidden;border-radius:var(--radius)}
+    .prob .p-prob{cursor:pointer;padding-bottom:18px}
+    .prob .p-prob::after{content:"";margin-left:auto;flex:0 0 auto;width:8px;height:8px;
+      border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);
+      transform:rotate(45deg) translateY(-2px);transition:transform .35s var(--ease)}
+    .prob[data-open="1"] .p-prob::after{transform:rotate(225deg) translateY(-2px);border-color:var(--blue)}
+    .prob .p-body{display:grid;grid-template-rows:0fr;padding-bottom:0;
+      transition:grid-template-rows .35s var(--ease),padding .35s var(--ease),max-height .35s var(--ease);
+      max-height:0;overflow:hidden}
+    .prob .p-fix{min-height:0}
+    .prob[data-open="1"] .p-body{grid-template-rows:1fr;padding-bottom:20px;max-height:600px}
+  }
+  </style>
+  <nav class="section-nav" aria-label="本页章节">
+    <div class="sn-inner">
+      <span class="sn-slider" aria-hidden="true"></span>
+      <a href="#prob">我能解决什么</a>
+      <a href="#good">我擅长</a>
+      <a href="#story">我的履历</a>
+      <a href="#take">加微信</a>
+    </div>
+  </nav>
+  <script>
+  document.addEventListener('DOMContentLoaded', function(){
+    var nav = document.querySelector('.section-nav');
+    if(!nav) return;
+    var links = nav.querySelectorAll('.section-nav a');
+    var slider = nav.querySelector('.sn-slider');
+    if(!slider || !links.length) return;
+
+    /* 将滑块定位到目标元素 + 管理 on-slider 白字 */
+    function moveSlider(el){
+      if(!el) return;
+      links.forEach(function(a){ a.classList.remove('on-slider'); });
+      el.classList.add('on-slider');
+      var inner = el.parentElement;
+      slider.style.width = el.offsetWidth + 'px';
+      slider.style.left = (el.offsetLeft - inner.scrollLeft) + 'px';
+    }
+
+    /* 找到当前 active 的链接 */
+    function getActive(){
+      return nav.querySelector('.section-nav a.active') || links[0];
+    }
+
+    /* 初始定位到第一个（默认 active） */
+    moveSlider(getActive());
+
+    /* 悬停：滑块跟随 */
+    links.forEach(function(a){
+      a.addEventListener('mouseenter', function(){ moveSlider(this); });
+    });
+
+    /* 离开导航区：回弹到 active */
+    nav.addEventListener('mouseleave', function(){ moveSlider(getActive()); });
+
+    /* ---- 原有 IO 逻辑：active 变化时同步滑块 ---- */
+    var map = {};
+    links.forEach(function(a){ var id=a.getAttribute('href').slice(1); var s=document.getElementById(id); if(s) map[id]=a; });
+    if(links[0]) links[0].classList.add('active');
+    if('IntersectionObserver' in window && Object.keys(map).length){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){
+            links.forEach(function(a){a.classList.remove('active')});
+            var a = map[e.target.id]; if(a) { a.classList.add('active'); moveSlider(a); }
+          }
+        });
+      },{rootMargin:'-45% 0px -50% 0px',threshold:0});
+      Object.keys(map).forEach(function(id){ io.observe(document.getElementById(id)); });
+    }
+  });
+  </script>
+  <div class="trust-band reveal" data-beam="md-ice-dark" data-active style="--beam-strength:0.35">
+    <div class="tb-item"><div class="tb-num">982<span>户</span></div><div class="tb-label">家庭保障</div></div>
+    <div class="tb-item"><div class="tb-num">21<span>亿</span></div><div class="tb-label">累计保额</div></div>
+    <div class="tb-item"><div class="tb-num">100<span>%</span></div><div class="tb-label">理赔赔付率 · 33例</div></div>
+    <div class="tb-item"><div class="tb-num">196<span>万</span></div><div class="tb-label">理赔协同赔款</div></div>
+  </div>
+
   <!-- 我能解决什么问题 -->
   <section id="prob">
     <div class="wrap">
@@ -556,50 +697,63 @@
         <h2 class="h2">我能解决什么问题</h2>
         <p class="lead">大多数人卡住的，不是没钱买，而是看不懂、选不对、出了事没人管。这几件事，我帮你兜底。</p>
       </div>
-      <div class="prob-grid">
-        <div class="prob reveal" data-d="1">
-          <div class="p-prob">条款像天书，看不懂</div>
-          <div class="p-body"><div class="p-fix"><b>我把它翻译成人话</b>——重点、免责、坑在哪，一次讲清，不让你自己猜。</div></div>
+      <div class="prob-cols">
+        <!-- 配置困惑 -->
+        <div class="prob-col" data-g="config">
+          <div class="prob-col-head"><span class="prob-col-ic">📐</span>配置困惑<span class="prob-col-sub">买得明白</span></div>
+          <div class="prob reveal">
+            <div class="p-prob">条款像天书，看不懂</div>
+            <div class="p-body"><div class="p-fix"><b>我把它翻译成人话</b>——重点、免责、坑在哪，一次讲清，不让你自己猜。</div></div>
+          </div>
+          <div class="prob reveal">
+            <div class="p-prob">不知该买什么、买多少</div>
+            <div class="p-body"><div class="p-fix"><b>我先做需求诊断再开口</b>：你的责任缺口、预算边界、优先级，排明白了才谈产品，不先推货架。</div></div>
+          </div>
+          <div class="prob reveal">
+            <div class="p-prob">怕买贵了、被忽悠</div>
+            <div class="p-body"><div class="p-fix"><b>我把"值不值"先讲清</b>：同类责任横向比、费用透明列，让你花得明白，不是花得贵。</div></div>
+          </div>
+          <div class="prob reveal">
+            <div class="p-prob">预算有限，怎么配最划算</div>
+            <div class="p-body"><div class="p-fix"><b>钱要花在刀刃上</b>。先保"最扛不住的风险"（重疾、医疗、意外），再谈储蓄型；同样预算，结构对了比堆额度重要。</div></div>
+          </div>
+          <div class="prob reveal">
+            <div class="p-prob">已有社保 / 公司团险，还需要商业保险吗</div>
+            <div class="p-body"><div class="p-fix"><b>社保是底、团险是补，但都有天花板</b>（额度、范围、离职即断）。我用缺口视角算给你看，该补的补，不该花的不花。</div></div>
+          </div>
         </div>
-        <div class="prob reveal" data-d="2">
-          <div class="p-prob">不知该买什么、买多少</div>
-          <div class="p-body"><div class="p-fix"><b>我先做需求诊断再开口</b>：你的责任缺口、预算边界、优先级，排明白了才谈产品，不先推货架。</div></div>
+        <!-- 核保担忧 -->
+        <div class="prob-col" data-g="uw">
+          <div class="prob-col-head"><span class="prob-col-ic">🩺</span>核保担忧<span class="prob-col-sub">保得上</span></div>
+          <div class="prob reveal">
+            <div class="p-prob">身体有小毛病，怕被拒</div>
+            <div class="p-body"><div class="p-fix"><b>非标体核保我跑过不少</b>。资料理齐、找对口径，能保的尽量保上，不轻易说"买不了"。</div></div>
+          </div>
+          <div class="prob reveal">
+            <div class="p-prob">孩子、父母的保障怎么安排</div>
+            <div class="p-body"><div class="p-fix"><b>不同角色优先级不一样</b>：孩子先意外（磕到、碰到、猫抓狗咬）+医疗+再重疾，老人看核保窗口，自己才是家庭顶梁柱要先顶上。一家人的顺序，我帮你排。</div></div>
+          </div>
+          <p class="prob-col-note">体况复杂、老人孩子，往往是最容易卡住的地方——我先帮你把这条路探明白。</p>
         </div>
-        <div class="prob reveal" data-d="1">
-          <div class="p-prob">怕买贵了、被忽悠</div>
-          <div class="p-body"><div class="p-fix"><b>我把"值不值"先讲清</b>：同类责任横向比、费用透明列，让你花得明白，不是花得贵。</div></div>
-        </div>
-        <div class="prob reveal" data-d="2">
-          <div class="p-prob">身体有小毛病，怕被拒</div>
-          <div class="p-body"><div class="p-fix"><b>非标体核保我跑过不少</b>。资料理齐、找对口径，能保的尽量保上，不轻易说"买不了"。</div></div>
-        </div>
-        <div class="prob reveal" data-d="1">
-          <div class="p-prob">一家人的保障不知道怎么配</div>
-          <div class="p-body"><div class="p-fix"><b>用家庭财务安全的视角</b>，把缺口、额度、优先级排明白，不是东拼一块西凑一张。</div></div>
-        </div>
-        <div class="prob reveal" data-d="2">
-          <div class="p-prob">已有保单够不够</div>
-          <div class="p-body"><div class="p-fix"><b>我帮你做保单体检</b>：早年买的、公司发的、亲戚推荐的，逐张拆责任、找缺口、清重叠——理完这一遍，你不会再对着保单发懵。<a class="p-link" href="insurance.html#contact">约一次保单体检 →</a></div></div>
-        </div>
-        <div class="prob reveal" data-d="1">
-          <div class="p-prob">预算有限，怎么配最划算</div>
-          <div class="p-body"><div class="p-fix"><b>钱要花在刀刃上</b>。先保"最扛不住的风险"（重疾、医疗、意外），再谈储蓄型；同样预算，结构对了比堆额度重要。</div></div>
-        </div>
-        <div class="prob reveal" data-d="2">
-          <div class="p-prob">真出事怕理赔跑断腿</div>
-          <div class="p-body"><div class="p-fix"><b>理赔我陪你走</b>。理赔服务过的 33 个家庭、196 万赔款，一个没落下——报案、资料、跟进，我都在。</div></div>
-        </div>
-        <div class="prob reveal" data-d="1">
-          <div class="p-prob">孩子、父母的保障怎么安排</div>
-          <div class="p-body"><div class="p-fix"><b>不同角色优先级不一样</b>：孩子先意外（磕到、碰到、猫抓狗咬）+医疗+再重疾，老人看核保窗口，自己才是家庭顶梁柱要先顶上。一家人的顺序，我帮你排。</div></div>
-        </div>
-        <div class="prob reveal" data-d="2">
-          <div class="p-prob">不同渠道的产品，到底差在哪</div>
-          <div class="p-body"><div class="p-fix"><b>不绑定某一家</b>。我主推自家公司的产品，这是我深耕的方向。但如果你问到其他公司的产品，我也能从专业角度帮你分析——适合你的才推荐，不为别的。</div></div>
-        </div>
-        <div class="prob reveal" data-d="1">
-          <div class="p-prob">已有社保 / 公司团险，还需要商业保险吗</div>
-          <div class="p-body"><div class="p-fix"><b>社保是底、团险是补，但都有天花板</b>（额度、范围、离职即断）。我用缺口视角算给你看，该补的补，不该花的不花。</div></div>
+        <!-- 服务焦虑 -->
+        <div class="prob-col" data-g="svc">
+          <div class="prob-col-head"><span class="prob-col-ic">🛡️</span>服务焦虑<span class="prob-col-sub">赔得顺 · 有人管</span></div>
+          <div class="prob reveal">
+            <div class="p-prob">一家人的保障不知道怎么配</div>
+            <div class="p-body"><div class="p-fix"><b>用家庭财务安全的视角</b>，把缺口、额度、优先级排明白，不是东拼一块西凑一张。</div></div>
+          </div>
+          <div class="prob reveal">
+            <div class="p-prob">已有保单够不够</div>
+            <div class="p-body"><div class="p-fix"><b>我帮你做保单体检</b>：早年买的、公司发的、亲戚推荐的，逐张拆责任、找缺口、清重叠——理完这一遍，你不会再对着保单发懵。<a class="p-link" href="insurance.html#contact">约一次保单体检 →</a></div></div>
+          </div>
+          <div class="prob reveal">
+            <div class="p-prob">真出事怕理赔跑断腿</div>
+            <div class="p-body"><div class="p-fix"><b>理赔我陪你走</b>。理赔服务过的 33 个家庭、196 万赔款，一个没落下——报案、资料、跟进，我都在。</div></div>
+          </div>
+          <div class="prob reveal">
+            <div class="p-prob">不同渠道的产品，到底差在哪</div>
+            <div class="p-body"><div class="p-fix"><b>不绑定某一家</b>。我主推自家公司的产品，这是我深耕的方向。但如果你问到其他公司的产品，我也能从专业角度帮你分析——适合你的才推荐，不为别的。</div></div>
+          </div>
         </div>
       </div>
     </div>
@@ -615,35 +769,61 @@
       </div>
       <div class="skill-grid is-bloom">
         <div class="skill bloom-item" data-skill="0" tabindex="0" role="button" aria-label="查看详情：需求诊断">
-          <div class="s-idx">01</div>
-          <div class="s-name">需求诊断</div>
-          <div class="s-desc">先听后配，不先推产品。你的处境，比我的货架重要。</div>
+          <img class="s-cover" src="assets/skill-01.jpg" alt="" loading="lazy">
+          <div class="s-body">
+            <div class="s-idx">01</div>
+            <div class="s-name">需求诊断</div>
+            <div class="s-desc">先听后配，不先推产品。你的处境，比我的货架重要。</div>
+          </div>
         </div>
         <div class="skill bloom-item" data-skill="1" tabindex="0" role="button" aria-label="查看详情：产品理解力">
-          <div class="s-idx">02</div>
-          <div class="s-name">产品理解力</div>
-          <div class="s-desc">从重疾到年金，每类产品的逻辑边界我都拆得开。怎么组合最稳，我帮你算明白。</div>
+          <img class="s-cover" src="assets/skill-02.jpg" alt="" loading="lazy">
+          <div class="s-body">
+            <div class="s-idx">02</div>
+            <div class="s-name">产品理解力</div>
+            <div class="s-desc">从重疾到年金，每类产品的逻辑边界我都拆得开。怎么组合最稳，我帮你算明白。</div>
+          </div>
         </div>
         <div class="skill bloom-item" data-skill="2" tabindex="0" role="button" aria-label="查看详情：非标体核保">
-          <div class="s-idx">03</div>
-          <div class="s-name">非标体核保</div>
-          <div class="s-desc">体况复杂，也帮你找最优结论，而不是一句"买不了"打发。</div>
+          <img class="s-cover" src="assets/skill-03.jpg" alt="" loading="lazy">
+          <div class="s-body">
+            <div class="s-idx">03</div>
+            <div class="s-name">非标体核保</div>
+            <div class="s-desc">体况复杂，也帮你找最优结论，而不是一句"买不了"打发。</div>
+          </div>
         </div>
         <div class="skill bloom-item" data-skill="3" tabindex="0" role="button" aria-label="查看详情：跨周期规划">
-          <div class="s-idx">04</div>
-          <div class="s-name">跨周期规划</div>
-          <div class="s-desc">把已有保单、当下缺口、未来变故串成一条线，让保障跟着人生阶段走，不散着慌。</div>
+          <img class="s-cover" src="assets/skill-04.jpg" alt="" loading="lazy">
+          <div class="s-body">
+            <div class="s-idx">04</div>
+            <div class="s-name">跨周期规划</div>
+            <div class="s-desc">把已有保单、当下缺口、未来变故串成一条线，让保障跟着人生阶段走，不散着慌。</div>
+          </div>
         </div>
         <div class="skill bloom-item" data-skill="4" tabindex="0" role="button" aria-label="查看详情：理赔协同">
-          <div class="s-idx">05</div>
-          <div class="s-name">理赔协同</div>
-          <div class="s-desc">我是代理人，和公司一条线。出险那一刻我就在你这边，协同比转手快。</div>
+          <img class="s-cover" src="assets/skill-05.jpg" alt="" loading="lazy">
+          <div class="s-body">
+            <div class="s-idx">05</div>
+            <div class="s-name">理赔协同</div>
+            <div class="s-desc">我是代理人，和公司一条线。出险那一刻我就在你这边，协同比转手快。</div>
+          </div>
         </div>
         <div class="skill bloom-item" data-skill="5" tabindex="0" role="button" aria-label="查看详情：长期陪伴">
-          <div class="s-idx">06</div>
-          <div class="s-name">长期陪伴</div>
-          <div class="s-desc">982 个家庭跟着我好些年。人生每个关键节点保障跟着调，多年后翻出保单，一个电话还找得到。</div>
+          <img class="s-cover" src="assets/skill-06.jpg" alt="" loading="lazy">
+          <div class="s-body">
+            <div class="s-idx">06</div>
+            <div class="s-name">长期陪伴</div>
+            <div class="s-desc">982 个家庭跟着我好些年。人生每个关键节点保障跟着调，多年后翻出保单，一个电话还找得到。</div>
+          </div>
         </div>
+      </div>
+      <div class="skill-nav-btns" aria-hidden="true">
+        <button class="skill-nav-btn prev" type="button" disabled aria-label="上一张">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="skill-nav-btn next" type="button" aria-label="下一张">
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
       </div>
     </div>
   </section>
@@ -661,39 +841,39 @@
           <img class="sq-bg" src="assets/story-19.jpg" alt="19年入行" loading="lazy"><span class="sq-veil"></span>
           <span class="sq-hint">查看 →</span>
           <span class="sq-inner">
-            <span class="sq-num">19<span class="u">年</span></span>
-            <span class="sq-label">入行至今 · 2006 → 今</span>
+            <span class="sq-num">入行</span>
+            <span class="sq-label">2006 至今 · 19 年一线</span>
           </span>
         </button>
         <button class="sq sq-1" data-lb="1" type="button" aria-label="查看：982 户">
           <img class="sq-bg" src="assets/story-982.jpg" alt="982户家庭保障" loading="lazy"><span class="sq-veil"></span>
           <span class="sq-hint">查看 →</span>
           <span class="sq-inner">
-            <span class="sq-num">982<span class="u">户</span></span>
-            <span class="sq-label">家庭保障 · 21 亿保额</span>
+            <span class="sq-num">同行</span>
+            <span class="sq-label">把信任做成长期关系</span>
           </span>
         </button>
         <button class="sq sq-2" data-lb="2" type="button" aria-label="查看：100% 赔付率">
           <img class="sq-bg" src="assets/story-100.jpg" alt="100%理赔赔付率" loading="lazy"><span class="sq-veil"></span>
           <span class="sq-hint">查看 →</span>
           <span class="sq-inner">
-            <span class="sq-num">100<span class="u">%</span></span>
-            <span class="sq-label">理赔赔付率 · 33 例</span>
+            <span class="sq-num">实证</span>
+            <span class="sq-label">出险那一刻，我就在你这边</span>
           </span>
         </button>
         <button class="sq sq-3" data-lb="3" type="button" aria-label="查看：在。">
           <img class="sq-bg" src="assets/story-at.jpg" alt="一直都在" loading="lazy"><span class="sq-veil"></span>
           <span class="sq-hint">查看 →</span>
           <span class="sq-inner">
-            <span class="sq-num">我一直在</span>
-            <span class="sq-label">一直都在 · 资质 &amp; 邀约</span>
+            <span class="sq-num">底色</span>
+            <span class="sq-label">资质 &amp; 邀约 · 一直都在</span>
           </span>
         </button>
       </div>
 
       <!-- 履历灯箱 -->
       <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="履历详情">
-        <div class="lb-card">
+        <div class="lb-card" data-beam="md-ice-dark" data-active style="--bb-radius:30px">
           <button class="lb-close" id="lbClose" type="button" aria-label="关闭">×</button>
           <div class="lb-img" id="lbImgWrap">
             <img id="lbImg" src="" alt="">
@@ -703,7 +883,6 @@
             <div class="lb-num" id="lbNum"></div>
             <div class="lb-tag" id="lbTag"></div>
             <div class="lb-text" id="lbText"></div>
-            <a class="p-link lb-cta" href="#take">加我微信，当面聊聊 →</a>
           </div>
           <div class="lb-nav">
             <button id="lbPrev" type="button" aria-label="上一项">‹</button>
@@ -1102,10 +1281,371 @@
 }
   /* 转速放慢：原包 3.1s → 5.5s */
   [data-beam^="line-ice-"][data-active]{ animation-duration: 5.5s, 5.5s, .6s; }
-  </style>
+
+/* ===== md-ice 整圈流光（内容框点缀：灯箱卡片 / 二维码面板） ===== */
+@property --beam-angle-md-ice-dark {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: true;
+}
+
+@property --beam-opacity-md-ice-dark {
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: true;
+}
+
+[data-beam="md-ice-dark"] {
+  position: relative;
+  border-radius: var(--bb-radius, 16px);
+  overflow: hidden;
+}
+
+[data-beam="md-ice-dark"][data-active] {
+  animation:
+    beam-spin-md-ice-dark 1.96s linear infinite,
+    beam-fade-in-md-ice-dark 0.6s ease forwards;
+}
+
+[data-beam="md-ice-dark"][data-fading] {
+  animation:
+    beam-spin-md-ice-dark 1.96s linear infinite,
+    beam-fade-out-md-ice-dark 0.5s ease forwards;
+}
+
+[data-beam="md-ice-dark"][data-active]::after,
+[data-beam="md-ice-dark"][data-fading]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--bb-radius, 15px);
+  padding: 1px;
+  clip-path: inset(0 round var(--bb-radius, 16px));
+  background: conic-gradient(
+        from var(--beam-angle-md-ice-dark),
+        transparent 0%, transparent 54%,
+        rgba(255, 255, 255, 0.1) 57%, rgba(255, 255, 255, 0.3) 60%, rgba(255, 255, 255, 0.6) 63%, rgba(255, 255, 255, 0.75) 66%, rgba(255, 255, 255, 0.6) 69%, rgba(255, 255, 255, 0.3) 72%, rgba(255, 255, 255, 0.1) 75%, transparent 78%, transparent 100%
+      ),radial-gradient(ellipse 70px 40px at 33% -7.4%, rgb(45, 185, 255), transparent),
+    radial-gradient(ellipse 60px 35px at 12% -5%, rgb(85, 135, 245), transparent),
+    radial-gradient(ellipse 40px 70px at 2.1% 68.3%, rgb(125, 205, 255), transparent),
+    radial-gradient(ellipse 20px 35px at 2.1% 68.3%, rgb(65, 175, 250), transparent),
+    radial-gradient(ellipse 180px 32px at 74.4% 100%, rgb(105, 145, 240), transparent),
+    radial-gradient(ellipse 85px 26px at 55% 100%, rgb(75, 160, 245), transparent),
+    radial-gradient(ellipse 74px 32px at 93.9% 0%, rgb(185, 235, 255), transparent),
+    radial-gradient(ellipse 26px 42px at 100% 27.1%, rgb(95, 180, 255), transparent),
+    radial-gradient(ellipse 52px 48px at 100% 27.1%, rgb(115, 150, 242), transparent);
+  -webkit-mask:
+    conic-gradient(
+      from var(--beam-angle-md-ice-dark),
+      transparent 0%, transparent 30%,
+      rgba(255, 255, 255, 0.1) 36%, rgba(255, 255, 255, 0.35) 44%,
+      white 52%, white 80%,
+      rgba(255, 255, 255, 0.35) 86%, rgba(255, 255, 255, 0.1) 92%,
+      transparent 95%, transparent 100%
+    ),
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: source-in, xor;
+  mask:
+    conic-gradient(
+      from var(--beam-angle-md-ice-dark),
+      transparent 0%, transparent 30%,
+      rgba(255, 255, 255, 0.1) 36%, rgba(255, 255, 255, 0.35) 44%,
+      white 52%, white 80%,
+      rgba(255, 255, 255, 0.35) 86%, rgba(255, 255, 255, 0.1) 92%,
+      transparent 95%, transparent 100%
+    ),
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: intersect, exclude;
+  pointer-events: none;
+  z-index: 2;
+  opacity: calc(var(--beam-opacity-md-ice-dark) * 0.26 * var(--beam-stroke-opacity, 1) * var(--beam-strength, 1));
+  animation: beam-hue-shift-md-ice-dark 12s ease-in-out infinite;
+}
+
+[data-beam="md-ice-dark"][data-active]::before,
+[data-beam="md-ice-dark"][data-fading]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--bb-radius, 15px);
+  background: radial-gradient(ellipse 63px 36px at 33% -7.4%, rgba(45, 185, 255, 0.45), transparent),
+    radial-gradient(ellipse 54px 32px at 12% -5%, rgba(85, 135, 245, 0.45), transparent),
+    radial-gradient(ellipse 36px 63px at 2.1% 68.3%, rgba(125, 205, 255, 0.45), transparent),
+    radial-gradient(ellipse 18px 32px at 2.1% 68.3%, rgba(65, 175, 250, 0.45), transparent),
+    radial-gradient(ellipse 162px 29px at 74.4% 100%, rgba(105, 145, 240, 0.45), transparent),
+    radial-gradient(ellipse 77px 23px at 55% 100%, rgba(75, 160, 245, 0.45), transparent),
+    radial-gradient(ellipse 67px 29px at 93.9% 0%, rgba(185, 235, 255, 0.45), transparent),
+    radial-gradient(ellipse 23px 38px at 100% 27.1%, rgba(95, 180, 255, 0.45), transparent),
+    radial-gradient(ellipse 47px 43px at 100% 27.1%, rgba(115, 150, 242, 0.45), transparent);
+  box-shadow: inset 0 0 9px 1px rgba(255, 255, 255, 0.27);
+  -webkit-mask-image:
+    conic-gradient(
+      from var(--beam-angle-md-ice-dark),
+      transparent 0%, transparent 30%,
+      rgba(255, 255, 255, 0.1) 36%, rgba(255, 255, 255, 0.35) 44%,
+      white 52%, white 80%,
+      rgba(255, 255, 255, 0.35) 86%, rgba(255, 255, 255, 0.1) 92%,
+      transparent 95%, transparent 100%
+    ),
+    linear-gradient(white, transparent 28px, transparent calc(100% - 28px), white),
+    linear-gradient(to right, white, transparent 28px, transparent calc(100% - 28px), white);
+  -webkit-mask-composite: source-in, source-over;
+  mask-image:
+    conic-gradient(
+      from var(--beam-angle-md-ice-dark),
+      transparent 0%, transparent 30%,
+      rgba(255, 255, 255, 0.1) 36%, rgba(255, 255, 255, 0.35) 44%,
+      white 52%, white 80%,
+      rgba(255, 255, 255, 0.35) 86%, rgba(255, 255, 255, 0.1) 92%,
+      transparent 95%, transparent 100%
+    ),
+    linear-gradient(white, transparent 28px, transparent calc(100% - 28px), white),
+    linear-gradient(to right, white, transparent 28px, transparent calc(100% - 28px), white);
+  mask-composite: intersect, add;
+  pointer-events: none;
+  z-index: 1;
+  opacity: calc(var(--beam-opacity-md-ice-dark) * 0.42 * var(--beam-inner-opacity, 1) * var(--beam-strength, 1));
+  clip-path: inset(0 round var(--bb-radius, 16px));
+  animation: beam-hue-shift-md-ice-dark 12s ease-in-out infinite;
+}
+
+[data-beam="md-ice-dark"] [data-beam-bloom] {
+  display: none;
+  position: absolute;
+  inset: 0;
+  border-radius: var(--bb-radius, 16px);
+  clip-path: inset(0 round var(--bb-radius, 16px));
+  background: conic-gradient(
+        from var(--beam-angle-md-ice-dark),
+        transparent 0%, transparent 58%,
+        rgba(255, 255, 255, 0.03) 62%, rgba(255, 255, 255, 0.08) 65%, rgba(255, 255, 255, 0.2) 67%, rgba(255, 255, 255, 0.45) 69%, rgba(255, 255, 255, 0.85) 70%, rgba(255, 255, 255, 0.85) 70.5%, rgba(255, 255, 255, 0.45) 71.5%, rgba(255, 255, 255, 0.2) 73%, rgba(255, 255, 255, 0.08) 75%, rgba(255, 255, 255, 0.03) 78%, transparent 82%
+      );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  padding: 1px;
+  filter: blur(8px) brightness(1.30) saturate(1.20);
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+}
+
+[data-beam="md-ice-dark"][data-active] [data-beam-bloom],
+[data-beam="md-ice-dark"][data-fading] [data-beam-bloom] {
+  display: block;
+  opacity: calc(var(--beam-opacity-md-ice-dark) * 0.24 * var(--beam-bloom-opacity, 1) * var(--beam-strength, 1));
+}
+
+@keyframes beam-spin-md-ice-dark {
+  to { --beam-angle-md-ice-dark: 360deg; }
+}
+@keyframes beam-fade-in-md-ice-dark {
+  to { --beam-opacity-md-ice-dark: 1; }
+}
+@keyframes beam-fade-out-md-ice-dark {
+  from { --beam-opacity-md-ice-dark: 1; }
+  to { --beam-opacity-md-ice-dark: 0; }
+}
+
+@keyframes beam-hue-shift-md-ice-dark {
+  0% { filter: hue-rotate(calc(var(--beam-hue-base, 0deg) - 30deg)) brightness(1.30) saturate(1.20); }
+  50% { filter: hue-rotate(calc(var(--beam-hue-base, 0deg) + 30deg)) brightness(1.30) saturate(1.20); }
+  100% { filter: hue-rotate(calc(var(--beam-hue-base, 0deg) - 30deg)) brightness(1.30) saturate(1.20); }
+}
+
+[data-beam="md-ice-dark"][data-paused],
+[data-beam="md-ice-dark"][data-paused]::after,
+[data-beam="md-ice-dark"][data-paused]::before,
+[data-beam="md-ice-dark"][data-paused] [data-beam-bloom] {
+  animation-play-state: paused !important;
+}
+
+@property --beam-angle-md-ice-light {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: true;
+}
+
+@property --beam-opacity-md-ice-light {
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: true;
+}
+
+[data-beam="md-ice-light"] {
+  position: relative;
+  border-radius: var(--bb-radius, 16px);
+  overflow: hidden;
+}
+
+[data-beam="md-ice-light"][data-active] {
+  animation:
+    beam-spin-md-ice-light 4.5s linear infinite,
+    beam-fade-in-md-ice-light 0.6s ease forwards;
+}
+
+[data-beam="md-ice-light"][data-fading] {
+  animation:
+    beam-spin-md-ice-light 4.5s linear infinite,
+    beam-fade-out-md-ice-light 0.5s ease forwards;
+}
+
+[data-beam="md-ice-light"][data-active]::after,
+[data-beam="md-ice-light"][data-fading]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--bb-radius, 15px);
+  padding: 1px;
+  clip-path: inset(0 round var(--bb-radius, 16px));
+  background: conic-gradient(
+        from var(--beam-angle-md-ice-light),
+        transparent 0%, transparent 54%,
+        rgba(0, 0, 0, 0.08) 57%, rgba(0, 0, 0, 0.2) 60%, rgba(0, 0, 0, 0.4) 63%, rgba(0, 0, 0, 0.55) 66%, rgba(0, 0, 0, 0.4) 69%, rgba(0, 0, 0, 0.2) 72%, rgba(0, 0, 0, 0.08) 75%, transparent 78%, transparent 100%
+      ),radial-gradient(ellipse 70px 40px at 33% -7.4%, rgb(45, 185, 255), transparent),
+    radial-gradient(ellipse 60px 35px at 12% -5%, rgb(85, 135, 245), transparent),
+    radial-gradient(ellipse 40px 70px at 2.1% 68.3%, rgb(125, 205, 255), transparent),
+    radial-gradient(ellipse 20px 35px at 2.1% 68.3%, rgb(65, 175, 250), transparent),
+    radial-gradient(ellipse 180px 32px at 74.4% 100%, rgb(105, 145, 240), transparent),
+    radial-gradient(ellipse 85px 26px at 55% 100%, rgb(75, 160, 245), transparent),
+    radial-gradient(ellipse 74px 32px at 93.9% 0%, rgb(185, 235, 255), transparent),
+    radial-gradient(ellipse 26px 42px at 100% 27.1%, rgb(95, 180, 255), transparent),
+    radial-gradient(ellipse 52px 48px at 100% 27.1%, rgb(115, 150, 242), transparent);
+  -webkit-mask:
+    conic-gradient(
+      from var(--beam-angle-md-ice-light),
+      transparent 0%, transparent 30%,
+      rgba(255, 255, 255, 0.1) 36%, rgba(255, 255, 255, 0.35) 44%,
+      white 52%, white 80%,
+      rgba(255, 255, 255, 0.35) 86%, rgba(255, 255, 255, 0.1) 92%,
+      transparent 95%, transparent 100%
+    ),
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: source-in, xor;
+  mask:
+    conic-gradient(
+      from var(--beam-angle-md-ice-light),
+      transparent 0%, transparent 30%,
+      rgba(255, 255, 255, 0.1) 36%, rgba(255, 255, 255, 0.35) 44%,
+      white 52%, white 80%,
+      rgba(255, 255, 255, 0.35) 86%, rgba(255, 255, 255, 0.1) 92%,
+      transparent 95%, transparent 100%
+    ),
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: intersect, exclude;
+  pointer-events: none;
+  z-index: 2;
+  opacity: calc(var(--beam-opacity-md-ice-light) * 0.14 * var(--beam-stroke-opacity, 1) * var(--beam-strength, 1));
+  animation: beam-hue-shift-md-ice-light 12s ease-in-out infinite;
+}
+
+[data-beam="md-ice-light"][data-active]::before,
+[data-beam="md-ice-light"][data-fading]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--bb-radius, 15px);
+  background: radial-gradient(ellipse 63px 36px at 33% -7.4%, rgba(45, 185, 255, 0.45), transparent),
+    radial-gradient(ellipse 54px 32px at 12% -5%, rgba(85, 135, 245, 0.45), transparent),
+    radial-gradient(ellipse 36px 63px at 2.1% 68.3%, rgba(125, 205, 255, 0.45), transparent),
+    radial-gradient(ellipse 18px 32px at 2.1% 68.3%, rgba(65, 175, 250, 0.45), transparent),
+    radial-gradient(ellipse 162px 29px at 74.4% 100%, rgba(105, 145, 240, 0.45), transparent),
+    radial-gradient(ellipse 77px 23px at 55% 100%, rgba(75, 160, 245, 0.45), transparent),
+    radial-gradient(ellipse 67px 29px at 93.9% 0%, rgba(185, 235, 255, 0.45), transparent),
+    radial-gradient(ellipse 23px 38px at 100% 27.1%, rgba(95, 180, 255, 0.45), transparent),
+    radial-gradient(ellipse 47px 43px at 100% 27.1%, rgba(115, 150, 242, 0.45), transparent);
+  box-shadow: inset 0 0 9px 1px rgba(0, 0, 0, 0.10);
+  -webkit-mask-image:
+    conic-gradient(
+      from var(--beam-angle-md-ice-light),
+      transparent 0%, transparent 30%,
+      rgba(255, 255, 255, 0.1) 36%, rgba(255, 255, 255, 0.35) 44%,
+      white 52%, white 80%,
+      rgba(255, 255, 255, 0.35) 86%, rgba(255, 255, 255, 0.1) 92%,
+      transparent 95%, transparent 100%
+    ),
+    linear-gradient(white, transparent 28px, transparent calc(100% - 28px), white),
+    linear-gradient(to right, white, transparent 28px, transparent calc(100% - 28px), white);
+  -webkit-mask-composite: source-in, source-over;
+  mask-image:
+    conic-gradient(
+      from var(--beam-angle-md-ice-light),
+      transparent 0%, transparent 30%,
+      rgba(255, 255, 255, 0.1) 36%, rgba(255, 255, 255, 0.35) 44%,
+      white 52%, white 80%,
+      rgba(255, 255, 255, 0.35) 86%, rgba(255, 255, 255, 0.1) 92%,
+      transparent 95%, transparent 100%
+    ),
+    linear-gradient(white, transparent 28px, transparent calc(100% - 28px), white),
+    linear-gradient(to right, white, transparent 28px, transparent calc(100% - 28px), white);
+  mask-composite: intersect, add;
+  pointer-events: none;
+  z-index: 1;
+  opacity: calc(var(--beam-opacity-md-ice-light) * 0.24 * var(--beam-inner-opacity, 1) * var(--beam-strength, 1));
+  clip-path: inset(0 round var(--bb-radius, 16px));
+  animation: beam-hue-shift-md-ice-light 12s ease-in-out infinite;
+}
+
+[data-beam="md-ice-light"] [data-beam-bloom] {
+  display: none;
+  position: absolute;
+  inset: 0;
+  border-radius: var(--bb-radius, 16px);
+  clip-path: inset(0 round var(--bb-radius, 16px));
+  background: conic-gradient(
+        from var(--beam-angle-md-ice-light),
+        transparent 0%, transparent 58%,
+        rgba(0, 0, 0, 0.02) 62%, rgba(0, 0, 0, 0.08) 65%, rgba(0, 0, 0, 0.2) 67%, rgba(0, 0, 0, 0.4) 69%, rgba(0, 0, 0, 0.6) 70%, rgba(0, 0, 0, 0.6) 70.5%, rgba(0, 0, 0, 0.4) 71.5%, rgba(0, 0, 0, 0.2) 73%, rgba(0, 0, 0, 0.08) 75%, rgba(0, 0, 0, 0.02) 78%, transparent 82%
+      );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  padding: 1px;
+  filter: blur(8px) brightness(1.10) saturate(1.40);
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+}
+
+[data-beam="md-ice-light"][data-active] [data-beam-bloom],
+[data-beam="md-ice-light"][data-fading] [data-beam-bloom] {
+  display: block;
+  opacity: calc(var(--beam-opacity-md-ice-light) * 0.30 * var(--beam-bloom-opacity, 1) * var(--beam-strength, 1));
+}
+
+@keyframes beam-spin-md-ice-light {
+  to { --beam-angle-md-ice-light: 360deg; }
+}
+@keyframes beam-fade-in-md-ice-light {
+  to { --beam-opacity-md-ice-light: 1; }
+}
+@keyframes beam-fade-out-md-ice-light {
+  from { --beam-opacity-md-ice-light: 1; }
+  to { --beam-opacity-md-ice-light: 0; }
+}
+
+@keyframes beam-hue-shift-md-ice-light {
+  0% { filter: hue-rotate(calc(var(--beam-hue-base, 0deg) - 30deg)) brightness(1.10) saturate(1.40); }
+  50% { filter: hue-rotate(calc(var(--beam-hue-base, 0deg) + 30deg)) brightness(1.10) saturate(1.40); }
+  100% { filter: hue-rotate(calc(var(--beam-hue-base, 0deg) - 30deg)) brightness(1.10) saturate(1.40); }
+}
+
+[data-beam="md-ice-light"][data-paused],
+[data-beam="md-ice-light"][data-paused]::after,
+[data-beam="md-ice-light"][data-paused]::before,
+[data-beam="md-ice-light"][data-paused] [data-beam-bloom] {
+  animation-play-state: paused !important;
+}
+</style>
   <div class="page-bridge">
     <span class="pb-label">接下来</span>
-    <span class="pb-glow" data-beam="line-ice-dark" data-active><div data-beam-bloom></div><a class="pb-link" href="insurance.html">
+    <span class="pb-glow" data-beam="md-ice-light" data-active style="--bb-radius:999px"><div data-beam-bloom></div><a class="pb-link" href="insurance.html">
       我的保障思路
       <svg class="pb-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
     </a></span>
@@ -1211,17 +1751,19 @@
       var root = document.documentElement;
       var btn = document.getElementById('themeToggle');
       function apply(t){ root.setAttribute('data-theme', t); try{ localStorage.setItem(KEY, t); }catch(e){}
-        /* 同步胶囊 line-ice 主题 */
-        document.querySelectorAll('.pb-glow[data-beam]').forEach(function(el){
-          el.setAttribute('data-beam', 'line-ice-' + t);
+        /* 同步所有流光元素（胶囊 line-ice / 内容框 md-ice）的主题 */
+        document.querySelectorAll('[data-beam]').forEach(function(el){
+          var v = el.getAttribute('data-beam');
+          if(v && /-(dark|light)$/.test(v)){ el.setAttribute('data-beam', v.replace(/-(dark|light)$/, '-' + t)); }
         });
       }
       /* 初始加载同步：若存的是 light 主题，胶囊也要切到 line-ice-light */
       (function(){
         var saved = localStorage.getItem(KEY);
         if(saved === 'light' || saved === 'dark'){
-          document.querySelectorAll('.pb-glow[data-beam]').forEach(function(el){
-            el.setAttribute('data-beam', 'line-ice-' + saved);
+          document.querySelectorAll('[data-beam]').forEach(function(el){
+            var v = el.getAttribute('data-beam');
+            if(v && /-(dark|light)$/.test(v)){ el.setAttribute('data-beam', v.replace(/-(dark|light)$/, '-' + saved)); }
           });
         }
       })();
@@ -1266,6 +1808,29 @@
       }, {threshold:.16});
       document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
 
+      // 痛点卡 · 移动端手风琴（≤860px 单列时生效；桌面 CSS 恒展开，JS 直接返回）
+      (function(){
+        var mq=window.matchMedia('(max-width:860px)');
+        document.querySelectorAll('#prob .prob').forEach(function(card){
+          card.setAttribute('data-open','0');
+          var head=card.querySelector('.p-prob');
+          if(!head) return;
+          head.setAttribute('role','button');
+          head.setAttribute('tabindex','0');
+          head.setAttribute('aria-expanded','false');
+          function toggle(){
+            if(!mq.matches) return;   // 桌面不折叠
+            var open=card.getAttribute('data-open')==='1';
+            card.setAttribute('data-open',open?'0':'1');
+            head.setAttribute('aria-expanded',String(!open));
+          }
+          head.addEventListener('click',toggle);
+          head.addEventListener('keydown',function(e){
+            if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();}
+          });
+        });
+      })();
+
       // 擅长网格 · 滚动入场 + 点击打开灯箱（复用 .lb 体系，支持左右切换）
       (function(){
         var grid=document.querySelector('.skill-grid.is-bloom');
@@ -1304,7 +1869,7 @@
         ];
 
         var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        var cur=0, open=false, locked=false;
+        var cur=0, open=false, locked=false, _savedScrollY_lb=0;
 
         // 滚动入场
         function bloom(){ items.forEach(function(el){ el.classList.add('in'); }); }
@@ -1314,6 +1879,47 @@
           }, {threshold:.2});
           bio.observe(grid);
         }
+
+        // 移动端横向画廊 · 前后箭头（≤640px 显示；桌面端隐藏）
+        (function(){
+          var cards=Array.prototype.slice.call(grid.querySelectorAll('.skill'));
+          function padL(){ return parseFloat(getComputedStyle(grid).paddingLeft)||0; }
+          // 居中滚动：让目标卡片水平居中于可视区
+          function centerLeft(i){
+            return cards[i].offsetLeft - padL() - (grid.clientWidth - cards[i].offsetWidth) / 2;
+          }
+          var btnsWrap=document.querySelector('.skill-nav-btns');
+          if(!btnsWrap) return;
+          var prevBtn=btnsWrap.querySelector('.prev');
+          var nextBtn=btnsWrap.querySelector('.next');
+          var total=cards.length;
+          // 找当前最近卡片索引
+          function bestIndex(){
+            var sl=grid.scrollLeft, pl=padL(), best=0, bd=Infinity;
+            cards.forEach(function(c,i){
+              var d=Math.abs(c.offsetLeft - pl - sl);
+              if(d<bd){ bd=d; best=i; }
+            });
+            return best;
+          }
+          function updateBtns(){
+            var b=bestIndex();
+            prevBtn.disabled = b === 0;
+            nextBtn.disabled = b === total - 1;
+          }
+          prevBtn.addEventListener('click',function(){
+            var target = Math.max(0, bestIndex()-1);
+            grid.scrollTo({left:centerLeft(target),behavior:'smooth'});
+          });
+          nextBtn.addEventListener('click',function(){
+            var target = Math.min(total-1, bestIndex()+1);
+            grid.scrollTo({left:centerLeft(target),behavior:'smooth'});
+          });
+          var ticking=false;
+          grid.addEventListener('scroll',function(){ if(!ticking){ ticking=true; requestAnimationFrame(function(){ticking=false;updateBtns();}); } },{passive:true});
+          window.addEventListener('resize',updateBtns);
+          updateBtns();
+        })();
 
         function fill(i){
           var s=SKILLS[i];
@@ -1339,21 +1945,30 @@
         }
 
         // 锁定 body 滚动时补偿滚动条宽度，避免页面横向跳动（卡顿根因之一）
+        var _savedScrollY = 0;
         function lockScroll(){
-          var sw = window.innerWidth - document.documentElement.clientWidth;
-          if(sw>0) document.body.style.paddingRight = sw + 'px';
-          document.body.style.overflow = 'hidden';
+          _savedScrollY = window.scrollY || document.documentElement.scrollTop;
+          // 主修复靠 CSS scrollbar-gutter:stable（viewport 内容宽恒定，普通流与 fixed 元素都不偏移）；
+          // padding 补偿仅为不支持 gutter 的旧浏览器兜底
+          var de = document.documentElement;
+          var sw = window.innerWidth - de.clientWidth;
+          var gutterOK = window.CSS && CSS.supports && CSS.supports('scrollbar-gutter','stable');
+          de.style.overflow = 'hidden';
+          if(sw>0 && !gutterOK) de.style.paddingRight = sw + 'px';
         }
         function unlockScroll(){
-          document.body.style.overflow = '';
-          document.body.style.paddingRight = '';
+          var de = document.documentElement;
+          de.style.overflow = '';
+          de.style.paddingRight = '';
+          window.scrollTo({ top: _savedScrollY, behavior: 'instant' });
         }
 
         function openLb(i){
           if(open||locked) return; locked=true;
+          _savedScrollY = window.scrollY || document.documentElement.scrollTop;  // 立即保存，不等 rAF
           cur=i; fill(cur);
           elBody.style.opacity='1'; elImg.style.opacity='1';   // 打开时无淡入闪烁
-          // 先填充内容，下一帧再触发过渡，避免“先弹空壳再填字”的跳帧
+          // 先填充内容，下一帧再触发过渡，避免"先弹空壳再填字"的跳帧
           requestAnimationFrame(function(){
             lb.classList.add('open'); open=true;
             lockScroll();
@@ -1437,6 +2052,7 @@
         }
         function open(i){
           if(!lb.classList.contains('open')){
+            _savedScrollY_lb = window.scrollY || document.documentElement.scrollTop;  // 立即保存
             render(i);
           } else {
             if(swapping) return;
@@ -1452,11 +2068,19 @@
             }, 320);
           }
           lb.classList.add('open');
-          document.body.style.overflow = 'hidden';
+          _savedScrollY_lb = window.scrollY || document.documentElement.scrollTop;
+          var sw_lb = window.innerWidth - document.documentElement.clientWidth;
+          var de_lb = document.documentElement;
+          var gutterOK_lb = window.CSS && CSS.supports && CSS.supports('scrollbar-gutter','stable');
+          de_lb.style.overflow = 'hidden';
+          if(sw_lb > 0 && !gutterOK_lb) de_lb.style.paddingRight = sw_lb + 'px';
         }
         function close(){
           lb.classList.remove('open');
-          document.body.style.overflow = '';
+          var de_lb = document.documentElement;
+          de_lb.style.overflow = '';
+          de_lb.style.paddingRight = '';
+          window.scrollTo({ top: _savedScrollY_lb, behavior: 'instant' });
         }
         document.querySelectorAll('.sq').forEach(function(tile){
           tile.addEventListener('click', function(){ open(parseInt(this.getAttribute('data-lb'),10)); });
@@ -1478,7 +2102,7 @@
 
   <!-- 擅长详情 · 灯箱（复用履历灯箱体系，支持左右切换） -->
   <div class="lb" id="skillLb" role="dialog" aria-modal="true" aria-label="擅长详情">
-    <div class="lb-card">
+    <div class="lb-card" data-beam="md-ice-dark" data-active style="--bb-radius:30px">
       <button class="lb-close" id="skillLbClose" type="button" aria-label="关闭">✕</button>
       <div class="skill-lb-side" id="skillLbSide">
         <img class="skill-lb-img" id="skillLbImg" alt="" src="assets/skill-01.jpg">
@@ -1491,7 +2115,7 @@
         <div class="lb-text" id="skillLbBody"></div>
         <a class="p-link lb-cta" id="skillLbLink" href="javascript:void(0)">进一步了解 →</a>
         <!-- 二维码面板（默认隐藏，CTA 点击后右滑入，仅替换右侧文字区） -->
-        <div class="lb-qrcode-panel" id="skillLbQrPanel">
+        <div class="lb-qrcode-panel" id="skillLbQrPanel" data-beam="md-ice-dark" data-active style="--bb-radius:14px">
           <button class="lb-qr-close" id="skillLbQrClose" type="button" aria-label="关闭二维码">✕</button>
           <div class="qr-eyebrow">ADD ME ON WECHAT</div>
           <h3 class="qr-panel-title">扫码加我微信</h3>
