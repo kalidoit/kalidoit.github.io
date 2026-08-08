@@ -26,8 +26,10 @@
     --paper:#F5F5F7;         /* 暖纸白（浅色区块底） */
     --paper-2:#FBFAF7;
     --text:#F5F5F7;          /* 深底上的主文字 */
+    --text-1:#E5E5E7;        /* 卡片/区块内主文字（略暗于 --text，保证层次） */
     --muted:#A1A1A6;
-    --muted-2:#8E8E93;
+    --muted-1:#8E8E93;      /* 卡片/区块内次要文字 */
+    --muted-2:#6E6E73;
     --line:rgba(255,255,255,.14);
     --line-2:rgba(255,255,255,.22);
 
@@ -254,13 +256,23 @@
   .scard-img{width:100%;aspect-ratio:16/10;object-fit:cover;flex-shrink:0;
     transition:transform 1.4s cubic-bezier(.4,0,.2,1)}
   .scard:hover .scard-img{transform:scale(1.05)}
-  .scard-body{padding:32px 28px 28px;display:flex;flex-direction:column;gap:12px;color:var(--text-1);
+  .scard-body{padding:32px 28px 28px;display:flex;flex-direction:column;gap:12px;color:#fff;
     background:linear-gradient(180deg,var(--ink-3) 0%,var(--ink-2) 100%)}
-  .scard h4{font-size:clamp(18px,2.2vw,26px);font-weight:700;color:var(--text-1);margin:0;line-height:1.25}
-  .scard .svc-lead{font-size:clamp(14px,1.5vw,17px);color:var(--muted-1);line-height:1.7;margin:0}
+  .scard h4{font-size:clamp(18px,2.2vw,26px);font-weight:700;color:#fff;margin:0;line-height:1.25}
+  .scard .svc-lead{font-size:clamp(14px,1.5vw,17px);color:rgba(255,255,255,.78);line-height:1.7;margin:0}
   .scard .svc-points{list-style:none;padding:0;margin:14px 0 0;display:flex;flex-direction:column;gap:10px}
   .scard .svc-points li{position:relative;padding-left:22px;font-size:clamp(13px,1.35vw,15px);
-    color:var(--muted-1);line-height:1.65}
+    color:rgba(255,255,255,.78);line-height:1.65}
+  /* 浅色模式：服务卡背景变浅（--ink-3/--ink-2 重定义为浅色），文字改深 */
+  [data-theme="light"] .scard-body{color:#1d1d1f}
+  [data-theme="light"] .scard h4{color:#1d1d1f}
+  [data-theme="light"] .scard .svc-lead{color:rgba(0,0,0,.6)}
+  [data-theme="light"] .scard .svc-points li{color:rgba(0,0,0,.6)}
+  /* 浅色模式：痛点卡同样（--ink-3 变浅），文字改深，避免白字压浅底 */
+  [data-theme="light"] .pain-scard-body{color:#1d1d1f}
+  [data-theme="light"] .pain-scard-body h4{color:#1d1d1f}
+  [data-theme="light"] .pain-scard-body .pain-lead{color:rgba(0,0,0,.6)}
+  [data-theme="light"] .pain-scard-body .pain-points li{color:rgba(0,0,0,.6)}
   .scard .svc-points li::before{content:'';position:absolute;left:0;top:8px;width:8px;height:8px;
     border-radius:50%;background:var(--blue);flex-shrink:0}
 
@@ -447,22 +459,29 @@
   .contact-card .lead{margin-top:0;font-size:14.5px}
   .wx-box{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
     padding:28px;border-radius:20px;background:rgba(255,255,255,.02);border:1px solid var(--line);position:relative;overflow:visible}
-  .qr{width:160px;height:160px;border-radius:16px;object-fit:contain;background:#fff;padding:8px;box-sizing:border-box;box-shadow:0 6px 24px rgba(0,0,0,.12)}
+  .qr{width:160px;height:160px;border-radius:16px;object-fit:contain;background:#fff;padding:12px;box-sizing:border-box;box-shadow:0 6px 24px rgba(0,0,0,.12)}
   .wx-id{font-size:14px;color:var(--muted)}
   .wx-id b{color:var(--text);font-weight:600;letter-spacing:.04em}
-  /* 预约按钮 — border-beam@1.1.0 line 预设（底边光团横向滑动/水波）
-     配色：Ice·冰蓝（line-ice-dark / line-ice-light） */
+  /* 预约按钮 — 与 index「继续了解我」胶囊 100% 同款（border-beam md-ice 整圈流光） */
   .pb-glow{position:relative;display:inline-block;border-radius:var(--radius-pill);
     isolation:isolate;overflow:hidden}
 
   .contact-card .pb-link{display:inline-flex;align-items:center;gap:8px;
-    font-size:15px;font-weight:600;color:#fff;text-decoration:none;
-    padding:14px 34px;border-radius:var(--radius-pill);
-    border:0;background:linear-gradient(135deg,#2E6FB0,#1f5fa0);
+    font-size:15px;font-weight:600;color:#1d1d1f;text-decoration:none;
+    padding:10px 28px;border-radius:var(--radius-pill);
+    border:0;background:rgba(250,250,252,.9);
     transition:all .3s ease;position:relative;overflow:hidden;z-index:1}
-  .contact-card .pb-link:hover{transform:translateY(-2px);box-shadow:0 12px 34px rgba(62,142,219,.55)}
-  [data-theme="light"] .contact-card .pb-link{color:#1d1d1f;background:rgba(250,250,252,.9)}
-  [data-theme="light"] .contact-card .pb-link:hover{color:var(--blue);box-shadow:0 4px 16px rgba(0,0,0,.08)}
+  .contact-card .pb-link::before{content:"";position:absolute;inset:0;
+    background:linear-gradient(135deg,rgba(46,111,176,.06),rgba(160,125,44,.06));
+    opacity:0;transition:opacity .3s}
+  .contact-card .pb-link:hover{color:var(--blue);
+    transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.08);
+    background:#fff}
+  .contact-card .pb-link:hover::before{opacity:1}
+  [data-theme="dark"] .contact-card .pb-link{
+    color:#e8e8ed;background:rgba(255,255,255,.04)}
+  [data-theme="dark"] .contact-card .pb-link:hover{
+    color:var(--blue);box-shadow:0 4px 16px rgba(0,0,0,.3)}
   @media (prefers-reduced-motion:reduce){.pb-glow{animation:none}}
   @media(max-width:640px){.contact-card .pb-link{padding:12px 32px;font-size:15.5px}}
 
@@ -588,8 +607,94 @@
 
   /* =========================================================
      胶囊按钮 — border-beam@1.1.0 md 预设（整圈冰蓝流光）
-     配色：md-ice-light（浅色背景专用，同首页"继续了解我"按钮）
+     配色：md-ice-dark / md-ice-light（同首页"继续了解我"按钮）
      ========================================================= */
+  /* ====== md-ice-dark（深色，逐字移植自 index.html） ====== */
+  @property --beam-angle-md-ice-dark{ syntax:"<angle>"; initial-value:0deg; inherits:true }
+  @property --beam-opacity-md-ice-dark{ syntax:"<number>"; initial-value:0; inherits:true }
+  [data-beam="md-ice-dark"]{ position:relative; border-radius:var(--bb-radius,16px); overflow:hidden }
+  [data-beam="md-ice-dark"][data-active]{
+    animation: beam-spin-md-ice-dark 1.96s linear infinite, beam-fade-in-md-ice-dark .6s ease forwards }
+  [data-beam="md-ice-dark"][data-fading]{
+    animation: beam-spin-md-ice-dark 1.96s linear infinite, beam-fade-out-md-ice-dark .5s ease forwards }
+  [data-beam="md-ice-dark"][data-active]::after,
+  [data-beam="md-ice-dark"][data-fading]::after{
+    content:"";position:absolute;inset:0;
+    border-radius:var(--bb-radius,15px);padding:1px;
+    clip-path:inset(0 round var(--bb-radius,16px));
+    background:conic-gradient(from var(--beam-angle-md-ice-dark),
+      transparent 0%,transparent 54%,rgba(255,255,255,.1) 57%,rgba(255,255,255,.3) 60%,rgba(255,255,255,.6) 63%,rgba(255,255,255,.75) 66%,rgba(255,255,255,.6) 69%,rgba(255,255,255,.3) 72%,rgba(255,255,255,.1) 75%,transparent 78%,transparent 100%
+      ),radial-gradient(ellipse 70px 40px at 33% -7.4%,rgb(45,185,255),transparent),
+     radial-gradient(ellipse 60px 35px at 12% -5%,rgb(85,135,245),transparent),
+     radial-gradient(ellipse 40px 70px at 2.1% 68.3%,rgb(125,205,255),transparent),
+     radial-gradient(ellipse 20px 35px at 2.1% 68.3%,rgb(65,175,250),transparent),
+     radial-gradient(ellipse 180px 32px at 74.4% 100%,rgb(105,145,240),transparent),
+     radial-gradient(ellipse 85px 26px at 55% 100%,rgb(75,160,245),transparent),
+     radial-gradient(ellipse 74px 32px at 93.9% 0%,rgb(185,235,255),transparent),
+     radial-gradient(ellipse 26px 42px at 100% 27.1%,rgb(95,180,255),transparent),
+     radial-gradient(ellipse 52px 48px at 100% 27.1%,rgb(115,150,242),transparent);
+    -webkit-mask:conic-gradient(from var(--beam-angle-md-ice-dark),
+      transparent 0%,transparent 30%,rgba(255,255,255,.1) 36%,rgba(255,255,255,.35) 44%,white 52%,white 80%,rgba(255,255,255,.35) 86%,rgba(255,255,255,.1) 92%,transparent 95%,transparent 100%
+      ),linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+    -webkit-mask-composite:source-in,xor;
+    mask:conic-gradient(from var(--beam-angle-md-ice-dark),
+      transparent 0%,transparent 30%,rgba(255,255,255,.1) 36%,rgba(255,255,255,.35) 44%,white 52%,white 80%,rgba(255,255,255,.35) 86%,rgba(255,255,255,.1) 92%,transparent 95%,transparent 100%
+      ),linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+    mask-composite:intersect,exclude;
+    pointer-events:none;z-index:2;
+    opacity:calc(var(--beam-opacity-md-ice-dark)*.26*var(--beam-stroke-opacity,1)*var(--beam-strength,1));
+    animation:beam-hue-shift-md-ice-dark 12s ease-in-out infinite }
+  [data-beam="md-ice-dark"][data-active]::before,
+  [data-beam="md-ice-dark"][data-fading]::before{
+    content:"";position:absolute;inset:0;border-radius:var(--bb-radius,15px);
+    background:radial-gradient(ellipse 63px 36px at 33% -7.4%,rgba(45,185,255,.45),transparent),
+     radial-gradient(ellipse 54px 32px at 12% -5%,rgba(85,135,245,.45),transparent),
+     radial-gradient(ellipse 36px 63px at 2.1% 68.3%,rgba(125,205,255,.45),transparent),
+     radial-gradient(ellipse 18px 32px at 2.1% 68.3%,rgba(65,175,250,.45),transparent),
+     radial-gradient(ellipse 162px 29px at 74.4% 100%,rgba(105,145,240,.45),transparent),
+     radial-gradient(ellipse 77px 23px at 55% 100%,rgba(75,160,245,.45),transparent),
+     radial-gradient(ellipse 67px 29px at 93.9% 0%,rgba(185,235,255,.45),transparent),
+     radial-gradient(ellipse 23px 38px at 100% 27.1%,rgba(95,180,255,.45),transparent),
+     radial-gradient(ellipse 47px 43px at 100% 27.1%,rgba(115,150,242,.45),transparent);
+    box-shadow:inset 0 0 9px 1px rgba(255,255,255,.27);
+    -webkit-mask-image:conic-gradient(from var(--beam-angle-md-ice-dark),
+      transparent 0%,transparent 30%,rgba(255,255,255,.1) 36%,rgba(255,255,255,.35) 44%,white 52%,white 80%,rgba(255,255,255,.35) 86%,rgba(255,255,255,.1) 92%,transparent 95%,transparent 100%
+      ),linear-gradient(white,transparent 28px,transparent calc(100% - 28px),white),
+       linear-gradient(to right,white,transparent 28px,transparent calc(100% - 28px),white);
+    -webkit-mask-composite:source-in,source-over;
+    mask-image:conic-gradient(from var(--beam-angle-md-ice-dark),
+      transparent 0%,transparent 30%,rgba(255,255,255,.1) 36%,rgba(255,255,255,.35) 44%,white 52%,white 80%,rgba(255,255,255,.35) 86%,rgba(255,255,255,.1) 92%,transparent 95%,transparent 100%
+      ),linear-gradient(white,transparent 28px,transparent calc(100% - 28px),white),
+       linear-gradient(to right,white,transparent 28px,transparent calc(100% - 28px),white);
+    mask-composite:intersect,add;
+    pointer-events:none;z-index:1;
+    opacity:calc(var(--beam-opacity-md-ice-dark)*.42*var(--beam-inner-opacity,1)*var(--beam-strength,1));
+    clip-path:inset(0 round var(--bb-radius,16px));
+    animation:beam-hue-shift-md-ice-dark 12s ease-in-out infinite }
+  [data-beam="md-ice-dark"] [data-beam-bloom]{ display:none;position:absolute;inset:0;
+    border-radius:var(--bb-radius,16px);clip-path:inset(0 round var(--bb-radius,16px));
+    background:conic-gradient(from var(--beam-angle-md-ice-dark),
+      transparent 0%,transparent 58%,rgba(255,255,255,.03) 62%,rgba(255,255,255,.08) 65%,rgba(255,255,255,.2) 67%,rgba(255,255,255,.45) 69%,rgba(255,255,255,.85) 70%,rgba(255,255,255,.85) 70.5%,rgba(255,255,255,.45) 71.5%,rgba(255,255,255,.2) 73%,rgba(255,255,255,.08) 75%,rgba(255,255,255,.03) 78%,transparent 82%);
+    -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+    mask-composite:exclude;padding:1px;
+    filter:blur(8px) brightness(1.30) saturate(1.20);
+    pointer-events:none;z-index:3;opacity:0 }
+  [data-beam="md-ice-dark"][data-active] [data-beam-bloom],
+  [data-beam="md-ice-dark"][data-fading] [data-beam-bloom]{ display:block;
+    opacity:calc(var(--beam-opacity-md-ice-dark)*.24*var(--beam-bloom-opacity,1)*var(--beam-strength,1)) }
+  @keyframes beam-spin-md-ice-dark{ to{--beam-angle-md-ice-dark:360deg} }
+  @keyframes beam-fade-in-md-ice-dark{ to{--beam-opacity-md-ice-dark:1} }
+  @keyframes beam-fade-out-md-ice-dark{ from{--beam-opacity-md-ice-dark:1} to{--beam-opacity-md-ice-dark:0} }
+  @keyframes beam-hue-shift-md-ice-dark{
+    0%{filter:hue-rotate(calc(var(--beam-hue-base,0deg)-30deg)) brightness(1.30) saturate(1.20)}
+    50%{filter:hue-rotate(calc(var(--beam-hue-base,0deg)+30deg)) brightness(1.30) saturate(1.20)}
+    100%{filter:hue-rotate(calc(var(--beam-hue-base,0deg)-30deg)) brightness(1.30) saturate(1.20)} }
+  [data-beam="md-ice-dark"][data-paused],[data-beam="md-ice-dark"][data-paused]::after,
+  [data-beam="md-ice-dark"][data-paused]::before,
+  [data-beam="md-ice-dark"][data-paused] [data-beam-bloom]{ animation-play-state:paused !important }
+
+  /* ====== md-ice-light（浅色） ====== */
   @property --beam-angle-md-ice-light{ syntax:"<angle>"; initial-value:0deg; inherits:true }
   @property --beam-opacity-md-ice-light{ syntax:"<number>"; initial-value:0; inherits:true }
   [data-beam="md-ice-light"]{ position:relative; border-radius:var(--bb-radius,16px); overflow:hidden }
@@ -837,6 +942,20 @@
   [data-theme="light"] .foot{border-top-color:var(--line)}
   /* Hero 副标题浅色模式：锁定深色 + 浅底适配 shadow */
   [data-theme="light"] .hero .sub{color:#1d1d1f;text-shadow:0 1px 2px rgba(255,255,255,.6),0 0 12px rgba(255,255,255,.25)}
+  /* Hero 深色模式文字增强：深色背景上 gold 对比度不足 + 上半区背景偏暗 */
+  /* 深色模式 Hero 暗化叠层：背景图为浅色不透明 PNG，需额外暗层托底文字 */
+  [data-theme="dark"] .hero{--hero-darken:1}
+  [data-theme="dark"] .hero-bg::after{
+    content:"";position:absolute;inset:0;z-index:1;
+    background:linear-gradient(180deg,
+      rgba(11,15,22,.55) 0%,rgba(11,15,22,.35) 40%,
+      rgba(11,15,22,.18) 70%,transparent 100%);
+    pointer-events:none}
+  [data-theme="dark"] .hero h1{text-shadow:0 2px 12px rgba(0,0,0,.65),0 0 40px rgba(0,0,0,.25)}
+  [data-theme="dark"] .hero h1 .soul{color:#ECC050;text-shadow:0 1px 8px rgba(224,176,74,.45),0 0 24px rgba(224,176,74,.2)}
+  [data-theme="dark"] .hero .sub{color:#F0F0F2;text-shadow:0 1px 6px rgba(0,0,0,.6),0 0 20px rgba(0,0,0,.2)}
+  [data-theme="dark"] .hero .sub b{color:#ECC050;text-shadow:0 1px 8px rgba(224,176,74,.45)}
+  [data-theme="dark"] .hero-eyebrow{color:#6BB3FF;border-color:rgba(107,179,255,.4);background:rgba(74,163,255,.14);text-shadow:0 0 12px rgba(74,163,255,.2)}
 </style>
 <script>
   (function(){
@@ -934,6 +1053,7 @@
   .mid-cta-btn svg{transition:transform .3s ease}
   /* 箭头弹跳动画（同首页"继续了解我"） */
   .mid-cta-btn .cta-arrow{display:inline-block;animation:pbBounce 2s ease-in-out infinite}
+  .contact-card .pb-link .pb-arrow{display:inline-block;animation:pbBounce 2s ease-in-out infinite}
   @keyframes pbBounce{
     0%,100%{transform:translateY(0)}
     50%{transform:translateY(5px)}
@@ -1425,8 +1545,9 @@ button.pb-link{font-family:inherit;line-height:1.2}
         <h3>聊一次，不收费，不推销</h3>
         <p class="lead">先做一次需求诊断与保单检视，看清你真正需要什么、不需要什么。哪怕最后不找我买，你也比来时更清楚。</p>
         <div style="margin-top:24px;display:flex;gap:14px;justify-content:center;flex-wrap:nowrap;align-items:center">
-          <span class="pb-glow" data-beam="line-ice-dark" data-active><div data-beam-bloom></div><button class="pb-link" type="button" data-copy="13551139187" role="button">
+          <span class="pb-glow" data-beam="md-ice-light" data-active style="--bb-radius:999px;animation-duration:4.5s,.6s"><div data-beam-bloom></div><button class="pb-link" type="button" data-copy="13551139187" role="button">
             预约一次对话 · 复制微信
+            <svg class="pb-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
           </button></span>
         </div>
       </div>
@@ -1676,7 +1797,7 @@ button.pb-link{font-family:inherit;line-height:1.2}
         var cur = (root.getAttribute('data-theme') === 'dark') ? 'light' : 'dark';
         apply(cur);
         /* 胶囊 line-ice 主题同步 */
-        document.querySelectorAll('.pb-glow[data-beam]').forEach(function(el){
+        document.querySelectorAll('.pb-glow[data-beam], .mid-cta-glow[data-beam]').forEach(function(el){
           var b = el.getAttribute('data-beam');
           el.setAttribute('data-beam', b.replace(/-(dark|light)$/, '-' + cur));
         });
@@ -1685,7 +1806,7 @@ button.pb-link{font-family:inherit;line-height:1.2}
     /* 初始加载同步：胶囊 line-ice 主题 */
     (function(){
       var cur = root.getAttribute('data-theme') || 'light';
-      document.querySelectorAll('.pb-glow[data-beam]').forEach(function(el){
+      document.querySelectorAll('.pb-glow[data-beam], .mid-cta-glow[data-beam]').forEach(function(el){
         var b = el.getAttribute('data-beam');
         el.setAttribute('data-beam', b.replace(/-(dark|light)$/, '-' + cur));
       });
