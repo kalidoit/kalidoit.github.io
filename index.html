@@ -279,6 +279,9 @@
      ========================================================= */
   .pain-guide{background:linear-gradient(180deg,transparent, rgba(255,255,255,.015) 30%, transparent);}
   .pg-head{max-width:760px}
+  /* 标题与副文不换行，宽度跟随下方卡片 */
+  .pg-head .h2{white-space:nowrap;max-width:100%}
+  .pg-head .lead{white-space:nowrap;max-width:100%}
   .pg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:46px;align-items:stretch}
   .pg-card{display:flex;flex-direction:column;gap:16px;
     background:linear-gradient(160deg,rgba(27,34,48,.7),rgba(17,22,31,.7));
@@ -300,6 +303,7 @@
   @media(max-width:860px){
     .pg-grid{grid-template-columns:1fr;gap:16px;margin-top:36px}
     .pg-card{padding:22px 20px}
+    .pg-head .h2,.pg-head .lead{white-space:normal}
   }
   [data-theme="light"] .pg-card{background:#fff;border-color:var(--line-2)}
   [data-theme="light"] .pg-card:hover{border-color:rgba(31,111,184,.3)}
@@ -812,7 +816,7 @@
     <div class="wrap">
       <div class="pg-head reveal">
         <div class="eyebrow">我能帮你解决</div>
-        <h2 class="h2">买保险最难的，<br>不是掏钱，是搞清楚自己<span class="accent">到底缺什么</span>。</h2>
+        <h2 class="h2">买保险最难的，不是掏钱，是搞清楚自己<span class="accent">到底缺什么</span>。</h2>
         <p class="lead">这些卡点，几乎每个家庭都会碰到。先把问题看明白，再加我聊，才不会买错、买贵、买漏。</p>
       </div>
       <div class="pg-grid" id="pgGrid"><!-- JS 渲染 3 张分组卡 --></div>
