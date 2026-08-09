@@ -805,7 +805,9 @@
           </div>
           <div class="qb-title">收藏这份名片</div>
           <div class="qb-desc">保存后随时翻看，也可转发给需要的朋友</div>
-          <div class="qr-box" id="qrSite" aria-label="本站地址二维码"></div>
+          <div class="qr-box" id="qrSite" aria-label="本站地址二维码">
+            <img src="assets/site-qr.png" alt="扫码访问顾维鲁个人名片站" onerror="this.style.display='none';renderQR(this.parentElement)" />
+          </div>
           <div class="qr-actions">
             <button type="button" id="copySite">复制链接</button>
             <button type="button" id="shareSite">分享给好友</button>
@@ -1410,8 +1412,8 @@
     document.addEventListener('DOMContentLoaded', function(){
       renderPain();
 
-      /* ----- 渲染站点二维码 ----- */
-      renderQR(document.getElementById('qrSite'));
+      /* ----- 渲染站点二维码（静态图加载失败时 JS 回退） ----- */
+      /* renderQR 已移至 img onerror 回调，正常情况不执行 */
 
       /* ----- 复制链接 ----- */
       var copyBtn = document.getElementById('copySite');
