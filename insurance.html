@@ -372,15 +372,15 @@
   /* 数据原则：横向胶囊条（替代 2×2 网格） */
   .pyr-principles{display:flex;justify-content:center;gap:14px;margin-top:36px;
     flex-wrap:wrap;padding:0 8px;align-items:stretch}
-  .pp{display:flex;flex-direction:row;align-items:center;justify-content:flex-start;gap:16px;
-    padding:16px 38px 16px 26px;border-radius:999px;background:rgba(255,255,255,.03);
-    border:1px solid var(--line);text-align:left;
+  .pp{display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:16px;
+    flex:1 1 0;min-width:0;padding:16px 36px;border-radius:999px;background:rgba(255,255,255,.03);
+    border:1px solid var(--line);text-align:center;
     transition:background .4s var(--ease),border-color .4s var(--ease),transform .3s var(--ease)}
   .pp:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.15);
     transform:translateY(-2px)}
   .pp .n{font-family:var(--font-serif);font-size:22px;font-weight:700;color:var(--gold);
     line-height:1.2;min-width:72px;text-align:left;flex-shrink:0}
-  .pp p{font-size:12px;color:var(--muted-1);margin:0;line-height:1.5;white-space:nowrap}
+  .pp p{font-size:12px;color:var(--muted-1);margin:0;line-height:1.5;white-space:nowrap;text-align:right}
 
   /* ---------- 流程 ---------- */
   .flow{background:var(--ink)}
@@ -807,7 +807,7 @@
     /* 痛点/服务区：全断点横向画廊，无需网格覆盖 */
     /* 金字塔 Feature Strip：平板端 */
     .pyr-principles{gap:10px}
-    .pp{padding:14px 28px 14px 18px;gap:12px}
+    .pp{padding:14px 30px;gap:16px;justify-content:space-between;flex:1 1 0;min-width:0}
     .pp .n{min-width:64px;font-size:20px}
     .tier{padding:28px 32px;gap:24px}
     .tier.t3{padding:32px 28px 28px}
@@ -833,7 +833,7 @@
     /* 金字塔 Feature Strip：移动端 */
     .pyr .lead{white-space:normal;max-width:100%}
     .pyr-principles{flex-direction:column;align-items:center;gap:8px}
-    .pp{width:100%;max-width:320px;padding:14px 28px 14px 18px;flex-direction:row;gap:14px;text-align:left}
+    .pp{width:100%;max-width:320px;padding:14px 32px;flex-direction:row;gap:16px;text-align:center;justify-content:space-between}
     .pp .n{min-width:64px;font-size:20px}
     .pp p{max-width:none;white-space:nowrap}
     .tier{padding:32px 24px;flex-direction:column!important;text-align:center!important;gap:14px;min-height:180px}
