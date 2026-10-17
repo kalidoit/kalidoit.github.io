@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>顾维鲁 · 个人名片</title>
+<meta name="description" content="顾维鲁，保险代理人。扫码加微信，或收藏这份名片，随时了解保障配置思路。" />
+<!-- 微信 / Open Graph 分享卡片 -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="顾维鲁 · 个人名片" />
+<meta property="og:description" content="保险代理人。把复杂的保障，讲成你听得懂的话。扫码加微信，随时聊。" />
+<meta property="og:image" content="https://kalidoit.github.io/assets/wechat-share.jpg" />
+<meta property="og:url" content="https://kalidoit.github.io/" />
+<style>
+  /* =========================================================
+     DESIGN TOKENS — 与保险站共用同一套 premium dark + 冰蓝/暖金
+     ========================================================= */
+  :root{
+    --ink:#1d1d1f;
+    --ink-2:#2c2c2e;
+    --ink-3:#3a3a3c;
+    --surface:#2c2c2e;
+    --surface-2:#3a3a3c;
+    --paper:#F5F5F7;
+    --paper-2:#FBFAF7;
+    --text:#F5F5F7;
+    --muted:#A1A1A6;
+    --muted-2:#8E8E93;
+    --line:rgba(255,255,255,.14);
+    --line-2:rgba(255,255,255,.22);
+
+    --blue:#0A84FF;
+    --blue-soft:rgba(10,132,255,.16);
+    --gold:#C9A24B;
+    --gold-soft:rgba(201,162,75,.16);
+
+    --radius:22px;
+    --radius-lg:30px;
+    --radius-pill:999px;
+    --maxw:1120px;
+    --maxw-narrow:820px;
+
+    --shadow-soft:0 10px 40px rgba(0,0,0,.28);
+    --shadow-card:0 8px 30px rgba(0,0,0,.24);
+
+    --font-body:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue","Microsoft YaHei",sans-serif;
+    --font-serif:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue","Microsoft YaHei",sans-serif;
+
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    font-family:var(--font-body);
+    background:var(--ink);
+    color:var(--text);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    overscroll-behavior-x:none;
+  }
+  html{overflow-x:hidden;overscroll-behavior-x:none}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--blue);color:#fff}
+  .serif{font-family:var(--font-serif);font-weight:400;letter-spacing:.01em}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .wrap-narrow{max-width:var(--maxw-narrow);margin:0 auto;padding:0 28px}
+
+  /* ---------- 顶栏 ---------- */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:120;display:flex;align-items:center;justify-content:space-between;
+    padding:16px 40px;background:rgba(11,15,22,.55);backdrop-filter:saturate(160%) blur(16px);
+    -webkit-backdrop-filter:saturate(160%) blur(16px);border-bottom:1px solid transparent;transition:background .4s,border-color .4s,padding .4s}
+  .nav.scrolled{background:rgba(11,15,22,.86);border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand img{height:38px;width:38px;border-radius:50%;box-shadow:0 2px 12px rgba(62,142,219,.28);object-fit:cover}
+  .brand .b-name{font-size:15px;font-weight:600;letter-spacing:.02em}
+  .brand .b-sub{font-size:10px;color:var(--muted);letter-spacing:.18em;text-transform:uppercase}
+  .nav-right{display:flex;align-items:center;gap:18px}
+  .nav-back{font-size:13px;color:var(--muted);display:inline-flex;align-items:center;gap:6px;
+    border:1px solid transparent;padding:7px 16px;border-radius:999px;transition:all .25s}
+  .nav-back:hover{color:var(--blue);border-color:rgba(120,180,255,.45);background:rgba(120,180,255,.08);transform:translateY(-1px)}
+  .nav-cta{padding:9px 20px;border-radius:var(--radius-pill);font-size:13px;font-weight:500;
+    background:linear-gradient(135deg,#2E6FB0,#1f5fa0);color:#fff;box-shadow:0 4px 18px rgba(62,142,219,.35);
+    transition:transform .25s,box-shadow .25s}
+  .nav-cta:hover{transform:translateY(-1px);box-shadow:0 8px 26px rgba(62,142,219,.5)}
+
+  /* ---------- 通用区块 ---------- */
+  section{position:relative;padding:clamp(72px,11vw,128px) 0}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:18px}
+  .eyebrow::before{content:"";width:24px;height:1px;background:var(--blue);opacity:.6}
+  .h2{font-family:var(--font-serif);font-weight:500;font-size:clamp(28px,4.6vw,46px);line-height:1.2;letter-spacing:-.01em}
+  .lead{font-size:clamp(15px,1.6vw,17px);color:var(--muted);max-width:680px;margin-top:18px;line-height:1.85}
+  .accent{color:var(--gold)}
+
+  /* ---------- 滚动浮现 ---------- */
+  .reveal{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  .reveal[data-d="1"]{transition-delay:.08s}
+  .reveal[data-d="2"]{transition-delay:.16s}
+  .reveal[data-d="3"]{transition-delay:.24s}
+  @media(prefers-reduced-motion:reduce){
+    .reveal{opacity:1!important;transform:none!important;transition:none!important}
+    html{scroll-behavior:auto}
+  }
+
+  /* =========================================================
+     HERO — 名片式布局（左：我是谁/右：怎么找到我）
+     ========================================================= */
+  .hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;padding:140px 24px 90px}
+  .hero-bg{position:absolute;inset:0;z-index:0;background:
+    radial-gradient(60% 55% at 50% 38%, rgba(62,142,219,.22), transparent 70%),
+    radial-gradient(45% 50% at 80% 80%, rgba(201,162,75,.12), transparent 70%),
+    radial-gradient(50% 50% at 15% 75%, rgba(62,142,219,.10), transparent 70%),
+    linear-gradient(180deg,var(--ink),var(--ink-2) 60%,var(--ink));}
+  .orb{position:absolute;border-radius:50%;filter:blur(60px);opacity:.5;will-change:transform}
+  .orb.a{width:520px;height:520px;background:radial-gradient(circle,rgba(62,142,219,.5),transparent 65%);top:-8%;left:4%;animation:floatA 16s ease-in-out infinite}
+  .orb.b{width:440px;height:440px;background:radial-gradient(circle,rgba(201,162,75,.38),transparent 65%);bottom:-6%;right:6%;animation:floatB 19s ease-in-out infinite}
+  @keyframes floatA{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,30px)}}
+  @keyframes floatB{0%,100%{transform:translate(0,0)}50%{transform:translate(-36px,-26px)}}
+
+  .hero-inner{position:relative;z-index:2;width:100%;max-width:var(--maxw);margin:0 auto;display:grid;
+    grid-template-columns:1fr 380px;gap:56px;align-items:start}
+
+  /* —— 左栏：身份 + 价值主张 —— */
+  .hero-main{padding-top:8px}
+  .hero-main h1{font-family:var(--font-serif);font-weight:500;font-size:clamp(32px,5vw,56px);line-height:1.18;letter-spacing:-.015em}
+  .hero-main h1 .em{color:var(--blue)}
+  .hero-sub{margin-top:22px;font-size:clamp(15px,1.7vw,18px);color:var(--muted);max-width:520px;line-height:1.9}
+
+  /* 信任锚点：一行数据，克制展示 */
+  .hero-trust{margin-top:36px;display:inline-flex;align-items:center;gap:10px;
+    font-size:13px;color:var(--muted-2);letter-spacing:.02em}
+  .hero-trust::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--gold);flex-shrink:0}
+  [data-theme="light"] .hero-sub{color:#3a3a3c}
+  [data-theme="light"] .hero-trust{color:#86868b}
+
+  /* 「了解更多」次级入口：安静的文字链，不抢焦点 */
+  .hero-more{display:inline-flex;align-items:center;gap:6px;margin-top:28px;
+    font-size:14px;color:var(--muted);font-weight:500;transition:color .25s}
+  .hero-more:hover{color:var(--blue)}
+  .hero-more svg{width:16px;height:16px;transition:transform .3s}
+  .hero-more:hover svg{transform:translateX(3px)}
+
+  /* —— 右栏：双二维码面板（微信主 + 站点副） —— */
+  .qr-panel{display:flex;flex-direction:column;gap:20px}
+
+  /* 二维码块通用 */
+  .qr-block{
+    background:linear-gradient(160deg,rgba(27,34,48,.92),rgba(17,22,31,.92));
+    border:1px solid var(--line-2);border-radius:var(--radius-lg);
+    padding:28px 24px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    box-shadow:var(--shadow-card);transition:transform .3s var(--ease),box-shadow .3s}
+  .qr-block:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,.32)}
+
+  .qr-block .qb-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+  .qr-block .qb-label{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:600}
+  .qr-block .qb-badge{font-size:10px;padding:3px 8px;border-radius:6px;font-weight:600;letter-spacing:.04em}
+  .qr-block .qb-badge-primary{background:rgba(201,162,75,.18);color:var(--gold)}
+  .qr-block .qb-badge-secondary{background:rgba(62,142,219,.14);color:var(--blue)}
+
+  .qr-block .qb-title{font-family:var(--font-serif);font-size:17px;font-weight:500;margin-bottom:4px}
+  .qr-block .qb-desc{font-size:12.5px;color:var(--muted);line-height:1.65}
+  .qr-block .qb-wxid{margin-top:14px;font-size:14px;color:var(--muted);line-height:1.6}
+  .qr-block .qb-wxid b{color:var(--text);font-weight:600;letter-spacing:.04em}
+  .qr-block .qb-wxid--sub{margin-top:4px;font-size:12px;color:var(--muted-2)}
+  .qr-block .wx-qr-ph{display:none;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;font-size:12px;color:var(--muted-2);line-height:1.8;width:100%;height:100%}
+  .qr-block .wx-qr-ph b{color:var(--muted)}
+
+  /* 二维码容器 */
+  .qr-box{margin-top:16px;background:#fff;border-radius:14px;padding:12px;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 4px 16px rgba(0,0,0,.35);aspect-ratio:1;overflow:hidden}
+  .qr-box img{width:100%!important;height:100%!important;object-fit:contain;display:block}
+  .qr-box svg{width:100%!important;height:100%!important;display:block}
+
+  /* 主二维码（微信）：稍大 */
+  .qr-primary{position:relative}
+  .qr-primary .qr-box{padding:16px}
+
+  /* 副二维码（站点）：稍紧凑 */
+  .qr-secondary .qr-box{padding:10px}
+
+  /* 站点二维码操作行 */
+  .qr-actions{margin-top:14px;display:flex;gap:8px}
+  .qr-actions button{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;
+    padding:9px 14px;border-radius:var(--radius-pill);font-size:12.5px;font-weight:500;cursor:pointer;
+    background:rgba(62,142,219,.12);border:1px solid rgba(62,142,219,.25);color:var(--text);
+    transition:background .25s,border-color .25s,color .25s}
+  .qr-actions button:hover{background:rgba(62,142,219,.22);border-color:rgba(62,142,219,.4)}
+  .qr-actions button.done{background:rgba(201,162,75,.16);border-color:rgba(201,162,75,.35);color:var(--gold)}
+
+  /* 微信号引导已并入 .qb-wxid--sub，旧 .qr-wechat-tip 移除 */
+
+
+  /* ---------- 信任锚点 / 次级入口（见 Hero 区） ---------- */
+
+
+  /* ========== 微信收藏提示条（顶部悬浮） ========== */
+  .wx-toast{position:fixed;top:0;left:0;right:0;z-index:200;
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    padding:10px 20px;background:linear-gradient(135deg,#07C160,#06AD56);
+    color:#fff;font-size:13.5px;font-weight:500;letter-spacing:.02em;
+    transform:translateY(-100%);opacity:0;transition:transform .5s cubic-bezier(.22,1,.36,1), opacity .4s;
+    box-shadow:0 4px 20px rgba(7,193,96,.35)}
+  .wx-toast.show{transform:translateY(0);opacity:1}
+  .wx-toast .wx-close{margin-left:16px;cursor:pointer;opacity:.8;transition:opacity .2s;
+    padding:4px 12px;border-radius:6px;font-size:13px;font-weight:600;
+    background:rgba(255,255,255,.2);white-space:nowrap}
+  .wx-toast .wx-close:hover,.wx-toast .wx-close:active{opacity:1;background:rgba(255,255,255,.3)}
+
+
+  /* ---------- 页脚 ---------- */
+  .footer{background:var(--ink-2);padding:48px 0 36px;border-top:1px solid var(--line);text-align:left}
+  .footer .f-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;margin-bottom:28px}
+  .footer .f-brand{display:flex;align-items:center;gap:12px}
+  .footer .f-brand img{height:34px;width:34px;border-radius:50%}
+  .footer .f-brand-text{text-align:left}
+  .footer .f-brand-name{font-size:15px;font-weight:600}
+  .footer .f-brand-sub{font-size:12px;color:var(--muted-2);letter-spacing:.1em}
+  .footer .disc{font-size:12px;color:var(--muted-2);line-height:1.8;margin-top:8px}
+
+  /* IP 保护：版权声明 */
+  .foot .ip-note,.footer .ip-note{font-size:12px;color:var(--muted-2);line-height:1.7;margin:0 0 6px}
+
+  /* ---------- 底部操作栏（回顶部 + 加微信） ---------- */
+  .action-bar{position:fixed;left:0;right:0;bottom:0;z-index:130;display:flex;justify-content:center;gap:12px;
+    padding:12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+    background:linear-gradient(to top, rgba(17,22,31,.94) 38%, rgba(17,22,31,0));
+    transform:translateY(140%);opacity:0;pointer-events:none;
+    transition:transform .42s cubic-bezier(.22,1,.36,1), opacity .3s ease}
+  .action-bar.show{transform:none;opacity:1;pointer-events:auto}
+  .action-bar button{display:inline-flex;align-items:center;gap:6px;padding:12px 26px;border-radius:var(--radius-pill);
+    font-size:14px;font-weight:600;cursor:pointer;border:1px solid transparent;
+    background:var(--blue);color:#fff;box-shadow:0 6px 20px rgba(62,142,219,.4);
+    transition:transform .2s ease, box-shadow .2s ease;white-space:nowrap}
+  .action-bar button.ghost{background:rgba(255,255,255,.08);color:var(--text);border-color:var(--line-2);box-shadow:none}
+  .action-bar button:hover{transform:translateY(-2px)}
+  .action-bar button:active{transform:translateY(0)}
+  [data-theme="light"] .action-bar{background:linear-gradient(to top, rgba(245,245,247,.96) 38%, rgba(245,245,247,0))}
+  [data-theme="light"] .action-bar button{background:#0071E3;color:#fff;box-shadow:0 6px 20px rgba(0,113,227,.25)}
+  [data-theme="light"] .action-bar button.ghost{background:rgba(0,0,0,.05);color:var(--text)}
+
+  .p-link{display:inline-block;margin-top:10px;color:var(--blue);font-weight:500;font-size:14px;text-decoration:none}
+  .p-link:hover{text-decoration:underline}
+
+  /* ---------- 响应式 ---------- */
+  @media(max-width:980px){
+    .hero-inner{grid-template-columns:1fr;gap:44px;align-items:center;justify-items:center}
+    .hero-main{text-align:center;display:flex;flex-direction:column;align-items:center}
+    .hero-sub{max-width:100%}
+    .hero-trust{justify-content:center}
+    .qr-panel{width:100%;max-width:400px;flex-direction:row;gap:16px}
+    .qr-panel .qr-block{flex:1;padding:20px 16px}
+    .qr-panel .qb-title{font-size:15px}
+    .qr-panel .qb-desc{font-size:11.5px}
+    .qr-box{padding:8px!important}
+    .qr-actions{flex-direction:column}
+  }
+  @media(max-width:640px){
+    .nav{padding:14px 20px}
+    .nav-right .nav-seq{display:none}
+    .brand img{height:32px;width:32px}
+    .brand .b-name{font-size:13px}
+    .brand .b-sub{display:none}
+    .nav-cta{padding:11px 18px;font-size:13px;min-height:40px;white-space:nowrap}
+    .hero{padding:80px 20px 50px}
+    .hero-main{padding-top:0}
+    .hero-main h1{font-size:24px;line-height:1.25;letter-spacing:-.01em}
+    .hero-sub{font-size:14px;margin-top:16px;line-height:1.8}
+    .hero-trust{font-size:12.5px;margin-top:24px}
+    .hero-more{margin-top:20px;font-size:14px}
+    /* 移动端：二维码竖向堆叠，微信在上且足够大 */
+    .qr-panel{flex-direction:column;max-width:300px;gap:16px}
+    .qr-panel .qr-block{padding:22px 20px}
+    .qr-primary .qr-box{padding:20px}
+    .qr-actions{flex-direction:row}
+    .footer .f-top{flex-direction:column;align-items:flex-start;margin-bottom:20px}
+  }
+
+  /* =========================================================
+     痛点引导区块（能帮你解决 + 小 tips 钩子）
+     —— 作为 hero 二维码之下的"内容引导"次级带，视觉权重低于 CTA
+     ========================================================= */
+  .pain-guide{background:linear-gradient(180deg,transparent, rgba(255,255,255,.015) 30%, transparent);}
+  .pg-head{max-width:760px}
+  /* 标题与副文不换行，宽度跟随下方卡片 */
+  .pg-head .h2{white-space:nowrap;max-width:100%}
+  .pg-head .lead{white-space:nowrap;max-width:100%}
+  .pg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:46px;align-items:stretch}
+  .pg-card{display:flex;flex-direction:column;gap:16px;
+    background:linear-gradient(160deg,rgba(27,34,48,.7),rgba(17,22,31,.7));
+    border:1px solid var(--line);border-radius:var(--radius);padding:26px 22px;
+    transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s}
+  .pg-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-card);border-color:var(--line-2)}
+  .pg-card-top{display:flex;align-items:center;gap:11px}
+  .pg-icon{flex:0 0 auto;width:38px;height:38px;border-radius:11px;display:inline-flex;align-items:center;justify-content:center;
+    font-size:19px;background:var(--blue-soft);border:1px solid rgba(62,142,219,.22)}
+  .pg-cat{font-family:var(--font-serif);font-size:18px;font-weight:500;letter-spacing:.01em}
+  .pg-points{list-style:none;display:flex;flex-direction:column;gap:10px;margin-top:2px}
+  .pg-points li{position:relative;padding-left:17px;font-size:13.5px;line-height:1.5;color:var(--muted)}
+  .pg-points li::before{content:"";position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%;
+    background:var(--blue);opacity:.55}
+  /* 组内钩子条：暖金底，承担"勾引"职能，与蓝色 CTA 区隔（金=洞见，蓝=行动） */
+  .pg-tip{margin-top:auto;font-size:12.5px;line-height:1.65;color:var(--text);
+    background:var(--gold-soft);border-left:2px solid var(--gold);
+    padding:11px 13px;border-radius:9px}
+  @media(max-width:860px){
+    .pg-grid{grid-template-columns:1fr;gap:16px;margin-top:36px}
+    .pg-card{padding:22px 20px}
+    .pg-head .h2,.pg-head .lead{white-space:normal}
+  }
+  [data-theme="light"] .pg-card{background:#fff;border-color:var(--line-2)}
+  [data-theme="light"] .pg-card:hover{border-color:rgba(31,111,184,.3)}
+  [data-theme="light"] .pg-icon{background:var(--blue-soft);border-color:rgba(31,111,184,.18)}
+  [data-theme="light"] .pg-points li{color:#6e6e73}
+  [data-theme="light"] .pg-tip{background:var(--gold-soft)}
+
+  /* =========================================================
+     痛点卡片 — 100% 采用 border-beam@1.1.0 原包 md 预设（纯 CSS）
+     选择器 [data-beam="md-ice-<theme>"]，data-active 触发动画，
+     子元素 <div data-beam-bloom> 为外溢辉光。圆角由 --bb-radius 覆盖。
+     ========================================================= */
+    /* =========================================================
+     痛点卡片 — 100% 采用 border-beam@1.1.0 原包 md 预设（纯 CSS）
+     配色：Ice·冰蓝（浅色背景专用色板，md-ice-light / md-ice-dark）
+     选择器 [data-beam="md-ice-<theme>"]，data-active 触发动画，
+     子元素 <div data-beam-bloom> 为外溢辉光。圆角由 --bb-radius 覆盖。
+     ========================================================= */
+@property --beam-angle-md-ice-dark{
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: true;
+}
+@property --beam-opacity-md-ice-dark{
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: true;
+}
+[data-beam="md-ice-dark"]{
+  position: relative;
+  border-radius: var(--bb-radius, 16px);
+  overflow: hidden;
+}
+[data-beam="md-ice-dark"][data-active]{
+  animation:
+    beam-spin-md-ice-dark 1.96s linear infinite,
+    beam-fade-in-md-ice-dark 0.6s ease forwards;
+}
+[data-beam="md-ice-dark"][data-fading]{
+  animation:
+    beam-spin-md-ice-dark 1.96s linear infinite,
+    beam-fade-out-md-ice-dark 0.5s ease forwards;
+}
+[data-beam="md-ice-dark"][data-active]::after,
+[data-beam="md-ice-dark"][data-fading]::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--bb-radius, 15px);
+  padding: 1px;
+  clip-path: inset(0 round var(--bb-radius, 16px));
+  background: conic-gradient(
+        from var(--beam-angle-md-ice-dark),
+        transparent 0%, transparent 54%,
+        rgba(255, 255, 255, 0.1) 57%, rgba(255, 255, 255, 0.3) 60%, rgba(255, 255, 255, 0.6) 63%, rgba(255, 255, 255, 0.75) 66%, rgba(255, 255, 255, 0.6) 69%, rgba(255, 255, 255, 0.3) 72%, rgba(255, 255, 255, 0.1) 75%, transparent 78%, transparent 100%
+      ),radial-gradient(ellipse 70px 40px at 33% -7.4%, rgb(45, 185, 255), transparent),
+    radial-gradient(ellipse 60px 35px at 12% -5%, rgb(85, 135, 245), transparent),
+    radial-gradient(ellipse 40px 70px at 2.1% 68.3%, rgb(125, 205, 255), transparent),
+    radial-gradient(ellipse 20px 35px at 2.1% 68.3%, rgb(65, 175, 250), transparent),
+    radial-gradient(ellipse 180px 32px at 74.4% 100%, rgb(105, 145, 240), transparent),
+    radial-gradient(ellipse 85px 26px at 55% 100%, rgb(75, 160, 245), transparent),
+    radial-gradient(ellipse 74px 32px at 93.9% 0%, rgb(185, 235, 255), transparent),
+    radial-gradient(ellipse 26px 42px at 100% 27.1%, rgb(95, 180, 255), transparent),
+    radial-gradient(ellipse 52px 48px at 100% 27.1%, rgb(115, 150, 242), transparent);
+  -webkit-mask:
+    conic-gradient(
+      from var(--beam-angle-md-ice-dark),
+      transparent 0%, transparent 30%,
+      rgba(255, 255, 255, 0.1) 36%, rgba(255, 255, 255, 0.35) 44%,
+      white 52%, white 80%,
+      rgba(255, 255, 255, 0.35) 86%, rgba(255, 255, 255, 0.1) 92%,
+      transparent 95%, transparent 100%
+    ),
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: source-in, xor;
+  mask:
+    conic-gradient(
+      from var(--beam-angle-md-ice-dark),
+      transparent 0%, transparent 30%,
+      rgba(255, 255, 255, 0.1) 36%, rgba(255, 255, 255, 0.35) 44%,
+      white 52%, white 80%,
+      rgba(255, 255, 255, 0.35) 86%, rgba(255, 255, 255, 0.1) 92%,
+      transparent 95%, transparent 100%
+    ),
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: intersect, exclude;
+  pointer-events: none;
+  z-index: 2;
+  opacity: calc(var(--beam-opacity-md-ice-dark) * 0.26 * var(--beam-stroke-opacity, 1) * var(--beam-strength, 1));
+  animation: beam-hue-shift-md-ice-dark 12s ease-in-out infinite;
+}
+[data-beam="md-ice-dark"][data-active]::before,
+[data-beam="md-ice-dark"][data-fading]::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--bb-radius, 15px);
+  background: radial-gradient(ellipse 63px 36px at 33% -7.4%, rgba(45, 185, 255, 0.45), transparent),
+    radial-gradient(ellipse 54px 32px at 12% -5%, rgba(85, 135, 245, 0.45), transparent),
+    radial-gradient(ellipse 36px 63px at 2.1% 68.3%, rgba(125, 205, 255, 0.45), transparent),
+    radial-gradient(ellipse 18px 32px at 2.1% 68.3%, rgba(65, 175, 250, 0.45), transparent),
+    radial-gradient(ellipse 162px 29px at 74.4% 100%, rgba(105, 145, 240, 0.45), transparent),
+    radial-gradient(ellipse 77px 23px at 55% 100%, rgba(75, 160, 245, 0.45), transparent),
+    radial-gradient(ellipse 67px 29px at 93.9% 0%, rgba(185, 235, 255, 0.45), transparent),
+    radial-gradient(ellipse 23px 38px at 100% 27.1%, rgba(95, 180, 255, 0.45), transparent),
+    radial-gradient(ellipse 47px 43px at 100% 27.1%, rgba(115, 150, 242, 0.45), transparent);
+  box-shadow: inset 0 0 9px 1px rgba(255, 255, 255, 0.27);
+  -webkit-mask-image:
+    conic-gradient(
+      from var(--beam-angle-md-ice-dark),
+      transparent 0%, transparent 30%,
+      rgba(255, 255, 255, 0.1) 36%, rgba(255, 255, 255, 0.35) 44%,
+      white 52%, white 80%,
+      rgba(255, 255, 255, 0.35) 86%, rgba(255, 255, 255, 0.1) 92%,
+      transparent 95%, transparent 100%
+    ),
+    linear-gradient(white, transparent 28px, transparent calc(100% - 28px), white),
+    linear-gradient(to right, white, transparent 28px, transparent calc(100% - 28px), white);
+  -webkit-mask-composite: source-in, source-over;
+  mask-image:
+    conic-gradient(
+      from var(--beam-angle-md-ice-dark),
+      transparent 0%, transparent 30%,
+      rgba(255, 255, 255, 0.1) 36%, rgba(255, 255, 255, 0.35) 44%,
+      white 52%, white 80%,
+      rgba(255, 255, 255, 0.35) 86%, rgba(255, 255, 255, 0.1) 92%,
+      transparent 95%, transparent 100%
+    ),
+    linear-gradient(white, transparent 28px, transparent calc(100% - 28px), white),
+    linear-gradient(to right, white, transparent 28px, transparent calc(100% - 28px), white);
+  mask-composite: intersect, add;
+  pointer-events: none;
+  z-index: 1;
+  opacity: calc(var(--beam-opacity-md-ice-dark) * 0.42 * var(--beam-inner-opacity, 1) * var(--beam-strength, 1));
+  clip-path: inset(0 round var(--bb-radius, 16px));
+  animation: beam-hue-shift-md-ice-dark 12s ease-in-out infinite;
+}
+[data-beam="md-ice-dark"] [data-beam-bloom]{
+  display: none;
+  position: absolute;
+  inset: 0;
+  border-radius: var(--bb-radius, 16px);
+  clip-path: inset(0 round var(--bb-radius, 16px));
+  background: conic-gradient(
+        from var(--beam-angle-md-ice-dark),
+        transparent 0%, transparent 58%,
+        rgba(255, 255, 255, 0.03) 62%, rgba(255, 255, 255, 0.08) 65%, rgba(255, 255, 255, 0.2) 67%, rgba(255, 255, 255, 0.45) 69%, rgba(255, 255, 255, 0.85) 70%, rgba(255, 255, 255, 0.85) 70.5%, rgba(255, 255, 255, 0.45) 71.5%, rgba(255, 255, 255, 0.2) 73%, rgba(255, 255, 255, 0.08) 75%, rgba(255, 255, 255, 0.03) 78%, transparent 82%
+      );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  padding: 1px;
+  filter: blur(8px) brightness(1.30) saturate(1.20);
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+}
+[data-beam="md-ice-dark"][data-active] [data-beam-bloom],
+[data-beam="md-ice-dark"][data-fading] [data-beam-bloom]{
+  display: block;
+  opacity: calc(var(--beam-opacity-md-ice-dark) * 0.24 * var(--beam-bloom-opacity, 1) * var(--beam-strength, 1));
+}
+@keyframes beam-spin-md-ice-dark{
+  to { --beam-angle-md-ice-dark: 360deg; }
+}
+@keyframes beam-fade-in-md-ice-dark{
+  to { --beam-opacity-md-ice-dark: 1; }
+}
+@keyframes beam-fade-out-md-ice-dark{
+  from { --beam-opacity-md-ice-dark: 1; }
+  to { --beam-opacity-md-ice-dark: 0; }
+}
+@keyframes beam-hue-shift-md-ice-dark{
+  0% { filter: hue-rotate(calc(var(--beam-hue-base, 0deg) - 30deg)) brightness(1.30) saturate(1.20); }
+  50% { filter: hue-rotate(calc(var(--beam-hue-base, 0deg) + 30deg)) brightness(1.30) saturate(1.20); }
+  100% { filter: hue-rotate(calc(var(--beam-hue-base, 0deg) - 30deg)) brightness(1.30) saturate(1.20); }
+}
+[data-beam="md-ice-dark"][data-paused],
+[data-beam="md-ice-dark"][data-paused]::after,
+[data-beam="md-ice-dark"][data-paused]::before,
+[data-beam="md-ice-dark"][data-paused] [data-beam-bloom]{
+  animation-play-state: paused !important;
+}
+@property --beam-angle-md-ice-light{
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: true;
+}
+@property --beam-opacity-md-ice-light{
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: true;
+}
+[data-beam="md-ice-light"]{
+  position: relative;
+  border-radius: var(--bb-radius, 16px);
+  overflow: hidden;
+}
+[data-beam="md-ice-light"][data-active]{
+  animation:
+    beam-spin-md-ice-light 4.5s linear infinite,
+    beam-fade-in-md-ice-light 0.6s ease forwards;
+}
+[data-beam="md-ice-light"][data-fading]{
+  animation:
+    beam-spin-md-ice-light 4.5s linear infinite,
+    beam-fade-out-md-ice-light 0.5s ease forwards;
+}
+[data-beam="md-ice-light"][data-active]::after,
+[data-beam="md-ice-light"][data-fading]::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--bb-radius, 15px);
+  padding: 1px;
+  clip-path: inset(0 round var(--bb-radius, 16px));
+  background: conic-gradient(
+        from var(--beam-angle-md-ice-light),
+        transparent 0%, transparent 54%,
+        rgba(0, 0, 0, 0.08) 57%, rgba(0, 0, 0, 0.2) 60%, rgba(0, 0, 0, 0.4) 63%, rgba(0, 0, 0, 0.55) 66%, rgba(0, 0, 0, 0.4) 69%, rgba(0, 0, 0, 0.2) 72%, rgba(0, 0, 0, 0.08) 75%, transparent 78%, transparent 100%
+      ),radial-gradient(ellipse 70px 40px at 33% -7.4%, rgb(45, 185, 255), transparent),
+    radial-gradient(ellipse 60px 35px at 12% -5%, rgb(85, 135, 245), transparent),
+    radial-gradient(ellipse 40px 70px at 2.1% 68.3%, rgb(125, 205, 255), transparent),
+    radial-gradient(ellipse 20px 35px at 2.1% 68.3%, rgb(65, 175, 250), transparent),
+    radial-gradient(ellipse 180px 32px at 74.4% 100%, rgb(105, 145, 240), transparent),
+    radial-gradient(ellipse 85px 26px at 55% 100%, rgb(75, 160, 245), transparent),
+    radial-gradient(ellipse 74px 32px at 93.9% 0%, rgb(185, 235, 255), transparent),
+    radial-gradient(ellipse 26px 42px at 100% 27.1%, rgb(95, 180, 255), transparent),
+    radial-gradient(ellipse 52px 48px at 100% 27.1%, rgb(115, 150, 242), transparent);
+  -webkit-mask:
+    conic-gradient(
+      from var(--beam-angle-md-ice-light),
+      transparent 0%, transparent 30%,
+      rgba(255, 255, 255, 0.1) 36%, rgba(255, 255, 255, 0.35) 44%,
+      white 52%, white 80%,
+      rgba(255, 255, 255, 0.35) 86%, rgba(255, 255, 255, 0.1) 92%,
+      transparent 95%, transparent 100%
+    ),
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: source-in, xor;
+  mask:
+    conic-gradient(
+      from var(--beam-angle-md-ice-light),
+      transparent 0%, transparent 30%,
+      rgba(255, 255, 255, 0.1) 36%, rgba(255, 255, 255, 0.35) 44%,
+      white 52%, white 80%,
+      rgba(255, 255, 255, 0.35) 86%, rgba(255, 255, 255, 0.1) 92%,
+      transparent 95%, transparent 100%
+    ),
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: intersect, exclude;
+  pointer-events: none;
+  z-index: 2;
+  opacity: calc(var(--beam-opacity-md-ice-light) * 0.14 * var(--beam-stroke-opacity, 1) * var(--beam-strength, 1));
+  animation: beam-hue-shift-md-ice-light 12s ease-in-out infinite;
+}
+[data-beam="md-ice-light"][data-active]::before,
+[data-beam="md-ice-light"][data-fading]::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--bb-radius, 15px);
+  background: radial-gradient(ellipse 63px 36px at 33% -7.4%, rgba(45, 185, 255, 0.45), transparent),
+    radial-gradient(ellipse 54px 32px at 12% -5%, rgba(85, 135, 245, 0.45), transparent),
+    radial-gradient(ellipse 36px 63px at 2.1% 68.3%, rgba(125, 205, 255, 0.45), transparent),
+    radial-gradient(ellipse 18px 32px at 2.1% 68.3%, rgba(65, 175, 250, 0.45), transparent),
+    radial-gradient(ellipse 162px 29px at 74.4% 100%, rgba(105, 145, 240, 0.45), transparent),
+    radial-gradient(ellipse 77px 23px at 55% 100%, rgba(75, 160, 245, 0.45), transparent),
+    radial-gradient(ellipse 67px 29px at 93.9% 0%, rgba(185, 235, 255, 0.45), transparent),
+    radial-gradient(ellipse 23px 38px at 100% 27.1%, rgba(95, 180, 255, 0.45), transparent),
+    radial-gradient(ellipse 47px 43px at 100% 27.1%, rgba(115, 150, 242, 0.45), transparent);
+  box-shadow: inset 0 0 9px 1px rgba(0, 0, 0, 0.10);
+  -webkit-mask-image:
+    conic-gradient(
+      from var(--beam-angle-md-ice-light),
+      transparent 0%, transparent 30%,
+      rgba(255, 255, 255, 0.1) 36%, rgba(255, 255, 255, 0.35) 44%,
+      white 52%, white 80%,
+      rgba(255, 255, 255, 0.35) 86%, rgba(255, 255, 255, 0.1) 92%,
+      transparent 95%, transparent 100%
+    ),
+    linear-gradient(white, transparent 28px, transparent calc(100% - 28px), white),
+    linear-gradient(to right, white, transparent 28px, transparent calc(100% - 28px), white);
+  -webkit-mask-composite: source-in, source-over;
+  mask-image:
+    conic-gradient(
+      from var(--beam-angle-md-ice-light),
+      transparent 0%, transparent 30%,
+      rgba(255, 255, 255, 0.1) 36%, rgba(255, 255, 255, 0.35) 44%,
+      white 52%, white 80%,
+      rgba(255, 255, 255, 0.35) 86%, rgba(255, 255, 255, 0.1) 92%,
+      transparent 95%, transparent 100%
+    ),
+    linear-gradient(white, transparent 28px, transparent calc(100% - 28px), white),
+    linear-gradient(to right, white, transparent 28px, transparent calc(100% - 28px), white);
+  mask-composite: intersect, add;
+  pointer-events: none;
+  z-index: 1;
+  opacity: calc(var(--beam-opacity-md-ice-light) * 0.24 * var(--beam-inner-opacity, 1) * var(--beam-strength, 1));
+  clip-path: inset(0 round var(--bb-radius, 16px));
+  animation: beam-hue-shift-md-ice-light 12s ease-in-out infinite;
+}
+[data-beam="md-ice-light"] [data-beam-bloom]{
+  display: none;
+  position: absolute;
+  inset: 0;
+  border-radius: var(--bb-radius, 16px);
+  clip-path: inset(0 round var(--bb-radius, 16px));
+  background: conic-gradient(
+        from var(--beam-angle-md-ice-light),
+        transparent 0%, transparent 58%,
+        rgba(0, 0, 0, 0.02) 62%, rgba(0, 0, 0, 0.08) 65%, rgba(0, 0, 0, 0.2) 67%, rgba(0, 0, 0, 0.4) 69%, rgba(0, 0, 0, 0.6) 70%, rgba(0, 0, 0, 0.6) 70.5%, rgba(0, 0, 0, 0.4) 71.5%, rgba(0, 0, 0, 0.2) 73%, rgba(0, 0, 0, 0.08) 75%, rgba(0, 0, 0, 0.02) 78%, transparent 82%
+      );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  padding: 1px;
+  filter: blur(8px) brightness(1.10) saturate(1.40);
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+}
+[data-beam="md-ice-light"][data-active] [data-beam-bloom],
+[data-beam="md-ice-light"][data-fading] [data-beam-bloom]{
+  display: block;
+  opacity: calc(var(--beam-opacity-md-ice-light) * 0.30 * var(--beam-bloom-opacity, 1) * var(--beam-strength, 1));
+}
+@keyframes beam-spin-md-ice-light{
+  to { --beam-angle-md-ice-light: 360deg; }
+}
+@keyframes beam-fade-in-md-ice-light{
+  to { --beam-opacity-md-ice-light: 1; }
+}
+@keyframes beam-fade-out-md-ice-light{
+  from { --beam-opacity-md-ice-light: 1; }
+  to { --beam-opacity-md-ice-light: 0; }
+}
+@keyframes beam-hue-shift-md-ice-light{
+  0% { filter: hue-rotate(calc(var(--beam-hue-base, 0deg) - 30deg)) brightness(1.10) saturate(1.40); }
+  50% { filter: hue-rotate(calc(var(--beam-hue-base, 0deg) + 30deg)) brightness(1.10) saturate(1.40); }
+  100% { filter: hue-rotate(calc(var(--beam-hue-base, 0deg) - 30deg)) brightness(1.10) saturate(1.40); }
+}
+[data-beam="md-ice-light"][data-paused],
+[data-beam="md-ice-light"][data-paused]::after,
+[data-beam="md-ice-light"][data-paused]::before,
+[data-beam="md-ice-light"][data-paused] [data-beam-bloom]{
+  animation-play-state: paused !important;
+}
+  /* 转速放慢：原包 1.96s/圈 → 5.5s/圈（fade-in 保持 .6s） */
+  [data-beam^="md-ice-"][data-active]{ animation-duration: 5.5s, .6s; }
+
+  /* =========================================================
+     浅色主题（Apple 官网风）
+     ========================================================= */
+  [data-theme="light"]{
+    --ink:#f5f5f7;
+    --ink-2:#ffffff;
+    --ink-3:#fbfbfd;
+    --surface:#ffffff;
+    --surface-2:#f5f5f7;
+    --paper:#1d1d1f;
+    --text:#1d1d1f;
+    --muted:#6e6e73;
+    --muted-2:#6e6e73;
+    --line:rgba(0,0,0,.1);
+    --line-2:rgba(0,0,0,.16);
+    --blue:#1f6fb8;
+    --blue-soft:rgba(31,111,184,.1);
+    --gold:#a07d2c;
+    --gold-soft:rgba(160,125,44,.12);
+    --shadow-soft:0 10px 40px rgba(0,0,0,.12);
+    --shadow-card:0 8px 30px rgba(0,0,0,.1);
+  }
+
+  /* 主题切换开关 */
+  .theme-toggle{width:38px;height:38px;border-radius:50%;flex:0 0 auto;cursor:pointer;
+    display:inline-flex;align-items:center;justify-content:center;
+    border:1px solid var(--line-2);background:rgba(255,255,255,.04);color:var(--text);
+    transition:border-color .25s,color .25s,transform .25s}
+  .theme-toggle:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-1px)}
+  .theme-toggle svg{width:18px;height:18px;fill:none;stroke:currentColor;
+    stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .theme-toggle .ico-moon{display:none}
+  [data-theme="light"] .theme-toggle .ico-sun{display:block}
+  [data-theme="light"] .theme-toggle .ico-moon{display:none}
+  [data-theme="dark"]  .theme-toggle .ico-sun{display:none}
+  [data-theme="dark"] .theme-toggle .ico-moon{display:block}
+
+  /* 浅色下各组件覆盖 */
+  [data-theme="light"] body{background:var(--ink)}
+  [data-theme="light"] .nav{background:rgba(255,255,255,.72)}
+  [data-theme="light"] .nav-back{color:var(--muted);border:1px solid var(--line-2);padding:7px 16px;border-radius:999px;transition:all .25s}
+  [data-theme="light"] .nav-back:hover{color:var(--blue);border-color:rgba(31,111,184,.4);background:rgba(31,111,184,.06)}
+  [data-theme="light"] .nav-cta{box-shadow:0 4px 14px rgba(31,111,184,.3)}
+  [data-theme="light"] .nav.scrolled{background:rgba(255,255,255,.9);border-bottom-color:var(--line)}
+  [data-theme="light"] .hero-bg{
+    background:
+      radial-gradient(60% 55% at 50% 30%, rgba(31,111,184,.12), transparent 70%),
+      radial-gradient(45% 50% at 80% 80%, rgba(160,125,44,.08), transparent 70%),
+      linear-gradient(180deg,#fbfbfd,#f5f5f7 60%,#fbfbfd);
+  }
+  [data-theme="light"] .qr-block{background:#fff;border-color:var(--line-2);box-shadow:var(--shadow-card)}
+  [data-theme="light"] .qr-box{border:1px solid var(--line-2);box-shadow:0 4px 14px rgba(0,0,0,.08)}
+  [data-theme="light"] .qr-block .qb-badge-primary{background:rgba(160,125,44,.12);color:#8a6d22}
+  [data-theme="light"] .qr-block .qb-badge-secondary{background:rgba(31,111,184,.1);color:#1f6fb8}
+  [data-theme="light"] .foot{border-top-color:var(--line)}
+</style>
+<script>
+  /* 防闪：默认浅色 */
+  (function(){
+    try{
+      var t = localStorage.getItem('insurance-theme');
+      if(t !== 'dark' && t !== 'light'){ t = 'light'; }
+      document.documentElement.setAttribute('data-theme', t);
+    }catch(e){ document.documentElement.setAttribute('data-theme','light'); }
+  })();
+</script>
+</head>
+<body id="top">
+
+  <!-- 顶栏 -->
+  <nav class="nav" id="nav">
+    <a class="brand" href="./">
+      <img src="assets/logo-gu-circle.png" alt="顾维鲁 GU" onerror="this.style.display='none'">
+      <span>
+        <span class="b-name">顾维鲁</span><br>
+        <span class="b-sub">保险代理人</span>
+      </span>
+    </a>
+    <div class="nav-right">
+      <a class="nav-back nav-seq" href="about.html">下一页 → 关于我</a>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深色或浅色" title="切换深色 / 浅色">
+        <svg class="ico-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.6M12 19.4V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.6M19.4 12H22M4.2 19.8l1.8-1.8M18 6l1.8-1.8"/></svg>
+        <svg class="ico-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 7 7 0 1 0 20 14.5z"/></svg>
+      </button>
+      <a class="nav-cta" href="#wechat-qr">加我微信</a>
+    </div>
+  </nav>
+
+  <!-- ====== HERO：名片式双栏布局 ====== -->
+  <header class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="orb a"></div>
+    <div class="orb b"></div>
+
+    <div class="hero-inner">
+
+      <!-- 左栏：身份 + 价值主张 -->
+      <div class="hero-main reveal">
+        <div class="eyebrow">顾维鲁 · 保险代理人</div>
+        <h1>把复杂的保障，<br>讲成你<span class="em">听得懂</span>的话。</h1>
+        <p class="hero-sub">不急着推产品。先听你要什么，再把条款拆开、摆平、说清楚——让你自己做决定时，心里有底。</p>
+
+        <!-- 信任锚点 -->
+        <div class="hero-trust"><span class="num">982</span> 户家庭长期陪伴 · 协办理赔 <span class="num">33</span> 起 <span class="num">196</span> 万</div>
+
+        <!-- 次级入口：安静不抢焦点 -->
+        <a class="hero-more" href="about.html">
+          了解我的保障思路
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <!-- 右栏：双二维码 -->
+      <aside class="qr-panel reveal" data-d="1">
+
+        <!-- 主码：个人微信（PRIMARY） -->
+        <div class="qr-block qr-primary" id="wechat-qr">
+          <div class="qb-head">
+            <span class="qb-label">联系方式</span>
+            <span class="qb-badge qb-badge-primary">主要</span>
+          </div>
+          <div class="qb-title">扫码加我微信</div>
+          <div class="qb-desc">想当面聊聊、或先理一遍家里的保单。备注一句「保障咨询」更好。</div>
+          <div class="qr-box">
+            <img src="assets/wechat-qr.png" alt="微信二维码 — 扫码添加顾维鲁" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+            <div class="wx-qr-ph">把你的微信二维码图片<br>命名为 <b>wechat-qr.png</b><br>放进 assets/ 目录即可</div>
+          </div>
+          <div class="qb-wxid">微信号：<b>13551139187</b></div>
+          <div class="qb-wxid qb-wxid--sub">扫码或搜索添加，备注「保障咨询」</div>
+        </div>
+
+        <!-- 副码：站点地址（SECONDARY）—— 收藏 / 分享给朋友 / 转介绍 -->
+        <div class="qr-block qr-secondary">
+          <div class="qb-head">
+            <span class="qb-label">保存 / 分享</span>
+            <span class="qb-badge qb-badge-secondary">辅助</span>
+          </div>
+          <div class="qb-title">收藏这份名片</div>
+          <div class="qb-desc">保存后随时翻看，也可转发给需要的朋友</div>
+          <div class="qr-box" id="qrSite" aria-label="本站地址二维码"></div>
+          <div class="qr-actions">
+            <button type="button" id="copySite">复制链接</button>
+            <button type="button" id="shareSite">分享给好友</button>
+          </div>
+        </div>
+
+      </aside>
+    </div>
+  </header>
+
+  <!-- ===== 我能帮你解决（内容引导次级带：分组 + 钩子 + 小 tips） ===== -->
+  <section class="pain-guide" id="painGuide">
+    <div class="wrap">
+      <div class="pg-head reveal">
+        <div class="eyebrow">我能帮你解决</div>
+        <h2 class="h2">买保险最难的，不是掏钱，是搞清楚自己<span class="accent">到底缺什么</span>。</h2>
+        <p class="lead">这些担心，几乎每个家庭都会碰到。先把问题看明白，再加我聊，才不会买错、买贵、买漏。</p>
+      </div>
+      <div class="pg-grid" id="pgGrid"><!-- JS 渲染 3 张分组卡 --></div>
+    </div>
+  </section>
+
+  <!-- ===== 页间过渡引导 — 名片页→关于我 ===== -->
+  <style>
+  .page-bridge{display:flex;flex-direction:column;align-items:center;gap:12px;
+    padding:48px 24px 32px;text-align:center;position:relative}
+  .page-bridge .pb-label{font-size:12px;letter-spacing:.18em;color:var(--muted);font-weight:500}
+  /* 页间引导按钮 — line-ice 流动光带容器（border-beam@1.1.0 line 预设） */
+  .pb-glow{position:relative;display:inline-block;border-radius:var(--radius-pill);
+    isolation:isolate;overflow:hidden}
+
+  .page-bridge .pb-link{display:inline-flex;align-items:center;gap:8px;
+    font-size:15px;font-weight:600;color:#1d1d1f;text-decoration:none;
+    padding:10px 28px;border-radius:var(--radius-pill);
+    border:0;background:rgba(250,250,252,.9);
+    transition:all .3s ease;position:relative;overflow:hidden}
+  .page-bridge .pb-link::before{content:"";position:absolute;inset:0;
+    background:linear-gradient(135deg,rgba(46,111,176,.06),rgba(160,125,44,.06));
+    opacity:0;transition:opacity .3s}
+  .page-bridge .pb-link:hover{color:var(--blue);
+    transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.08);
+    background:#fff}
+  .page-bridge .pb-link:hover::before{opacity:1}
+  .page-bridge .pb-arrow{display:inline-block;animation:pbBounce 2s ease-in-out infinite}
+  @keyframes pbBounce{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(5px)}
+  }
+  [data-theme="dark"] .page-bridge .pb-link{
+    color:#e8e8ed;background:rgba(255,255,255,.04)}
+  [data-theme="dark"] .page-bridge .pb-link:hover{
+    color:var(--blue);box-shadow:0 4px 16px rgba(0,0,0,.3)}
+  @media(max-width:640px){
+    .page-bridge{padding:36px 20px 24px;gap:10px}
+    .page-bridge .pb-link{padding:12px 32px;font-size:15.5px}
+    .page-bridge .pb-label{font-size:11.5px}
+  }
+
+  /* =========================================================
+     胶囊按钮 — border-beam@1.1.0 line 预设（底边光团横向滑动/水波）
+     配色：Ice·冰蓝（line-ice-dark / line-ice-light）
+     选择器 [data-beam="line-ice-<theme>"], data-active 触发动画。
+     子元素 <div data-beam-bloom> 为外溢辉光。
+     ========================================================= */
+@property --beam-x-line-ice-dark{
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: true;
+}
+
+@property --beam-w-line-ice-dark{
+  syntax: "<number>";
+  initial-value: 1;
+  inherits: true;
+}
+
+@property --beam-h-line-ice-dark{
+  syntax: "<number>";
+  initial-value: 1;
+  inherits: true;
+}
+
+@property --beam-spike-line-ice-dark{
+  syntax: "<number>";
+  initial-value: 1;
+  inherits: true;
+}
+
+@property --beam-spike2-line-ice-dark{
+  syntax: "<number>";
+  initial-value: 1;
+  inherits: true;
+}
+
+@property --beam-edge-line-ice-dark{
+  syntax: "<number>";
+  initial-value: 1;
+  inherits: true;
+}
+
+@property --beam-opacity-line-ice-dark{
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: true;
+}
+
+[data-beam="line-ice-dark"]{
+  position: relative;
+  border-radius: var(--bb-radius, 16px);
+  overflow: hidden;
+}
+
+[data-beam="line-ice-dark"][data-active]{
+  animation:
+    beam-travel-line-ice-dark 3.1s linear infinite,
+    beam-edge-fade-line-ice-dark 3.1s linear infinite,
+    beam-breathe-line-ice-dark 4.0s ease-in-out infinite,
+    beam-spike-line-ice-dark 4.1s ease-in-out infinite,
+    beam-spike2-line-ice-dark 5.3s ease-in-out infinite,
+    beam-fade-in-line-ice-dark 0.6s ease forwards;
+}
+
+[data-beam="line-ice-dark"][data-fading]{
+  animation:
+    beam-travel-line-ice-dark 3.1s linear infinite,
+    beam-edge-fade-line-ice-dark 3.1s linear infinite,
+    beam-breathe-line-ice-dark 4.0s ease-in-out infinite,
+    beam-spike-line-ice-dark 4.1s ease-in-out infinite,
+    beam-spike2-line-ice-dark 5.3s ease-in-out infinite,
+    beam-fade-out-line-ice-dark 0.5s ease forwards;
+}
+
+[data-beam="line-ice-dark"][data-active]::after,
+[data-beam="line-ice-dark"][data-fading]::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--bb-radius, 15px);
+  padding: 1px;
+  clip-path: inset(0 round var(--bb-radius, 16px));
+  background: radial-gradient(
+        ellipse calc(24px * var(--beam-w-line-ice-dark)) calc(28px * var(--beam-h-line-ice-dark)) at calc(var(--beam-x-line-ice-dark) * 100%) calc(100% + 2px),
+        rgba(255, 255, 255, 0.38) 0%,
+        rgba(255, 255, 255, 0.12) 30%,
+        transparent 65%
+      ), radial-gradient(ellipse calc(36px * var(--beam-w-line-ice-dark)) calc(36px * var(--beam-h-line-ice-dark)) at calc(var(--beam-x-line-ice-dark) * 100%) calc(100% + 2px), rgb(50, 190, 255), transparent),
+       radial-gradient(ellipse calc(30px * var(--beam-w-line-ice-dark)) calc(32px * var(--beam-h-line-ice-dark)) at calc(var(--beam-x-line-ice-dark) * 100% + 39px) calc(100%), rgb(90, 140, 250), transparent),
+       radial-gradient(ellipse calc(33px * var(--beam-w-line-ice-dark)) calc(28px * var(--beam-h-line-ice-dark)) at calc(var(--beam-x-line-ice-dark) * 100% - 36px) calc(100% + 2px), rgb(130, 210, 255), transparent),
+       radial-gradient(ellipse calc(29px * var(--beam-w-line-ice-dark)) calc(34px * var(--beam-h-line-ice-dark)) at calc(var(--beam-x-line-ice-dark) * 100% - 54px) calc(100%), rgb(75, 180, 252), transparent),
+       radial-gradient(ellipse calc(27px * var(--beam-w-line-ice-dark)) calc(30px * var(--beam-h-line-ice-dark)) at calc(var(--beam-x-line-ice-dark) * 100% + 51px) calc(100% - 1px), rgb(195, 240, 255), transparent),
+       radial-gradient(ellipse calc(36px * var(--beam-w-line-ice-dark)) calc(24px * var(--beam-h-line-ice-dark)) at calc(var(--beam-x-line-ice-dark) * 100% + 21px) calc(100% + 1px), rgb(110, 150, 245), transparent),
+       radial-gradient(ellipse calc(30px * var(--beam-w-line-ice-dark)) calc(22px * var(--beam-h-line-ice-dark)) at calc(var(--beam-x-line-ice-dark) * 100% - 21px) calc(100%), rgb(80, 165, 250), transparent),
+       radial-gradient(ellipse calc(25px * var(--beam-w-line-ice-dark)) calc(28px * var(--beam-h-line-ice-dark)) at calc(var(--beam-x-line-ice-dark) * 100% + 66px) calc(100% + 1px), rgb(100, 185, 255), transparent),
+       radial-gradient(ellipse calc(23px * var(--beam-w-line-ice-dark)) calc(30px * var(--beam-h-line-ice-dark)) at calc(var(--beam-x-line-ice-dark) * 100% - 66px) calc(100% - 1px), rgb(70, 170, 248), transparent);
+  pointer-events: none;
+  z-index: 2;
+  opacity: calc(var(--beam-opacity-line-ice-dark) * 1.14 * var(--beam-edge-line-ice-dark, 1) * var(--beam-stroke-opacity, 1) * var(--beam-strength, 1));
+  animation: beam-hue-shift-line-ice-dark 12s ease-in-out infinite;
+}
+
+[data-beam="line-ice-dark"] [data-beam-bloom]{
+  display: none;
+  position: absolute;
+  inset: 0;
+  border-radius: var(--bb-radius, 16px);
+  clip-path: inset(0 round var(--bb-radius, 16px));
+  background: radial-gradient(ellipse calc(0.8px * var(--beam-spike-line-ice-dark)) calc(92px * var(--beam-h-line-ice-dark)) at 8% calc(100% - 2px), rgb(75, 170, 250), rgb(75, 170, 250) 30%, transparent 88%),
+       radial-gradient(ellipse calc(10px * var(--beam-spike2-line-ice-dark)) calc(35px * var(--beam-h-line-ice-dark)) at 22% calc(100% - 4px), rgba(45, 185, 255, 0.98), rgba(45, 185, 255, 0.98) 50%, transparent 95%),
+       radial-gradient(ellipse calc(2px * (2 - var(--beam-spike-line-ice-dark))) calc(72px * var(--beam-h-line-ice-dark)) at 36% calc(100% - 3px), rgb(130, 210, 255), rgba(130, 210, 255, 1) 40%, transparent 90%),
+       radial-gradient(ellipse calc(14px * var(--beam-spike2-line-ice-dark)) calc(28px * var(--beam-h-line-ice-dark)) at 50% calc(100% - 2px), rgba(100, 185, 255, 0.91), rgba(100, 185, 255, 0.45) 55%, transparent 96%),
+       radial-gradient(ellipse calc(1.2px * (2 - var(--beam-spike2-line-ice-dark))) calc(85px * var(--beam-h-line-ice-dark)) at 64% calc(100% - 4px), rgb(80, 165, 250), rgba(80, 165, 250, 1) 35%, transparent 89%),
+       radial-gradient(ellipse calc(7px * var(--beam-spike-line-ice-dark)) calc(45px * var(--beam-h-line-ice-dark)) at 78% calc(100% - 2px), rgb(110, 150, 245), rgba(110, 150, 245, 1) 48%, transparent 94%),
+       radial-gradient(ellipse calc(0.6px * (2 - var(--beam-spike-line-ice-dark))) calc(60px * var(--beam-h-line-ice-dark)) at 92% calc(100% - 3px), rgba(195, 240, 255, 0.59), rgba(195, 240, 255, 0.29) 42%, transparent 91%),
+       radial-gradient(ellipse calc(21px * var(--beam-spike-line-ice-dark)) calc(15px * var(--beam-spike2-line-ice-dark)) at calc(var(--beam-x-line-ice-dark) * 100%) calc(100% + 1px), rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.9) 20%, rgba(255, 255, 255, 0.5) 50%, transparent 100%),
+       radial-gradient(ellipse calc(42px * var(--beam-w-line-ice-dark)) calc(40px * var(--beam-h-line-ice-dark)) at calc(var(--beam-x-line-ice-dark) * 100%) 100%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.12) 25%, rgba(255, 255, 255, 0.03) 55%, transparent 80%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  padding: 1px;
+  filter: blur(8px) brightness(1.30) saturate(1.20);
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+}
+
+[data-beam="line-ice-dark"][data-active] [data-beam-bloom],
+[data-beam="line-ice-dark"][data-fading] [data-beam-bloom]{
+  display: block;
+  opacity: calc(var(--beam-opacity-line-ice-dark) * 0.80 * var(--beam-bloom-opacity, 1) * var(--beam-strength, 1));
+}
+
+@keyframes beam-travel-line-ice-dark{ to { --beam-x-line-ice-dark: 1; } }
+
+@keyframes beam-edge-fade-line-ice-dark { 0% { --beam-edge-line-ice-dark: 0; } 50% { --beam-edge-line-ice-dark: 1; } 100% { --beam-edge-line-ice-dark: 0; } }
+
+@keyframes beam-breathe-line-ice-dark{ 0% { --beam-w-line-ice-dark: 1; --beam-h-line-ice-dark: 1; } 50% { --beam-w-line-ice-dark: 0.6; --beam-h-line-ice-dark: 1.4; } 100% { --beam-w-line-ice-dark: 1; --beam-h-line-ice-dark: 1; } }
+
+@keyframes beam-spike-line-ice-dark{ 0% { --beam-spike-line-ice-dark: 1; } 50% { --beam-spike-line-ice-dark: 0.4; } 100% { --beam-spike-line-ice-dark: 1; } }
+
+@keyframes beam-spike2-line-ice-dark{ 0% { --beam-spike2-line-ice-dark: 1; } 50% { --beam-spike2-line-ice-dark: 0.6; } 100% { --beam-spike2-line-ice-dark: 1; } }
+
+@keyframes beam-fade-in-line-ice-dark{ to { --beam-opacity-line-ice-dark: 1; } }
+
+@keyframes beam-fade-out-line-ice-dark{ from { --beam-opacity-line-ice-dark: 1; } to { --beam-opacity-line-ice-dark: 0; } }
+
+@keyframes beam-hue-shift-line-ice-dark{
+  0% { filter: hue-rotate(calc(var(--beam-hue-base, 0deg) - 13deg)) brightness(1.30) saturate(1.20); }
+  50% { filter: hue-rotate(calc(var(--beam-hue-base, 0deg) + 13deg)) brightness(1.30) saturate(1.20); }
+  100% { filter: hue-rotate(calc(var(--beam-hue-base, 0deg) - 13deg)) brightness(1.30) saturate(1.20); }
+}
+
+@keyframes beam-hue-shift-bloom-line-ice-dark{
+  0% { filter: blur(8px) hue-rotate(calc(var(--beam-hue-base, 0deg) - 23deg)) brightness(1.30) saturate(1.20); }
+  50% { filter: blur(8px) hue-rotate(calc(var(--beam-hue-base, 0deg) + 23deg)) brightness(1.30) saturate(1.20); }
+  100% { filter: blur(8px) hue-rotate(calc(var(--beam-hue-base, 0deg) - 23deg)) brightness(1.30) saturate(1.20); }
+}
+
+[data-beam="line-ice-dark"][data-paused],
+[data-beam="line-ice-dark"][data-paused]::after,
+[data-beam="line-ice-dark"][data-paused] [data-beam-bloom]{
+  animation-play-state: paused !important;
+}
+
+@property --beam-x-line-ice-light{
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: true;
+}
+
+@property --beam-w-line-ice-light{
+  syntax: "<number>";
+  initial-value: 1;
+  inherits: true;
+}
+
+@property --beam-h-line-ice-light{
+  syntax: "<number>";
+  initial-value: 1;
+  inherits: true;
+}
+
+@property --beam-spike-line-ice-light{
+  syntax: "<number>";
+  initial-value: 1;
+  inherits: true;
+}
+
+@property --beam-spike2-line-ice-light{
+  syntax: "<number>";
+  initial-value: 1;
+  inherits: true;
+}
+
+@property --beam-edge-line-ice-light{
+  syntax: "<number>";
+  initial-value: 1;
+  inherits: true;
+}
+
+@property --beam-opacity-line-ice-light{
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: true;
+}
+
+[data-beam="line-ice-light"]{
+  position: relative;
+  border-radius: var(--bb-radius, 16px);
+  overflow: hidden;
+}
+
+[data-beam="line-ice-light"][data-active]{
+  animation:
+    beam-travel-line-ice-light 3.1s linear infinite,
+    beam-edge-fade-line-ice-light 3.1s linear infinite,
+    beam-breathe-line-ice-light 4.0s ease-in-out infinite,
+    beam-spike-line-ice-light 4.1s ease-in-out infinite,
+    beam-spike2-line-ice-light 5.3s ease-in-out infinite,
+    beam-fade-in-line-ice-light 0.6s ease forwards;
+}
+
+[data-beam="line-ice-light"][data-fading]{
+  animation:
+    beam-travel-line-ice-light 3.1s linear infinite,
+    beam-edge-fade-line-ice-light 3.1s linear infinite,
+    beam-breathe-line-ice-light 4.0s ease-in-out infinite,
+    beam-spike-line-ice-light 4.1s ease-in-out infinite,
+    beam-spike2-line-ice-light 5.3s ease-in-out infinite,
+    beam-fade-out-line-ice-light 0.5s ease forwards;
+}
+
+[data-beam="line-ice-light"][data-active]::after,
+[data-beam="line-ice-light"][data-fading]::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--bb-radius, 15px);
+  padding: 1px;
+  clip-path: inset(0 round var(--bb-radius, 16px));
+  background: radial-gradient(
+        ellipse calc(35px * var(--beam-w-line-ice-light)) calc(28px * var(--beam-h-line-ice-light)) at calc(var(--beam-x-line-ice-light) * 100%) calc(100% + 2px),
+        rgba(0, 0, 0, 0.6) 0%,
+        rgba(0, 0, 0, 0.25) 35%,
+        transparent 70%
+      ), radial-gradient(ellipse calc(45px * var(--beam-w-line-ice-light)) calc(36px * var(--beam-h-line-ice-light)) at calc(var(--beam-x-line-ice-light) * 100%) calc(100% + 2px), rgb(30, 150, 220), transparent),
+       radial-gradient(ellipse calc(35px * var(--beam-w-line-ice-light)) calc(32px * var(--beam-h-line-ice-light)) at calc(var(--beam-x-line-ice-light) * 100% + 65px) calc(100%), rgb(65, 110, 200), transparent),
+       radial-gradient(ellipse calc(40px * var(--beam-w-line-ice-light)) calc(28px * var(--beam-h-line-ice-light)) at calc(var(--beam-x-line-ice-light) * 100% - 60px) calc(100% + 2px), rgb(100, 170, 220), transparent),
+       radial-gradient(ellipse calc(35px * var(--beam-w-line-ice-light)) calc(34px * var(--beam-h-line-ice-light)) at calc(var(--beam-x-line-ice-light) * 100% - 90px) calc(100%), rgb(50, 140, 205), transparent),
+       radial-gradient(ellipse calc(38px * var(--beam-w-line-ice-light)) calc(30px * var(--beam-h-line-ice-light)) at calc(var(--beam-x-line-ice-light) * 100% + 85px) calc(100% - 1px), rgb(160, 200, 220), transparent),
+       radial-gradient(ellipse calc(50px * var(--beam-w-line-ice-light)) calc(24px * var(--beam-h-line-ice-light)) at calc(var(--beam-x-line-ice-light) * 100% + 35px) calc(100% + 1px), rgb(85, 120, 200), transparent),
+       radial-gradient(ellipse calc(40px * var(--beam-w-line-ice-light)) calc(22px * var(--beam-h-line-ice-light)) at calc(var(--beam-x-line-ice-light) * 100% - 35px) calc(100%), rgb(60, 130, 200), transparent),
+       radial-gradient(ellipse calc(35px * var(--beam-w-line-ice-light)) calc(28px * var(--beam-h-line-ice-light)) at calc(var(--beam-x-line-ice-light) * 100% + 110px) calc(100% + 1px), rgb(75, 150, 210), transparent),
+       radial-gradient(ellipse calc(30px * var(--beam-w-line-ice-light)) calc(30px * var(--beam-h-line-ice-light)) at calc(var(--beam-x-line-ice-light) * 100% - 110px) calc(100% - 1px), rgb(50, 140, 200), transparent);
+  pointer-events: none;
+  z-index: 2;
+  opacity: calc(var(--beam-opacity-line-ice-light) * 0.18 * var(--beam-edge-line-ice-light, 1) * var(--beam-stroke-opacity, 1) * var(--beam-strength, 1));
+  animation: beam-hue-shift-line-ice-light 12s ease-in-out infinite;
+}
+
+[data-beam="line-ice-light"] [data-beam-bloom]{
+  display: none;
+  position: absolute;
+  inset: 0;
+  border-radius: var(--bb-radius, 16px);
+  clip-path: inset(0 round var(--bb-radius, 16px));
+  background: radial-gradient(ellipse calc(0.8px * var(--beam-spike-line-ice-light)) calc(92px * var(--beam-h-line-ice-light)) at 8% calc(100% - 2px), rgb(50, 140, 210), rgb(50, 140, 210) 30%, transparent 88%),
+       radial-gradient(ellipse calc(10px * var(--beam-spike2-line-ice-light)) calc(35px * var(--beam-h-line-ice-light)) at 22% calc(100% - 4px), rgb(65, 160, 230), rgb(65, 160, 230) 50%, transparent 95%),
+       radial-gradient(ellipse calc(2px * (2 - var(--beam-spike-line-ice-light))) calc(72px * var(--beam-h-line-ice-light)) at 36% calc(100% - 3px), rgb(100, 170, 210), rgba(100, 170, 210, 0.82) 40%, transparent 90%),
+       radial-gradient(ellipse calc(14px * var(--beam-spike2-line-ice-light)) calc(28px * var(--beam-h-line-ice-light)) at 50% calc(100% - 2px), rgb(75, 150, 200), rgba(75, 150, 200, 0.7) 55%, transparent 96%),
+       radial-gradient(ellipse calc(1.2px * (2 - var(--beam-spike2-line-ice-light))) calc(85px * var(--beam-h-line-ice-light)) at 64% calc(100% - 4px), rgb(60, 130, 200), rgba(60, 130, 200, 0.78) 35%, transparent 89%),
+       radial-gradient(ellipse calc(7px * var(--beam-spike-line-ice-light)) calc(45px * var(--beam-h-line-ice-light)) at 78% calc(100% - 2px), rgb(70, 115, 195), rgba(70, 115, 195, 0.8) 48%, transparent 94%),
+       radial-gradient(ellipse calc(0.6px * (2 - var(--beam-spike-line-ice-light))) calc(60px * var(--beam-h-line-ice-light)) at 92% calc(100% - 3px), rgba(160, 200, 210, 0.7), rgba(160, 200, 210, 0.46) 42%, transparent 91%),
+       radial-gradient(ellipse calc(21px * var(--beam-spike-line-ice-light)) calc(15px * var(--beam-spike2-line-ice-light)) at calc(var(--beam-x-line-ice-light) * 100%) calc(100% + 1px), rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.32) 20%, rgba(0, 0, 0, 0.18) 50%, transparent 100%),
+       radial-gradient(ellipse calc(42px * var(--beam-w-line-ice-light)) calc(40px * var(--beam-h-line-ice-light)) at calc(var(--beam-x-line-ice-light) * 100%) 100%, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.18) 25%, rgba(0, 0, 0, 0.04) 55%, transparent 80%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  padding: 1px;
+  filter: blur(8px) brightness(1.05) saturate(1.80);
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+}
+
+[data-beam="line-ice-light"][data-active] [data-beam-bloom],
+[data-beam="line-ice-light"][data-fading] [data-beam-bloom]{
+  display: block;
+  opacity: calc(var(--beam-opacity-line-ice-light) * 0.28 * var(--beam-bloom-opacity, 1) * var(--beam-strength, 1));
+}
+
+@keyframes beam-travel-line-ice-light{ to { --beam-x-line-ice-light: 1; } }
+
+@keyframes beam-edge-fade-line-ice-light { 0% { --beam-edge-line-ice-light: 0; } 50% { --beam-edge-line-ice-light: 1; } 100% { --beam-edge-line-ice-light: 0; } }
+
+@keyframes beam-breathe-line-ice-light{ 0% { --beam-w-line-ice-light: 1; --beam-h-line-ice-light: 1; } 50% { --beam-w-line-ice-light: 0.6; --beam-h-line-ice-light: 1.4; } 100% { --beam-w-line-ice-light: 1; --beam-h-line-ice-light: 1; } }
+
+@keyframes beam-spike-line-ice-light{ 0% { --beam-spike-line-ice-light: 1; } 50% { --beam-spike-line-ice-light: 0.4; } 100% { --beam-spike-line-ice-light: 1; } }
+
+@keyframes beam-spike2-line-ice-light{ 0% { --beam-spike2-line-ice-light: 1; } 50% { --beam-spike2-line-ice-light: 0.6; } 100% { --beam-spike2-line-ice-light: 1; } }
+
+@keyframes beam-fade-in-line-ice-light{ to { --beam-opacity-line-ice-light: 1; } }
+
+@keyframes beam-fade-out-line-ice-light{ from { --beam-opacity-line-ice-light: 1; } to { --beam-opacity-line-ice-light: 0; } }
+
+@keyframes beam-hue-shift-line-ice-light{
+  0% { filter: hue-rotate(calc(var(--beam-hue-base, 0deg) - 13deg)) brightness(1.05) saturate(1.80); }
+  50% { filter: hue-rotate(calc(var(--beam-hue-base, 0deg) + 13deg)) brightness(1.05) saturate(1.80); }
+  100% { filter: hue-rotate(calc(var(--beam-hue-base, 0deg) - 13deg)) brightness(1.05) saturate(1.80); }
+}
+
+@keyframes beam-hue-shift-bloom-line-ice-light{
+  0% { filter: blur(8px) hue-rotate(calc(var(--beam-hue-base, 0deg) - 23deg)) brightness(1.05) saturate(1.80); }
+  50% { filter: blur(8px) hue-rotate(calc(var(--beam-hue-base, 0deg) + 23deg)) brightness(1.05) saturate(1.80); }
+  100% { filter: blur(8px) hue-rotate(calc(var(--beam-hue-base, 0deg) - 23deg)) brightness(1.05) saturate(1.80); }
+}
+
+[data-beam="line-ice-light"][data-paused],
+[data-beam="line-ice-light"][data-paused]::after,
+[data-beam="line-ice-light"][data-paused] [data-beam-bloom]{
+  animation-play-state: paused !important;
+}
+  /* 转速放慢：原包 3.1s → 5.5s */
+  [data-beam^="line-ice-"][data-active]{ animation-duration: 5.5s, 5.5s, .6s; }
+  </style>
+  <div class="page-bridge">
+    <span class="pb-label">还有更多</span>
+    <span class="pb-glow" data-beam="md-ice-light" data-active style="--bb-radius:999px;animation-duration:4.5s,.6s"><div data-beam-bloom></div><a class="pb-link" href="about.html">
+      继续了解我
+      <svg class="pb-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+    </a></span>
+  </div>
+
+  <!-- ===== 保险站跨页导航 — 分段控制器风格 ===== -->
+  <style>
+  .site-nav{max-width:520px;margin:52px auto 8px;padding:0 24px;text-align:center}
+  .site-nav .sn-kicker{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#86868b;text-align:center;margin-bottom:14px;font-weight:500}
+  .site-nav .sn-seg{display:inline-flex;background:#efeff5;border-radius:10px;padding:3px;gap:2px}
+  [data-theme="dark"] .site-nav .sn-seg{background:rgba(255,255,255,.06)}
+  .site-nav .sn-seg a{display:inline-flex;align-items:center;gap:5px;padding:9px 18px;border-radius:7px;
+    font-size:13px;font-weight:500;color:#666;text-decoration:none;transition:all .2s ease;position:relative}
+  .site-nav .sn-seg a[data-next]::after{content:"";position:absolute;top:-3px;right:-3px;
+    width:6px;height:6px;border-radius:50%;background:var(--blue);
+    animation:pbPulse 2s ease-in-out infinite}
+  @keyframes pbPulse{
+    0%,100%{opacity:.6;transform:scale(1)}
+    50%{opacity:1;transform:scale(1.35)}
+  }
+  [data-theme="dark"] .site-nav .sn-seg a{color:#98989d}
+  .site-nav .sn-seg a:hover{color:#1d1d1f;background:rgba(0,0,0,.03)}
+  [data-theme="dark"] .site-nav .sn-seg a:hover{color:#fff;background:rgba(255,255,255,.07)}
+  .site-nav .sn-seg a.cur{background:#fff;color:#1d1d1f;box-shadow:0 1px 5px rgba(0,0,0,.08),0 2px 10px rgba(0,0,0,.05);font-weight:600}
+  [data-theme="dark"] .site-nav .sn-seg a.cur{background:rgba(255,255,255,.11);color:#fff;
+    box-shadow:0 1px 5px rgba(0,0,0,.16),0 2px 10px rgba(0,0,0,.12)}
+  .site-nav .sn-seg a.home{color:#a07d2c}
+  [data-theme="dark"] .site-nav .sn-seg a.home{color:#e9cb8c}
+  .site-nav .sn-seg a.home:hover{color:#8a6a1f;background:rgba(160,125,44,.05)}
+  [data-theme="dark"] .site-nav .sn-seg a.home:hover{color:#f4dcab;background:rgba(233,203,140,.08)}
+  @media(max-width:480px){
+    .site-nav .sn-seg{flex-wrap:justify-center}
+    .site-nav .sn-seg a{padding:8px 14px;font-size:12.5px}
+  }
+  </style>
+  <nav class="site-nav" aria-label="保险站导航">
+    <div class="sn-seg">
+      <a href="index.html" class="cur">个人名片页</a>
+      <a href="about.html" data-next>关于我</a>
+      <a href="insurance.html">保障配置全貌</a>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="f-top">
+        <div class="f-brand">
+          <img src="assets/logo-gu-circle.png" alt="顾维鲁 GU" onerror="this.style.display='none'">
+          <div class="f-brand-text">
+            <div class="f-brand-name">顾维鲁 · 保险站</div>
+            <div class="f-brand-sub">GU WEILU · INSURANCE</div>
+          </div>
+        </div>
+      </div>
+      <p class="ip-note">© 顾维鲁 · 本页内容仅供个人参考，未经授权不得转载、截取或商用。</p>
+      <p class="disc">本页面内容仅供保险知识普及与需求沟通之用，不构成任何保险产品要约或投资/法律建议。具体保险责任、保障范围、免责条款以保险合同（保险单及保险条款）载明为准。保险代理人为所服务保险公司提供销售服务，同时以专业与诚信服务每一位客户。</p>
+    </div>
+  </footer>
+
+  <!-- 底部操作栏 -->
+  <div class="action-bar" id="actionBar" role="toolbar" aria-label="页面操作">
+    <button type="button" id="barBackTop" class="ghost" aria-label="返回页面顶部">↑ 顶部</button>
+    <button type="button" id="barWechat" aria-label="加我微信">📱 加微信</button>
+  </div>
+
+  <!-- 微信收藏提示条 -->
+  <div class="wx-toast" id="wxToast" role="status" aria-live="polite">
+    <span>📌 建议收藏：点击右上角 ⋯ →「添加到收藏」，随时能找到我</span>
+    <span class="wx-close" id="wxToastClose" role="button" tabindex="0">知道了</span>
+  </div>
+
+  <!-- 二维码生成库 -->
+  <script src="_qr.js"></script>
+
+  <!-- 应用逻辑 -->
+  <script>
+  (function(){
+    /* ----- 二维码配置 ----- */
+    var DEPLOYED_URL = 'https://kalidoit.github.io/';
+    var QR_TARGET = (location.protocol === 'file:')
+        ? DEPLOYED_URL
+        : location.href.split('#')[0];
+
+    function renderQR(el, text){
+      if(!el || typeof qrcode === 'undefined') return;
+      try{
+        var qr = qrcode(0,'M');
+        qr.addData(text || QR_TARGET);
+        qr.make();
+        el.innerHTML = qr.createSvgTag({cellSize:5, margin:1});
+      }catch(e){ console.warn('QR 生成失败：', e); }
+    }
+
+    function copyText(text, btn, doneLabel, origLabel){
+      var done = function(){
+        btn.classList.add('done');
+        btn.textContent = doneLabel || '已复制 ✓';
+        setTimeout(function(){ btn.classList.remove('done'); btn.textContent = origLabel || '复制链接'; }, 2000);
+      };
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(done).catch(function(){
+          fallbackCopy(text); done();
+        });
+      } else { fallbackCopy(text); done(); }
+    }
+    function fallbackCopy(text){
+      var ta=document.createElement('textarea'); ta.value=text;
+      ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select();
+      try{document.execCommand('copy');}catch(e){}
+      document.body.removeChild(ta);
+    }
+
+    /* ----- 主题切换 ----- */
+    (function(){
+      var KEY = 'insurance-theme';
+      var root = document.documentElement;
+      var btn = document.getElementById('themeToggle');
+      function apply(t){ root.setAttribute('data-theme', t); try{ localStorage.setItem(KEY, t); }catch(e){} }
+      if(btn){
+        btn.addEventListener('click', function(){
+          var cur = (root.getAttribute('data-theme') === 'dark') ? 'light' : 'dark';
+          apply(cur);
+          document.querySelectorAll('.pg-card[data-beam], .pb-glow[data-beam]').forEach(function(el){
+            var b = el.getAttribute('data-beam');
+            el.setAttribute('data-beam', b.replace(/-(dark|light)$/, '-' + cur));
+          });
+        });
+      }
+      /* 初始加载同步：胶囊 line-ice 主题 */
+      (function(){
+        var cur = root.getAttribute('data-theme') || 'light';
+        document.querySelectorAll('.pb-glow[data-beam]').forEach(function(el){
+          var b = el.getAttribute('data-beam');
+          el.setAttribute('data-beam', b.replace(/-(dark|light)$/, '-' + cur));
+        });
+      })();
+    })();
+
+    /* ----- 微信环境检测 + 收藏提示 ----- */
+    (function(){
+      var isWeChat = /MicroMessenger/i.test(navigator.userAgent);
+      var toast = document.getElementById('wxToast');
+      var closeBtn = document.getElementById('wxToastClose');
+      if(!isWeChat || !toast) return;
+
+      /* 延迟 2 秒显示，让用户先看到页面内容 */
+      setTimeout(function(){
+        toast.classList.add('show');
+        /* 8 秒后自动消失 */
+        setTimeout(function(){ toast.classList.remove('show'); }, 8000);
+      }, 2000);
+
+      /* 手动关闭 */
+      if(closeBtn){
+        closeBtn.addEventListener('click', function(){ toast.classList.remove('show'); });
+        closeBtn.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' ') toast.classList.remove('show'); });
+      }
+    })();
+
+    /* =========================================================
+       痛点引导区块 —— 文案在此集中配置，客户可随时修改
+       groups: 三组痛点（怕买错买贵 / 怕身体过不了 / 怕出事没人管）
+       ========================================================= */
+    var PAIN_SECTION = {
+      groups: [
+        { icon:'🧭', cat:'怕买错买贵',
+          points:[
+            '不知从哪开始规划',
+            '家人角色优先级怎么排',
+            '已有社保还需要商业保险吗',
+            '预算怎么分配更合理'
+          ],
+          tip:'大多数家庭的第一份保障，都是从给孩子买的——但其实应该先保家里挣钱最多的人。' },
+        { icon:'🛡️', cat:'怕身体过不了',
+          points:[
+            '体检有些异常指标，不知道影不影响',
+            '有结节或慢病，保险公司还接吗',
+            '以前住过院或做过手术，还能买吗',
+            '如实告知后保费会有变化吗',
+            '父母年纪大了，还能给他们买什么'
+          ],
+          tip:'体检异常≠不能保。关键在于提前理清资料、找对投保口径，很多人以为不行，其实能保上。' },
+        { icon:'🤝', cat:'怕出事没人管',
+          points:[
+            '之前的保单还没仔细看过',
+            '条款太厚了不知道重点在哪',
+            '万一出事不知道该怎么走流程',
+            '出了事担心找不到人'
+          ],
+          tip:'买保险只是开始。出事时有人帮你对接、跟进到底，这才是服务。' }
+      ]
+    };
+
+    function renderPain(){
+      var grid = document.getElementById('pgGrid');
+      if(grid){
+        var theme = (document.documentElement.getAttribute('data-theme') === 'dark') ? 'dark' : 'light';
+        var html = '';
+        PAIN_SECTION.groups.forEach(function(g, i){
+          var lis = g.points.map(function(p){ return '<li>'+p+'</li>'; }).join('');
+          html += '<div class="pg-card reveal" data-d="'+i+'" data-beam="md-ice-'+theme+'" data-active style="--bb-radius:var(--radius)">'
+                +   '<div class="pg-card-top"><span class="pg-icon">'+g.icon+'</span><span class="pg-cat">'+g.cat+'</span></div>'
+                +   '<ul class="pg-points">'+lis+'</ul>'
+                +   '<div class="pg-tip">💡 '+g.tip+'</div>'
+                +   '<div data-beam-bloom></div>'
+                + '</div>';
+        });
+        grid.innerHTML = html;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function(){
+      renderPain();
+
+      /* ----- 渲染站点二维码 ----- */
+      renderQR(document.getElementById('qrSite'));
+
+      /* ----- 复制链接 ----- */
+      var copyBtn = document.getElementById('copySite');
+      if(copyBtn){
+        copyBtn.addEventListener('click', function(){
+          copyText(QR_TARGET, this, '✓ 已复制', '复制链接');
+        });
+      }
+
+      /* ----- 分享给好友（Web Share API） ----- */
+      var shareBtn = document.getElementById('shareSite');
+      if(shareBtn){
+        var url = QR_TARGET || location.href.split('#')[0] || DEPLOYED_URL;
+        var shareData = {
+          title: '顾维鲁 · 个人名片',
+          text: '这是顾维鲁的个人名片，把保障讲清楚。推荐你看一下。',
+          url: url
+        };
+        shareBtn.addEventListener('click', function(){
+          if(navigator.share){
+            navigator.share(shareData).then(function(){
+              this.classList.add('done'); this.textContent='✓ 已分享';
+              setTimeout(function(){ shareBtn.classList.remove('done'); shareBtn.textContent='分享给好友'; }, 2500);
+            }.bind(this)).catch(function(err){
+              if(err.name === 'AbortError') return;
+              copyText(url, this, '✓ 链接已复制', '分享给好友');
+            }.bind(this));
+          } else {
+            copyText(url, this, '✓ 链接已复制，去粘贴发送', '分享给好友');
+          }
+        });
+      }
+
+      /* ----- 顶栏滚动态 + 返回顶部 ----- */
+      var nav = document.getElementById('nav');
+      var bar = document.getElementById('actionBar');
+      var onScroll = function(){
+        if(window.scrollY > 30) nav.classList.add('scrolled'); else nav.classList.remove('scrolled');
+        var nearBottom = (window.innerHeight + window.scrollY) >= (document.body.scrollHeight - 80);
+        if(window.scrollY > 200 && !nearBottom) bar.classList.add('show'); else bar.classList.remove('show');
+      };
+      window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+      document.getElementById('barBackTop').addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
+      document.getElementById('barWechat').addEventListener('click', function(){
+        var target = document.getElementById('wechat-qr');
+        if(target) target.scrollIntoView({behavior:'smooth', block:'center'});
+      });
+
+      /* ----- 滚动浮现 ----- */
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+      }, {threshold:.16});
+      document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+    });
+  })();
+  </script>
+
+
+  <!-- GSAP 动画层（自包含，渐进增强；库未加载或减少动态时自动静默） -->
+  <script src="assets/gsap.min.js"></script>
+  <script src="assets/anim.js"></script>
+</body>
+</html>
