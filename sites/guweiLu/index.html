@@ -120,7 +120,7 @@
   @keyframes floatB{0%,100%{transform:translate(0,0)}50%{transform:translate(-36px,-26px)}}
 
   .hero-inner{position:relative;z-index:2;width:100%;max-width:var(--maxw);margin:0 auto;display:grid;
-    grid-template-columns:1fr 380px;gap:56px;align-items:start}
+    grid-template-columns:1fr 480px;gap:56px;align-items:start}
 
   /* —— 左栏：身份 + 价值主张 —— */
   .hero-main{padding-top:8px}
@@ -143,13 +143,14 @@
   .hero-more:hover svg{transform:translateX(3px)}
 
   /* —— 右栏：双二维码面板（微信主 + 站点副） —— */
-  .qr-panel{display:flex;flex-direction:column;gap:20px}
+  /* 两卡并排一行、等高，整体高度对齐左侧文字块 */
+  .qr-panel{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:stretch}
 
   /* 二维码块通用 */
   .qr-block{
     background:linear-gradient(160deg,rgba(27,34,48,.92),rgba(17,22,31,.92));
     border:1px solid var(--line-2);border-radius:var(--radius-lg);
-    padding:28px 24px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    padding:22px 18px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
     box-shadow:var(--shadow-card);transition:transform .3s var(--ease),box-shadow .3s}
   .qr-block:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,.32)}
 
@@ -168,21 +169,19 @@
     text-align:center;font-size:12px;color:var(--muted-2);line-height:1.8;width:100%;height:100%}
   .qr-block .wx-qr-ph b{color:var(--muted)}
 
-  /* 二维码容器 */
-  .qr-box{margin-top:16px;background:#fff;border-radius:14px;padding:12px;display:flex;align-items:center;justify-content:center;
+  /* 二维码容器（尺寸由各卡单独指定） */
+  .qr-box{background:#fff;border-radius:12px;padding:10px;display:flex;align-items:center;justify-content:center;
     box-shadow:0 4px 16px rgba(0,0,0,.35);aspect-ratio:1;overflow:hidden}
   .qr-box img{width:100%!important;height:100%!important;object-fit:contain;display:block}
   .qr-box svg{width:100%!important;height:100%!important;display:block}
 
-  /* 主二维码（微信）：稍大 */
-  .qr-primary{position:relative}
-  .qr-primary .qr-box{padding:16px}
-
-  /* 副二维码（站点）：稍紧凑 */
-  .qr-secondary .qr-box{padding:10px}
+  /* 两卡同构：竖排、码 176px 居中，高度由内容撑开并互相拉平 */
+  .qr-primary,.qr-secondary{display:flex;flex-direction:column}
+  .qr-primary .qr-box,.qr-secondary .qr-box{width:176px;margin:16px auto 0}
+  .qr-secondary .qr-actions{margin-top:auto;padding-top:12px}
 
   /* 站点二维码操作行 */
-  .qr-actions{margin-top:14px;display:flex;gap:8px}
+  .qr-actions{margin-top:12px;display:flex;gap:8px}
   .qr-actions button{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;
     padding:9px 14px;border-radius:var(--radius-pill);font-size:12.5px;font-weight:500;cursor:pointer;
     background:rgba(62,142,219,.12);border:1px solid rgba(62,142,219,.25);color:var(--text);
@@ -250,12 +249,11 @@
     .hero-main{text-align:center;display:flex;flex-direction:column;align-items:center}
     .hero-sub{max-width:100%}
     .hero-trust{justify-content:center}
-    .qr-panel{width:100%;max-width:400px;flex-direction:row;gap:16px}
-    .qr-panel .qr-block{flex:1;padding:20px 16px}
+    .qr-panel{width:100%;max-width:420px;grid-template-columns:1fr;gap:16px}
+    .qr-panel .qr-block{padding:22px 20px}
     .qr-panel .qb-title{font-size:15px}
     .qr-panel .qb-desc{font-size:11.5px}
-    .qr-box{padding:8px!important}
-    .qr-actions{flex-direction:column}
+    .qr-primary .qr-box,.qr-secondary .qr-box{width:196px}
   }
   @media(max-width:640px){
     .nav{padding:14px 20px}
@@ -270,11 +268,11 @@
     .hero-sub{font-size:14px;margin-top:16px;line-height:1.8}
     .hero-trust{font-size:12.5px;margin-top:24px}
     .hero-more{margin-top:20px;font-size:14px}
-    /* 移动端：二维码竖向堆叠，微信在上且足够大 */
-    .qr-panel{flex-direction:column;max-width:300px;gap:16px}
-    .qr-panel .qr-block{padding:22px 20px}
-    .qr-primary .qr-box{padding:20px}
-    .qr-actions{flex-direction:row}
+    /* 移动端：主卡码适度放大，副卡保持横排 */
+    .qr-panel{max-width:320px;grid-template-columns:1fr;gap:14px}
+    .qr-panel .qr-block{padding:20px 18px}
+    .qr-primary .qr-box,.qr-secondary .qr-box{width:160px}
+    .qr-actions button{font-size:11.5px;padding:8px 10px}
     .footer .f-top{flex-direction:column;align-items:flex-start;margin-bottom:20px}
   }
 
@@ -788,7 +786,7 @@
             <span class="qb-badge qb-badge-primary">主要</span>
           </div>
           <div class="qb-title">扫码加我微信</div>
-          <div class="qb-desc">想当面聊聊、或先理一遍家里的保单。备注一句「保障咨询」更好。</div>
+          <div class="qb-desc">想当面聊聊，或先理一遍保单。</div>
           <div class="qr-box">
             <img src="assets/wechat-qr.png" alt="微信二维码 — 扫码添加顾维鲁" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
             <div class="wx-qr-ph">把你的微信二维码图片<br>命名为 <b>wechat-qr.png</b><br>放进 assets/ 目录即可</div>
@@ -804,7 +802,7 @@
             <span class="qb-badge qb-badge-secondary">辅助</span>
           </div>
           <div class="qb-title">收藏这份名片</div>
-          <div class="qb-desc">保存后随时翻看，也可转发给需要的朋友</div>
+          <div class="qb-desc">保存后随时翻看，或转发给朋友</div>
           <div class="qr-box" id="qrSite" aria-label="本站地址二维码"></div>
           <div class="qr-actions">
             <button type="button" id="copySite">复制链接</button>
